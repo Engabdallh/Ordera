@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>إضافة منتج - 911</title>
+
+    <link rel="stylesheet" href="/css/adminadd.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <div>
+                <h1>إضافة منتج جديد</h1>
+                <p>إضافة منتج جديد إلى قائمة مطعم 911</p>
+            </div>
+
+            <div class="logo">
+                911
+            </div>
+        </div>
+
+        <form
+    action="/admin/products" method="POST" enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label>اسم المنتج</label>
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="مثال: شاورما دجاج"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>وصف المنتج</label>
+
+                <textarea
+                    name="description"
+                    placeholder="اكتب وصف المنتج..."
+                ></textarea>
+            </div>
+
+
+            <div class="form-group">
+                <label>السعر</label>
+
+                <input
+                    type="number"
+                    name="price"
+                    step="0.01"
+                    min="0"
+                    placeholder="مثال: 3.50"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label>التصنيف</label>
+
+                <input
+                    type="text"
+                    name="category"
+                    placeholder="مثال: شاورما"
+                >
+            </div>
+
+
+            <div class="form-group">
+    <label>صورة المنتج</label>
+
+    <input
+        type="file"
+        name="image"
+        accept="image/jpeg,image/png,image/webp"
+        required
+    >
+</div>
+
+
+            <div class="buttons">
+
+                <button
+                    type="submit"
+                    class="save-btn"
+                >
+                    إضافة المنتج
+                </button>
+
+                <a
+                    href="/admin/products"
+                    class="back-btn"
+                >
+                    العودة إلى المنتجات
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
+

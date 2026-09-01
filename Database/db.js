@@ -1,0 +1,25 @@
+const mysql = require("mysql2/promise");
+
+const db = mysql.createPool({
+    host: "localhost",
+    user: "root",
+    password: "AbdallhWael2002*",
+    database: "ordera_db",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
+
+async function testConnection() {
+    try {
+        const connection = await db.getConnection();
+        console.log("good");
+        connection.release();
+    } catch (error) {
+        console.error("failed:", error.message);
+    }
+}
+
+testConnection();
+
+module.exports = db;

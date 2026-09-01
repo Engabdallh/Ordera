@@ -1,0 +1,611 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* =========================================
+   Header
+========================================= */
+
+.header {
+    background: #181818;
+    border: 1px solid #2b2b2b;
+    border-right: 5px solid #ff7900;
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.35);
+}
+
+.header h1 {
+    color: #ff7900;
+    font-size: 35px;
+    margin-bottom: 6px;
+}
+
+.header h2 {
+    font-size: 21px;
+    margin-bottom: 7px;
+}
+
+.header p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.refresh-btn,
+.logout-btn {
+    text-decoration: none;
+    padding: 11px 17px;
+    border-radius: 10px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.refresh-btn {
+    background: #ff7900;
+    color: #111;
+}
+
+.refresh-btn:hover {
+    background: #ff8c1a;
+}
+
+.logout-btn {
+    border: 1px solid #ff7900;
+    color: #ff7900;
+    background: transparent;
+}
+
+.logout-btn:hover {
+    background: #ff7900;
+    color: #111;
+}
+
+
+/* =========================================
+   Page Title
+========================================= */
+
+.page-title {
+    background: #181818;
+    border: 1px solid #292929;
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.page-title h2 {
+    color: #ff7900;
+    font-size: 23px;
+}
+
+.page-title span {
+    color: #aaa;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   Empty
+========================================= */
+
+.empty {
+    background: #181818;
+    border: 1px solid #292929;
+    border-top: 4px solid #ff7900;
+    border-radius: 18px;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.empty-icon {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.empty h2 {
+    color: #ff7900;
+    margin-bottom: 10px;
+}
+
+.empty p {
+    color: #999;
+}
+
+
+/* =========================================
+   Orders
+========================================= */
+
+.orders {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+
+/* =========================================
+   Order Card
+========================================= */
+
+.order-card {
+    background: #181818;
+    border: 1px solid #292929;
+    border-right: 5px solid #ff7900;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================================
+   Order Header
+========================================= */
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #292929;
+    margin-bottom: 17px;
+}
+
+.order-label {
+    color: #888;
+    font-size: 13px;
+}
+
+.order-header h2 {
+    color: #ff7900;
+    font-size: 27px;
+    margin-top: 3px;
+}
+
+.status {
+    background: rgba(255, 121, 0, 0.12);
+    color: #ff7900;
+    border: 1px solid #ff7900;
+    padding: 9px 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+/* =========================================
+   Customer Information
+========================================= */
+
+.customer-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.info-box {
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 12px;
+    padding: 14px;
+}
+
+.info-box span {
+    display: block;
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 7px;
+}
+
+.info-box strong {
+    color: #eee;
+    font-size: 15px;
+    word-break: break-word;
+}
+
+
+/* =========================================
+   Products
+========================================= */
+
+.products-section {
+    background: #111;
+    border: 1px solid #292929;
+    border-radius: 14px;
+    padding: 15px;
+}
+
+.products-section h3 {
+    color: #ff7900;
+    font-size: 18px;
+    margin-bottom: 13px;
+}
+
+.products {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-item {
+    background: #181818;
+    border: 1px solid #292929;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.product-item img,
+.no-image {
+    width: 65px;
+    height: 65px;
+    border-radius: 10px;
+    object-fit: cover;
+    border: 1px solid #ff7900;
+    flex-shrink: 0;
+}
+
+.no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #222;
+    font-size: 25px;
+}
+
+.product-info {
+    flex: 1;
+}
+
+.product-info h4 {
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.product-info p {
+    color: #888;
+    font-size: 13px;
+}
+
+.quantity {
+    background: #222;
+    color: #ff7900;
+    border: 1px solid #333;
+    padding: 7px 11px;
+    border-radius: 8px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.product-total {
+    color: #ff7900;
+    font-weight: bold;
+    min-width: 75px;
+    text-align: left;
+}
+
+
+/* =========================================
+   Order Footer
+========================================= */
+
+.order-footer {
+    margin-top: 18px;
+    padding-top: 17px;
+    border-top: 1px solid #292929;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.order-type {
+    color: #999;
+    font-size: 14px;
+}
+
+.order-type strong {
+    color: #eee;
+    margin-right: 5px;
+}
+
+.total {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.total span {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.total strong {
+    color: #ff7900;
+    font-size: 25px;
+}
+
+
+/* =========================================
+   Actions
+========================================= */
+
+.order-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 17px;
+}
+
+.details-btn,
+.status-btn {
+    flex: 1;
+    min-height: 45px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.details-btn {
+    background: transparent;
+    color: #ff7900;
+    border: 1px solid #ff7900;
+}
+
+.details-btn:hover {
+    background: #ff7900;
+    color: #111;
+}
+
+.status-btn {
+    background: #ff7900;
+    color: #111;
+    border: none;
+}
+
+.status-btn:hover {
+    background: #ff8c1a;
+}
+
+
+/* =========================================
+   Mobile
+========================================= */
+
+@media (max-width: 700px) {
+
+    .container {
+        padding: 12px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 16px;
+    }
+
+    .header-actions {
+        width: 100%;
+    }
+
+    .refresh-btn,
+    .logout-btn {
+        flex: 1;
+        text-align: center;
+    }
+
+    .page-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .customer-info {
+        grid-template-columns: 1fr;
+    }
+
+    .product-item {
+        align-items: flex-start;
+    }
+
+    .product-item img,
+    .no-image {
+        width: 55px;
+        height: 55px;
+    }
+
+    .quantity {
+        padding: 6px 8px;
+    }
+
+    .product-total {
+        min-width: auto;
+        font-size: 13px;
+    }
+
+    .order-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 13px;
+    }
+
+    .total {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .order-actions {
+        flex-direction: column;
+    }
+}
+.status-form {
+    display: flex;
+    gap: 10px;
+    flex: 1;
+}
+
+.status-select {
+    flex: 1;
+    min-height: 45px;
+    padding: 0 12px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    background: #111;
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+}
+
+.status-select:focus {
+    border-color: #ff7900;
+}
+
+.status-btn {
+    min-height: 45px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 10px;
+    background: #ff7900;
+    color: #111;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.status-btn:hover {
+    background: #ff8c1a;
+}
+
+@media (max-width: 600px) {
+
+    .status-form {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .status-select,
+    .status-btn {
+        width: 100%;
+    }
+
+}
+/* =========================================
+   Timer - مؤقت تجهيز الطلب
+========================================= */
+
+.timer-box {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    padding: 18px;
+    background: #111;
+    border: 1px solid #ff7900;
+    border-radius: 14px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(255, 121, 0, 0.12);
+}
+
+.timer-box p {
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.timer {
+    color: #ff7900;
+    font-size: 38px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    font-family: monospace;
+    direction: ltr;
+}
+
+.timer-box small {
+    display: block;
+    margin-top: 8px;
+    color: #666;
+    font-size: 12px;
+}
+
+/* عندما يصبح الطلب جاهز */
+.ready-timer {
+    border-color: #ff7900;
+}
+
+.ready-timer .timer.finished {
+    color: #ff7900;
+    font-size: 28px;
+    letter-spacing: 0;
+}
+
+/* موبايل */
+@media (max-width: 600px) {
+
+    .timer-box {
+        padding: 15px;
+    }
+
+    .timer {
+        font-size: 30px;
+    }
+
+}
+.status.pending {
+    background: #f59e0b; /* برتقالي */
+    color: #fff;
+}
+
+.status.confirmed {
+    background: #2563eb; /* أزرق */
+    color: #fff;
+}
+
+.status.preparing {
+    background: #8b5cf6; /* بنفسجي */
+    color: #fff;
+}
+
+.status.ready {
+    background: #16a34a; /* أخضر */
+    color: #fff;
+}
+
+.status.delivered {
+    background: #0891b2; /* سماوي */
+    color: #fff;
+}
+
+.status.cancelled {
+    background: #dc2626; /* أحمر */
+    color: #fff;
+}

@@ -1,0 +1,536 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* Header */
+
+.header {
+    background: #181818;
+    border: 1px solid #2b2b2b;
+    border-right: 5px solid #ff7900;
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.header h1 {
+    color: #ff7900;
+    font-size: 34px;
+    margin-bottom: 5px;
+}
+
+.header h2 {
+    font-size: 21px;
+    margin-bottom: 5px;
+}
+
+.header p {
+    color: #aaa;
+    font-size: 14px;
+}
+
+.back-btn {
+    background: #ff7900;
+    color: #111;
+    text-decoration: none;
+    padding: 11px 16px;
+    border-radius: 10px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.back-btn:hover {
+    background: #ff8c1a;
+}
+
+/* Empty */
+
+.empty {
+    background: #181818;
+    border: 1px solid #2b2b2b;
+    border-radius: 18px;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.empty h2 {
+    color: #ff7900;
+    margin-bottom: 12px;
+}
+
+.empty p {
+    color: #aaa;
+    margin-bottom: 25px;
+}
+
+.empty a {
+    display: inline-block;
+    background: #ff7900;
+    color: #111;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+/* Cart */
+
+.cart {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.cart-item {
+    background: #181818;
+    border: 1px solid #292929;
+    border-right: 4px solid #ff7900;
+    border-radius: 18px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cart-item img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 2px solid #ff7900;
+    flex-shrink: 0;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-info h3 {
+    color: #ff7900;
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+
+.item-info p {
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+/* Quantity */
+
+.quantity {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0;
+}
+
+.quantity form {
+    margin: 0;
+}
+
+.quantity-btn {
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 10px;
+    background: #ff7900;
+    color: #111;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.quantity-btn:hover {
+    background: #ff8c1a;
+}
+
+.quantity span {
+    min-width: 30px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Total product */
+
+.item-total {
+    display: block;
+    color: #ff7900;
+    font-size: 17px;
+    margin-bottom: 12px;
+}
+
+/* Delete */
+
+.delete-btn {
+    border: 1px solid #ff7900;
+    background: transparent;
+    color: #ff7900;
+    padding: 9px 14px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.delete-btn:hover {
+    background: #ff7900;
+    color: #111;
+}
+
+/* Total */
+
+.total {
+    background: #181818;
+    border: 1px solid #292929;
+    border-radius: 18px;
+    margin-top: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.total h2 {
+    font-size: 20px;
+}
+
+.total strong {
+    color: #ff7900;
+    font-size: 25px;
+}
+
+/* Actions */
+
+.cart-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.cart-actions form {
+    flex: 1;
+}
+
+.clear-btn,
+.order-btn {
+    width: 100%;
+    min-height: 48px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.clear-btn {
+    background: transparent;
+    border: 1px solid #ff7900;
+    color: #ff7900;
+}
+
+.clear-btn:hover {
+    background: #ff7900;
+    color: #111;
+}
+
+.order-btn {
+    background: #ff7900;
+    border: none;
+    color: #111;
+}
+
+.order-btn:hover {
+    background: #ff8c1a;
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 12px;
+    }
+
+    .header {
+        padding: 16px;
+        border-radius: 15px;
+        align-items: flex-start;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .header h2 {
+        font-size: 18px;
+    }
+
+    .back-btn {
+        padding: 9px 11px;
+        font-size: 13px;
+    }
+
+    .cart-item {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .cart-item img {
+        width: 95px;
+        height: 95px;
+    }
+
+    .item-info h3 {
+        font-size: 18px;
+    }
+
+    .item-info p {
+        font-size: 13px;
+    }
+
+    .quantity {
+        gap: 8px;
+    }
+
+    .quantity-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    .item-total {
+        font-size: 15px;
+    }
+
+    .delete-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .total {
+        padding: 16px;
+    }
+
+    .total h2 {
+        font-size: 17px;
+    }
+
+    .total strong {
+        font-size: 21px;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+    }
+}
+/* =========================
+   Order Confirmation Modal
+========================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 9999;
+}
+
+.modal-box {
+    width: 100%;
+    max-width: 430px;
+    background: #181818;
+    border: 1px solid #333;
+    border-top: 5px solid #ff7900;
+    border-radius: 20px;
+    padding: 30px 22px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.order-icon {
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+.modal-box h2 {
+    color: #ff7900;
+    margin-bottom: 12px;
+}
+
+.modal-box p {
+    color: #bbb;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.modal-buttons form {
+    flex: 1;
+}
+
+.cancel-btn,
+.confirm-btn {
+    width: 100%;
+    min-height: 45px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background: transparent;
+    border: 1px solid #555;
+    color: #fff;
+}
+
+.cancel-btn:hover {
+    background: #333;
+}
+
+.confirm-btn {
+    background: #ff7900;
+    border: none;
+    color: #111;
+}
+
+.confirm-btn:hover {
+    background: #ff8c1a;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .modal-box {
+        padding: 25px 18px;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+    }
+
+}
+/* =========================
+   Checkout Form
+========================= */
+
+.checkout-form {
+    width: 100%;
+    text-align: right;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    color: #ff7900;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    background: #111;
+    color: #fff;
+    border: 1px solid #3a3a3a;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    outline: none;
+    transition: 0.2s;
+}
+
+.form-group input {
+    height: 46px;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #ff7900;
+    box-shadow: 0 0 0 2px rgba(255, 121, 0, 0.15);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #666;
+}
+
+
+/* أزرار نافذة التأكيد */
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.modal-buttons .cancel-btn {
+    flex: 1;
+}
+
+.modal-buttons .confirm-btn {
+    flex: 1;
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .modal-box {
+        max-width: 95%;
+        padding: 25px 18px;
+    }
+
+    .form-group input {
+        height: 44px;
+    }
+
+    .form-group textarea {
+        min-height: 80px;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+    }
+
+}

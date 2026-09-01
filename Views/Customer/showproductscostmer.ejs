@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>منتجات 911</title>
+
+    <link rel="stylesheet" href="/css/customer/products.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <div>
+
+                <h1>911</h1>
+
+                <h2>أهلاً بك، <%= userName %> 👋</h2>
+
+                <p>اختر وجبتك المفضلة</p>
+
+            </div>
+
+            <div class="header-buttons">
+
+    <a href="/orders" class="orders-btn">
+        📋 سجل طلباتي
+    </a>
+
+    <a href="/cart" class="cart-btn">
+        🛒 السلة
+    </a>
+
+    <a href="/logout" class="logout-btn">
+        تسجيل الخروج
+    </a>
+
+</div>
+
+        </div>
+
+
+        <h2>المنتجات</h2>
+
+
+        <% if (products.length === 0) { %>
+
+            <p class="empty">
+                لا توجد منتجات حاليًا.
+            </p>
+
+        <% } else { %>
+
+
+            <div class="products">
+
+                <% products.forEach(product => { %>
+
+                    <div class="product-card">
+
+                        <% if (product.image) { %>
+
+                            <img
+                                src="<%= product.image %>"
+                                alt="<%= product.name %>"
+                            >
+
+                        <% } %>
+
+
+                        <div class="product-info">
+
+                            <h3>
+                                <%= product.name %>
+                            </h3>
+
+                            <p>
+                                <%= product.description || "لا يوجد وصف" %>
+                            </p>
+
+                            <span class="category">
+                                <%= product.category || "عام" %>
+                            </span>
+
+                            <div class="bottom">
+
+                                <strong>
+                                    <%= product.price %> د.أ
+                                </strong>
+
+                                <div class="bottom">
+
+    <strong>
+        <%= product.price %> د.أ
+    </strong>
+
+    <form action="/cart/add" method="POST">
+
+        <input
+            type="hidden"
+            name="productId"
+            value="<%= product.id %>"
+        >
+
+        <button
+            type="submit"
+            class="select-btn"
+        >
+            اختيار
+        </button>
+
+    </form>
+
+</div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                <% }) %>
+
+            </div>
+
+
+        <% } %>
+
+    </div>
+
+</body>
+
+</html>

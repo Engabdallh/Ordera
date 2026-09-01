@@ -1,0 +1,272 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #fff;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: #ff7900;
+    font-size: 35px;
+}
+
+.header h2 {
+    margin: 5px 0;
+}
+
+.header p {
+    color: #aaa;
+}
+
+.back-btn {
+    text-decoration: none;
+    background: #ff7900;
+    color: #111;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.orders {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-card {
+    background: #1b1b1b;
+    border: 1px solid #292929;
+    border-radius: 18px;
+    padding: 20px;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #292929;
+}
+
+.order-header h3 {
+    color: #ff7900;
+    margin-bottom: 6px;
+}
+
+.order-header span {
+    color: #888;
+    font-size: 13px;
+}
+
+.status {
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 13px !important;
+    font-weight: bold;
+}
+
+.pending {
+    background: #3d3000;
+    color: #ffc107 !important;
+}
+
+.confirmed {
+    background: #102b3d;
+    color: #42a5f5 !important;
+}
+
+.preparing {
+    background: #3d260d;
+    color: #fb7500 !important;
+}
+
+.ready {
+    background: #192b1e;
+    color: #281abe !important;
+}
+
+.delivered {
+    background: #12351c;
+    color: #61e966 !important;
+}
+
+.cancelled {
+    background: #3d1111;
+    color: #f44336 !important;
+}
+
+.items {
+    margin-top: 15px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid #292929;
+}
+
+.item:last-child {
+    border-bottom: none;
+}
+
+.item img {
+    width: 75px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.item-info {
+    flex: 1;
+}
+
+.item-info h4 {
+    margin-bottom: 7px;
+}
+
+.item-info p {
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.item-info strong {
+    color: #ff7900;
+}
+
+.timer-box {
+    margin-top: 18px;
+    background: #111;
+    border: 1px solid #ff7900;
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+}
+
+.timer-box p {
+    color: #aaa;
+    margin-bottom: 10px;
+}
+
+.timer {
+    color: #ff7900;
+    font-size: 32px;
+    font-weight: bold;
+    direction: ltr;
+}
+
+.timer.finished {
+    color: #4caf50;
+    font-size: 20px;
+}
+
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 18px;
+    padding-top: 15px;
+    border-top: 1px solid #292929;
+}
+
+.order-footer span {
+    color: #aaa;
+}
+
+.order-footer strong {
+    color: #ff7900;
+    font-size: 20px;
+}
+
+.empty {
+    text-align: center;
+    background: #1b1b1b;
+    padding: 50px 20px;
+    border-radius: 18px;
+}
+
+.empty-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.empty h2 {
+    margin-bottom: 10px;
+}
+
+.empty p {
+    color: #aaa;
+    margin-bottom: 20px;
+}
+
+.empty a {
+    display: inline-block;
+    background: #ff7900;
+    color: #111;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 12px;
+    }
+
+    .header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .back-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .order-card {
+        padding: 15px;
+    }
+
+    .order-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .item img {
+        width: 65px;
+        height: 65px;
+    }
+
+    .timer {
+        font-size: 27px;
+    }
+
+    .order-footer strong {
+        font-size: 18px;
+    }
+}

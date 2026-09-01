@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>تسجيل الدخول - 911</title>
+
+    <link rel="stylesheet" href="/css/login.css">
+
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <div class="login-box">
+
+            <div class="logo">
+                911
+            </div>
+
+            <h1>تسجيل الدخول</h1>
+
+            <p class="subtitle">
+                أهلاً بك في 911
+            </p>
+
+
+            <% if (typeof message !== "undefined" && message) { %>
+
+                <div class="success-message">
+                    <%= message %>
+                </div>
+
+            <% } %>
+
+
+            <% if (typeof error !== "undefined" && error) { %>
+
+                <div class="error-message">
+                    <%= error %>
+                </div>
+
+            <% } %>
+
+
+            <form action="/login" method="POST">
+
+                <div class="input-group">
+
+                    <label for="name">
+                        الاسم
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="أدخل اسمك"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="password">
+                        كلمة السر
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="أدخل كلمة السر"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit" class="login-btn">
+                    تسجيل الدخول
+                </button>
+
+            </form>
+
+
+            <div class="register-link">
+
+                <p>
+                    ليس لديك حساب؟
+                </p>
+
+                <a href="/register">
+                    إنشاء حساب جديد
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>

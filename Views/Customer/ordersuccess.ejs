@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>تم تأكيد الطلب - 911</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/customer/ordersuccess.css"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="success-box">
+
+        <div class="icon">
+            ✓
+        </div>
+
+        <h1>
+            تم تأكيد طلبك 🎉
+        </h1>
+
+        <p>
+            شكرًا لك، تم استلام طلبك بنجاح.
+        </p>
+
+        <div class="order-info">
+
+            <div>
+                <span>رقم الطلب</span>
+                <strong>
+                    #<%= orderId %>
+                </strong>
+            </div>
+
+            <div>
+                <span>إجمالي الطلب</span>
+                <strong>
+                    <%= totalPrice %> د.أ
+                </strong>
+            </div>
+
+            <div>
+                <span>حالة الطلب</span>
+                <strong>
+                    قيد الانتظار
+                </strong>
+            </div>
+
+        </div>
+
+        <a
+            href="/products"
+            class="products-btn"
+        >
+            العودة للمنتجات
+        </a>
+
+    </div>
+
+</div>
+
+</body>
+</html>

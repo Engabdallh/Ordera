@@ -1,0 +1,381 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    background: #0d0d0d;
+    color: white;
+    min-height: 100vh;
+}
+
+/* الحاوية */
+.container {
+    width: 100%;
+    max-width: 650px;
+    margin: auto;
+    background: #1a1a1a;
+    padding: 30px;
+    border-radius: 18px;
+    border-right: 5px solid #ff6a00;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+}
+
+/* العنوان */
+.container h1 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    color: #ff6a00;
+    font-size: 30px;
+}
+
+/* الحقول */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ff6a00;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #333;
+    border-radius: 8px;
+    background: #0d0d0d;
+    color: white;
+    font-size: 15px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #ff6a00;
+    box-shadow: 0 0 0 2px rgba(255, 106, 0, 0.15);
+}
+
+.form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* الأزرار */
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.save-btn,
+.back-btn {
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+/* حفظ */
+.save-btn {
+    border: none;
+    background: #ff6a00;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #e85f00;
+    transform: translateY(-2px);
+}
+
+/* العودة */
+.back-btn {
+    background: #333;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-btn:hover {
+    background: #444;
+}
+
+/* نافذة التأكيد */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+/* فقاعة التأكيد */
+.modal-box {
+    width: 400px;
+    max-width: 100%;
+    padding: 30px;
+    background: #1a1a1a;
+    border: 2px solid #ff6a00;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+    animation: popup 0.2s ease;
+}
+
+/* حركة النافذة */
+@keyframes popup {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* الأيقونة */
+.edit-icon {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #ff6a00;
+    color: #000;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+/* عنوان النافذة */
+.modal-box h2 {
+    margin: 0 0 12px;
+    color: #ff6a00;
+}
+
+/* النص */
+.modal-box p {
+    color: #ccc;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+/* أزرار النافذة */
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.cancel-btn,
+.confirm-btn {
+    border: none;
+    padding: 11px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+}
+
+/* إلغاء */
+.cancel-btn {
+    background: #444;
+}
+
+.cancel-btn:hover {
+    background: #555;
+}
+
+/* تأكيد */
+.confirm-btn {
+    background: #ff6a00;
+}
+
+.confirm-btn:hover {
+    background: #e85f00;
+}
+
+/* الموبايل */
+@media (max-width: 600px) {
+
+    body {
+        padding: 20px 15px;
+    }
+
+    .container {
+        padding: 22px;
+    }
+
+    .container h1 {
+        font-size: 25px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .save-btn,
+    .back-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .modal-box {
+        padding: 25px;
+    }
+
+    .modal-buttons {
+        flex-direction: column;
+    }
+
+    .cancel-btn,
+    .confirm-btn {
+        width: 100%;
+    }
+}
+/* ==============================
+   تحسين التصميم للموبايل
+============================== */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px 10px;
+        font-size: 14px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px 16px;
+        border-right: 3px solid #ff6a00;
+        border-radius: 14px;
+    }
+
+    .container h1 {
+        font-size: 24px;
+        margin-bottom: 22px;
+    }
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+        margin-bottom: 7px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+
+    .form-group textarea {
+        min-height: 120px;
+    }
+
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .save-btn,
+    .back-btn {
+        width: 100%;
+        min-height: 46px;
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    /* نافذة التأكيد */
+
+    .modal {
+        padding: 15px;
+    }
+
+    .modal-box {
+        width: 100%;
+        max-width: 360px;
+        padding: 22px 18px;
+        border-radius: 16px;
+    }
+
+    .edit-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+    }
+
+    .modal-box h2 {
+        font-size: 20px;
+    }
+
+    .modal-box p {
+        font-size: 14px;
+        line-height: 1.8;
+        margin-bottom: 20px;
+    }
+
+    .modal-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .cancel-btn,
+    .confirm-btn {
+        width: 100%;
+        min-height: 45px;
+        font-size: 15px;
+    }
+}
+
+
+/* ==============================
+   شاشات التلفون الصغيرة جدًا
+============================== */
+
+@media (max-width: 380px) {
+
+    body {
+        padding: 10px 7px;
+    }
+
+    .container {
+        padding: 17px 13px;
+    }
+
+    .container h1 {
+        font-size: 21px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 11px;
+    }
+
+    .modal-box {
+        padding: 20px 14px;
+    }
+}

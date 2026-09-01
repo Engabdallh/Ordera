@@ -1,0 +1,218 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    background: #0d0d0d;
+    color: white;
+    min-height: 100vh;
+}
+
+/* الحاوية */
+
+.container {
+    width: 100%;
+    max-width: 650px;
+    margin: auto;
+    background: #1a1a1a;
+    padding: 30px;
+    border-radius: 18px;
+    border-right: 5px solid #ff6a00;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+}
+
+/* الهيدر */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    margin: 0;
+    color: #ff6a00;
+    font-size: 30px;
+}
+
+.header p {
+    color: #999;
+    margin-top: 8px;
+}
+
+/* الشعار */
+
+.logo {
+    width: 65px;
+    height: 65px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 50%;
+
+    background: #ff6a00;
+    color: #000;
+
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* الحقول */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #ff6a00;
+
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    padding: 13px;
+
+    border: 1px solid #333;
+    border-radius: 8px;
+
+    background: #0d0d0d;
+    color: white;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #777;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #ff6a00;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(255, 106, 0, 0.15);
+}
+
+.form-group textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* الأزرار */
+
+.buttons {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+/* زر الإضافة */
+
+.save-btn {
+    flex: 1;
+
+    border: none;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    background: #ff6a00;
+    color: white;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.save-btn:hover {
+    background: #e85f00;
+
+    transform: translateY(-2px);
+}
+
+/* زر العودة */
+
+.back-btn {
+    flex: 1;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    background: #333;
+
+    color: white;
+
+    text-decoration: none;
+
+    text-align: center;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.back-btn:hover {
+    background: #444;
+}
+
+/* الموبايل */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 20px 15px;
+    }
+
+    .container {
+        padding: 22px;
+    }
+
+    .header {
+        align-items: flex-start;
+    }
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .logo {
+        width: 55px;
+        height: 55px;
+
+        font-size: 17px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    .save-btn,
+    .back-btn {
+        width: 100%;
+    }
+}

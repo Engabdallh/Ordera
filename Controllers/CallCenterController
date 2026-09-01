@@ -1,0 +1,149 @@
+const OrderService = require("../Services/OrderService");
+
+const orderService = new OrderService();
+
+
+// =====================================================
+// التحقق أن المستخدم Call Center
+// =====================================================
+
+const checkCallCenter = (req, res) => {
+
+    if (
+        !req.session.userId ||
+        req.session.role !== "call_center"
+    ) {
+        res.redirect("/login");
+        return false;
+    }
+
+    return true;
+};
+
+
+// =====================================================
+// عرض طلبات اليوم للكول سنتر
+// =====================================================
+
+const showTodayOrders = async (req, res) => {
+
+    try {
+
+        if (!checkCallCenter(req, res)) {
+            return;
+        }
+
+        const userId = req.session.userId;
+        const userName = req.session.userName;
+
+        console.log("CALL CENTER ID:", userId);
+        console.log("CALL CENTER NAME:", userName);
+
+        const orders =
+            await orderService.getTodayOrdersForCallCenter();
+
+        for (const order of orders) {
+
+            order.items =
+                await orderService.getOrderItemsForCallCenter(
+                    order.id
+                );
+
+        }
+
+        console.log(
+            "CALL CENTER ORDERS:",
+            orders
+        );
+
+        res.render(
+            "callcenter/orders",
+            {
+                orders: orders,
+                userName: userName
+            }
+        );
+
+    } catch (error) {
+
+        console.error(
+            "SHOW CALL CENTER ORDERS ERROR:",
+            error
+        );
+
+        res.status(500).send(
+            "حدث خطأ أثناء عرض طلبات الكول سنتر"
+        );
+
+    }
+
+};
+
+
+// =====================================================
+// تغيير حالة الطلب
+// =====================================================
+
+const updateOrderStatus = async (req, res) => {
+
+    try {
+
+        if (!checkCallCenter(req, res)) {
+            return;
+        }
+
+        const orderId = Number(req.params.id);
+        const newStatus = req.body.status;
+
+        console.log("UPDATE ORDER STATUS");
+        console.log("ORDER ID:", orderId);
+        console.log("NEW STATUS:", newStatus);
+
+        if (!orderId || !newStatus) {
+            return res.status(400).json({
+                success: false,
+                message: "بيانات غير صحيحة"
+            });
+        }
+
+        await orderService.updateOrderStatus(
+            orderId,
+            newStatus
+        );
+
+        console.log(
+            "ORDER STATUS UPDATED:",
+            orderId,
+            newStatus
+        );
+
+        return res.redirect("/call-center");
+
+    } catch (error) {
+
+        console.error(
+            "UPDATE ORDER STATUS ERROR:",
+            error
+        );
+
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+
+    }
+
+};
+
+
+// =====================================================
+// Export
+// =====================================================
+
+module.exports = {
+
+    showTodayOrders,
+
+    updateOrderStatus
+
+};

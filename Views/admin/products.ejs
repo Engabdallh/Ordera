@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>إدارة المنتجات - 911</title>
+
+<link rel="stylesheet" href="/css/adminproducts.css">
+
+
+</head>
+
+<body>
+
+<div class="container">
+
+
+<!-- الهيدر -->
+
+<div class="header">
+
+    <div>
+        <h1>إدارة المنتجات</h1>
+        <p>إدارة منتجات مطعم 911</p>
+    </div>
+
+    <a href="/admin/products/add" class="btn add-btn">
+        إضافة منتج جديد
+    </a>
+
+</div>
+
+<hr>
+
+<h2>المنتجات الحالية</h2>
+
+<% if (products.length === 0) { %>
+
+    <div class="empty">
+        لا يوجد منتجات حاليًا.
+    </div>
+
+<% } else { %>
+
+    <% products.forEach(product => { %>
+
+        <div class="product">
+
+    <% if (product.image) { %>
+
+        <img
+            src="<%= product.image %>"
+            alt="<%= product.name %>"
+            class="product-image"
+        >
+
+    <% } %>
+
+    <h3>
+        <%= product.name %>
+    </h3>
+
+    <p>
+        <strong>الوصف:</strong>
+        <%= product.description || "لا يوجد وصف" %>
+    </p>
+
+    <p>
+        <strong>السعر:</strong>
+        <%= product.price %> د.أ
+    </p>
+
+    <p>
+        <strong>التصنيف:</strong>
+        <%= product.category || "بدون تصنيف" %>
+    </p>
+
+    <div class="product-buttons">
+
+        <a
+            href="/admin/products/edit/<%= product.id %>"
+            class="btn edit-btn"
+        >
+            تعديل
+        </a>
+
+        <button
+            class="btn delete-btn"
+            type="button"
+            onclick="confirmDelete('<%= product.id %>')"
+        >
+            حذف
+        </button>
+
+    </div>
+
+</div>
+
+    <% }) %>
+
+<% } %>
+
+<br>
+
+<a href="/admin" class="btn back-btn">
+    العودة إلى لوحة التحكم
+</a>
+
+
+</div>
+
+<!-- نافذة تأكيد الحذف -->
+
+<div id="confirmModal" class="modal">
+
+
+<div class="modal-box">
+
+    <div class="warning-icon">
+        !
+    </div>
+
+    <h2>
+        حذف المنتج
+    </h2>
+
+    <p>
+        هل أنت متأكد من حذف هذا المنتج؟
+        <br>
+        لا يمكن التراجع عن هذه العملية.
+    </p>
+
+    <div class="modal-buttons">
+
+        <button
+            class="btn cancel-btn"
+            type="button"
+            onclick="closeModal()"
+        >
+            إلغاء
+        </button>
+
+        <button
+            id="confirmButton"
+            class="btn confirm-btn"
+            type="button"
+        >
+            نعم، حذف
+        </button>
+
+    </div>
+
+</div>
+
+
+</div>
+
+<script>
+
+    const modal = document.getElementById("confirmModal");
+
+    const confirmButton =
+        document.getElementById("confirmButton");
+
+
+    function confirmDelete(id) {
+
+        modal.style.display = "flex";
+
+        confirmButton.onclick = function () {
+
+            const form = document.createElement("form");
+
+            form.method = "POST";
+
+            form.action =
+                "/admin/products/delete/" + id;
+
+            document.body.appendChild(form);
+
+            form.submit();
+
+        };
+
+    }
+
+
+    function closeModal() {
+
+        modal.style.display = "none";
+
+    }
+
+
+    // إغلاق النافذة عند الضغط خارجها
+
+    window.onclick = function(event) {
+
+        if (event.target === modal) {
+
+            closeModal();
+
+        }
+
+    };
+
+</script>
+
+</body>
+</html>

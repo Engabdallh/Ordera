@@ -1,0 +1,471 @@
+* {
+  box-sizing: border-box;
+  }
+
+body {
+margin: 0;
+padding: 40px 20px;
+
+
+font-family: Arial, sans-serif;
+
+background: #0d0d0d;
+
+color: #ffffff;
+
+min-height: 100vh;
+
+
+}
+
+/* الحاوية */
+
+.container {
+width: 100%;
+max-width: 1000px;
+
+
+margin: auto;
+
+
+}
+
+/* الهيدر */
+
+.header {
+display: flex;
+
+
+justify-content: space-between;
+
+align-items: center;
+
+margin-bottom: 30px;
+
+
+}
+
+.header h1 {
+margin: 0;
+
+
+color: #ff6a00;
+
+font-size: 32px;
+
+
+}
+
+.header p {
+margin-top: 8px;
+
+
+color: #999;
+
+
+}
+
+/* الخط */
+
+hr {
+border: none;
+
+
+height: 1px;
+
+background: #333;
+
+margin: 25px 0;
+
+
+}
+
+/* الأزرار */
+
+.btn {
+display: inline-block;
+
+
+border: none;
+
+padding: 11px 20px;
+
+border-radius: 8px;
+
+cursor: pointer;
+
+font-size: 15px;
+
+font-weight: bold;
+
+text-decoration: none;
+
+transition: 0.2s;
+
+
+}
+
+/* إضافة */
+
+.add-btn {
+background: #ff6a00;
+
+
+color: white;
+
+
+}
+
+.add-btn:hover {
+background: #e85f00;
+
+transform: translateY(-2px);
+
+
+}
+
+/* كرت المنتج */
+
+.product {
+background: #1a1a1a;
+
+
+padding: 22px;
+
+margin-bottom: 18px;
+
+border-radius: 12px;
+
+border-right: 5px solid #ff6a00;
+
+box-shadow: 0 5px 18px rgba(0, 0, 0, 0.35);
+
+transition: 0.2s;
+
+
+}
+
+.product:hover {
+transform: translateY(-3px);
+
+
+border-right-color: #ff8c33;
+
+
+}
+
+.product h3 {
+margin-top: 0;
+
+
+color: #ff6a00;
+
+font-size: 23px;
+
+
+}
+
+.product p {
+color: #cccccc;
+
+
+line-height: 1.7;
+
+margin: 8px 0;
+
+
+}
+
+.product p strong {
+color: #ffffff;
+}
+
+/* أزرار المنتج */
+
+.product-buttons {
+margin-top: 18px;
+
+
+display: flex;
+
+gap: 10px;
+
+
+}
+
+/* تعديل */
+
+.edit-btn {
+background: #ff6a00;
+
+
+color: white;
+
+
+}
+
+.edit-btn:hover {
+background: #e85f00;
+
+
+transform: translateY(-2px);
+
+
+}
+
+/* حذف */
+
+.delete-btn {
+background: #dc3545;
+
+
+color: white;
+
+
+}
+
+.delete-btn:hover {
+background: #bb2d3b;
+
+
+transform: translateY(-2px);
+
+
+}
+
+/* العودة */
+
+.back-btn {
+background: #333333;
+
+
+color: white;
+
+
+}
+
+.back-btn:hover {
+background: #444444;
+}
+
+/* لا يوجد منتجات */
+
+.empty {
+background: #1a1a1a;
+
+
+padding: 25px;
+
+border-radius: 12px;
+
+border: 1px solid #333;
+
+color: #aaa;
+
+text-align: center;
+
+
+}
+
+/* نافذة التأكيد */
+
+.modal {
+display: none;
+
+position: fixed;
+
+inset: 0;
+
+background: rgba(0, 0, 0, 0.78);
+
+justify-content: center;
+
+align-items: center;
+
+z-index: 1000;
+
+padding: 20px;
+
+
+}
+
+/* فقاعة التأكيد */
+
+.modal-box {
+background: #1a1a1a;
+
+
+width: 380px;
+
+max-width: 100%;
+
+padding: 30px;
+
+border-radius: 20px;
+
+text-align: center;
+
+border: 2px solid #ff6a00;
+
+box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.6);
+
+animation: popup 0.2s ease;
+
+
+}
+
+/* أيقونة التحذير */
+
+.warning-icon {
+width: 55px;
+height: 55px;
+
+margin: 0 auto 15px;
+
+border-radius: 50%;
+
+background: #dc3545;
+
+color: white;
+
+display: flex;
+
+justify-content: center;
+
+align-items: center;
+
+font-size: 30px;
+
+font-weight: bold;
+
+
+}
+
+/* عنوان النافذة */
+
+.modal-box h2 {
+color: #ff6a00;
+
+
+margin-top: 0;
+
+margin-bottom: 12px;
+
+
+}
+
+/* نص النافذة */
+
+.modal-box p {
+color: #cccccc;
+
+
+line-height: 1.7;
+
+margin-bottom: 25px;
+
+
+}
+
+/* أزرار النافذة */
+
+.modal-buttons {
+display: flex;
+
+
+justify-content: center;
+
+gap:10px;
+
+
+}
+
+/* إلغاء */
+
+.cancel-btn {
+background: #444444;
+
+
+color: white;
+
+
+}
+
+.cancel-btn:hover {
+background: #555555;
+}
+
+/* تأكيد الحذف */
+
+.confirm-btn {
+background: #dc3545;
+
+
+color: white;
+
+
+}
+
+.confirm-btn:hover {
+background: #bb2d3b;
+}
+
+/* الموبايل */
+
+@media (max-width: 600px) {
+
+
+body {
+    padding: 25px 15px;
+}
+
+.header {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 18px;
+}
+
+.header h1 {
+    font-size: 27px;
+}
+
+.add-btn {
+    text-align: center;
+}
+
+.product {
+    padding: 18px;
+}
+
+.product-buttons {
+    flex-wrap: wrap;
+}
+
+.edit-btn,
+.delete-btn {
+    flex: 1;
+
+    text-align: center;
+}
+
+.modal-box {
+    width: 100%;
+}
+
+
+}
+.product-image {
+    width: 100%;
+    max-width: 300px;
+    height: 200px;
+
+    object-fit: cover;
+
+    display: block;
+    margin: 0 auto 20px;
+
+    border-radius: 12px;
+}

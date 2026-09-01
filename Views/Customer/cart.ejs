@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>السلة - 911</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/customer/cart.css"
+    >
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>911</h1>
+
+            <h2>
+                سلة الطلب 🛒
+            </h2>
+
+            <p>
+                أهلاً بك، <%= userName %>
+            </p>
+
+        </div>
+
+        <a
+            href="/products"
+            class="back-btn"
+        >
+            العودة للمنتجات
+        </a>
+
+    </div>
+
+
+    <% if (cart.length === 0) { %>
+
+        <!-- السلة فارغة -->
+
+        <div class="empty">
+
+            <h2>
+                السلة فارغة 🛒
+            </h2>
+
+            <p>
+                لم تقم باختيار أي منتج بعد.
+            </p>
+
+            <a href="/products">
+                تصفح المنتجات
+            </a>
+
+        </div>
+
+
+    <% } else { %>
+
+
+        <!-- المنتجات -->
+
+        <div class="cart">
+
+            <% cart.forEach(item => { %>
+
+                <div class="cart-item">
+
+                    <% if (item.image) { %>
+
+                        <img
+                            src="<%= item.image %>"
+                            alt="<%= item.name %>"
+                        >
+
+                    <% } %>
+
+
+                    <div class="item-info">
+
+                        <h3>
+                            <%= item.name %>
+                        </h3>
+
+
+                        <p>
+
+                            سعر القطعة:
+
+                            <%= Number(item.price).toFixed(2) %>
+
+                            د.أ
+
+                        </p>
+
+
+                        <!-- التحكم بالكمية -->
+
+                        <div class="quantity">
+
+                            <form
+                                action="/cart/decrease/<%= item.productId %>"
+                                method="POST"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="quantity-btn"
+                                >
+                                    −
+                                </button>
+
+                            </form>
+
+
+                            <span>
+                                <%= item.quantity %>
+                            </span>
+
+
+                            <form
+                                action="/cart/increase/<%= item.productId %>"
+                                method="POST"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="quantity-btn"
+                                >
+                                    +
+                                </button>
+
+                            </form>
+
+                        </div>
+
+
+                        <!-- مجموع المنتج -->
+
+                        <strong class="item-total">
+
+                            المجموع:
+
+                            <%= (
+                                Number(item.price) *
+                                item.quantity
+                            ).toFixed(2) %>
+
+                            د.أ
+
+                        </strong>
+
+
+                        <!-- حذف -->
+
+                        <form
+                            action="/cart/remove/<%= item.productId %>"
+                            method="POST"
+                        >
+
+                            <button
+                                type="submit"
+                                class="delete-btn"
+                            >
+                                🗑️ حذف
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            <% }) %>
+
+        </div>
+
+
+        <!-- إجمالي الطلب -->
+
+        <div class="total">
+
+            <h2>
+                إجمالي الطلب:
+            </h2>
+
+            <strong>
+
+                <%= cart
+                    .reduce(
+                        (total, item) =>
+                            total +
+                            Number(item.price) *
+                            item.quantity,
+                        0
+                    )
+                    .toFixed(2)
+                %>
+
+                د.أ
+
+            </strong>
+
+        </div>
+
+
+        <!-- أزرار السلة -->
+
+        <div class="cart-actions">
+
+            <!-- تفريغ السلة -->
+
+            <form
+                action="/cart/clear"
+                method="POST"
+            >
+
+                <button
+                    type="submit"
+                    class="clear-btn"
+                >
+                    🗑️ تفريغ السلة
+                </button>
+
+            </form>
+
+
+            <!-- تأكيد الطلب -->
+
+            <button
+                type="button"
+                class="order-btn"
+                onclick="openOrderModal()"
+            >
+                تأكيد الطلب
+            </button>
+
+        </div>
+
+
+    <% } %>
+
+</div>
+
+
+<!-- ========================================= -->
+<!-- نافذة تأكيد الطلب -->
+<!-- ========================================= -->
+
+<div
+    id="orderModal"
+    class="modal"
+>
+
+    <div class="modal-box">
+
+        <div class="order-icon">
+            🛒
+        </div>
+
+
+        <h2>
+            تأكيد الطلب
+        </h2>
+
+
+        <p>
+            قبل إرسال الطلب، يرجى إدخال رقم الهاتف
+            وعنوان التوصيل.
+        </p>
+
+
+        <!-- نموذج الطلب -->
+
+        <form
+            action="/cart/checkout"
+            method="POST"
+            class="checkout-form"
+        >
+
+
+            <!-- رقم الهاتف -->
+
+            <div class="form-group">
+
+                <label for="phone">
+                    رقم الهاتف
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    placeholder="مثال: 0791234567"
+                    required
+                >
+
+            </div>
+
+
+            <!-- العنوان -->
+
+            <div class="form-group">
+
+                <label for="address">
+                    عنوان التوصيل
+                </label>
+
+                <textarea
+                    id="address"
+                    name="address"
+                    placeholder="اكتب عنوان التوصيل بالتفصيل..."
+                    rows="3"
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- أزرار -->
+
+            <div class="modal-buttons">
+
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="closeOrderModal()"
+                >
+                    إلغاء
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="confirm-btn"
+                >
+                    نعم، تأكيد الطلب
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const orderModal =
+        document.getElementById("orderModal");
+
+
+    function openOrderModal() {
+
+        orderModal.style.display = "flex";
+
+    }
+
+
+    function closeOrderModal() {
+
+        orderModal.style.display = "none";
+
+    }
+
+
+    // إغلاق النافذة عند الضغط خارجها
+
+    window.onclick = function(event) {
+
+        if (event.target === orderModal) {
+
+            closeOrderModal();
+
+        }
+
+    };
+
+</script>
+
+
+</body>
+
+</html>
