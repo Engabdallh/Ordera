@@ -5,7 +5,6 @@
 <head>
     <meta charset="UTF-8">
 
-```
 <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -17,7 +16,6 @@
     rel="stylesheet"
     href="/css/callcenter/orders.css"
 >
-```
 
 </head>
 
@@ -25,7 +23,6 @@
 
 <div class="container">
 
-```
 <!-- =========================================
      Header
 ========================================== -->
@@ -378,12 +375,7 @@
 
                 <div class="order-actions">
 
-                    <button
-                        type="button"
-                        class="details-btn"
-                    >
-                        تفاصيل الطلب
-                    </button>
+                    <a href="/call-center/orders/<%= order.id %>" class="details-btn"> تفاصيل الطلب </a>
 
 
                     <form

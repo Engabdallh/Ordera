@@ -1,8 +1,11 @@
 const ProductService = require("../Services/ProductService");
+const fs = require("fs");
+const path = require("path");
 
 const productService = new ProductService();
 
 
+// عرض صفحة المنتجات
 const showProductsPage = async (req, res) => {
 
     try {
@@ -22,6 +25,7 @@ const showProductsPage = async (req, res) => {
 };
 
 
+// إضافة منتج
 const createProduct = async (req, res) => {
 
     try {
@@ -38,7 +42,9 @@ const createProduct = async (req, res) => {
         let image = null;
 
         if (req.file) {
+
             image = `/uploads/products/${req.file.filename}`;
+
         }
 
 
@@ -67,29 +73,43 @@ const createProduct = async (req, res) => {
 };
 
 
+// عرض صفحة تعديل المنتج
 const showEditProductPage = async (req, res) => {
 
     try {
 
-        const product = await productService.getProductById(req.params.id);
+        const product =
+            await productService.getProductById(req.params.id);
+
 
         if (!product) {
-            return res.status(404).send("المنتج غير موجود");
+
+            return res.status(404).send(
+                "المنتج غير موجود"
+            );
+
         }
+
 
         res.render("admin/edit-product", {
             product: product
         });
 
+
     } catch (error) {
 
         console.error(error);
 
-        res.status(500).send("حدث خطأ في الخادم");
+        res.status(500).send(
+            "حدث خطأ في الخادم"
+        );
+
     }
+
 };
 
 
+// تعديل المنتج
 const updateProduct = async (req, res) => {
 
     try {
@@ -109,6 +129,25 @@ const updateProduct = async (req, res) => {
 
         if (!currentProduct) {
 
+            // إذا تم رفع صورة جديدة ولكن المنتج غير موجود
+            // نحذف الصورة الجديدة حتى لا تبقى بدون استخدام
+            if (req.file) {
+
+                const newImagePath = path.join(
+                    __dirname,
+                    "..",
+                    "public",
+                    "uploads",
+                    "products",
+                    req.file.filename
+                );
+
+                if (fs.existsSync(newImagePath)) {
+                    fs.unlinkSync(newImagePath);
+                }
+
+            }
+
             return res.status(404).send(
                 "المنتج غير موجود"
             );
@@ -116,7 +155,7 @@ const updateProduct = async (req, res) => {
         }
 
 
-        // الصورة القديمة
+        // الصورة الحالية
         let image = currentProduct.image;
 
 
@@ -125,6 +164,36 @@ const updateProduct = async (req, res) => {
 
             image =
                 `/uploads/products/${req.file.filename}`;
+
+
+            // حذف الصورة القديمة
+            if (currentProduct.image) {
+
+                const oldImageName =
+                    path.basename(currentProduct.image);
+
+                const oldImagePath = path.join(
+                    __dirname,
+                    "..",
+                    "public",
+                    "uploads",
+                    "products",
+                    oldImageName
+                );
+
+
+                if (fs.existsSync(oldImagePath)) {
+
+                    fs.unlinkSync(oldImagePath);
+
+                    console.log(
+                        "تم حذف الصورة القديمة:",
+                        oldImageName
+                    );
+
+                }
+
+            }
 
         }
 
@@ -155,20 +224,74 @@ const updateProduct = async (req, res) => {
 };
 
 
+// حذف المنتج
 const deleteProduct = async (req, res) => {
 
     try {
 
-        await productService.deleteProduct(req.params.id);
+        // الحصول على المنتج قبل حذفه
+        const product =
+            await productService.getProductById(req.params.id);
+
+
+        if (!product) {
+
+            return res.status(404).send(
+                "المنتج غير موجود"
+            );
+
+        }
+
+
+        // حذف صورة المنتج من المجلد
+        if (product.image) {
+
+            const imageName =
+                path.basename(product.image);
+
+            const imagePath = path.join(
+                __dirname,
+                "..",
+                "public",
+                "uploads",
+                "products",
+                imageName
+            );
+
+
+            if (fs.existsSync(imagePath)) {
+
+                fs.unlinkSync(imagePath);
+
+                console.log(
+                    "تم حذف صورة المنتج:",
+                    imageName
+                );
+
+            }
+
+        }
+
+
+        // حذف المنتج من قاعدة البيانات
+        await productService.deleteProduct(
+            req.params.id
+        );
+
 
         res.redirect("/admin/products");
+
 
     } catch (error) {
 
         console.error(error);
 
-        res.status(500).send("حدث خطأ أثناء حذف المنتج");
+        res.status(500).send(
+            "حدث خطأ أثناء حذف المنتج"
+        );
+
     }
+
 };
 
 

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>طلبات المطعم - 911</title>
+
+    <link rel="stylesheet" href="/css/adminorders.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- =========================
+         Header
+    ========================== -->
+
+    <header class="header">
+
+        <div>
+
+            <h1>911</h1>
+
+            <p>
+                إدارة الطلبات
+            </p>
+
+        </div>
+
+        <div class="header-actions">
+
+            <a
+                href="/admin"
+                class="logout-btn"
+            >
+                لوحة التحكم
+            </a>
+
+            <div class="logo">
+                911
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         Content
+    ========================== -->
+
+    <main class="content">
+
+        <h2>
+            جميع الطلبات
+        </h2>
+
+        <form action="/admin/orders" method="GET" class="filters-form">
+
+    <div class="filter-group">
+        <label>الحالة</label>
+
+        <select name="status">
+            <option value="">كل الحالات</option>
+
+            <option value="قيد الانتظار"
+                <%= filters?.status === "قيد الانتظار" ? "selected" : "" %>>
+                قيد الانتظار
+            </option>
+
+            <option value="تم التأكيد"
+                <%= filters?.status === "تم التأكيد" ? "selected" : "" %>>
+                تم التأكيد
+            </option>
+
+            <option value="قيد التحضير"
+                <%= filters?.status === "قيد التحضير" ? "selected" : "" %>>
+                قيد التحضير
+            </option>
+
+            <option value="جاهز"
+                <%= filters?.status === "جاهز" ? "selected" : "" %>>
+                جاهز
+            </option>
+
+            <option value="تم التوصيل"
+                <%= filters?.status === "تم التوصيل" ? "selected" : "" %>>
+                تم التوصيل
+            </option>
+
+            <option value="ملغي"
+                <%= filters?.status === "ملغي" ? "selected" : "" %>>
+                ملغي
+            </option>
+        </select>
+    </div>
+
+
+    <div class="filter-group">
+        <label>التاريخ</label>
+
+        <input
+            type="date"
+            name="date"
+            value="<%= filters?.date || '' %>"
+        >
+    </div>
+
+
+    <div class="filter-group">
+        <label>من الساعة</label>
+
+        <input
+            type="time"
+            name="fromTime"
+            value="<%= filters?.fromTime || '' %>"
+        >
+    </div>
+
+
+    <div class="filter-group">
+        <label>إلى الساعة</label>
+
+        <input
+            type="time"
+            name="toTime"
+            value="<%= filters?.toTime || '' %>"
+        >
+    </div>
+
+
+    <div class="filter-group">
+        <label>الشهر</label>
+
+        <input
+            type="month"
+            name="month"
+            value="<%= filters?.month || '' %>"
+        >
+    </div>
+
+
+    <div class="filter-buttons">
+
+        <button type="submit" class="filter-btn">
+            🔎 فلترة
+        </button>
+
+        <a
+            href="/admin/orders"
+            class="clear-filter-btn"
+        >
+            مسح
+        </a>
+
+    </div>
+
+</form>
+
+<div class="orders-summary">
+
+    <div class="summary-card">
+        <span>عدد الطلبات</span>
+        <strong>
+            <%= totalOrders || 0 %>
+        </strong>
+    </div>
+
+    <div class="summary-card">
+        <span>إجمالي المبيعات</span>
+        <strong>
+            <%= Number(totalSales || 0).toFixed(2) %> د.أ
+        </strong>
+    </div>
+
+</div>
+
+        <p class="description">
+            عرض أحدث الطلبات المسجلة في النظام.
+        </p>
+
+
+        <% if (orders && orders.length > 0) { %>
+
+            <div class="orders-table-wrapper">
+
+                <table class="orders-table">
+
+                    <thead>
+
+                        <tr> 
+                           <th>
+                               التفاصيل
+                           </th>
+
+                            <th>
+                                رقم الطلب
+                            </th>
+
+                            <th>
+                                الزبون
+                            </th>
+
+                            <th>
+                                المبلغ
+                            </th>
+
+                            <th>
+                                نوع الطلب
+                            </th>
+
+                            <th>
+                                الحالة
+                            </th>
+
+                            <th>
+                                وقت الطلب
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <% orders.forEach(order => { %>
+
+                            <tr>
+
+                                <td>
+                                     <a
+                                        href="/admin/orders/<%= order.id %>"
+                                           class="details-btn"
+                                     >
+                                               تفاصيل
+                                      </a>
+                                </td>
+
+                                <td>
+
+                                    <strong>
+                                        #<%= order.id %>
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+                                    <%= order.customer_name %>
+                                </td>
+
+
+                                <td>
+
+                                    <%= Number(
+                                        order.total_price
+                                    ).toFixed(2) %>
+
+                                    د.أ
+
+                                </td>
+
+
+                                <td>
+                                    <%= order.order_type %>
+                                </td>
+
+
+                                <td>
+
+                                    <span
+                                        class="order-status
+                                        <%= order.status === 'قيد الانتظار' ? 'pending' : '' %>
+                                        <%= order.status === 'تم التأكيد' ? 'confirmed' : '' %>
+                                        <%= order.status === 'قيد التحضير' ? 'preparing' : '' %>
+                                        <%= order.status === 'جاهز' ? 'ready' : '' %>
+                                        <%= order.status === 'تم التوصيل' ? 'delivered' : '' %>
+                                        <%= order.status === 'ملغي' ? 'cancelled' : '' %>"
+                                    >
+
+                                        <%= order.status %>
+
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <%= new Date(
+                                        order.created_at
+                                    ).toLocaleTimeString(
+                                        'ar-JO',
+                                        {
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        }
+                                    ) %>
+
+                                </td>
+
+                                
+
+                            </tr>
+
+                        <% }) %>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        <% } else { %>
+
+            <div class="no-orders">
+
+                لا توجد طلبات حتى الآن 📦
+
+            </div>
+
+        <% } %>
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            911 Restaurant © 2026
+        </p>
+
+    </footer>
+
+</div>
+
+</body>
+
+</html>

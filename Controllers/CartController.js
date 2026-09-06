@@ -425,202 +425,46 @@ const clearCart = (req, res) => {
 
 };
 
+const CheckoutService = require("../Services/CheckoutService");
+const checkoutService = new CheckoutService();
+
 const checkout = async (req, res) => {
-
     try {
+        if (!checkCustomer(req, res)) return;
 
-        // =========================================
-        // التأكد أن المستخدم Customer ومسجل دخول
-        // =========================================
-
-        if (
-            !req.session.userId ||
-            req.session.role !== "customer"
-        ) {
-            return res.redirect("/login");
-        }
-
-
-        const customerId = req.session.userId;
-
-
-        // =========================================
-        // استقبال رقم الهاتف والعنوان
-        // =========================================
-
-        const {
-            phone,
-            address
-        } = req.body;
-
-
-        // =========================================
-        // التحقق من البيانات
-        // =========================================
+        const phone = String(req.body.phone || "").trim();
+        const address = String(req.body.address || "").trim();
+        const cart = req.session.cart || [];
 
         if (!phone || !address) {
-
-            return res.status(400).send(
-                "رقم الهاتف والعنوان مطلوبان"
-            );
-
+            return res.status(400).send("رقم الهاتف والعنوان مطلوبان");
         }
-
-
-        // =========================================
-        // جلب السلة
-        // =========================================
-
-        const cart =
-            req.session.cart || [];
-
 
         if (cart.length === 0) {
-
             return res.redirect("/cart");
-
         }
 
-
-        // =========================================
-        // حساب المجموع
-        // =========================================
-
-        let totalPrice = 0;
-
-
-        for (const item of cart) {
-
-            totalPrice +=
-                Number(item.price) *
-                Number(item.quantity);
-
-        }
-
-
-        // =========================================
-        // تحديث رقم الهاتف والعنوان للعميل
-        // =========================================
-
-        await db.query(
-            `UPDATE customers
-             SET phone = ?,
-                 address = ?
-             WHERE id = ?`,
-            [
-                phone,
-                address,
-                customerId
-            ]
-        );
-
-
-        console.log(
-            "CUSTOMER DATA UPDATED:",
-            customerId
-        );
-
-
-        // =========================================
-        // إنشاء الطلب
-        // =========================================
-
-    
-
-const [orderResult] = await db.query(
-    `INSERT INTO orders
-    (
-        customer_id,
-        total_price,
-        status,
-        order_type,
-        delivery_phone,
-        delivery_address
-    )
-    VALUES (?, ?, 'قيد الانتظار', 'الموقع', ?, ?)`,
-    [
-        customerId,
-        totalPrice.toFixed(2),
-        phone,
-        address
-    ]
-);
-
-
-        const orderId =
-            orderResult.insertId;
-
-
-        console.log(
-            "ORDER CREATED:",
-            orderId
-        );
-
-
-        // =========================================
-        // إضافة المنتجات إلى order_items
-        // =========================================
-
-        for (const item of cart) {
-
-            await db.query(
-                `INSERT INTO order_items
-                (
-                    order_id,
-                    product_id,
-                    quantity,
-                    price
-                )
-                VALUES (?, ?, ?, ?)`,
-                [
-                    orderId,
-                    item.productId,
-                    item.quantity,
-                    item.price
-                ]
-            );
-
-        }
-
-
-        // =========================================
-        // تفريغ السلة
-        // =========================================
+        const order = await checkoutService.createOrder({
+            customerId: req.session.userId,
+            phone,
+            address,
+            cart
+        });
 
         req.session.cart = [];
 
-
-        // =========================================
-        // صفحة نجاح الطلب
-        // =========================================
-
-        res.render(
-            "customer/ordersuccess",
-            {
-                orderId: orderId,
-                totalPrice:
-                    totalPrice.toFixed(2),
-                phone: phone,
-                address: address
-            }
-        );
-
-
+        return res.render("customer/ordersuccess", {
+            orderId: order.orderId,
+            totalPrice: order.totalPrice.toFixed(2),
+            phone,
+            address
+        });
     } catch (error) {
-
-        console.error(
-            "CHECKOUT ERROR:",
-            error
-        );
-
-
-        res.status(500).send(
-            "حدث خطأ أثناء تأكيد الطلب"
-        );
-
+        console.error("CHECKOUT ERROR:", error);
+        return res.status(500).send("حدث خطأ أثناء تأكيد الطلب");
     }
-
 };
+
 const showConfirmOrder = (req, res) => {
 
     try {
@@ -635,7 +479,7 @@ const showConfirmOrder = (req, res) => {
             return res.redirect("/cart");
         }
 
-        res.render("customer/confirm-order", {
+        res.render("customer/confirmorder", {
 
             userName: req.session.userName
 

@@ -1,154 +1,63 @@
-const db = require("../Database/db");
+const bcrypt = require('bcrypt');
+const db = require('../Database/db');
 
+const BCRYPT_ROUNDS = 12;
 
 class AuthService {
-
-    // ==============================
-    // تسجيل الدخول
-    // ==============================
-
     async login(name, password) {
+        if (!name || !password) return null;
 
-        // ==============================
-        // 1 - البحث عن Admin
-        // ==============================
-
+        // Search by username first, then compare the stored password hash.
         const [admins] = await db.query(
-            `
-            SELECT *
-            FROM admins
-            WHERE name = ?
-            AND password = ?
-            `,
-            [name, password]
+            'SELECT * FROM admins WHERE name = ? LIMIT 1',
+            [name]
         );
 
-        if (admins.length > 0) {
-
-            return {
-                user: admins[0],
-                role: "admin"
-            };
-
+        if (admins.length > 0 && await bcrypt.compare(password, admins[0].password)) {
+            return { user: admins[0], role: 'admin' };
         }
-
-
-        // ==============================
-        // 2 - البحث عن Call Center
-        // ==============================
 
         const [agents] = await db.query(
-            `
-            SELECT *
-            FROM call_center_agents
-            WHERE name = ?
-            AND password = ?
-            AND status = 'فعال'
-            `,
-            [name, password]
+            "SELECT * FROM call_center_agents WHERE name = ? AND status = 'فعال' LIMIT 1",
+            [name]
         );
 
-        if (agents.length > 0) {
-
-            return {
-                user: agents[0],
-                role: "call_center"
-            };
-
+        if (agents.length > 0 && await bcrypt.compare(password, agents[0].password)) {
+            return { user: agents[0], role: 'call_center' };
         }
-
-
-        // ==============================
-        // 3 - البحث عن Customer
-        // ==============================
 
         const [customers] = await db.query(
-            `
-            SELECT *
-            FROM customers
-            WHERE name = ?
-            AND password = ?
-            `,
-            [name, password]
+            'SELECT * FROM customers WHERE name = ? LIMIT 1',
+            [name]
         );
 
-        if (customers.length > 0) {
-
-            return {
-                user: customers[0],
-                role: "customer"
-            };
-
+        if (customers.length > 0 && await bcrypt.compare(password, customers[0].password)) {
+            return { user: customers[0], role: 'customer' };
         }
 
-
-        // ==============================
-        // الحساب غير موجود
-        // ==============================
-
         return null;
-
     }
-
-
-    // ==============================
-    // البحث عن Customer بالإيميل
-    // ==============================
 
     async findCustomerByEmail(email) {
-
         const [rows] = await db.query(
-            `
-            SELECT *
-            FROM customers
-            WHERE email = ?
-            `,
+            'SELECT * FROM customers WHERE email = ? LIMIT 1',
             [email]
         );
-
         return rows[0] || null;
-
     }
 
-
-    // ==============================
-    // إنشاء Customer
-    // ==============================
-
-    async createCustomer(
-        name,
-        phone,
-        address,
-        email,
-        password
-    ) {
+    async createCustomer(name, phone, address, email, password) {
+        const hashedPassword = await bcrypt.hash(password, BCRYPT_ROUNDS);
 
         const [result] = await db.query(
-            `
-            INSERT INTO customers
-            (
-                name,
-                phone,
-                address,
-                email,
-                password
-            )
-            VALUES (?, ?, ?, ?, ?)
-            `,
-            [
-                name,
-                phone,
-                address,
-                email,
-                password
-            ]
+            `INSERT INTO customers
+                (name, phone, address, email, password)
+             VALUES (?, ?, ?, ?, ?)`,
+            [name, phone, address, email, hashedPassword]
         );
 
         return result;
-
     }
-
 }
-
 
 module.exports = AuthService;

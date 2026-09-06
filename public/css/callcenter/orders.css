@@ -609,3 +609,17 @@ body {
     background: #dc2626; /* أحمر */
     color: #fff;
 }
+
+.details-btn { 
+    display: inline-block;
+     background: #ff6a00; color: #000;
+      text-decoration: none; padding: 9px 18px;
+       border-radius: 7px; font-size: 14px;
+        font-weight: bold; cursor: pointer;
+         transition: 0.2s;
+         }
+
+ .details-btn:hover { 
+    background: #ff8533; color: #000;
+     transform: translateY(-1px);
+     }

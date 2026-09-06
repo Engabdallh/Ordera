@@ -1,6 +1,8 @@
 const express = require("express");
 
 const router = express.Router();
+const { requireRole } = require('../Middleware/auth');
+router.use(requireRole('customer'));
 
 const cartController = require("../Controllers/CartController");
 
@@ -22,10 +24,7 @@ router.post("/remove/:id",cartController.removeFromCart);
 // تفريغ السلة
 router.post("/clear",cartController.clearCart);
 
-router.get(
-    "/cart/confirm",
-    cartController.showConfirmOrder
-);
+router.get("/confirm", cartController.showConfirmOrder);
 
 router.post("/checkout",cartController.checkout);
 

@@ -1,0 +1,548 @@
+/* ========================================
+   Call Center - Order Details
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, "Tahoma", sans-serif;
+    background: #111;
+    color: #fff;
+    direction: rtl;
+    min-height: 100vh;
+}
+
+/* ========================================
+   Dashboard
+======================================== */
+
+.dashboard {
+    min-height: 100vh;
+}
+
+/* ========================================
+   Header
+======================================== */
+
+.header {
+    background: #000;
+    color: white;
+    min-height: 90px;
+    padding: 18px 45px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 3px solid #ff6a00;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.header h1 {
+    font-size: 30px;
+    margin-bottom: 5px;
+    color: #ff6a00;
+}
+
+.header p {
+    color: #aaa;
+    font-size: 15px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    width: 50px;
+    height: 50px;
+
+    background: #000;
+    color: #ff6a00;
+
+    border: 2px solid #ff6a00;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* ========================================
+   Back Button
+======================================== */
+
+.back-btn {
+    border: none;
+    background: #333;
+    color: white;
+
+    padding: 10px 18px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.back-btn:hover {
+    background: #ff6a00;
+    color: #000;
+    transform: translateY(-1px);
+}
+
+/* ========================================
+   Content
+======================================== */
+
+.content {
+    width: 90%;
+    max-width: 1150px;
+
+    margin: 35px auto;
+}
+
+.content > h2 {
+    color: #fff;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.description {
+    color: #aaa;
+    font-size: 15px;
+    margin-bottom: 25px;
+}
+
+/* ========================================
+   Order Information
+======================================== */
+
+.order-info-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 25px;
+}
+
+.info-card {
+    background: #1c1c1c;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    border: 1px solid #333;
+    border-right: 4px solid #ff6a00;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+
+    transition: 0.2s;
+}
+
+.info-card:hover {
+    transform: translateY(-2px);
+
+    border-color: #444;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+}
+
+.info-card span {
+    display: block;
+
+    color: #999;
+
+    font-size: 14px;
+
+    margin-bottom: 9px;
+}
+
+.info-card strong {
+    display: block;
+
+    color: #fff;
+
+    font-size: 16px;
+
+    word-break: break-word;
+}
+
+/* ========================================
+   Details Sections
+======================================== */
+
+.details-section {
+    background: #1c1c1c;
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid #333;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
+}
+
+.details-section h3 {
+    font-size: 20px;
+
+    color: #ff6a00;
+
+    margin-bottom: 18px;
+
+    padding-bottom: 12px;
+
+    border-bottom: 1px solid #333;
+}
+
+/* ========================================
+   Address
+======================================== */
+
+.address-box {
+    background: #111;
+
+    border: 1px solid #333;
+
+    border-radius: 8px;
+
+    padding: 15px;
+
+    color: #ddd;
+
+    line-height: 1.7;
+
+    min-height: 50px;
+}
+
+/* ========================================
+   Products Table
+======================================== */
+
+.orders-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    border-radius: 8px;
+
+    border: 1px solid #333;
+}
+
+.orders-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: #1c1c1c;
+}
+
+.orders-table th {
+    background: #000;
+
+    color: #ff6a00;
+
+    padding: 15px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    white-space: nowrap;
+
+    border-bottom: 2px solid #ff6a00;
+}
+
+.orders-table td {
+    padding: 15px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #333;
+
+    color: #ddd;
+
+    font-size: 15px;
+}
+
+.orders-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.orders-table tbody tr:hover {
+    background: #252525;
+}
+
+/* أول عمود - اسم المنتج */
+
+.orders-table td:first-child {
+    font-weight: bold;
+
+    color: #fff;
+
+    text-align: right;
+}
+
+/* ========================================
+   No Products
+======================================== */
+
+.no-orders {
+    background: #111;
+
+    border: 1px solid #333;
+
+    border-radius: 8px;
+
+    padding: 20px;
+
+    text-align: center;
+
+    color: #999;
+}
+
+/* ========================================
+   Order Times
+======================================== */
+
+.order-times {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+}
+
+.order-times p {
+    background: #111;
+
+    border: 1px solid #333;
+
+    border-radius: 8px;
+
+    padding: 13px 16px;
+
+    color: #ccc;
+
+    font-size: 15px;
+}
+
+.order-times strong {
+    color: #ff6a00;
+
+    margin-left: 5px;
+}
+
+/* ========================================
+   Status
+======================================== */
+
+.info-card:nth-child(5) strong {
+    display: inline-block;
+
+    background: #2a1a0d;
+
+    color: #ff6a00;
+
+    border: 1px solid #ff6a00;
+
+    padding: 7px 14px;
+
+    border-radius: 20px;
+
+    font-size: 14px;
+}
+
+/* ========================================
+   Status Form
+======================================== */
+
+.status-form {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.status-form select {
+    min-width: 220px;
+
+    padding: 11px 15px;
+
+    border: 1px solid #444;
+
+    border-radius: 7px;
+
+    background: #111;
+
+    color: #fff;
+
+    font-size: 15px;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+.status-form select:focus {
+    border-color: #ff6a00;
+
+    box-shadow: 0 0 0 2px rgba(255, 106, 0, 0.15);
+}
+
+.status-form button {
+    background: #ff6a00;
+
+    color: #000;
+
+    border: none;
+
+    padding: 11px 22px;
+
+    border-radius: 7px;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.status-form button:hover {
+    background: #ff8533;
+
+    transform: translateY(-1px);
+}
+
+/* ========================================
+   Bottom Back Button
+======================================== */
+
+.content > .back-btn {
+    background: #333;
+
+    color: #fff;
+
+    padding: 11px 20px;
+
+    margin-top: 0;
+}
+
+.content > .back-btn:hover {
+    background: #ff6a00;
+
+    color: #000;
+}
+
+/* ========================================
+   Footer
+======================================== */
+
+footer {
+    background: #000;
+
+    border-top: 1px solid #333;
+
+    text-align: center;
+
+    color: #777;
+
+    padding: 25px;
+
+    margin-top: 20px;
+
+    font-size: 14px;
+}
+
+/* ========================================
+   Responsive
+======================================== */
+
+@media (max-width: 900px) {
+
+    .order-info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .header {
+        padding: 18px 25px;
+    }
+
+    .content {
+        width: 94%;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .header {
+        flex-direction: column;
+
+        gap: 15px;
+
+        text-align: center;
+
+        padding: 20px;
+    }
+
+    .header-actions {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .order-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .content {
+        width: 94%;
+
+        margin: 25px auto;
+    }
+
+    .content > h2 {
+        font-size: 23px;
+    }
+
+    .details-section {
+        padding: 18px;
+    }
+
+    .status-form {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .status-form select,
+    .status-form button {
+        width: 100%;
+    }
+
+    .orders-table {
+        min-width: 650px;
+    }
+}
