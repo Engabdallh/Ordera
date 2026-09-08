@@ -7,28 +7,18 @@ class OrderService {
     // =====================================================
 
     async getCustomerOrders(customerId) {
+  const [orders] = await db.query(
+    `SELECT id, customer_id, total_price, status, order_type, created_at,
+            updated_at, status_changed_at, preparation_completed_at,
+            delivery_phone, delivery_address
+     FROM orders
+     WHERE customer_id = ?
+       AND created_at >= NOW() - INTERVAL 3 DAY
+     ORDER BY created_at DESC`,
+    [customerId]
+  );
 
-    const [orders] = await db.query(
-        `SELECT
-            id,
-            customer_id,
-            total_price,
-            status,
-            order_type,
-            created_at,
-            updated_at,
-            status_changed_at,
-            preparation_completed_at,
-            delivery_phone,
-            delivery_address
-         FROM orders
-         WHERE customer_id = ?
-         AND DATE(created_at) = CURDATE()
-         ORDER BY created_at DESC`,
-        [customerId]
-    );
-
-    return orders;
+  return orders;
 }
 
 

@@ -10,6 +10,17 @@ class ProductService {
         return products;
     }
 
+    async getAvailableProducts() {
+    const [products] = await db.query(
+        `SELECT *
+         FROM products
+         WHERE is_available = 1
+         ORDER BY id DESC`
+    );
+
+    return products;
+}
+
 
     async createProduct(name, description, price, category, image) {
 
@@ -79,6 +90,17 @@ class ProductService {
 
         return result;
     }
+
+    async toggleProductAvailability(id) {
+    const [result] = await db.query(
+        `UPDATE products
+         SET is_available = NOT is_available
+         WHERE id = ?`,
+        [id]
+    );
+
+    return result;
+}
 
 }
 

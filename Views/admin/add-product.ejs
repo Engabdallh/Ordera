@@ -65,14 +65,22 @@
 
 
             <div class="form-group">
-                <label>التصنيف</label>
+    <label for="category">التصنيف</label>
 
-                <input
-                    type="text"
-                    name="category"
-                    placeholder="مثال: شاورما"
-                >
-            </div>
+    <select name="category" id="category" required>
+        <option value="" disabled selected>اختر تصنيف المنتج</option>
+
+        <option value="وجبات">وجبات</option>
+        <option value="وجبات شاورما">وجبات شاورما</option>
+        <option value="وجبات شاورما عائلية">وجبات شاورما عائلية</option>
+        <option value="مقبلات">مقبلات</option>
+        <option value="مشروبات">مشروبات</option>
+        <option value="مشاوي">مشاوي</option>
+        <option value="كرسبي">كرسبي</option>
+        <option value="برستد">برستد</option>
+        <option value="سناكات">سناكات</option>
+    </select>
+</div>
 
 
             <div class="form-group">

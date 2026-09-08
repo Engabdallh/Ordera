@@ -273,8 +273,16 @@
             <h3>
                 معلومات الوقت
             </h3>
+            
 
             <div class="order-times">
+
+                <% if (order.updated_at) { %>
+    <p>
+        <strong>آخر تحديث:</strong>
+        <%= new Date(order.updated_at).toLocaleString("ar-JO") %>
+    </p>
+<% } %>
 
                 <p>
                     <strong>وقت إنشاء الطلب:</strong>

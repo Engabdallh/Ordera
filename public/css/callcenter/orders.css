@@ -623,3 +623,85 @@ body {
     background: #ff8533; color: #000;
      transform: translateY(-1px);
      }
+
+/* =========================================
+   Status Warning Modal
+========================================= */
+
+.status-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+}
+
+.status-modal.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.status-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.status-modal-box {
+    position: relative;
+    z-index: 1;
+
+    width: 90%;
+    max-width: 430px;
+
+    background: #181818;
+    border: 1px solid #333;
+    border-top: 5px solid #ff7900;
+
+    border-radius: 18px;
+    padding: 30px 25px;
+
+    text-align: center;
+
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+}
+
+.status-modal-icon {
+    font-size: 45px;
+    margin-bottom: 12px;
+}
+
+.status-modal-box h2 {
+    color: #ff7900;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.status-modal-box p {
+    color: #ccc;
+    line-height: 1.8;
+    white-space: pre-line;
+    margin-bottom: 22px;
+}
+
+.status-modal-btn {
+    width: 100%;
+    padding: 12px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #ff7900;
+    color: #111;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.status-modal-btn:hover {
+    background: #ff8c1a;
+    transform: translateY(-1px);
+}

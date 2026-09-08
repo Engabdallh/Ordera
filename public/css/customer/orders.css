@@ -103,7 +103,7 @@ body {
 
 .ready {
     background: #192b1e;
-    color: #281abe !important;
+    color: #4caf50 !important;
 }
 
 .delivered {
@@ -141,6 +141,7 @@ body {
 
 .item-info {
     flex: 1;
+    min-width: 0;
 }
 
 .item-info h4 {

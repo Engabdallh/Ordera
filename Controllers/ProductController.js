@@ -293,6 +293,16 @@ const deleteProduct = async (req, res) => {
     }
 
 };
+const toggleProductAvailability = async (req, res) => {
+    try {
+        await productService.toggleProductAvailability(req.params.id);
+
+        res.redirect("/admin/products");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("حدث خطأ أثناء تغيير حالة المنتج");
+    }
+};
 
 
 module.exports = {
@@ -300,5 +310,6 @@ module.exports = {
     createProduct,
     showEditProductPage,
     updateProduct,
-    deleteProduct
+    deleteProduct,
+    toggleProductAvailability
 };

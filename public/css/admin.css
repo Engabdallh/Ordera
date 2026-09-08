@@ -458,3 +458,72 @@ color: #777777;
     }
 
 }
+.restaurant-status-card {
+    margin-bottom: 30px;
+}
+
+.restaurant-status-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px;
+    border-radius: 16px;
+    background: #1e1e1e;
+    border: 1px solid #333;
+}
+
+.restaurant-status-icon {
+    font-size: 38px;
+}
+
+.restaurant-status-info {
+    flex: 1;
+}
+
+.restaurant-status-info h3 {
+    margin: 0 0 8px;
+    font-size: 22px;
+}
+
+.restaurant-status-info p {
+    margin: 0;
+    color: #aaa;
+}
+
+.restaurant-toggle-btn {
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.close-btn {
+    background: #d32f2f;
+    color: white;
+}
+
+.open-btn {
+    background: #2e7d32;
+    color: white;
+}
+
+.restaurant-toggle-btn:hover {
+    opacity: 0.9;
+}
+
+@media (max-width: 600px) {
+    .restaurant-status-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .restaurant-status-info {
+        width: 100%;
+    }
+
+    .restaurant-toggle-btn {
+        width: 100%;
+    }
+}

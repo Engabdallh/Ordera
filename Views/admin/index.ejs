@@ -68,10 +68,11 @@
             نظرة سريعة على أداء المطعم اليوم.
         </p>
 
-
+        
         <!-- ================= STATS ================= -->
 
         <div class="stats-grid">
+   
 
 
             <!-- إجمالي الطلبات -->
@@ -259,9 +260,82 @@
 
 
         </div>
+  
+<!-- ================= RESTAURANT STATUS ================= -->
 
+<h2 class="section-title">
+    حالة المطعم
+</h2>
 
-        <!-- ================= QUICK ACTIONS ================= -->
+<div class="restaurant-status-card">
+
+    <% if (restaurant && restaurant.is_open) { %>
+
+        <div class="restaurant-status-content open">
+
+            <div class="restaurant-status-icon">
+                🟢
+            </div>
+
+            <div class="restaurant-status-info">
+                <h3>
+                    المطعم شغال
+                </h3>
+
+                <p>
+                    المطعم مفتوح حالياً ويستقبل الطلبات.
+                </p>
+            </div>
+
+            <form
+                action="/admin/restaurant/toggle"
+                method="POST"
+            >
+                <button
+                    type="submit"
+                    class="restaurant-toggle-btn close-btn"
+                >
+                    إغلاق المطعم
+                </button>
+            </form>
+
+        </div>
+
+    <% } else { %>
+
+        <div class="restaurant-status-content closed">
+
+            <div class="restaurant-status-icon">
+                🔴
+            </div>
+
+            <div class="restaurant-status-info">
+                <h3>
+                    المطعم مغلق
+                </h3>
+
+                <p>
+                    انتهى دوام المطعم حالياً ولا يتم استقبال الطلبات.
+                </p>
+            </div>
+
+            <form
+                action="/admin/restaurant/toggle"
+                method="POST"
+            >
+                <button
+                    type="submit"
+                    class="restaurant-toggle-btn open-btn"
+                >
+                    تشغيل المطعم
+                </button>
+            </form>
+
+        </div>
+
+    <% } %>
+
+</div>
 
         <h2 class="section-title">
             الإدارة السريعة

@@ -216,3 +216,47 @@ body {
         width: 100%;
     }
 }
+/* ==============================
+   قائمة التصنيف
+============================== */
+
+.form-group select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+
+    /* سهم القائمة */
+    appearance: auto;
+}
+
+/* عند الضغط على القائمة */
+.form-group select:focus {
+    border-color: #ff6a00;
+    box-shadow: 0 0 0 3px rgba(255, 106, 0, 0.15);
+}
+
+/* عند مرور الماوس */
+.form-group select:hover {
+    border-color: #ff6a00;
+}
+
+/* الخيار الافتراضي */
+.form-group select option {
+    background: #111;
+    color: #fff;
+    padding: 12px;
+}
+
+/* الخيار المحدد */
+.form-group select option:checked {
+    background: #ff6a00;
+    color: #fff;
+}

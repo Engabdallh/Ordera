@@ -1,471 +1,1387 @@
+/* =========================================
+   RESET
+========================================= */
+
 * {
-  box-sizing: border-box;
-  }
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
 
 body {
-margin: 0;
-padding: 40px 20px;
 
+    min-height: 100vh;
 
-font-family: Arial, sans-serif;
+    font-family:
+        Arial,
+        Tahoma,
+        sans-serif;
 
-background: #0d0d0d;
+    color: #ffffff;
 
-color: #ffffff;
-
-min-height: 100vh;
-
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(255, 102, 0, 0.13),
+            transparent 35%
+        ),
+        #070707;
 
 }
 
-/* الحاوية */
+
+/* =========================================
+   CONTAINER
+========================================= */
 
 .container {
-width: 100%;
-max-width: 1000px;
 
+    width: 92%;
 
-margin: auto;
+    max-width: 1400px;
 
+    margin: auto;
+
+    padding:
+        35px 0 70px;
 
 }
 
-/* الهيدر */
+
+/* =========================================
+   HEADER
+========================================= */
 
 .header {
-display: flex;
 
+    display: flex;
 
-justify-content: space-between;
+    align-items: center;
 
-align-items: center;
+    justify-content: space-between;
 
-margin-bottom: 30px;
+    gap: 25px;
 
+    padding: 25px 28px;
 
-}
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0c0c0c
+        );
 
-.header h1 {
-margin: 0;
+    border:
+        1px solid rgba(255, 102, 0, 0.18);
 
+    border-radius: 20px;
 
-color: #ff6a00;
-
-font-size: 32px;
-
-
-}
-
-.header p {
-margin-top: 8px;
-
-
-color: #999;
-
+    box-shadow:
+        0 10px 35px rgba(0, 0, 0, 0.45);
 
 }
 
-/* الخط */
 
-hr {
-border: none;
+/* =========================================
+   HEADER TITLE
+========================================= */
 
+.header-title h1 {
 
-height: 1px;
+    font-size: 32px;
 
-background: #333;
+    color: #ff6600;
 
-margin: 25px 0;
+    margin-bottom: 8px;
 
+    text-shadow:
+        0 0 15px rgba(255, 102, 0, 0.25);
 
 }
 
-/* الأزرار */
+
+.header-title p {
+
+    color: #999;
+
+    font-size: 15px;
+
+}
+
+
+/* =========================================
+   HEADER BUTTONS
+========================================= */
+
+.header-buttons {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+/* =========================================
+   GENERAL BUTTON
+========================================= */
 
 .btn {
-display: inline-block;
 
+    border: none;
 
-border: none;
+    cursor: pointer;
 
-padding: 11px 20px;
+    font-family: inherit;
 
-border-radius: 8px;
+    font-weight: bold;
 
-cursor: pointer;
+    text-decoration: none;
 
-font-size: 15px;
-
-font-weight: bold;
-
-text-decoration: none;
-
-transition: 0.2s;
-
+    transition:
+        all 0.3s ease;
 
 }
 
-/* إضافة */
+
+/* =========================================
+   DASHBOARD BUTTON
+========================================= */
+
+.dashboard-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 45px;
+
+    padding: 0 20px;
+
+    background: #151515;
+
+    color: #ffffff;
+
+    border:
+        1px solid #333;
+
+    border-radius: 10px;
+
+}
+
+
+.dashboard-btn:hover {
+
+    background: #222;
+
+    border-color: #ff6600;
+
+    color: #ff6600;
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =========================================
+   ADD BUTTON
+========================================= */
 
 .add-btn {
-background: #ff6a00;
 
+    display: inline-flex;
 
-color: white;
+    align-items: center;
 
+    justify-content: center;
+
+    min-height: 45px;
+
+    padding: 0 20px;
+
+    background: #ff6600;
+
+    color: #000;
+
+    border:
+        1px solid #ff6600;
+
+    border-radius: 10px;
 
 }
+
 
 .add-btn:hover {
-background: #e85f00;
 
-transform: translateY(-2px);
+    background: #ff7a1a;
 
+    box-shadow:
+        0 0 20px rgba(255, 102, 0, 0.35);
+
+    transform:
+        translateY(-2px);
 
 }
 
-/* كرت المنتج */
+
+/* =========================================
+   ORANGE LINE
+========================================= */
+
+.orange-line {
+
+    width: 100%;
+
+    height: 1px;
+
+    margin:
+        25px 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #ff6600,
+            transparent
+        );
+
+    opacity: 0.6;
+
+}
+
+
+/* =========================================
+   SECTION TITLE
+========================================= */
+
+.section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+
+}
+
+
+.section-title h2 {
+
+    font-size: 24px;
+
+    color: #ffffff;
+
+}
+
+
+.section-title span {
+
+    padding:
+        7px 13px;
+
+    color: #ff6600;
+
+    background:
+        rgba(255, 102, 0, 0.08);
+
+    border:
+        1px solid rgba(255, 102, 0, 0.25);
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================
+   CATEGORIES SECTION
+========================================= */
+
+.categories-section {
+
+    margin:
+        0 0 30px;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0d0d0d
+        );
+
+    border:
+        1px solid rgba(255, 102, 0, 0.18);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.35);
+
+}
+
+
+/* =========================================
+   CATEGORY TITLE
+========================================= */
+
+.categories-title {
+
+    margin-bottom: 14px;
+
+    color: #aaa;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================================
+   CATEGORIES
+========================================= */
+
+.categories {
+
+    display: flex;
+
+    gap: 9px;
+
+    overflow-x: auto;
+
+    padding-bottom: 3px;
+
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #ff6600
+        #151515;
+
+}
+
+
+/* =========================================
+   CATEGORY BUTTON
+========================================= */
+
+.category-btn {
+
+    flex:
+        0 0 auto;
+
+    padding:
+        10px 18px;
+
+    background: #111;
+
+    color: #ddd;
+
+    border:
+        1px solid #292929;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-weight: bold;
+
+    transition:
+        all 0.25s ease;
+
+}
+
+
+.category-btn:hover {
+
+    color: #ff6600;
+
+    border-color: #ff6600;
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.category-btn.active {
+
+    background: #ff6600;
+
+    border-color: #ff6600;
+
+    color: #000;
+
+    box-shadow:
+        0 0 15px
+        rgba(255, 102, 0, 0.25);
+
+}
+
+
+/* =========================================
+   PRODUCTS GRID
+========================================= */
+
+.products {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(280px, 1fr)
+        );
+
+    gap: 25px;
+
+}
+
+
+/* =========================================
+   PRODUCT CARD
+========================================= */
 
 .product {
-background: #1a1a1a;
 
+    position: relative;
 
-padding: 22px;
+    display: flex;
 
-margin-bottom: 18px;
-
-border-radius: 12px;
-
-border-right: 5px solid #ff6a00;
-
-box-shadow: 0 5px 18px rgba(0, 0, 0, 0.35);
-
-transition: 0.2s;
-
-
-}
-
-.product:hover {
-transform: translateY(-3px);
-
-
-border-right-color: #ff8c33;
-
-
-}
-
-.product h3 {
-margin-top: 0;
-
-
-color: #ff6a00;
-
-font-size: 23px;
-
-
-}
-
-.product p {
-color: #cccccc;
-
-
-line-height: 1.7;
-
-margin: 8px 0;
-
-
-}
-
-.product p strong {
-color: #ffffff;
-}
-
-/* أزرار المنتج */
-
-.product-buttons {
-margin-top: 18px;
-
-
-display: flex;
-
-gap: 10px;
-
-
-}
-
-/* تعديل */
-
-.edit-btn {
-background: #ff6a00;
-
-
-color: white;
-
-
-}
-
-.edit-btn:hover {
-background: #e85f00;
-
-
-transform: translateY(-2px);
-
-
-}
-
-/* حذف */
-
-.delete-btn {
-background: #dc3545;
-
-
-color: white;
-
-
-}
-
-.delete-btn:hover {
-background: #bb2d3b;
-
-
-transform: translateY(-2px);
-
-
-}
-
-/* العودة */
-
-.back-btn {
-background: #333333;
-
-
-color: white;
-
-
-}
-
-.back-btn:hover {
-background: #444444;
-}
-
-/* لا يوجد منتجات */
-
-.empty {
-background: #1a1a1a;
-
-
-padding: 25px;
-
-border-radius: 12px;
-
-border: 1px solid #333;
-
-color: #aaa;
-
-text-align: center;
-
-
-}
-
-/* نافذة التأكيد */
-
-.modal {
-display: none;
-
-position: fixed;
-
-inset: 0;
-
-background: rgba(0, 0, 0, 0.78);
-
-justify-content: center;
-
-align-items: center;
-
-z-index: 1000;
-
-padding: 20px;
-
-
-}
-
-/* فقاعة التأكيد */
-
-.modal-box {
-background: #1a1a1a;
-
-
-width: 380px;
-
-max-width: 100%;
-
-padding: 30px;
-
-border-radius: 20px;
-
-text-align: center;
-
-border: 2px solid #ff6a00;
-
-box-shadow:
-    0 15px 50px rgba(0, 0, 0, 0.6);
-
-animation: popup 0.2s ease;
-
-
-}
-
-/* أيقونة التحذير */
-
-.warning-icon {
-width: 55px;
-height: 55px;
-
-margin: 0 auto 15px;
-
-border-radius: 50%;
-
-background: #dc3545;
-
-color: white;
-
-display: flex;
-
-justify-content: center;
-
-align-items: center;
-
-font-size: 30px;
-
-font-weight: bold;
-
-
-}
-
-/* عنوان النافذة */
-
-.modal-box h2 {
-color: #ff6a00;
-
-
-margin-top: 0;
-
-margin-bottom: 12px;
-
-
-}
-
-/* نص النافذة */
-
-.modal-box p {
-color: #cccccc;
-
-
-line-height: 1.7;
-
-margin-bottom: 25px;
-
-
-}
-
-/* أزرار النافذة */
-
-.modal-buttons {
-display: flex;
-
-
-justify-content: center;
-
-gap:10px;
-
-
-}
-
-/* إلغاء */
-
-.cancel-btn {
-background: #444444;
-
-
-color: white;
-
-
-}
-
-.cancel-btn:hover {
-background: #555555;
-}
-
-/* تأكيد الحذف */
-
-.confirm-btn {
-background: #dc3545;
-
-
-color: white;
-
-
-}
-
-.confirm-btn:hover {
-background: #bb2d3b;
-}
-
-/* الموبايل */
-
-@media (max-width: 600px) {
-
-
-body {
-    padding: 25px 15px;
-}
-
-.header {
     flex-direction: column;
 
-    align-items: stretch;
+    min-height: 520px;
 
-    gap: 18px;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0c0c0c
+        );
+
+    border:
+        1px solid #292929;
+
+    border-radius: 20px;
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
 }
 
-.header h1 {
-    font-size: 27px;
+
+.product:hover {
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        rgba(255, 102, 0, 0.55);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0, 0, 0, 0.55),
+
+        0 0 20px
+        rgba(255, 102, 0, 0.08);
+
 }
 
-.add-btn {
-    text-align: center;
-}
 
-.product {
-    padding: 18px;
-}
+/* =========================================
+   PRODUCT IMAGE
+========================================= */
 
-.product-buttons {
-    flex-wrap: wrap;
-}
+.product-image-wrapper {
 
-.edit-btn,
-.delete-btn {
-    flex: 1;
+    position: relative;
 
-    text-align: center;
-}
-
-.modal-box {
     width: 100%;
+
+    height: 220px;
+
+    overflow: hidden;
+
+    background: #111;
+
 }
 
 
-}
 .product-image {
+
     width: 100%;
-    max-width: 300px;
-    height: 200px;
+
+    height: 220px;
 
     object-fit: cover;
 
     display: block;
-    margin: 0 auto 20px;
 
-    border-radius: 12px;
+    border-bottom:
+        1px solid #292929;
+
+    transition:
+        transform 0.4s ease;
+
+}
+
+
+.product:hover .product-image {
+
+    transform:
+        scale(1.05);
+
+}
+
+
+/* =========================================
+   NO IMAGE
+========================================= */
+
+.no-image {
+
+    width: 100%;
+
+    height: 220px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    color: #666;
+
+    font-size: 45px;
+
+    background:
+        radial-gradient(
+            circle,
+            #1a1a1a,
+            #0b0b0b
+        );
+
+}
+
+
+.no-image span {
+
+    font-size: 13px;
+
+    color: #777;
+
+}
+
+
+/* =========================================
+   IMAGE STATUS
+========================================= */
+
+.image-status {
+
+    position: absolute;
+
+    top: 12px;
+
+    right: 12px;
+
+}
+
+
+.status {
+
+    display: inline-block;
+
+    padding:
+        6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    backdrop-filter: blur(8px);
+
+}
+
+
+.available-status {
+
+    background:
+        rgba(0, 180, 80, 0.9);
+
+    color: #fff;
+
+}
+
+
+.unavailable-status {
+
+    background:
+        rgba(200, 30, 30, 0.9);
+
+    color: #fff;
+
+}
+
+
+/* =========================================
+   PRODUCT CONTENT
+========================================= */
+
+.product-content {
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex: 1;
+
+    padding: 20px;
+
+}
+
+
+/* =========================================
+   CATEGORY BADGE
+========================================= */
+
+.category-badge {
+
+    align-self: flex-start;
+
+    display: inline-block;
+
+    margin-bottom: 10px;
+
+    padding:
+        6px 11px;
+
+    color: #ff6600;
+
+    background:
+        rgba(255, 102, 0, 0.08);
+
+    border:
+        1px solid rgba(255, 102, 0, 0.22);
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+}
+
+
+/* =========================================
+   PRODUCT NAME
+========================================= */
+
+.product h3 {
+
+    margin-bottom: 10px;
+
+    color: #ffffff;
+
+    font-size: 20px;
+
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.description {
+
+    min-height: 44px;
+
+    margin-bottom: 15px;
+
+    color: #999;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =========================================
+   PRICE
+========================================= */
+
+.price-row {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin:
+        5px 0 18px;
+
+    padding-top: 14px;
+
+    border-top:
+        1px solid #242424;
+
+}
+
+
+.price-label {
+
+    color: #777;
+
+    font-size: 13px;
+
+}
+
+
+.price {
+
+    color: #ff6600;
+
+    font-size: 22px;
+
+}
+
+
+.price small {
+
+    font-size: 13px;
+
+    color: #ff6600;
+
+}
+
+
+/* =========================================
+   AVAILABILITY
+========================================= */
+
+.availability {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+
+}
+
+
+.availability-info {
+
+    min-height: 25px;
+
+}
+
+
+.availability-status {
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+}
+
+
+.availability-status.available {
+
+    color: #28d17c;
+
+}
+
+
+.availability-status.unavailable {
+
+    color: #ff4d4d;
+
+}
+
+
+/* =========================================
+   AVAILABILITY FORM
+========================================= */
+
+.availability-form {
+
+    width: 100%;
+
+}
+
+
+.availability-btn {
+
+    width: 100%;
+
+    min-height: 38px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+
+}
+
+
+/* =========================================
+   DISABLE
+========================================= */
+
+.disable-btn {
+
+    background:
+        rgba(255, 80, 80, 0.08);
+
+    color: #ff6666;
+
+    border:
+        1px solid rgba(255, 80, 80, 0.25);
+
+}
+
+
+.disable-btn:hover {
+
+    background:
+        rgba(255, 80, 80, 0.15);
+
+    border-color: #ff5555;
+
+}
+
+
+/* =========================================
+   ENABLE
+========================================= */
+
+.enable-btn {
+
+    background:
+        rgba(40, 209, 124, 0.08);
+
+    color: #28d17c;
+
+    border:
+        1px solid rgba(40, 209, 124, 0.25);
+
+}
+
+
+.enable-btn:hover {
+
+    background:
+        rgba(40, 209, 124, 0.15);
+
+    border-color: #28d17c;
+
+}
+
+
+/* =========================================
+   PRODUCT BUTTONS
+========================================= */
+
+.product-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 10px;
+
+    margin-top: auto;
+
+}
+
+
+/* =========================================
+   EDIT BUTTON
+========================================= */
+
+.edit-btn {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 42px;
+
+    background:
+        rgba(255, 102, 0, 0.1);
+
+    color: #ff6600;
+
+    border:
+        1px solid rgba(255, 102, 0, 0.35);
+
+    border-radius: 9px;
+
+}
+
+
+.edit-btn:hover {
+
+    background: #ff6600;
+
+    color: #000;
+
+    box-shadow:
+        0 0 15px
+        rgba(255, 102, 0, 0.25);
+
+}
+
+
+/* =========================================
+   DELETE BUTTON
+========================================= */
+
+.delete-btn {
+
+    min-height: 42px;
+
+    background:
+        rgba(255, 50, 50, 0.08);
+
+    color: #ff5555;
+
+    border:
+        1px solid rgba(255, 50, 50, 0.3);
+
+    border-radius: 9px;
+
+}
+
+
+.delete-btn:hover {
+
+    background: #ff4444;
+
+    color: #fff;
+
+    border-color: #ff4444;
+
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
+
+.empty {
+
+    text-align: center;
+
+    padding:
+        70px 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151515,
+            #0d0d0d
+        );
+
+    border:
+        1px solid #292929;
+
+    border-radius: 20px;
+
+}
+
+
+.empty-icon {
+
+    margin-bottom: 15px;
+
+    font-size: 45px;
+
+}
+
+
+.empty h3 {
+
+    margin-bottom: 10px;
+
+    color: #fff;
+
+}
+
+
+.empty p {
+
+    margin-bottom: 20px;
+
+    color: #777;
+
+}
+
+
+.empty-btn {
+
+    display: inline-flex;
+
+}
+
+
+/* =========================================
+   FILTER EMPTY
+========================================= */
+
+.filter-empty {
+
+    margin-top: 20px;
+
+}
+
+
+/* =========================================
+   MODAL
+========================================= */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0, 0, 0, 0.78);
+
+    backdrop-filter:
+        blur(7px);
+
+}
+
+
+/* =========================================
+   MODAL BOX
+========================================= */
+
+.modal-box {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 35px 30px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #181818,
+            #0c0c0c
+        );
+
+    border:
+        1px solid
+        rgba(255, 102, 0, 0.3);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0, 0, 0, 0.7);
+
+}
+
+
+.warning-icon {
+
+    width: 60px;
+
+    height: 60px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin:
+        0 auto 20px;
+
+    color: #ff6600;
+
+    border:
+        2px solid #ff6600;
+
+    border-radius: 50%;
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 0 20px
+        rgba(255, 102, 0, 0.2);
+
+}
+
+
+.modal-box h2 {
+
+    margin-bottom: 12px;
+
+    color: #fff;
+
+}
+
+
+.modal-box p {
+
+    color: #999;
+
+    line-height: 1.8;
+
+}
+
+
+/* =========================================
+   MODAL BUTTONS
+========================================= */
+
+.modal-buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+
+    margin-top: 25px;
+
+}
+
+
+.cancel-btn {
+
+    min-height: 45px;
+
+    background: #222;
+
+    color: #fff;
+
+    border:
+        1px solid #333;
+
+    border-radius: 9px;
+
+}
+
+
+.cancel-btn:hover {
+
+    background: #2c2c2c;
+
+}
+
+
+.confirm-btn {
+
+    min-height: 45px;
+
+    background: #ff4444;
+
+    color: #fff;
+
+    border:
+        1px solid #ff4444;
+
+    border-radius: 9px;
+
+}
+
+
+.confirm-btn:hover {
+
+    background: #ff2222;
+
+    box-shadow:
+        0 0 18px
+        rgba(255, 50, 50, 0.25);
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .header {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+        text-align: center;
+
+    }
+
+
+    .header-buttons {
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        width: 100%;
+
+    }
+
+
+    .dashboard-btn,
+    .add-btn {
+
+        width: 100%;
+
+    }
+
+
+    .products {
+
+        grid-template-columns:
+            repeat(
+                auto-fill,
+                minmax(250px, 1fr)
+            );
+
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 500px) {
+
+    .container {
+
+        width: 94%;
+
+        padding-top: 20px;
+
+    }
+
+
+    .header {
+
+        padding: 20px;
+
+    }
+
+
+    .header-title h1 {
+
+        font-size: 25px;
+
+    }
+
+
+    .header-buttons {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .section-title h2 {
+
+        font-size: 20px;
+
+    }
+
+
+    .products {
+
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+
+    }
+
+
+    .product {
+
+        min-height: auto;
+
+    }
+
+
+    .product-image-wrapper,
+    .product-image,
+    .no-image {
+
+        height: 210px;
+
+    }
+
+
+    .product-content {
+
+        padding: 17px;
+
+    }
+
+
+    .modal-box {
+
+        padding:
+            30px 20px;
+
+    }
+
 }

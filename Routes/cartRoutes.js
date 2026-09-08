@@ -24,8 +24,6 @@ router.post("/remove/:id",cartController.removeFromCart);
 // تفريغ السلة
 router.post("/clear",cartController.clearCart);
 
-router.get("/confirm", cartController.showConfirmOrder);
-
 router.post("/checkout",cartController.checkout);
 
 module.exports = router;

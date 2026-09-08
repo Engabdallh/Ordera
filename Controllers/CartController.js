@@ -1,8 +1,10 @@
-const db = require("../Database/db");
-
 const ProductService = require("../Services/ProductService");
+const RestaurantService = require("../Services/RestaurantService");
+const CheckoutService = require("../Services/CheckoutService");
 
 const productService = new ProductService();
+const restaurantService = new RestaurantService();
+const checkoutService = new CheckoutService();
 
 
 // =====================================================
@@ -35,23 +37,37 @@ const addToCart = async (req, res) => {
             return;
         }
 
-        const productId = parseInt(req.body.productId);
+
+        // ==============================
+        // التحقق من حالة المطعم
+        // ==============================
+
+        const restaurant =
+            await restaurantService.getRestaurantStatus();
+
+        if (!restaurant || !restaurant.is_open) {
+
+         return res.redirect("/products?reason=restaurant_closed");
+
+     }
+
+
+        const productId =
+            parseInt(req.body.productId);
+
 
         if (!productId) {
+
             return res.status(400).send(
                 "رقم المنتج غير صحيح"
             );
+
         }
 
 
-        console.log("Product ID:", productId);
-        console.log(
-            "Customer ID:",
-            req.session.userId
-        );
-
-
-        // البحث عن المنتج في قاعدة البيانات
+        // ==============================
+        // البحث عن المنتج
+        // ==============================
 
         const product =
             await productService.getProductById(productId);
@@ -66,7 +82,20 @@ const addToCart = async (req, res) => {
         }
 
 
-        // إنشاء السلة إذا لم تكن موجودة
+        // ==============================
+        // التحقق من توفر المنتج
+        // ==============================
+
+        if (!product.is_available) {
+         return res.redirect(
+        `/products?reason=product_unavailable&product=${encodeURIComponent(product.name)}`
+        );
+}
+
+
+        // ==============================
+        // إنشاء السلة
+        // ==============================
 
         if (!req.session.cart) {
 
@@ -75,7 +104,9 @@ const addToCart = async (req, res) => {
         }
 
 
-        // البحث هل المنتج موجود مسبقًا
+        // ==============================
+        // البحث هل المنتج موجود مسبقاً
+        // ==============================
 
         const existingProduct =
             req.session.cart.find(
@@ -85,13 +116,9 @@ const addToCart = async (req, res) => {
 
         if (existingProduct) {
 
-            // المنتج موجود → زيادة الكمية
-
             existingProduct.quantity += 1;
 
         } else {
-
-            // المنتج غير موجود → إضافته
 
             req.session.cart.push({
 
@@ -109,14 +136,6 @@ const addToCart = async (req, res) => {
 
         }
 
-
-        console.log(
-            "CART:",
-            req.session.cart
-        );
-
-
-        // الذهاب إلى السلة
 
         res.redirect("/cart");
 
@@ -152,12 +171,6 @@ const showCart = (req, res) => {
 
         const cart =
             req.session.cart || [];
-
-
-        console.log(
-            "CUSTOMER CART:",
-            cart
-        );
 
 
         res.render(
@@ -224,12 +237,6 @@ const increaseQuantity = (req, res) => {
         product.quantity += 1;
 
 
-        console.log(
-            "INCREASE:",
-            product
-        );
-
-
         res.redirect("/cart");
 
 
@@ -285,15 +292,11 @@ const decreaseQuantity = (req, res) => {
         }
 
 
-        // إذا الكمية أكبر من 1 ننقصها
-
         if (product.quantity > 1) {
 
             product.quantity -= 1;
 
         } else {
-
-            // إذا وصلت إلى 1 نحذف المنتج
 
             req.session.cart =
                 cart.filter(
@@ -301,12 +304,6 @@ const decreaseQuantity = (req, res) => {
                 );
 
         }
-
-
-        console.log(
-            "DECREASE:",
-            req.session.cart
-        );
 
 
         res.redirect("/cart");
@@ -355,18 +352,6 @@ const removeFromCart = (req, res) => {
             );
 
 
-        console.log(
-            "REMOVE PRODUCT:",
-            productId
-        );
-
-
-        console.log(
-            "CART:",
-            req.session.cart
-        );
-
-
         res.redirect("/cart");
 
 
@@ -402,11 +387,6 @@ const clearCart = (req, res) => {
         req.session.cart = [];
 
 
-        console.log(
-            "CART CLEARED"
-        );
-
-
         res.redirect("/cart");
 
 
@@ -425,47 +405,12 @@ const clearCart = (req, res) => {
 
 };
 
-const CheckoutService = require("../Services/CheckoutService");
-const checkoutService = new CheckoutService();
+
+// =====================================================
+// تأكيد الطلب
+// =====================================================
 
 const checkout = async (req, res) => {
-    try {
-        if (!checkCustomer(req, res)) return;
-
-        const phone = String(req.body.phone || "").trim();
-        const address = String(req.body.address || "").trim();
-        const cart = req.session.cart || [];
-
-        if (!phone || !address) {
-            return res.status(400).send("رقم الهاتف والعنوان مطلوبان");
-        }
-
-        if (cart.length === 0) {
-            return res.redirect("/cart");
-        }
-
-        const order = await checkoutService.createOrder({
-            customerId: req.session.userId,
-            phone,
-            address,
-            cart
-        });
-
-        req.session.cart = [];
-
-        return res.render("customer/ordersuccess", {
-            orderId: order.orderId,
-            totalPrice: order.totalPrice.toFixed(2),
-            phone,
-            address
-        });
-    } catch (error) {
-        console.error("CHECKOUT ERROR:", error);
-        return res.status(500).send("حدث خطأ أثناء تأكيد الطلب");
-    }
-};
-
-const showConfirmOrder = (req, res) => {
 
     try {
 
@@ -473,32 +418,133 @@ const showConfirmOrder = (req, res) => {
             return;
         }
 
-        const cart = req.session.cart || [];
 
-        if (cart.length === 0) {
-            return res.redirect("/cart");
+        // ==============================
+        // التحقق من حالة المطعم
+        // ==============================
+
+        const restaurant =
+            await restaurantService.getRestaurantStatus();
+
+
+        if (!restaurant || !restaurant.is_open) {
+
+        return res.redirect("/products?reason=restaurant_closed");
+      }
+
+
+        const phone =
+            String(req.body.phone || "").trim();
+
+
+        const address =
+            String(req.body.address || "").trim();
+
+
+        const cart =
+            req.session.cart || [];
+
+
+        if (!phone || !address) {
+
+            return res.status(400).send(
+                "رقم الهاتف والعنوان مطلوبان"
+            );
+
         }
 
-        res.render("customer/confirmorder", {
 
-            userName: req.session.userName
+        if (cart.length === 0) {
 
-        });
+            return res.redirect("/cart");
+
+        }
+
+
+        // ==============================
+        // التحقق من المنتجات مرة أخرى
+        // ==============================
+
+        for (const item of cart) {
+
+            const product =
+                await productService.getProductById(
+                    item.productId
+                );
+
+
+            if (!product) {
+
+                return res.status(404).send(
+                    `المنتج "${item.name}" غير موجود`
+                );
+
+            }
+
+
+            if (!product.is_available) {
+
+           return res.redirect(
+           `/products?reason=product_unavailable&product=${encodeURIComponent(product.name)}`
+         );
+
+}
+
+        }
+
+
+        // ==============================
+        // إنشاء الطلب
+        // ==============================
+
+        const order =
+            await checkoutService.createOrder({
+
+                customerId:
+                    req.session.userId,
+
+                phone,
+
+                address,
+
+                cart
+
+            });
+
+
+        req.session.cart = [];
+
+
+        return res.render(
+            "customer/ordersuccess",
+            {
+                orderId: order.orderId,
+
+                totalPrice:
+                    Number(order.totalPrice).toFixed(2),
+
+                phone,
+
+                address
+            }
+        );
+
 
     } catch (error) {
 
         console.error(
-            "SHOW CONFIRM ORDER ERROR:",
+            "CHECKOUT ERROR:",
             error
         );
 
-        res.status(500).send(
-            "حدث خطأ أثناء فتح صفحة تأكيد الطلب"
+        return res.status(500).send(
+            "حدث خطأ أثناء تأكيد الطلب"
         );
 
     }
 
 };
+
 
 // =====================================================
 // Export
@@ -517,8 +563,6 @@ module.exports = {
     removeFromCart,
 
     clearCart,
-
-    showConfirmOrder,
 
     checkout
 

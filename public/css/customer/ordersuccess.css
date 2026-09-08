@@ -89,6 +89,7 @@ body {
     padding: 13px;
     border-radius: 11px;
     font-weight: bold;
+    transition: 0.2s;
 }
 
 .products-btn:hover {

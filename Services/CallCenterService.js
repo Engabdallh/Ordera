@@ -72,97 +72,87 @@ class CallCenterService {
 
     async updateOrderStatus(orderId, newStatus) {
 
-        const allowedStatuses = [
-            "قيد الانتظار",
-            "تم التأكيد",
-            "قيد التحضير",
-            "جاهز",
-            "تم التوصيل",
-            "ملغي"
-        ];
+    const allowedStatuses = [
+        "قيد الانتظار",
+        "تم التأكيد",
+        "قيد التحضير",
+        "جاهز",
+        "تم التوصيل",
+        "ملغي"
+    ];
 
+    // التحقق من الحالة الجديدة
+    if (!allowedStatuses.includes(newStatus)) {
+        throw new Error("حالة الطلب غير صحيحة");
+    }
 
-        // التحقق من الحالة
-        if (!allowedStatuses.includes(newStatus)) {
-            throw new Error("حالة الطلب غير صحيحة");
-        }
+    // جلب الحالة الحالية للطلب
+    const [orders] = await db.query(
+        `SELECT id, status
+         FROM orders
+         WHERE id = ?`,
+        [orderId]
+    );
 
+    if (orders.length === 0) {
+        throw new Error("الطلب غير موجود");
+    }
 
-        // =================================================
-        // تم التأكيد
-        // يبدأ المؤقت من الآن
-        // =================================================
+    const currentStatus = orders[0].status;
 
-        if (newStatus === "تم التأكيد") {
+    // إذا كانت نفس الحالة
+    if (currentStatus === newStatus) {
+        throw new Error("الطلب موجود بالفعل بهذه الحالة");
+    }
 
-            const [result] = await db.query(
-                `UPDATE orders
-                 SET
-                    status = ?,
-                    status_changed_at = NOW(),
-                    preparation_completed_at = NULL,
-                    updated_at = NOW()
-                 WHERE id = ?`,
-                [
-                    newStatus,
-                    orderId
-                ]
-            );
+    // =================================================
+    // الحالات المسموحة للانتقال
+    // =================================================
 
-            return result;
-        }
+    const allowedTransitions = {
+        "قيد الانتظار": ["تم التأكيد", "ملغي"],
+        "تم التأكيد": ["قيد التحضير", "ملغي"],
+        "قيد التحضير": ["جاهز", "ملغي"],
+        "جاهز": ["تم التوصيل"],
+        "تم التوصيل": [],
+        "ملغي": []
+    };
 
+    if (!allowedTransitions[currentStatus]?.includes(newStatus)) {
+        throw new Error(
+            `His situation cannot be changed."${currentStatus}" to "${newStatus}"`
+        );
+    }
 
-        // =================================================
-        // قيد التحضير
-        // لا نغير وقت بداية المؤقت
-        // =================================================
+    // =================================================
+    // تم التأكيد
+    // يبدأ وقت التحضير
+    // =================================================
 
-        if (newStatus === "قيد التحضير") {
+    if (newStatus === "تم التأكيد") {
 
-            const [result] = await db.query(
-                `UPDATE orders
-                 SET
-                    status = ?,
-                    updated_at = NOW()
-                 WHERE id = ?`,
-                [
-                    newStatus,
-                    orderId
-                ]
-            );
+        const [result] = await db.query(
+            `UPDATE orders
+             SET
+                status = ?,
+                status_changed_at = NOW(),
+                preparation_completed_at = NULL,
+                updated_at = NOW()
+             WHERE id = ?`,
+            [
+                newStatus,
+                orderId
+            ]
+        );
 
-            return result;
-        }
+        return result;
+    }
 
+    // =================================================
+    // قيد التحضير
+    // =================================================
 
-        // =================================================
-        // جاهز
-        // نسجل وقت انتهاء التحضير
-        // =================================================
-
-        if (newStatus === "جاهز") {
-
-            const [result] = await db.query(
-                `UPDATE orders
-                 SET
-                    status = ?,
-                    preparation_completed_at = NOW(),
-                    updated_at = NOW()
-                 WHERE id = ?`,
-                [
-                    newStatus,
-                    orderId
-                ]
-            );
-
-            return result;
-        }
-
-
-        // =================================================
-        // باقي الحالات
-        // =================================================
+    if (newStatus === "قيد التحضير") {
 
         const [result] = await db.query(
             `UPDATE orders
@@ -178,6 +168,73 @@ class CallCenterService {
 
         return result;
     }
+
+    // =================================================
+    // جاهز
+    // يسجل وقت انتهاء التحضير
+    // =================================================
+
+    if (newStatus === "جاهز") {
+
+        const [result] = await db.query(
+            `UPDATE orders
+             SET
+                status = ?,
+                preparation_completed_at = NOW(),
+                updated_at = NOW()
+             WHERE id = ?`,
+            [
+                newStatus,
+                orderId
+            ]
+        );
+
+        return result;
+    }
+
+    // =================================================
+    // تم التوصيل
+    // =================================================
+
+    if (newStatus === "تم التوصيل") {
+
+        const [result] = await db.query(
+            `UPDATE orders
+             SET
+                status = ?,
+                updated_at = NOW()
+             WHERE id = ?`,
+            [
+                newStatus,
+                orderId
+            ]
+        );
+
+        return result;
+    }
+
+    // =================================================
+    // ملغي
+    // =================================================
+
+    if (newStatus === "ملغي") {
+
+        const [result] = await db.query(
+            `UPDATE orders
+             SET
+                status = ?,
+                updated_at = NOW()
+             WHERE id = ?`,
+            [
+                newStatus,
+                orderId
+            ]
+        );
+
+        return result;
+    }
+
+}
 
 }
 

@@ -1,6 +1,13 @@
 const OrderService = require("../Services/OrderService");
+const RestaurantService = require("../Services/RestaurantService");
 
 const orderService = new OrderService();
+const restaurantService = new RestaurantService();
+
+
+// =====================================================
+// لوحة تحكم الأدمن
+// =====================================================
 
 const showDashboard = async (req, res) => {
 
@@ -9,8 +16,12 @@ const showDashboard = async (req, res) => {
         const stats =
             await orderService.getDashboardStats();
 
+        const restaurant =
+            await restaurantService.getRestaurantStatus();
+
         res.render("admin/index", {
-            stats: stats
+            stats: stats,
+            restaurant: restaurant
         });
 
     } catch (error) {
@@ -22,6 +33,32 @@ const showDashboard = async (req, res) => {
 
         res.status(500).send(
             "حدث خطأ أثناء تحميل لوحة التحكم"
+        );
+    }
+};
+
+
+// =====================================================
+// فتح / إغلاق المطعم
+// =====================================================
+
+const toggleRestaurantStatus = async (req, res) => {
+
+    try {
+
+        await restaurantService.toggleRestaurantStatus();
+
+        res.redirect("/admin");
+
+    } catch (error) {
+
+        console.error(
+            "TOGGLE RESTAURANT STATUS ERROR:",
+            error
+        );
+
+        res.status(500).send(
+            "حدث خطأ أثناء تغيير حالة المطعم"
         );
     }
 };
@@ -129,6 +166,11 @@ const showOrderDetails = async (req, res) => {
     }
 };
 
+
+// =====================================================
+// فلترة الطلبات
+// =====================================================
+
 const filterOrders = async (req, res) => {
 
     try {
@@ -151,8 +193,11 @@ const filterOrders = async (req, res) => {
             });
 
         res.render("admin/orders", {
+
             orders: result.orders,
+
             totalOrders: result.totalOrders,
+
             totalSales: result.totalSales,
 
             filters: {
@@ -162,6 +207,7 @@ const filterOrders = async (req, res) => {
                 toTime: toTime || "",
                 month: month || ""
             }
+
         });
 
     } catch (error) {
@@ -177,8 +223,10 @@ const filterOrders = async (req, res) => {
     }
 };
 
+
 module.exports = {
     showDashboard,
+    toggleRestaurantStatus,
     showOrders,
     showOrderDetails,
     filterOrders

@@ -1,61 +1,266 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
-    <title>منتجات 911</title>
+<title>منتجات 911</title>
 
-    <link rel="stylesheet" href="/css/customer/products.css">
+<link
+    rel="stylesheet"
+    href="/css/customer/products.css"
+>
 
 </head>
 
 <body>
 
-    <div class="container">
+```
+<div class="container">
 
-        <div class="header">
+    <!-- ================= HEADER ================= -->
 
-            <div>
+    <div class="header">
 
-                <h1>911</h1>
+        <div>
 
-                <h2>أهلاً بك، <%= userName %> 👋</h2>
+            <h1>911</h1>
 
-                <p>اختر وجبتك المفضلة</p>
+            <h2>
+                أهلاً بك، <%= userName %> 👋
+            </h2>
 
-            </div>
-
-            <div class="header-buttons">
-
-    <a href="/orders" class="orders-btn">
-        📋 سجل طلباتي
-    </a>
-
-    <a href="/cart" class="cart-btn">
-        🛒 السلة
-    </a>
-
-    <a href="/logout" class="logout-btn">
-        تسجيل الخروج
-    </a>
-
-</div>
+            <p>
+                اختر وجبتك المفضلة
+            </p>
 
         </div>
 
 
-        <h2>المنتجات</h2>
+        <div class="header-buttons">
+
+            <a
+                href="/orders"
+                class="orders-btn"
+            >
+                📋 سجل طلباتي
+            </a>
+
+            <a
+                href="/cart"
+                class="cart-btn"
+            >
+                🛒 السلة
+            </a>
+
+            <a
+                href="/logout"
+                class="logout-btn"
+            >
+                تسجيل الخروج
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= RESTAURANT STATUS ================= -->
+
+    <% if (restaurantOpen === false) { %>
+
+        <div class="restaurant-closed">
+
+            <div class="restaurant-closed-icon">
+                🔴
+            </div>
+
+            <h2>
+                المطعم مغلق حالياً
+            </h2>
+
+            <p>
+                انتهى دوام المطعم حالياً، ولا يمكن استقبال الطلبات.
+            </p>
+
+            <p>
+                يرجى المحاولة مرة أخرى لاحقاً.
+            </p>
+
+        </div>
+
+
+    <% } else { %>
+
+
+        <!-- ================= CATEGORIES ================= -->
+
+        <section class="categories-section">
+
+            <div class="categories-header">
+
+                <div>
+                    <span class="categories-icon">
+                        🍽️
+                    </span>
+
+                    <div>
+                        <h2>
+                            أصناف المطعم
+                        </h2>
+
+                        <p>
+                            اختر الصنف الذي تريده
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- ================= CATEGORY BUTTONS ================= -->
+
+            <div
+                class="categories"
+                id="categories"
+            >
+
+                <!-- الكل -->
+
+                <button
+                    type="button"
+                    class="category-btn active"
+                    data-category="all"
+                >
+                    <span>🍽️</span>
+                    الكل
+                </button>
+
+
+                <!-- وجبات -->
+
+                <button
+                    type="button"
+                    class="category-btn"
+                    data-category="وجبات"
+                >
+                    <span>🍽️</span>
+                    وجبات
+                </button>
+
+
+                <!-- وجبات شاورما -->
+
+                <button
+                    type="button"
+                    class="category-btn"
+                    data-category="وجبات شاورما"
+                >
+                    <span>🌯</span>
+                    وجبات شاورما
+                </button>
+
+
+                <!-- وجبات شاورما عائلية -->
+
+                <button
+                    type="button"
+                    class="category-btn"
+                    data-category="وجبات شاورما عائلية"
+                >
+                    <span>👨‍👩‍👧‍👦</span>
+                    وجبات شاورما عائلية
+                </button>
+
+
+                <!-- مقبلات -->
+
+                <button
+                    type="button"
+                    class="category-btn"
+                    data-category="مقبلات"
+                >
+                    <span>🥗</span>
+                    مقبلات
+                </button>
+
+
+                <!-- مشروبات -->
+
+                <button
+                    type="button"
+                    class="category-btn"
+                    data-category="مشروبات"
+                >
+                    <span>🥤</span>
+                    مشروبات
+                </button>
+
+
+                <!-- مشاوي -->
+
+                <button
+                    type="button"
+                    class="category-btn"
+                    data-category="مشاوي"
+                >
+                    <span>🔥</span>
+                    مشاوي
+                </button>
+
+
+                <!-- كرسبي -->
+
+                <button
+                    type="button"
+                    class="category-btn"
+                    data-category="كرسبي"
+                >
+                    <span>🍗</span>
+                    كرسبي
+                </button>
+
+
+                <!-- برستد -->
+
+                <button
+                    type="button"
+                    class="category-btn"
+                    data-category="برستد"
+                >
+                    <span>🍗</span>
+                    برستد
+                </button>
+
+
+                <!-- سناكات -->
+
+                <button
+                    type="button"
+                    class="category-btn"
+                    data-category="سناكات"
+                >
+                    <span>🍔</span>
+                    سناكات
+                </button>
+
+            </div>
+
+        </section>
 
 
         <% if (products.length === 0) { %>
 
             <p class="empty">
-                لا توجد منتجات حاليًا.
+                لا توجد منتجات متاحة حاليًا.
             </p>
+
 
         <% } else { %>
 
@@ -64,13 +269,17 @@
 
                 <% products.forEach(product => { %>
 
-                    <div class="product-card">
+                    <div
+                         class="product-card"
+                          data-category="<%= product.category || '' %>"
+                    >
 
                         <% if (product.image) { %>
 
                             <img
                                 src="<%= product.image %>"
                                 alt="<%= product.name %>"
+                                loading="lazy"
                             >
 
                         <% } %>
@@ -78,11 +287,11 @@
 
                         <div class="product-info">
 
-                            <h3>
+                            <h1 class="reason-apology">
                                 <%= product.name %>
-                            </h3>
+                            </h1>
 
-                            <p>
+                            <p >
                                 <%= product.description || "لا يوجد وصف" %>
                             </p>
 
@@ -90,36 +299,33 @@
                                 <%= product.category || "عام" %>
                             </span>
 
+
                             <div class="bottom">
 
                                 <strong>
-                                    <%= product.price %> د.أ
+                                    <%= Number(product.price).toFixed(2) %> د.أ
                                 </strong>
 
-                                <div class="bottom">
 
-    <strong>
-        <%= product.price %> د.أ
-    </strong>
+                                <form
+                                    action="/cart/add"
+                                    method="POST"
+                                >
 
-    <form action="/cart/add" method="POST">
+                                    <input
+                                        type="hidden"
+                                        name="productId"
+                                        value="<%= product.id %>"
+                                    >
 
-        <input
-            type="hidden"
-            name="productId"
-            value="<%= product.id %>"
-        >
+                                    <button
+                                        type="submit"
+                                        class="select-btn"
+                                    >
+                                        أضف للسلة 🛒
+                                    </button>
 
-        <button
-            type="submit"
-            class="select-btn"
-        >
-            اختيار
-        </button>
-
-    </form>
-
-</div>
+                                </form>
 
                             </div>
 
@@ -134,7 +340,142 @@
 
         <% } %>
 
+
+    <% } %>
+
+</div>
+
+
+<!-- ================= REASON MODAL ================= -->
+
+<%
+    const reason = typeof queryReason !== "undefined"
+        ? queryReason
+        : null;
+
+    const productName = typeof unavailableProduct !== "undefined"
+        ? unavailableProduct
+        : null;
+%>
+
+
+<% if (reason) { %>
+
+    <div
+        id="reasonModal"
+        class="reason-modal"
+    >
+
+        <div class="reason-modal-content">
+
+            <button
+                type="button"
+                class="reason-modal-close"
+                onclick="closeReasonModal()"
+            >
+                ×
+            </button>
+
+
+            <% if (reason === "restaurant_closed") { %>
+
+                <div class="reason-icon">
+                    🔴
+                </div>
+
+                <h2>
+                    المطعم مغلق حالياً
+                </h2>
+
+                <p>
+                    لا يمكن إكمال العملية لأن المطعم مغلق حالياً.
+                </p>
+
+                <p class="reason-apology">
+                 نأسف للإزعاج، يمكنك العودة والمحاولة مرة أخرى لاحقاً.
+                </p>
+
+                <button
+                    type="button"
+                    class="reason-modal-btn"
+                    onclick="closeReasonModal()"
+                >
+                    حسناً
+                </button>
+
+
+            <% } else if (reason === "product_unavailable") { %>
+
+                <div class="reason-icon">
+                    ⚠️
+                </div>
+
+                <h2>
+                    المنتج غير متاح
+                </h2>
+
+                <p class="reason-apology">
+                    <% if (productName) { %>
+                        المنتج "<%= productName %>" لم يعد متاحاً للطلب حالياً.
+                    <% } else { %>
+                        هذا المنتج لم يعد متاحاً للطلب حالياً.
+                    <% } %>
+                </p>
+                <p class="reason-apology">
+    نأسف للإزعاج، يمكنك تصفح منتجات أخرى.
+                </p>
+
+                <button
+                    type="button"
+                    class="reason-modal-btn"
+                    onclick="closeReasonModal()"
+                >
+                    حسناً
+                </button>
+
+            <% } %>
+
+        </div>
+
     </div>
+
+<% } %>
+
+
+<!-- ================= MODAL SCRIPT ================= -->
+ <script src="/js/customer/products-filter.js"></script>
+
+<script>
+
+    function closeReasonModal() {
+
+        const modal =
+            document.getElementById("reasonModal");
+
+        if (modal) {
+
+            modal.remove();
+
+        }
+
+        // إزالة reason من الرابط حتى لا تظهر النافذة
+        // مرة أخرى عند عمل Refresh
+
+        const url =
+            new URL(window.location.href);
+
+        url.searchParams.delete("reason");
+        url.searchParams.delete("product");
+
+        window.history.replaceState(
+            {},
+            document.title,
+            url.pathname
+        );
+
+    }
+
+</script>
 
 </body>
 

@@ -279,6 +279,12 @@
             </h3>
 
             <div class="order-times">
+                <% if (order.updated_at) { %>
+    <p>
+        <strong>آخر تحديث:</strong>
+        <%= new Date(order.updated_at).toLocaleString("ar-JO") %>
+    </p>
+<% } %>
 
                 <p>
 
@@ -313,6 +319,7 @@
                 <% if (order.preparation_completed_at) { %>
 
                     <p>
+                        
 
                         <strong>
                             وقت الجاهزية:
@@ -338,13 +345,7 @@
              Back Button
         ========================== -->
 
-        <button
-            type="button"
-            class="back-btn"
-            onclick="history.back()"
-        >
-            ← العودة للطلبات
-        </button>
+        
 
     </main>
 

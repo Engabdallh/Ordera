@@ -436,25 +436,7 @@ body {
     transform: translateY(-1px);
 }
 
-/* ========================================
-   Bottom Back Button
-======================================== */
 
-.content > .back-btn {
-    background: #333;
-
-    color: #fff;
-
-    padding: 11px 20px;
-
-    margin-top: 0;
-}
-
-.content > .back-btn:hover {
-    background: #ff6a00;
-
-    color: #000;
-}
 
 /* ========================================
    Footer

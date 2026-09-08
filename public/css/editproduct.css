@@ -11,7 +11,10 @@ body {
     min-height: 100vh;
 }
 
-/* الحاوية */
+/* ==============================
+   الحاوية الرئيسية
+============================== */
+
 .container {
     width: 100%;
     max-width: 650px;
@@ -23,7 +26,10 @@ body {
     box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
 }
 
-/* العنوان */
+/* ==============================
+   العنوان
+============================== */
+
 .container h1 {
     margin-top: 0;
     margin-bottom: 30px;
@@ -31,7 +37,10 @@ body {
     font-size: 30px;
 }
 
-/* الحقول */
+/* ==============================
+   الحقول
+============================== */
+
 .form-group {
     margin-bottom: 20px;
 }
@@ -45,7 +54,9 @@ body {
 
 .form-group input,
 .form-group textarea {
+    display: block;
     width: 100%;
+    max-width: 100%;
     padding: 13px;
     border: 1px solid #333;
     border-radius: 8px;
@@ -53,6 +64,7 @@ body {
     color: white;
     font-size: 15px;
     outline: none;
+    font-family: Arial, sans-serif;
 }
 
 .form-group input:focus,
@@ -66,7 +78,33 @@ body {
     resize: vertical;
 }
 
-/* الأزرار */
+/* ==============================
+   صورة المنتج الحالية
+============================== */
+
+.current-image {
+    margin-top: 10px;
+}
+
+.current-image p {
+    margin-bottom: 10px;
+    color: #ccc;
+}
+
+.current-image img {
+    width: 250px;
+    height: 170px;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+    border: 2px solid #333;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ==============================
+   الأزرار الرئيسية
+============================== */
+
 .buttons {
     display: flex;
     gap: 10px;
@@ -75,16 +113,18 @@ body {
 
 .save-btn,
 .back-btn {
+    min-height: 45px;
     padding: 12px 20px;
     border-radius: 8px;
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
-    transition: 0.2s;
+    transition: 0.2s ease;
 }
 
 /* حفظ */
+
 .save-btn {
     border: none;
     background: #ff6a00;
@@ -97,6 +137,7 @@ body {
 }
 
 /* العودة */
+
 .back-btn {
     background: #333;
     color: white;
@@ -107,13 +148,19 @@ body {
 
 .back-btn:hover {
     background: #444;
+    transform: translateY(-2px);
 }
 
-/* نافذة التأكيد */
+/* ==============================
+   نافذة التأكيد
+============================== */
+
 .modal {
     display: none;
     position: fixed;
     inset: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.8);
     justify-content: center;
     align-items: center;
@@ -121,7 +168,10 @@ body {
     padding: 20px;
 }
 
-/* فقاعة التأكيد */
+/* ==============================
+   صندوق التأكيد
+============================== */
+
 .modal-box {
     width: 400px;
     max-width: 100%;
@@ -134,8 +184,12 @@ body {
     animation: popup 0.2s ease;
 }
 
-/* حركة النافذة */
+/* ==============================
+   حركة النافذة
+============================== */
+
 @keyframes popup {
+
     from {
         transform: scale(0.8);
         opacity: 0;
@@ -145,37 +199,56 @@ body {
         transform: scale(1);
         opacity: 1;
     }
+
 }
 
-/* الأيقونة */
+/* ==============================
+   أيقونة التعديل
+============================== */
+
 .edit-icon {
     width: 55px;
     height: 55px;
     margin: 0 auto 15px;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
     border-radius: 50%;
+
     background: #ff6a00;
     color: #000;
+
     font-size: 28px;
     font-weight: bold;
+
+    box-shadow: 0 0 20px rgba(255, 106, 0, 0.35);
 }
 
-/* عنوان النافذة */
+/* ==============================
+   عنوان النافذة
+============================== */
+
 .modal-box h2 {
     margin: 0 0 12px;
     color: #ff6a00;
 }
 
-/* النص */
+/* ==============================
+   نص النافذة
+============================== */
+
 .modal-box p {
     color: #ccc;
     line-height: 1.7;
     margin-bottom: 25px;
 }
 
-/* أزرار النافذة */
+/* ==============================
+   أزرار النافذة
+============================== */
+
 .modal-buttons {
     display: flex;
     justify-content: center;
@@ -185,14 +258,17 @@ body {
 .cancel-btn,
 .confirm-btn {
     border: none;
+    min-height: 44px;
     padding: 11px 18px;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     color: white;
+    transition: 0.2s ease;
 }
 
 /* إلغاء */
+
 .cancel-btn {
     background: #444;
 }
@@ -202,6 +278,7 @@ body {
 }
 
 /* تأكيد */
+
 .confirm-btn {
     background: #ff6a00;
 }
@@ -210,69 +287,75 @@ body {
     background: #e85f00;
 }
 
-/* الموبايل */
-@media (max-width: 600px) {
+/* ==============================
+   Tablet
+============================== */
+
+@media (max-width: 768px) {
 
     body {
-        padding: 20px 15px;
+        padding: 25px 15px;
     }
 
     .container {
-        padding: 22px;
+        width: 100%;
+        padding: 25px 20px;
+        border-radius: 16px;
     }
 
     .container h1 {
-        font-size: 25px;
+        font-size: 26px;
+        margin-bottom: 25px;
     }
 
-    .buttons {
-        flex-direction: column;
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px;
     }
 
-    .save-btn,
-    .back-btn {
-        width: 100%;
-        text-align: center;
-    }
-
-    .modal-box {
-        padding: 25px;
-    }
-
-    .modal-buttons {
-        flex-direction: column;
-    }
-
-    .cancel-btn,
-    .confirm-btn {
-        width: 100%;
-    }
 }
+
 /* ==============================
-   تحسين التصميم للموبايل
+   Mobile
 ============================== */
 
 @media (max-width: 600px) {
 
     body {
+        width: 100%;
+        min-height: 100vh;
         padding: 15px 10px;
-        font-size: 14px;
+        overflow-x: hidden;
     }
 
     .container {
         width: 100%;
         max-width: 100%;
-        padding: 20px 16px;
-        border-right: 3px solid #ff6a00;
+        margin: 0 auto;
+
+        padding: 20px 15px;
+
+        border-right: 4px solid #ff6a00;
         border-radius: 14px;
     }
 
     .container h1 {
-        font-size: 24px;
-        margin-bottom: 22px;
+        font-size: 23px;
+        line-height: 1.4;
+        margin-bottom: 20px;
     }
 
+    .current-image img {
+    width: 100%;
+    max-width: 250px;
+    height: 170px;
+    object-fit: cover;
+}
+
+    /* الحقول */
+
     .form-group {
+        width: 100%;
         margin-bottom: 16px;
     }
 
@@ -284,16 +367,20 @@ body {
     .form-group input,
     .form-group textarea {
         width: 100%;
+        max-width: 100%;
         padding: 12px;
         font-size: 16px;
         border-radius: 8px;
     }
 
     .form-group textarea {
-        min-height: 120px;
+        min-height: 110px;
     }
 
+    /* الأزرار */
+
     .buttons {
+        width: 100%;
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -303,21 +390,25 @@ body {
     .save-btn,
     .back-btn {
         width: 100%;
-        min-height: 46px;
+        min-height: 48px;
         padding: 12px;
         font-size: 15px;
+        text-align: center;
+        justify-content: center;
     }
 
-    /* نافذة التأكيد */
+    /* النافذة */
 
     .modal {
-        padding: 15px;
+        width: 100%;
+        height: 100%;
+        padding: 12px;
     }
 
     .modal-box {
         width: 100%;
-        max-width: 360px;
-        padding: 22px 18px;
+        max-width: 380px;
+        padding: 24px 18px;
         border-radius: 16px;
     }
 
@@ -325,10 +416,12 @@ body {
         width: 50px;
         height: 50px;
         font-size: 24px;
+        margin-bottom: 13px;
     }
 
     .modal-box h2 {
         font-size: 20px;
+        line-height: 1.4;
     }
 
     .modal-box p {
@@ -338,6 +431,7 @@ body {
     }
 
     .modal-buttons {
+        width: 100%;
         display: flex;
         flex-direction: column;
         gap: 9px;
@@ -346,36 +440,80 @@ body {
     .cancel-btn,
     .confirm-btn {
         width: 100%;
-        min-height: 45px;
+        min-height: 46px;
         font-size: 15px;
     }
+
 }
 
-
 /* ==============================
-   شاشات التلفون الصغيرة جدًا
+   تلفونات صغيرة جداً
 ============================== */
 
 @media (max-width: 380px) {
 
     body {
-        padding: 10px 7px;
+        padding: 10px 6px;
     }
 
     .container {
-        padding: 17px 13px;
+        padding: 17px 12px;
+        border-right-width: 3px;
+        border-radius: 12px;
     }
 
     .container h1 {
         font-size: 21px;
+        margin-bottom: 18px;
+    }
+
+    .form-group {
+        margin-bottom: 14px;
+    }
+
+    .form-group label {
+        font-size: 13px;
     }
 
     .form-group input,
     .form-group textarea {
         padding: 11px;
+        font-size: 16px;
+    }
+
+    .form-group textarea {
+        min-height: 100px;
+    }
+
+    .save-btn,
+    .back-btn {
+        min-height: 46px;
+        font-size: 14px;
+    }
+
+    .modal {
+        padding: 8px;
     }
 
     .modal-box {
+        max-width: 350px;
         padding: 20px 14px;
+        border-radius: 14px;
     }
+
+    .edit-icon {
+        width: 46px;
+        height: 46px;
+        font-size: 22px;
+    }
+
+    .modal-box h2 {
+        font-size: 19px;
+    }
+
+    .modal-box p {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
 }
