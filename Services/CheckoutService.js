@@ -1,212 +1,185 @@
-const db = require('../Database/db');
+const db = require("../Database/db");
 
 class CheckoutService {
-    async createOrder({ customerId, phone, address, cart, couponCode = null }) {
-        const connection = await db.getConnection();
+  async createOrder({ customerId, phone, address, cart, couponCode = null }) {
+    const connection = await db.getConnection();
 
-        try {
-            await connection.beginTransaction();
+    try {
+      await connection.beginTransaction();
 
-            // Never trust prices stored in the session. Re-read products from DB.
-            const productIds = [...new Set(
-                cart.map(item => Number(item.productId)).filter(Number.isInteger)
-            )];
+      // Never trust prices stored in the session. Re-read products from DB.
+      const productIds = [
+        ...new Set(
+          cart.map((item) => Number(item.productId)).filter(Number.isInteger),
+        ),
+      ];
 
-            if (productIds.length === 0) {
-                throw new Error('السلة غير صالحة');
-            }
+      if (productIds.length === 0) {
+        throw new Error("السلة غير صالحة");
+      }
 
-            const placeholders = productIds.map(() => '?').join(',');
-            const [products] = await connection.query(
-                `SELECT id, name, price, image
+      const placeholders = productIds.map(() => "?").join(",");
+      const [products] = await connection.query(
+        `SELECT id, name, price, image
                  FROM products
                  WHERE id IN (${placeholders})`,
-                productIds
-            );
+        productIds,
+      );
 
-            const productMap = new Map(products.map(product => [Number(product.id), product]));
-            let subtotal = 0;
-            const normalizedItems = [];
+      const productMap = new Map(
+        products.map((product) => [Number(product.id), product]),
+      );
+      let subtotal = 0;
+      const normalizedItems = [];
 
-            for (const item of cart) {
-                const productId = Number(item.productId);
-                const quantity = Number(item.quantity);
-                const product = productMap.get(productId);
+      for (const item of cart) {
+        const productId = Number(item.productId);
+        const quantity = Number(item.quantity);
+        const product = productMap.get(productId);
 
-                if (!product) {
-                    throw new Error(`المنتج رقم ${productId} غير موجود`);
-                }
+        if (!product) {
+          throw new Error(`المنتج رقم ${productId} غير موجود`);
+        }
 
-                if (!Number.isInteger(quantity) || quantity < 1 || quantity > 99) {
-                    throw new Error('كمية المنتج غير صحيحة');
-                }
+        if (!Number.isInteger(quantity) || quantity < 1 || quantity > 99) {
+          throw new Error("كمية المنتج غير صحيحة");
+        }
 
-                const price = Number(product.price);
-                if (!Number.isFinite(price) || price < 0) {
-                    throw new Error('سعر المنتج غير صالح');
-                }
+        const price = Number(product.price);
+        if (!Number.isFinite(price) || price < 0) {
+          throw new Error("سعر المنتج غير صالح");
+        }
 
-                subtotal += price * quantity;
-                normalizedItems.push({ productId, quantity, price });
-            }
+        subtotal += price * quantity;
+        normalizedItems.push({ productId, quantity, price });
+      }
 
-            subtotal = Number(subtotal.toFixed(2));
+      subtotal = Number(subtotal.toFixed(2));
 
-              // ==============================
-             // حساب خصم الكوبون والسعر النهائي
-            // ==============================
+      // ==============================
+      // حساب خصم الكوبون والسعر النهائي
+      // ==============================
 
-        // ==============================
-// حساب خصم الكوبون والتحقق من الحدود
-// ==============================
+      // ==============================
+      // حساب خصم الكوبون والتحقق من الحدود
+      // ==============================
 
-let discountAmount = 0;
-let appliedCouponCode = null;
-let appliedCouponId = null;
+      let discountAmount = 0;
+      let appliedCouponCode = null;
+      let appliedCouponId = null;
 
-if (couponCode) {
+      if (couponCode) {
+        const cleanCouponCode = String(couponCode).trim().toUpperCase();
 
-    const cleanCouponCode =
-        String(couponCode).trim().toUpperCase();
-
-    const [couponRows] = await connection.query(
-        `SELECT *
+        const [couponRows] = await connection.query(
+          `SELECT *
          FROM coupons
          WHERE code = ?
          AND is_active = 1
          LIMIT 1`,
-        [cleanCouponCode]
-    );
+          [cleanCouponCode],
+        );
 
-    if (couponRows.length > 0) {
+        if (couponRows.length > 0) {
+          const coupon = couponRows[0];
 
-        const coupon = couponRows[0];
+          // ==============================
+          // التحقق من انتهاء الصلاحية
+          // ==============================
 
-        // ==============================
-        // التحقق من انتهاء الصلاحية
-        // ==============================
+          const isExpired =
+            coupon.expires_at && new Date(coupon.expires_at) < new Date();
 
-        const isExpired =
-            coupon.expires_at &&
-            new Date(coupon.expires_at) < new Date();
+          if (isExpired) {
+            throw new Error("انتهت صلاحية كود الخصم");
+          }
 
-        if (isExpired) {
-            throw new Error('انتهت صلاحية كود الخصم');
-        }
+          // ==============================
+          // التحقق من الحد الأدنى للطلب
+          // ==============================
 
-        // ==============================
-        // التحقق من الحد الأدنى للطلب
-        // ==============================
+          const minimumOrder = Number(coupon.min_order_amount || 0);
 
-        const minimumOrder =
-            Number(coupon.min_order_amount || 0);
-
-        if (subtotal < minimumOrder) {
+          if (subtotal < minimumOrder) {
             throw new Error(
-                `الحد الأدنى لاستخدام هذا الكوبون هو ${minimumOrder.toFixed(2)} د.أ`
+              `الحد الأدنى لاستخدام هذا الكوبون هو ${minimumOrder.toFixed(2)} د.أ`,
             );
-        }
+          }
 
-        // ==============================
-        // التحقق من الحد الإجمالي
-        // ==============================
+          // ==============================
+          // التحقق من الحد الإجمالي
+          // ==============================
 
-        if (coupon.usage_limit !== null) {
-
-            const [totalUsageRows] =
-                await connection.query(
-                    `SELECT COUNT(*) AS usageCount
+          if (coupon.usage_limit !== null) {
+            const [totalUsageRows] = await connection.query(
+              `SELECT COUNT(*) AS usageCount
                      FROM coupon_usages
                      WHERE coupon_id = ?`,
-                    [coupon.id]
-                );
+              [coupon.id],
+            );
 
             if (
-                Number(totalUsageRows[0].usageCount) >=
-                Number(coupon.usage_limit)
+              Number(totalUsageRows[0].usageCount) >= Number(coupon.usage_limit)
             ) {
-                throw new Error(
-                    'تم الوصول إلى الحد الأقصى لاستخدام هذا الكوبون'
-                );
+              throw new Error("تم الوصول إلى الحد الأقصى لاستخدام هذا الكوبون");
             }
-        }
+          }
 
-        // ==============================
-        // التحقق من حد العميل
-        // ==============================
+          // ==============================
+          // التحقق من حد العميل
+          // ==============================
 
-        if (
-            coupon.usage_limit_per_customer !== null
-        ) {
-
-            const [customerUsageRows] =
-                await connection.query(
-                    `SELECT COUNT(*) AS usageCount
+          if (coupon.usage_limit_per_customer !== null) {
+            const [customerUsageRows] = await connection.query(
+              `SELECT COUNT(*) AS usageCount
                      FROM coupon_usages
                      WHERE coupon_id = ?
                      AND customer_id = ?`,
-                    [
-                        coupon.id,
-                        customerId
-                    ]
-                );
+              [coupon.id, customerId],
+            );
 
             if (
-                Number(customerUsageRows[0].usageCount) >=
-                Number(coupon.usage_limit_per_customer)
+              Number(customerUsageRows[0].usageCount) >=
+              Number(coupon.usage_limit_per_customer)
             ) {
-                throw new Error(
-                    'لقد وصلت إلى الحد الأقصى لاستخدام هذا الكوبون'
-                );
+              throw new Error("لقد وصلت إلى الحد الأقصى لاستخدام هذا الكوبون");
             }
+          }
+
+          // ==============================
+          // حساب الخصم
+          // ==============================
+
+          if (coupon.discount_type === "percentage") {
+            discountAmount = subtotal * (Number(coupon.discount_value) / 100);
+          } else if (coupon.discount_type === "fixed") {
+            discountAmount = Number(coupon.discount_value);
+          }
+
+          discountAmount = Math.min(discountAmount, subtotal);
+
+          discountAmount = Number(discountAmount.toFixed(2));
+
+          appliedCouponCode = coupon.code;
+          appliedCouponId = coupon.id;
         }
+      }
 
-        // ==============================
-        // حساب الخصم
-        // ==============================
+      const totalPrice = Number((subtotal - discountAmount).toFixed(2));
 
-        if (coupon.discount_type === 'percentage') {
-
-            discountAmount =
-                subtotal *
-                (Number(coupon.discount_value) / 100);
-
-        } else if (coupon.discount_type === 'fixed') {
-
-            discountAmount =
-                Number(coupon.discount_value);
-        }
-
-        discountAmount =
-            Math.min(
-                discountAmount,
-                subtotal
-            );
-
-        discountAmount =
-            Number(discountAmount.toFixed(2));
-
-        appliedCouponCode = coupon.code;
-        appliedCouponId = coupon.id;
-    }
-}
-
-    const totalPrice =
-    Number((subtotal - discountAmount).toFixed(2));
-
-            await connection.query(
-                `UPDATE customers
+      await connection.query(
+        `UPDATE customers
                  SET phone = ?, address = ?
                  WHERE id = ?`,
-                [phone, address, customerId]
-            );
+        [phone, address, customerId],
+      );
 
-            // ==============================
-// حفظ بيانات الطلب والخصم
-// ==============================
+      // ==============================
+      // حفظ بيانات الطلب والخصم
+      // ==============================
 
-const [orderResult] = await connection.query(
-    `INSERT INTO orders
+      const [orderResult] = await connection.query(
+        `INSERT INTO orders
         (
             customer_id,
             total_price,
@@ -219,74 +192,67 @@ const [orderResult] = await connection.query(
             delivery_address
         )
      VALUES (?, ?, ?, ?, ?, 'قيد الانتظار', 'الموقع', ?, ?)`,
-    [
-        customerId,
-        totalPrice,
-        subtotal,
-        discountAmount,
-        appliedCouponCode,
-        phone,
-        address
-    ]
-);
+        [
+          customerId,
+          totalPrice,
+          subtotal,
+          discountAmount,
+          appliedCouponCode,
+          phone,
+          address,
+        ],
+      );
 
-            const orderId = orderResult.insertId;
+      const orderId = orderResult.insertId;
 
-            // ==============================
-           // تسجيل استخدام الكوبون
-          // ==============================
+      // ==============================
+      // تسجيل استخدام الكوبون
+      // ==============================
 
-if (appliedCouponCode) {
-
-    const [couponRows] = await connection.query(
-        `SELECT id
+      if (appliedCouponCode) {
+        const [couponRows] = await connection.query(
+          `SELECT id
          FROM coupons
          WHERE code = ?
          LIMIT 1`,
-        [appliedCouponCode]
-    );
+          [appliedCouponCode],
+        );
 
-    if (appliedCouponId) {
-
-    await connection.query(
-        `INSERT INTO coupon_usages
+        if (appliedCouponId) {
+          await connection.query(
+            `INSERT INTO coupon_usages
             (coupon_id, customer_id, order_id)
          VALUES (?, ?, ?)`,
-        [
-            appliedCouponId,
-            customerId,
-            orderId
-        ]
-    );
-}
-}
+            [appliedCouponId, customerId, orderId],
+          );
+        }
+      }
 
-            for (const item of normalizedItems) {
-                await connection.query(
-                    `INSERT INTO order_items
+      for (const item of normalizedItems) {
+        await connection.query(
+          `INSERT INTO order_items
                         (order_id, product_id, quantity, price)
                      VALUES (?, ?, ?, ?)`,
-                    [orderId, item.productId, item.quantity, item.price]
-                );
-            }
+          [orderId, item.productId, item.quantity, item.price],
+        );
+      }
 
-            await connection.commit();
+      await connection.commit();
 
-         
-return {
-    orderId,
-    subtotal,
-    discountAmount,
-    couponCode: appliedCouponCode,
-    totalPrice
-};
-        } catch (error) {
-            await connection.rollback();
-            throw error;
-        } finally {
-            connection.release();
-        }
+      return {
+        orderId,
+        subtotal,
+        discountAmount,
+        couponCode: appliedCouponCode,
+        totalPrice,
+      };
+    } catch (error) {
+      await connection.rollback();
+      throw error;
+    } finally {
+      connection.release();
     }
+  }
 }
 
 module.exports = CheckoutService;

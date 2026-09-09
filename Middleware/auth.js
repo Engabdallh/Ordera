@@ -1,25 +1,25 @@
 // Authentication and authorization middleware
 
 const requireAuth = (req, res, next) => {
-    if (!req.session?.userId) {
-        return res.redirect('/login');
-    }
-    next();
+  if (!req.session?.userId) {
+    return res.redirect("/login");
+  }
+  next();
 };
 
 const requireRole = (role) => (req, res, next) => {
-    if (!req.session?.userId) {
-        return res.redirect('/login');
-    }
+  if (!req.session?.userId) {
+    return res.redirect("/login");
+  }
 
-    if (req.session.role !== role) {
-        return res.status(403).send('غير مصرح لك بالوصول إلى هذه الصفحة');
-    }
+  if (req.session.role !== role) {
+    return res.status(403).send("غير مصرح لك بالوصول إلى هذه الصفحة");
+  }
 
-    next();
+  next();
 };
 
 module.exports = {
-    requireAuth,
-    requireRole
+  requireAuth,
+  requireRole,
 };

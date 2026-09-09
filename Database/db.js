@@ -1,39 +1,33 @@
 const mysql = require("mysql2/promise");
 
 const db = mysql.createPool({
+  host: process.env.DB_HOST,
 
-    host: process.env.DB_HOST,
+  user: process.env.DB_USER,
 
-    user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
 
-    password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 
-    database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306,
 
-    port: process.env.DB_PORT || 3306,
+  waitForConnections: true,
 
-    waitForConnections: true,
+  connectionLimit: 10,
 
-    connectionLimit: 10,
-
-    queueLimit: 0
+  queueLimit: 0,
 });
 
 async function testConnection() {
+  try {
+    const connection = await db.getConnection();
 
-    try {
+    console.log("good");
 
-        const connection = await db.getConnection();
-
-        console.log("good");
-
-        connection.release();
-
-    } catch (error) {
-
-        console.error("failed:", error.message);
-
-    }
+    connection.release();
+  } catch (error) {
+    console.error("failed:", error.message);
+  }
 }
 
 testConnection();

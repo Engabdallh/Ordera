@@ -1,63 +1,45 @@
 const db = require("../Database/db");
 
 class ProductService {
+  async getAllProducts() {
+    const [products] = await db.query("SELECT * FROM products");
 
-    async getAllProducts() {
-        const [products] = await db.query(
-            "SELECT * FROM products"
-        );
+    return products;
+  }
 
-        return products;
-    }
-
-    async getAvailableProducts() {
+  async getAvailableProducts() {
     const [products] = await db.query(
-        `SELECT *
+      `SELECT *
          FROM products
          WHERE is_available = 1
-         ORDER BY id DESC`
+         ORDER BY id DESC`,
     );
 
     return products;
-}
+  }
 
-
-    async createProduct(name, description, price, category, image) {
-
-        const [result] = await db.query(
-            `INSERT INTO products
+  async createProduct(name, description, price, category, image) {
+    const [result] = await db.query(
+      `INSERT INTO products
             (name, description, price, category, image)
             VALUES (?, ?, ?, ?, ?)`,
-            [name, description, price, category, image]
-        );
+      [name, description, price, category, image],
+    );
 
-        return result;
-    }
+    return result;
+  }
 
+  async getProductById(id) {
+    const [products] = await db.query("SELECT * FROM products WHERE id = ?", [
+      id,
+    ]);
 
-    async getProductById(id) {
+    return products[0];
+  }
 
-        const [products] = await db.query(
-            "SELECT * FROM products WHERE id = ?",
-            [id]
-        );
-
-        return products[0];
-    }
-
-
-    async updateProduct(
-    id,
-    name,
-    description,
-    price,
-    category,
-    image
-) {
-
+  async updateProduct(id, name, description, price, category, image) {
     const [result] = await db.query(
-
-        `UPDATE products
+      `UPDATE products
          SET name = ?,
              description = ?,
              price = ?,
@@ -65,43 +47,28 @@ class ProductService {
              image = ?
          WHERE id = ?`,
 
-        [
-            name,
-            description,
-            price,
-            category,
-            image,
-            id
-        ]
-
+      [name, description, price, category, image, id],
     );
 
     return result;
+  }
 
-}
+  async deleteProduct(id) {
+    const [result] = await db.query("DELETE FROM products WHERE id = ?", [id]);
 
+    return result;
+  }
 
-    async deleteProduct(id) {
-
-        const [result] = await db.query(
-            "DELETE FROM products WHERE id = ?",
-            [id]
-        );
-
-        return result;
-    }
-
-    async toggleProductAvailability(id) {
+  async toggleProductAvailability(id) {
     const [result] = await db.query(
-        `UPDATE products
+      `UPDATE products
          SET is_available = NOT is_available
          WHERE id = ?`,
-        [id]
+      [id],
     );
 
     return result;
-}
-
+  }
 }
 
 module.exports = ProductService;

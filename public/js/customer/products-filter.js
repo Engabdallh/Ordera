@@ -1,54 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
+  const categoryButtons = document.querySelectorAll(".category-btn");
 
-    const categoryButtons =
-        document.querySelectorAll(".category-btn");
+  const productCards = document.querySelectorAll(".product-card");
 
-    const productCards =
-        document.querySelectorAll(".product-card");
+  categoryButtons.forEach((button) => {
+    button.addEventListener("click", function () {
+      const selectedCategory = this.dataset.category;
 
+      // إزالة active من جميع الأزرار
+      categoryButtons.forEach((btn) => {
+        btn.classList.remove("active");
+      });
 
-    categoryButtons.forEach(button => {
+      // تفعيل الزر المضغوط
+      this.classList.add("active");
 
-        button.addEventListener("click", function () {
+      // فلترة المنتجات
+      productCards.forEach((product) => {
+        const productCategory = product.dataset.category || "";
 
-            const selectedCategory =
-                this.dataset.category;
-
-
-            // إزالة active من جميع الأزرار
-            categoryButtons.forEach(btn => {
-                btn.classList.remove("active");
-            });
-
-
-            // تفعيل الزر المضغوط
-            this.classList.add("active");
-
-
-            // فلترة المنتجات
-            productCards.forEach(product => {
-
-                const productCategory =
-                    product.dataset.category || "";
-
-
-                if (
-                    selectedCategory === "all" ||
-                    productCategory === selectedCategory
-                ) {
-
-                    product.style.display = "flex";
-
-                } else {
-
-                    product.style.display = "none";
-
-                }
-
-            });
-
-        });
-
+        if (
+          selectedCategory === "all" ||
+          productCategory === selectedCategory
+        ) {
+          product.style.display = "flex";
+        } else {
+          product.style.display = "none";
+        }
+      });
     });
-
+  });
 });

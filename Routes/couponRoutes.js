@@ -28,12 +28,12 @@ router.post("/", couponController.createCoupon);
 // تفعيل / تعطيل كوبون
 // ==============================
 
-router.post("/toggle/:id",couponController.toggleCoupon);
+router.post("/toggle/:id", couponController.toggleCoupon);
 
 // ==============================
 // حذف كوبون
 // ==============================
 
-router.post("/delete/:id",couponController.deleteCoupon);
+router.post("/delete/:id", couponController.deleteCoupon);
 
 module.exports = router;

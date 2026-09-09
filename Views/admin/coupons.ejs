@@ -6,586 +6,527 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>إدارة الكوبونات</title>
 
-    <link
-        rel="stylesheet"
-        href="/css/admincoupons.css"
-    >
+    <link rel="stylesheet" href="/css/admin/admincoupons.css">
 
 </head>
 
 <body>
 
-<div class="dashboard">
+    <div class="dashboard">
 
-    <!-- ============================== -->
-    <!-- Header -->
-    <!-- ============================== -->
+        <!-- ============================== -->
+        <!-- Header -->
+        <!-- ============================== -->
 
-    <header class="header">
+        <header class="header">
 
-        <div>
+            <div>
 
-            <h1>911</h1>
-
-            <p>
-                إدارة الكوبونات
-            </p>
-
-        </div>
-
-        <div class="header-actions">
-
-            <a
-                href="/admin" class="btn dashboard-btn"
-                class="logout-btn"
-            >
-               لوحة التحكم
-            </a>
-
-            <div class="logo">
-                911
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <!-- ============================== -->
-    <!-- المحتوى -->
-    <!-- ============================== -->
-
-    <main class="content">
-
-        <div class="coupon-page">
-
-
-            <!-- ============================== -->
-            <!-- عنوان الصفحة -->
-            <!-- ============================== -->
-
-            <div class="coupon-header">
-
-                <h2>
-                    🎟️ إدارة الكوبونات
-                </h2>
+                <h1>911</h1>
 
                 <p>
-                    إضافة وإدارة كوبونات الخصم الخاصة بالمطعم.
+                    إدارة الكوبونات
                 </p>
 
             </div>
 
+            <div class="header-actions">
 
-            <!-- ============================== -->
-            <!-- رسائل النظام -->
-            <!-- ============================== -->
+                <a href="/admin" class="btn dashboard-btn" class="logout-btn">
+                    لوحة التحكم
+                </a>
 
-            <% if (success) { %>
-
-                <div class="coupon-message coupon-success">
-
-                    <%= success %>
-
+                <div class="logo">
+                    911
                 </div>
-
-            <% } %>
-
-
-            <% if (error) { %>
-
-                <div class="coupon-message coupon-error">
-
-                    <%= error %>
-
-                </div>
-
-            <% } %>
-
-
-            <!-- ============================== -->
-            <!-- إضافة كوبون -->
-            <!-- ============================== -->
-
-            <div class="coupon-form-card">
-
-                <h3>
-                    ➕ إضافة كوبون جديد
-                </h3>
-
-
-                <form
-                    action="/admin/coupons"
-                    method="POST"
-                >
-
-                    <div class="coupon-form-grid">
-
-
-                        <!-- كود الكوبون -->
-
-                        <div class="coupon-form-group">
-
-                            <label>
-                                كود الكوبون
-                            </label>
-
-                            <input
-                                type="text"
-                                name="code"
-                                placeholder="ORDERA20"
-                                maxlength="50"
-                                required
-                            >
-
-                        </div>
-
-
-                        <!-- نوع الخصم -->
-
-                        <div class="coupon-form-group">
-
-                            <label>
-                                نوع الخصم
-                            </label>
-
-                            <select
-                                name="discountType"
-                                required
-                            >
-
-                                <option value="percentage">
-                                    نسبة مئوية (%)
-                                </option>
-
-                                <option value="fixed">
-                                    مبلغ ثابت (د.أ)
-                                </option>
-
-                            </select>
-
-                        </div>
-
-
-                        <!-- قيمة الخصم -->
-
-                        <div class="coupon-form-group">
-
-                            <label>
-                                قيمة الخصم
-                            </label>
-
-                            <input
-                                type="number"
-                                name="discountValue"
-                                min="0"
-                                step="0.01"
-                                placeholder="10"
-                                required
-                            >
-
-                        </div>
-
-
-                        <!-- الحد الأدنى -->
-
-                        <div class="coupon-form-group">
-
-                            <label>
-                                الحد الأدنى للطلب
-                            </label>
-
-                            <input
-                                type="number"
-                                name="minOrderAmount"
-                                min="0"
-                                step="0.01"
-                                value="0"
-                                placeholder="5"
-                            >
-
-                        </div>
-
-
-                        <!-- الحد الإجمالي للاستخدام -->
-
-                        <div class="coupon-form-group">
-
-                            <label>
-                                الحد الإجمالي للاستخدام
-                            </label>
-
-                            <input
-                                type="number"
-                                name="usageLimit"
-                                min="1"
-                                step="1"
-                                placeholder="مثال: 100"
-                            >
-
-                            <small>
-                                اتركه فارغًا إذا كان بدون حد
-                            </small>
-
-                        </div>
-
-
-                        <!-- حد الاستخدام لكل عميل -->
-
-                        <div class="coupon-form-group">
-
-                            <label>
-                                حد الاستخدام لكل عميل
-                            </label>
-
-                            <input
-                                type="number"
-                                name="usageLimitPerCustomer"
-                                min="1"
-                                step="1"
-                                placeholder="مثال: 2"
-                            >
-
-                            <small>
-                                اتركه فارغًا إذا كان بدون حد
-                            </small>
-
-                        </div>
-
-
-                        <!-- تاريخ الانتهاء -->
-
-                        <div class="coupon-form-group">
-
-                            <label>
-                                تاريخ انتهاء الكوبون
-                            </label>
-
-                            <input
-                                type="datetime-local"
-                                name="expiresAt"
-                            >
-
-                        </div>
-
-
-                    </div>
-
-
-                    <button
-                        type="submit"
-                        class="coupon-add-btn"
-                    >
-                        إضافة الكوبون
-                    </button>
-
-                </form>
 
             </div>
 
-
-            <!-- ============================== -->
-            <!-- قائمة الكوبونات -->
-            <!-- ============================== -->
-
-            <div class="coupons-list-card">
-
-                <h3>
-                    📋 الكوبونات الحالية
-                </h3>
+        </header>
 
 
-                <% if (coupons.length === 0) { %>
+        <!-- ============================== -->
+        <!-- المحتوى -->
+        <!-- ============================== -->
 
-                    <div class="no-coupons">
+        <main class="content">
 
-                        لا يوجد كوبونات حاليًا.
+            <div class="coupon-page">
+
+
+                <!-- ============================== -->
+                <!-- عنوان الصفحة -->
+                <!-- ============================== -->
+
+                <div class="coupon-header">
+
+                    <h2>
+                        🎟️ إدارة الكوبونات
+                    </h2>
+
+                    <p>
+                        إضافة وإدارة كوبونات الخصم الخاصة بالمطعم.
+                    </p>
+
+                </div>
+
+
+                <!-- ============================== -->
+                <!-- رسائل النظام -->
+                <!-- ============================== -->
+
+                <% if (success) { %>
+
+                    <div class="coupon-message coupon-success">
+
+                        <%= success %>
 
                     </div>
 
-                <% } else { %>
+                    <% } %>
 
 
-                    <div class="coupons-table-container">
+                        <% if (error) { %>
 
-                        <table class="coupons-table">
+                            <div class="coupon-message coupon-error">
 
-                            <thead>
+                                <%= error %>
 
-                                <tr>
+                            </div>
 
-                                    <th>
-                                        الكود
-                                    </th>
-
-                                    <th>
-                                        نوع الخصم
-                                    </th>
-
-                                    <th>
-                                        قيمة الخصم
-                                    </th>
-
-                                    <th>
-                                        الحد الأدنى
-                                    </th>
-
-                                    <th>
-                                        الحد الإجمالي
-                                    </th>
-
-                                    <th>
-                                        حد العميل
-                                    </th>
-
-                                    <th>
-                                        الاستخدام الحالي
-                                    </th>
-
-                                    <th>
-                                        تاريخ الانتهاء
-                                    </th>
-
-                                    <th>
-                                        الحالة
-                                    </th>
-
-                                    <th>
-                                        الإجراء
-                                    </th>
-
-                                </tr>
-
-                            </thead>
+                            <% } %>
 
 
-                            <tbody>
+                                <!-- ============================== -->
+                                <!-- إضافة كوبون -->
+                                <!-- ============================== -->
 
-                                <% coupons.forEach(coupon => { %>
+                                <div class="coupon-form-card">
 
-                                    <tr>
-
-
-                                        <!-- الكود -->
-
-                                        <td>
-
-                                            <span class="coupon-code">
-
-                                                <%= coupon.code %>
-
-                                            </span>
-
-                                        </td>
+                                    <h3>
+                                        ➕ إضافة كوبون جديد
+                                    </h3>
 
 
-                                        <!-- نوع الخصم -->
+                                    <form action="/admin/coupons" method="POST">
 
-                                        <td>
+                                        <div class="coupon-form-grid">
 
-                                            <% if (coupon.discount_type === "percentage") { %>
 
-                                                نسبة مئوية
+                                            <!-- كود الكوبون -->
 
-                                            <% } else { %>
+                                            <div class="coupon-form-group">
 
-                                                مبلغ ثابت
+                                                <label>
+                                                    كود الكوبون
+                                                </label>
+
+                                                <input type="text" name="code" placeholder="ORDERA20" maxlength="50"
+                                                    required>
+
+                                            </div>
+
+
+                                            <!-- نوع الخصم -->
+
+                                            <div class="coupon-form-group">
+
+                                                <label>
+                                                    نوع الخصم
+                                                </label>
+
+                                                <select name="discountType" required>
+
+                                                    <option value="percentage">
+                                                        نسبة مئوية (%)
+                                                    </option>
+
+                                                    <option value="fixed">
+                                                        مبلغ ثابت (د.أ)
+                                                    </option>
+
+                                                </select>
+
+                                            </div>
+
+
+                                            <!-- قيمة الخصم -->
+
+                                            <div class="coupon-form-group">
+
+                                                <label>
+                                                    قيمة الخصم
+                                                </label>
+
+                                                <input type="number" name="discountValue" min="0" step="0.01"
+                                                    placeholder="10" required>
+
+                                            </div>
+
+
+                                            <!-- الحد الأدنى -->
+
+                                            <div class="coupon-form-group">
+
+                                                <label>
+                                                    الحد الأدنى للطلب
+                                                </label>
+
+                                                <input type="number" name="minOrderAmount" min="0" step="0.01" value="0"
+                                                    placeholder="5">
+
+                                            </div>
+
+
+                                            <!-- الحد الإجمالي للاستخدام -->
+
+                                            <div class="coupon-form-group">
+
+                                                <label>
+                                                    الحد الإجمالي للاستخدام
+                                                </label>
+
+                                                <input type="number" name="usageLimit" min="1" step="1"
+                                                    placeholder="مثال: 100">
+
+                                                <small>
+                                                    اتركه فارغًا إذا كان بدون حد
+                                                </small>
+
+                                            </div>
+
+
+                                            <!-- حد الاستخدام لكل عميل -->
+
+                                            <div class="coupon-form-group">
+
+                                                <label>
+                                                    حد الاستخدام لكل عميل
+                                                </label>
+
+                                                <input type="number" name="usageLimitPerCustomer" min="1" step="1"
+                                                    placeholder="مثال: 2">
+
+                                                <small>
+                                                    اتركه فارغًا إذا كان بدون حد
+                                                </small>
+
+                                            </div>
+
+
+                                            <!-- تاريخ الانتهاء -->
+
+                                            <div class="coupon-form-group">
+
+                                                <label>
+                                                    تاريخ انتهاء الكوبون
+                                                </label>
+
+                                                <input type="datetime-local" name="expiresAt">
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <button type="submit" class="coupon-add-btn">
+                                            إضافة الكوبون
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+
+                                <!-- ============================== -->
+                                <!-- قائمة الكوبونات -->
+                                <!-- ============================== -->
+
+                                <div class="coupons-list-card">
+
+                                    <h3>
+                                        📋 الكوبونات الحالية
+                                    </h3>
+
+
+                                    <% if (coupons.length===0) { %>
+
+                                        <div class="no-coupons">
+
+                                            لا يوجد كوبونات حاليًا.
+
+                                        </div>
+
+                                        <% } else { %>
+
+
+                                            <div class="coupons-table-container">
+
+                                                <table class="coupons-table">
+
+                                                    <thead>
+
+                                                        <tr>
+
+                                                            <th>
+                                                                الكود
+                                                            </th>
+
+                                                            <th>
+                                                                نوع الخصم
+                                                            </th>
+
+                                                            <th>
+                                                                قيمة الخصم
+                                                            </th>
+
+                                                            <th>
+                                                                الحد الأدنى
+                                                            </th>
+
+                                                            <th>
+                                                                الحد الإجمالي
+                                                            </th>
+
+                                                            <th>
+                                                                حد العميل
+                                                            </th>
+
+                                                            <th>
+                                                                الاستخدام الحالي
+                                                            </th>
+
+                                                            <th>
+                                                                تاريخ الانتهاء
+                                                            </th>
+
+                                                            <th>
+                                                                الحالة
+                                                            </th>
+
+                                                            <th>
+                                                                الإجراء
+                                                            </th>
+
+                                                        </tr>
+
+                                                    </thead>
+
+
+                                                    <tbody>
+
+                                                        <% coupons.forEach(coupon=> { %>
+
+                                                            <tr>
+
+
+                                                                <!-- الكود -->
+
+                                                                <td>
+
+                                                                    <span class="coupon-code">
+
+                                                                        <%= coupon.code %>
+
+                                                                    </span>
+
+                                                                </td>
+
+
+                                                                <!-- نوع الخصم -->
+
+                                                                <td>
+
+                                                                    <% if (coupon.discount_type==="percentage" ) { %>
+
+                                                                        نسبة مئوية
+
+                                                                        <% } else { %>
+
+                                                                            مبلغ ثابت
+
+                                                                            <% } %>
+
+                                                                </td>
+
+
+                                                                <!-- قيمة الخصم -->
+
+                                                                <td>
+
+                                                                    <%= coupon.discount_value %>
+
+                                                                        <% if (coupon.discount_type==="percentage" ) {
+                                                                            %>
+
+                                                                            %
+
+                                                                            <% } else { %>
+
+                                                                                د.أ
+
+                                                                                <% } %>
+
+                                                                </td>
+
+
+                                                                <!-- الحد الأدنى -->
+
+                                                                <td>
+
+                                                                    <%= coupon.min_order_amount %>
+                                                                        د.أ
+
+                                                                </td>
+
+
+                                                                <!-- الحد الإجمالي -->
+
+                                                                <td>
+
+                                                                    <%= coupon.usage_limit !==null ? coupon.usage_limit
+                                                                        : "بدون حد" %>
+
+                                                                </td>
+
+
+                                                                <!-- حد العميل -->
+
+                                                                <td>
+
+                                                                    <%= coupon.usage_limit_per_customer !==null ?
+                                                                        coupon.usage_limit_per_customer : "بدون حد" %>
+
+                                                                </td>
+
+
+                                                                <!-- الاستخدام الحالي -->
+
+                                                                <td>
+
+                                                                    <%= coupon.usage_count || 0 %>
+
+                                                                </td>
+
+
+                                                                <!-- تاريخ الانتهاء -->
+
+                                                                <td>
+
+                                                                    <%= coupon.expires_at || "بدون انتهاء" %>
+
+                                                                </td>
+
+
+                                                                <!-- الحالة -->
+
+                                                                <td>
+
+                                                                    <% if (coupon.is_active) { %>
+
+                                                                        <span class="coupon-status active">
+
+                                                                            فعال
+
+                                                                        </span>
+
+                                                                        <% } else { %>
+
+                                                                            <span class="coupon-status inactive">
+
+                                                                                غير فعال
+
+                                                                            </span>
+
+                                                                            <% } %>
+
+                                                                </td>
+
+
+                                                                <!-- الإجراء -->
+
+                                                                <td>
+
+
+                                                                    <!-- تفعيل / تعطيل -->
+
+                                                                    <form
+                                                                        action="/admin/coupons/toggle/<%= coupon.id %>"
+                                                                        method="POST" style="display: inline;">
+
+                                                                        <button type="submit" class="coupon-toggle-btn">
+
+                                                                            <% if (coupon.is_active) { %>
+
+                                                                                تعطيل
+
+                                                                                <% } else { %>
+
+                                                                                    تفعيل
+
+                                                                                    <% } %>
+
+                                                                        </button>
+
+                                                                    </form>
+
+
+                                                                    <!-- حذف -->
+
+                                                                    <form
+                                                                        action="/admin/coupons/delete/<%= coupon.id %>"
+                                                                        method="POST" style="display: inline;"
+                                                                        onsubmit="return confirm('هل أنت متأكد من حذف هذا الكوبون؟');">
+
+                                                                        <button type="submit" class="coupon-delete-btn">
+
+                                                                            حذف
+
+                                                                        </button>
+
+                                                                    </form>
+
+
+                                                                </td>
+
+
+                                                            </tr>
+
+                                                            <% }) %>
+
+                                                    </tbody>
+
+                                                </table>
+
+                                            </div>
 
                                             <% } %>
 
-                                        </td>
-
-
-                                        <!-- قيمة الخصم -->
-
-                                        <td>
-
-                                            <%= coupon.discount_value %>
-
-                                            <% if (coupon.discount_type === "percentage") { %>
-
-                                                %
-
-                                            <% } else { %>
-
-                                                د.أ
-
-                                            <% } %>
-
-                                        </td>
-
-
-                                        <!-- الحد الأدنى -->
-
-                                        <td>
-
-                                            <%= coupon.min_order_amount %>
-                                            د.أ
-
-                                        </td>
-
-
-                                        <!-- الحد الإجمالي -->
-
-                                        <td>
-
-                                            <%= coupon.usage_limit !== null
-                                                ? coupon.usage_limit
-                                                : "بدون حد" %>
-
-                                        </td>
-
-
-                                        <!-- حد العميل -->
-
-                                        <td>
-
-                                            <%= coupon.usage_limit_per_customer !== null
-                                                ? coupon.usage_limit_per_customer
-                                                : "بدون حد" %>
-
-                                        </td>
-
-
-                                        <!-- الاستخدام الحالي -->
-
-                                        <td>
-
-                                            <%= coupon.usage_count || 0 %>
-
-                                        </td>
-
-
-                                        <!-- تاريخ الانتهاء -->
-
-                                        <td>
-
-                                            <%= coupon.expires_at || "بدون انتهاء" %>
-
-                                        </td>
-
-
-                                        <!-- الحالة -->
-
-                                        <td>
-
-                                            <% if (coupon.is_active) { %>
-
-                                                <span class="coupon-status active">
-
-                                                    فعال
-
-                                                </span>
-
-                                            <% } else { %>
-
-                                                <span class="coupon-status inactive">
-
-                                                    غير فعال
-
-                                                </span>
-
-                                            <% } %>
-
-                                        </td>
-
-
-                                        <!-- الإجراء -->
-
-                                        <td>
-
-
-                                            <!-- تفعيل / تعطيل -->
-
-                                            <form
-                                                action="/admin/coupons/toggle/<%= coupon.id %>"
-                                                method="POST"
-                                                style="display: inline;"
-                                            >
-
-                                                <button
-                                                    type="submit"
-                                                    class="coupon-toggle-btn"
-                                                >
-
-                                                    <% if (coupon.is_active) { %>
-
-                                                        تعطيل
-
-                                                    <% } else { %>
-
-                                                        تفعيل
-
-                                                    <% } %>
-
-                                                </button>
-
-                                            </form>
-
-
-                                            <!-- حذف -->
-
-                                            <form
-                                                action="/admin/coupons/delete/<%= coupon.id %>"
-                                                method="POST"
-                                                style="display: inline;"
-                                                onsubmit="return confirm('هل أنت متأكد من حذف هذا الكوبون؟');"
-                                            >
-
-                                                <button
-                                                    type="submit"
-                                                    class="coupon-delete-btn"
-                                                >
-
-                                                    حذف
-
-                                                </button>
-
-                                            </form>
-
-
-                                        </td>
-
-
-                                    </tr>
-
-                                <% }) %>
-
-                            </tbody>
-
-                        </table>
-
-                    </div>
-
-                <% } %>
+                                </div>
 
             </div>
 
-        </div>
-
-    </main>
+        </main>
 
 
-    <!-- ============================== -->
-    <!-- Footer -->
-    <!-- ============================== -->
+        <!-- ============================== -->
+        <!-- Footer -->
+        <!-- ============================== -->
 
-    <footer>
+        <footer>
 
-        <p>
-            911 Restaurant © 2026
-        </p>
+            <p>
+                911 Restaurant © 2026
+            </p>
 
-    </footer>
+        </footer>
 
-</div>
+    </div>
 
 </body>
 

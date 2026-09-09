@@ -2,9 +2,9 @@ const express = require("express");
 
 const router = express.Router();
 
-const { requireRole } = require('../Middleware/auth');
+const { requireRole } = require("../Middleware/auth");
 
-router.use(requireRole('customer'));
+router.use(requireRole("customer"));
 
 const cartController = require("../Controllers/CartController");
 

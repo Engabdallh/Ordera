@@ -29,121 +29,91 @@
             </p>
 
 
-            <% if (typeof error !== "undefined" && error) { %>
+            <% if (typeof error !=="undefined" && error) { %>
 
                 <div class="error-message">
                     <%= error %>
                 </div>
 
-            <% } %>
+                <% } %>
 
 
-            <form action="/registration" method="POST">
+                    <form action="/registration" method="POST">
 
 
-                <div class="input-group">
+                        <div class="input-group">
 
-                    <label for="name">
-                        الاسم
-                    </label>
+                            <label for="name">
+                                الاسم
+                            </label>
 
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        placeholder="أدخل اسمك"
-                        required
-                    >
+                            <input type="text" id="name" name="name" placeholder="أدخل اسمك" required>
 
-                </div>
+                        </div>
 
 
-                <div class="input-group">
+                        <div class="input-group">
 
-                    <label for="phone">
-                        رقم الهاتف
-                    </label>
+                            <label for="phone">
+                                رقم الهاتف
+                            </label>
 
-                    <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        placeholder="أدخل رقم الهاتف"
-                        required
-                    >
+                            <input type="tel" id="phone" name="phone" placeholder="أدخل رقم الهاتف" required>
 
-                </div>
+                        </div>
 
 
-                <div class="input-group">
+                        <div class="input-group">
 
-                    <label for="address">
-                        العنوان
-                    </label>
+                            <label for="address">
+                                العنوان
+                            </label>
 
-                    <input
-                        type="text"
-                        id="address"
-                        name="address"
-                        placeholder="أدخل عنوانك"
-                        required
-                    >
+                            <input type="text" id="address" name="address" placeholder="أدخل عنوانك" required>
 
-                </div>
+                        </div>
 
 
-                <div class="input-group">
+                        <div class="input-group">
 
-                    <label for="email">
-                        البريد الإلكتروني
-                    </label>
+                            <label for="email">
+                                البريد الإلكتروني
+                            </label>
 
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="أدخل البريد الإلكتروني"
-                        required
-                    >
+                            <input type="email" id="email" name="email" placeholder="أدخل البريد الإلكتروني" required>
 
-                </div>
+                        </div>
 
 
-                <div class="input-group">
+                        <div class="input-group">
 
-                    <label for="password">
-                        كلمة السر
-                    </label>
+                            <label for="password">
+                                كلمة السر
+                            </label>
 
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="أدخل كلمة السر"
-                        required
-                    >
+                            <input type="password" id="password" name="password" placeholder="أدخل كلمة السر" required>
 
-                </div>
+                        </div>
 
 
-                <button type="submit" class="register-btn">
-                    إنشاء الحساب
-                </button>
+                        <button type="submit" class="register-btn">
+                            إنشاء الحساب
+                        </button>
 
-            </form>
+                    </form>
 
 
-            <div class="login-link">
+                    <div class="login-link">
 
-                <p>
-                    لديك حساب بالفعل؟
-                </p>
+                        <p>
+                            لديك حساب بالفعل؟
+                        </p>
 
-                <a href="/login">
-                    تسجيل الدخول
-                </a>
+                        <a href="/login">
+                            تسجيل الدخول
+                        </a>
 
-            </div>
+                    </div>
 
         </div>
 

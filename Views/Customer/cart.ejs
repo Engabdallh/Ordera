@@ -5,463 +5,387 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>السلة - 911</title>
 
-    <link
-        rel="stylesheet"
-        href="/css/customer/cart.css"
-    >
+    <link rel="stylesheet" href="/css/customer/cart.css">
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-    <!-- Header -->
+        <!-- Header -->
 
-    <div class="header">
+        <div class="header">
 
-        <div>
+            <div>
 
-            <h1>911</h1>
+                <h1>911</h1>
 
-            <h2>
-                سلة الطلب 🛒
-            </h2>
+                <h2>
+                    سلة الطلب 🛒
+                </h2>
 
-            <p>
-                أهلاً بك، <%= userName %>
-            </p>
+                <p>
+                    أهلاً بك، <%= userName %>
+                </p>
 
-        </div>
+            </div>
 
-        <a
-            href="/products"
-            class="back-btn"
-        >
-            العودة للمنتجات
-        </a>
-
-    </div>
-
-
-    <% if (cart.length === 0) { %>
-
-        <!-- السلة فارغة -->
-
-        <div class="empty">
-
-            <h2>
-                السلة فارغة 🛒
-            </h2>
-
-            <p>
-                لم تقم باختيار أي منتج بعد.
-            </p>
-
-            <a href="/products">
-                تصفح المنتجات
+            <a href="/products" class="back-btn">
+                العودة للمنتجات
             </a>
 
         </div>
 
 
-    <% } else { %>
+        <% if (cart.length===0) { %>
+
+            <!-- السلة فارغة -->
+
+            <div class="empty">
+
+                <h2>
+                    السلة فارغة 🛒
+                </h2>
+
+                <p>
+                    لم تقم باختيار أي منتج بعد.
+                </p>
+
+                <a href="/products">
+                    تصفح المنتجات
+                </a>
+
+            </div>
 
 
-        <!-- المنتجات -->
-
-        <div class="cart">
-
-            <% cart.forEach(item => { %>
-
-                <div class="cart-item">
-
-                    <% if (item.image) { %>
-
-                        <img
-                            src="<%= item.image %>"
-                            alt="<%= item.name %>"
-                        >
-
-                    <% } %>
+            <% } else { %>
 
 
-                    <div class="item-info">
+                <!-- المنتجات -->
 
-                        <h3>
-                            <%= item.name %>
-                        </h3>
+                <div class="cart">
 
+                    <% cart.forEach(item=> { %>
 
-                        <p>
+                        <div class="cart-item">
 
-                            سعر القطعة:
+                            <% if (item.image) { %>
 
-                            <%= Number(item.price).toFixed(2) %>
+                                <img src="<%= item.image %>" alt="<%= item.name %>">
 
-                            د.أ
-
-                        </p>
+                                <% } %>
 
 
-                        <!-- التحكم بالكمية -->
+                                    <div class="item-info">
 
-                        <div class="quantity">
-
-                            <form
-                                action="/cart/decrease/<%= item.productId %>"
-                                method="POST"
-                            >
-
-                                <button
-                                    type="submit"
-                                    class="quantity-btn"
-                                >
-                                    −
-                                </button>
-
-                            </form>
+                                        <h3>
+                                            <%= item.name %>
+                                        </h3>
 
 
-                            <span>
-                                <%= item.quantity %>
-                            </span>
+                                        <p>
+
+                                            سعر القطعة:
+
+                                            <%= Number(item.price).toFixed(2) %>
+
+                                                د.أ
+
+                                        </p>
 
 
-                            <form
-                                action="/cart/increase/<%= item.productId %>"
-                                method="POST"
-                            >
+                                        <!-- التحكم بالكمية -->
 
-                                <button
-                                    type="submit"
-                                    class="quantity-btn"
-                                >
-                                    +
-                                </button>
+                                        <div class="quantity">
 
-                            </form>
+                                            <form action="/cart/decrease/<%= item.productId %>" method="POST">
+
+                                                <button type="submit" class="quantity-btn">
+                                                    −
+                                                </button>
+
+                                            </form>
+
+
+                                            <span>
+                                                <%= item.quantity %>
+                                            </span>
+
+
+                                            <form action="/cart/increase/<%= item.productId %>" method="POST">
+
+                                                <button type="submit" class="quantity-btn">
+                                                    +
+                                                </button>
+
+                                            </form>
+
+                                        </div>
+
+
+                                        <!-- مجموع المنتج -->
+
+                                        <strong class="item-total">
+
+                                            المجموع:
+
+                                            <%= ( Number(item.price) * item.quantity ).toFixed(2) %>
+
+                                                د.أ
+
+                                        </strong>
+
+
+                                        <!-- حذف -->
+
+                                        <form action="/cart/remove/<%= item.productId %>" method="POST">
+
+                                            <button type="submit" class="delete-btn">
+                                                🗑️ حذف
+                                            </button>
+
+                                        </form>
+
+                                    </div>
 
                         </div>
 
+                        <% }) %>
 
-                        <!-- مجموع المنتج -->
+                </div>
 
-                        <strong class="item-total">
+                <!-- ============================== -->
+                <!-- كوبون الخصم -->
+                <!-- ============================== -->
 
-                            المجموع:
+                <div class="coupon-section">
 
-                            <%= (
-                                Number(item.price) *
-                                item.quantity
-                            ).toFixed(2) %>
+                    <h3>🎟️ هل لديك كوبون خصم؟</h3>
 
-                            د.أ
+                    <form action="/cart/apply-coupon" method="POST" class="coupon-form">
 
-                        </strong>
+                        <input type="text" name="code" placeholder="أدخل كود الخصم" maxlength="50" required>
+
+                        <button type="submit">
+                            تطبيق
+                        </button>
+
+                    </form>
+
+                    <% if (couponError) { %>
+                        <p class="coupon-error">
+                            <%= couponError %>
+                        </p>
+                        <% } %>
+
+                            <% if (couponSuccess) { %>
+                                <p class="coupon-success">
+                                    <%= couponSuccess %>
+                                </p>
+                                <% } %>
+
+                </div>
+
+                <!-- ============================== -->
+                <!-- إجمالي الطلب والخصم -->
+                <!-- ============================== -->
+
+                <% const cartSubtotal=cart.reduce( (total, item)=>
+                    total +
+                    Number(item.price) * item.quantity,
+                    0
+                    );
+
+                    const finalSubtotal = Number(cartSubtotal).toFixed(2);
+
+                    const discountAmount = coupon
+                    ? Number(coupon.discountAmount).toFixed(2)
+                    : "0.00";
+
+                    const finalTotal = coupon
+                    ? Number(coupon.totalPrice).toFixed(2)
+                    : finalSubtotal;
+                    %>
+
+                    <div class="total">
+
+                        <div class="total-row">
+                            <span>المجموع:</span>
+                            <strong>
+                                <%= finalSubtotal %> د.أ
+                            </strong>
+                        </div>
+
+                        <% if (coupon) { %>
+
+                            <div class="total-row discount-row">
+                                <span>
+                                    الخصم (<%= coupon.couponCode %>):
+                                </span>
+
+                                <strong>
+                                    -<%= discountAmount %> د.أ
+                                </strong>
+                            </div>
+
+                            <% } %>
+
+                                <div class="total-row final-total">
+                                    <span>الإجمالي النهائي:</span>
+
+                                    <strong>
+                                        <%= finalTotal %> د.أ
+                                    </strong>
+                                </div>
+
+                    </div>
 
 
-                        <!-- حذف -->
+                    <!-- أزرار السلة -->
 
-                        <form
-                            action="/cart/remove/<%= item.productId %>"
-                            method="POST"
-                        >
+                    <div class="cart-actions">
 
-                            <button
-                                type="submit"
-                                class="delete-btn"
-                            >
-                                🗑️ حذف
+                        <!-- تفريغ السلة -->
+
+                        <form action="/cart/clear" method="POST">
+
+                            <button type="submit" class="clear-btn">
+                                🗑️ تفريغ السلة
                             </button>
 
                         </form>
 
+
+                        <!-- تأكيد الطلب -->
+
+                        <button type="button" class="order-btn" onclick="openOrderModal()">
+                            تأكيد الطلب
+                        </button>
+
                     </div>
+
+
+                    <% } %>
+
+    </div>
+
+
+    <!-- ========================================= -->
+    <!-- نافذة تأكيد الطلب -->
+    <!-- ========================================= -->
+
+    <div id="orderModal" class="modal">
+
+        <div class="modal-box">
+
+            <div class="order-icon">
+                🛒
+            </div>
+
+
+            <h2>
+                تأكيد الطلب
+            </h2>
+
+
+            <p>
+                قبل إرسال الطلب، يرجى إدخال رقم الهاتف
+                وعنوان التوصيل.
+            </p>
+
+
+            <!-- نموذج الطلب -->
+
+            <form action="/cart/checkout" method="POST" class="checkout-form">
+
+
+                <!-- رقم الهاتف -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        رقم الهاتف
+                    </label>
+
+                    <input type="tel" id="phone" name="phone" placeholder="مثال: 0791234567" required>
 
                 </div>
 
-            <% }) %>
 
-        </div>
+                <!-- العنوان -->
 
-        <!-- ============================== -->
-<!-- كوبون الخصم -->
-<!-- ============================== -->
+                <div class="form-group">
 
-<div class="coupon-section">
+                    <label for="address">
+                        عنوان التوصيل
+                    </label>
 
-    <h3>🎟️ هل لديك كوبون خصم؟</h3>
+                    <textarea id="address" name="address" placeholder="اكتب عنوان التوصيل بالتفصيل..." rows="3"
+                        required></textarea>
 
-    <form action="/cart/apply-coupon" method="POST" class="coupon-form">
-
-        <input
-            type="text"
-            name="code"
-            placeholder="أدخل كود الخصم"
-            maxlength="50"
-            required
-        >
-
-        <button type="submit">
-            تطبيق
-        </button>
-
-    </form>
-
-    <% if (couponError) { %>
-        <p class="coupon-error">
-            <%= couponError %>
-        </p>
-    <% } %>
-
-    <% if (couponSuccess) { %>
-        <p class="coupon-success">
-            <%= couponSuccess %>
-        </p>
-    <% } %>
-
-</div>
-
-        <!-- ============================== -->
-<!-- إجمالي الطلب والخصم -->
-<!-- ============================== -->
-
-<%
-    const cartSubtotal = cart.reduce(
-        (total, item) =>
-            total +
-            Number(item.price) * item.quantity,
-        0
-    );
-
-    const finalSubtotal = Number(cartSubtotal).toFixed(2);
-
-    const discountAmount = coupon
-        ? Number(coupon.discountAmount).toFixed(2)
-        : "0.00";
-
-    const finalTotal = coupon
-        ? Number(coupon.totalPrice).toFixed(2)
-        : finalSubtotal;
-%>
-
-<div class="total">
-
-    <div class="total-row">
-        <span>المجموع:</span>
-        <strong>
-            <%= finalSubtotal %> د.أ
-        </strong>
-    </div>
-
-    <% if (coupon) { %>
-
-        <div class="total-row discount-row">
-            <span>
-                الخصم (<%= coupon.couponCode %>):
-            </span>
-
-            <strong>
-                -<%= discountAmount %> د.أ
-            </strong>
-        </div>
-
-    <% } %>
-
-    <div class="total-row final-total">
-        <span>الإجمالي النهائي:</span>
-
-        <strong>
-            <%= finalTotal %> د.أ
-        </strong>
-    </div>
-
-</div>
+                </div>
 
 
-        <!-- أزرار السلة -->
+                <!-- أزرار -->
 
-        <div class="cart-actions">
+                <div class="modal-buttons">
 
-            <!-- تفريغ السلة -->
+                    <button type="button" class="cancel-btn" onclick="closeOrderModal()">
+                        إلغاء
+                    </button>
 
-            <form
-                action="/cart/clear"
-                method="POST"
-            >
 
-                <button
-                    type="submit"
-                    class="clear-btn"
-                >
-                    🗑️ تفريغ السلة
-                </button>
+                    <button type="submit" class="confirm-btn">
+                        نعم، تأكيد الطلب
+                    </button>
+
+                </div>
 
             </form>
 
-
-            <!-- تأكيد الطلب -->
-
-            <button
-                type="button"
-                class="order-btn"
-                onclick="openOrderModal()"
-            >
-                تأكيد الطلب
-            </button>
-
         </div>
-
-
-    <% } %>
-
-</div>
-
-
-<!-- ========================================= -->
-<!-- نافذة تأكيد الطلب -->
-<!-- ========================================= -->
-
-<div
-    id="orderModal"
-    class="modal"
->
-
-    <div class="modal-box">
-
-        <div class="order-icon">
-            🛒
-        </div>
-
-
-        <h2>
-            تأكيد الطلب
-        </h2>
-
-
-        <p>
-            قبل إرسال الطلب، يرجى إدخال رقم الهاتف
-            وعنوان التوصيل.
-        </p>
-
-
-        <!-- نموذج الطلب -->
-
-        <form
-            action="/cart/checkout"
-            method="POST"
-            class="checkout-form"
-        >
-
-
-            <!-- رقم الهاتف -->
-
-            <div class="form-group">
-
-                <label for="phone">
-                    رقم الهاتف
-                </label>
-
-                <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    placeholder="مثال: 0791234567"
-                    required
-                >
-
-            </div>
-
-
-            <!-- العنوان -->
-
-            <div class="form-group">
-
-                <label for="address">
-                    عنوان التوصيل
-                </label>
-
-                <textarea
-                    id="address"
-                    name="address"
-                    placeholder="اكتب عنوان التوصيل بالتفصيل..."
-                    rows="3"
-                    required
-                ></textarea>
-
-            </div>
-
-
-            <!-- أزرار -->
-
-            <div class="modal-buttons">
-
-                <button
-                    type="button"
-                    class="cancel-btn"
-                    onclick="closeOrderModal()"
-                >
-                    إلغاء
-                </button>
-
-
-                <button
-                    type="submit"
-                    class="confirm-btn"
-                >
-                    نعم، تأكيد الطلب
-                </button>
-
-            </div>
-
-        </form>
 
     </div>
 
-</div>
+
+    <script>
+
+        const orderModal =
+            document.getElementById("orderModal");
 
 
-<script>
+        function openOrderModal() {
 
-    const orderModal =
-        document.getElementById("orderModal");
-
-
-    function openOrderModal() {
-
-        orderModal.style.display = "flex";
-
-    }
-
-
-    function closeOrderModal() {
-
-        orderModal.style.display = "none";
-
-    }
-
-
-    // إغلاق النافذة عند الضغط خارجها
-
-    window.onclick = function(event) {
-
-        if (event.target === orderModal) {
-
-            closeOrderModal();
+            orderModal.style.display = "flex";
 
         }
 
-    };
 
-</script>
+        function closeOrderModal() {
+
+            orderModal.style.display = "none";
+
+        }
+
+
+        // إغلاق النافذة عند الضغط خارجها
+
+        window.onclick = function (event) {
+
+            if (event.target === orderModal) {
+
+                closeOrderModal();
+
+            }
+
+        };
+
+    </script>
 
 
 </body>

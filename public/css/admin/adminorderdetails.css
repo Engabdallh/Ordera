@@ -1,0 +1,300 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================
+   Header
+========================= */
+
+.header {
+  background: #000;
+  border-bottom: 3px solid #ff6a00;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  margin: 0;
+  color: #ff6a00;
+  font-size: 36px;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: #aaa;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 65px;
+  height: 65px;
+  border: 3px solid #ff6a00;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff6a00;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.back-btn {
+  text-decoration: none;
+  background: #333;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  background: #ff6a00;
+}
+
+/* =========================
+   Content
+========================= */
+
+.content {
+  width: 92%;
+  max-width: 1200px;
+  margin: 45px auto;
+  flex: 1;
+}
+
+.content h2 {
+  margin: 0 0 10px;
+  font-size: 30px;
+}
+
+.description {
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+/* =========================
+   Order Information
+========================= */
+
+.order-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+  gap: 18px;
+  margin-bottom: 30px;
+}
+
+.info-card {
+  background: #1c1c1c;
+  border: 1px solid #333;
+  border-right: 4px solid #ff6a00;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.info-card span {
+  display: block;
+  color: #999;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.info-card strong {
+  display: block;
+  color: #fff;
+  font-size: 17px;
+  word-break: break-word;
+}
+
+/* =========================
+   Sections
+========================= */
+
+.details-section {
+  background: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+
+.details-section h3 {
+  margin: 0 0 20px;
+  color: #ff6a00;
+  font-size: 21px;
+}
+
+/* =========================
+   Address
+========================= */
+
+.address-box {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 16px;
+  color: #ddd;
+  line-height: 1.7;
+}
+
+/* =========================
+   Products Table
+========================= */
+
+.orders-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px;
+}
+
+.orders-table th {
+  background: #000;
+  color: #ff6a00;
+  padding: 16px;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.orders-table td {
+  padding: 15px 16px;
+  border-top: 1px solid #333;
+  color: #ddd;
+}
+
+.orders-table tbody tr {
+  transition: 0.2s;
+}
+
+.orders-table tbody tr:hover {
+  background: #252525;
+}
+
+/* =========================
+   Time Information
+========================= */
+
+.order-times {
+  display: grid;
+  gap: 12px;
+}
+
+.order-times p {
+  margin: 0;
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: #ccc;
+}
+
+.order-times strong {
+  color: #ff6a00;
+}
+
+/* =========================
+   No Products
+========================= */
+
+.no-orders {
+  background: #111;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  color: #999;
+}
+
+/* =========================
+   Footer
+========================= */
+
+footer {
+  background: #000;
+  border-top: 1px solid #333;
+  text-align: center;
+  padding: 18px;
+  color: #777;
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 700px) {
+  .header {
+    padding: 15px 20px;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
+
+  .header p {
+    font-size: 13px;
+  }
+
+  .logo {
+    width: 52px;
+    height: 52px;
+    font-size: 18px;
+  }
+
+  .back-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .content {
+    width: 94%;
+    margin: 30px auto;
+  }
+
+  .content h2 {
+    font-size: 24px;
+  }
+
+  .order-info-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .details-section {
+    padding: 18px;
+  }
+
+  .details-section h3 {
+    font-size: 19px;
+  }
+
+  .info-card {
+    padding: 17px;
+  }
+}

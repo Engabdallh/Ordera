@@ -29,78 +29,67 @@
             </p>
 
 
-            <% if (typeof message !== "undefined" && message) { %>
+            <% if (typeof message !=="undefined" && message) { %>
 
                 <div class="success-message">
                     <%= message %>
                 </div>
 
-            <% } %>
+                <% } %>
 
 
-            <% if (typeof error !== "undefined" && error) { %>
+                    <% if (typeof error !=="undefined" && error) { %>
 
-                <div class="error-message">
-                    <%= error %>
-                </div>
+                        <div class="error-message">
+                            <%= error %>
+                        </div>
 
-            <% } %>
-
-
-            <form action="/login" method="POST">
-
-                <div class="input-group">
-
-                    <label for="name">
-                        الاسم
-                    </label>
-
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        placeholder="أدخل اسمك"
-                        required
-                    >
-
-                </div>
+                        <% } %>
 
 
-                <div class="input-group">
+                            <form action="/login" method="POST">
 
-                    <label for="password">
-                        كلمة السر
-                    </label>
+                                <div class="input-group">
 
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="أدخل كلمة السر"
-                        required
-                    >
+                                    <label for="name">
+                                        الاسم
+                                    </label>
 
-                </div>
+                                    <input type="text" id="name" name="name" placeholder="أدخل اسمك" required>
+
+                                </div>
 
 
-                <button type="submit" class="login-btn">
-                    تسجيل الدخول
-                </button>
+                                <div class="input-group">
 
-            </form>
+                                    <label for="password">
+                                        كلمة السر
+                                    </label>
+
+                                    <input type="password" id="password" name="password" placeholder="أدخل كلمة السر"
+                                        required>
+
+                                </div>
 
 
-            <div class="register-link">
+                                <button type="submit" class="login-btn">
+                                    تسجيل الدخول
+                                </button>
 
-                <p>
-                    ليس لديك حساب؟
-                </p>
+                            </form>
 
-                <a href="/register">
-                    إنشاء حساب جديد
-                </a>
 
-            </div>
+                            <div class="register-link">
+
+                                <p>
+                                    ليس لديك حساب؟
+                                </p>
+
+                                <a href="/register">
+                                    إنشاء حساب جديد
+                                </a>
+
+                            </div>
 
         </div>
 

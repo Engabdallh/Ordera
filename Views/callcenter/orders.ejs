@@ -5,760 +5,695 @@
 <head>
     <meta charset="UTF-8">
 
-```
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
->
+    ```
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>طلبات الكول سنتر - 911</title>
+    <title>طلبات الكول سنتر - 911</title>
 
-<link
-    rel="stylesheet"
-    href="/css/callcenter/orders.css"
->
-```
+    <link rel="stylesheet" href="/css/callcenter/orders.css">
+    ```
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-```
-<!-- =========================================
+        ```
+        <!-- =========================================
      Header
 ========================================== -->
 
-<div class="header">
+        <div class="header">
 
-    <div>
+            <div>
 
-        <h1>911</h1>
+                <h1>911</h1>
 
-        <h2>
-            لوحة الكول سنتر 📞
-        </h2>
+                <h2>
+                    لوحة الكول سنتر 📞
+                </h2>
 
-        <p>
-            أهلاً بك، <%= userName %>
-        </p>
+                <p>
+                    أهلاً بك، <%= userName %>
+                </p>
 
-    </div>
+            </div>
 
-    <div class="header-actions">
+            <div class="header-actions">
 
-        <a
-            href="/call-center"
-            class="refresh-btn"
-        >
-            🔄 تحديث
-        </a>
+                <a href="/call-center" class="refresh-btn">
+                    🔄 تحديث
+                </a>
 
-        <a
-            href="/logout"
-            class="logout-btn"
-        >
-            تسجيل الخروج
-        </a>
+                <a href="/logout" class="logout-btn">
+                    تسجيل الخروج
+                </a>
 
-    </div>
+            </div>
 
-</div>
+        </div>
 
 
-<!-- =========================================
+        <!-- =========================================
      Title
 ========================================== -->
 
-<div class="page-title">
+        <div class="page-title">
 
-    <h2>
-        طلبات اليوم 📦
-    </h2>
+            <h2>
+                طلبات اليوم 📦
+            </h2>
 
-    <span>
-        عدد الطلبات: <%= orders.length %>
-    </span>
+            <span>
+                عدد الطلبات: <%= orders.length %>
+            </span>
 
-</div>
+        </div>
 
 
-<!-- =========================================
+        <!-- =========================================
      No Orders
 ========================================== -->
 
-<% if (orders.length === 0) { %>
+        <% if (orders.length===0) { %>
 
-    <div class="empty">
+            <div class="empty">
 
-        <div class="empty-icon">
-            📦
-        </div>
+                <div class="empty-icon">
+                    📦
+                </div>
 
-        <h2>
-            لا توجد طلبات اليوم
-        </h2>
+                <h2>
+                    لا توجد طلبات اليوم
+                </h2>
 
-        <p>
-            لم يتم تسجيل أي طلبات حتى الآن.
-        </p>
+                <p>
+                    لم يتم تسجيل أي طلبات حتى الآن.
+                </p>
 
-    </div>
+            </div>
 
-<% } else { %>
+            <% } else { %>
 
 
-    <!-- =========================================
+                <!-- =========================================
          Orders
     ========================================== -->
 
-    <div class="orders">
+                <div class="orders">
 
-        <% orders.forEach(order => { %>
+                    <% orders.forEach(order=> { %>
 
-            <div class="order-card">
+                        <div class="order-card">
 
-                <!-- =================================
+                            <!-- =================================
                      Order Header
                 ================================== -->
 
-                <div class="order-header">
+                            <div class="order-header">
 
-                    <div>
+                                <div>
 
-                        <span class="order-label">
-                            رقم الطلب
-                        </span>
+                                    <span class="order-label">
+                                        رقم الطلب
+                                    </span>
 
-                        <h2>
-                            #<%= order.id %>
-                        </h2>
-
-                    </div>
-
-
-                    <div class="status
-                        <%= order.status === "قيد الانتظار" ? "pending" : "" %>
-                        <%= order.status === "تم التأكيد" ? "confirmed" : "" %>
-                        <%= order.status === "قيد التحضير" ? "preparing" : "" %>
-                        <%= order.status === "جاهز" ? "ready" : "" %>
-                        <%= order.status === "تم التوصيل" ? "delivered" : "" %>
-                        <%= order.status === "ملغي" ? "cancelled" : "" %>
-                    ">
-
-                        <%= order.status %>
-
-                    </div>
-
-                </div>
-
-
-                <!-- =================================
-                     Timer
-                ================================== -->
-
-                <% if (
-                    order.status_changed_at &&
-                    order.status !== "قيد الانتظار" &&
-                    order.status !== "ملغي"
-                ) { %>
-
-                    <div class="timer-box">
-
-                        <span class="timer-label">
-                            ⏱️ وقت التحضير
-                        </span>
-
-                        <strong
-                            class="order-timer"
-                            data-order-id="<%= order.id %>"
-                            data-start="<%= new Date(order.status_changed_at).toISOString() %>"
-                            data-end="<%= order.preparation_completed_at
-                                ? new Date(order.preparation_completed_at).toISOString()
-                                : "" %>"
-                        >
-                            00:00:00
-                        </strong>
-
-                    </div>
-
-                <% } %>
-
-
-                <!-- =================================
-                     Customer Information
-                ================================== -->
-
-                <div class="customer-info">
-
-                    <div class="info-box">
-
-                        <span>
-                            👤 الزبون
-                        </span>
-
-                        <strong>
-                            <%= order.customer_name %>
-                        </strong>
-
-                    </div>
-
-
-                    <div class="info-box">
-
-                        <span>
-                            📞 رقم الهاتف
-                        </span>
-
-                        <strong>
-                            <%= order.delivery_phone %>
-                        </strong>
-
-                    </div>
-
-
-                    <div class="info-box">
-
-                        <span>
-                            📍 العنوان
-                        </span>
-
-                        <strong>
-                            <%= order.delivery_address %>
-                        </strong>
-
-                    </div>
-
-
-                    <div class="info-box">
-
-                        <span>
-                            🕐 وقت الطلب
-                        </span>
-
-                        <strong>
-                            <%= new Date(
-                                order.created_at
-                            ).toLocaleTimeString(
-                                "ar-JO",
-                                {
-                                    hour: "2-digit",
-                                    minute: "2-digit"
-                                }
-                            ) %>
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <!-- =================================
-                     Products
-                ================================== -->
-
-                <div class="products-section">
-
-                    <h3>
-                        🛒 المنتجات
-                    </h3>
-
-                    <div class="products">
-
-                        <% order.items.forEach(item => { %>
-
-                            <div class="product-item">
-
-                                <% if (item.image) { %>
-
-                                    <img
-                                        src="<%= item.image %>"
-                                        alt="<%= item.name %>"
-                                        loading="lazy"
-                                    >
-
-                                <% } else { %>
-
-                                    <div class="no-image">
-                                        🍔
-                                    </div>
-
-                                <% } %>
-
-
-                                <div class="product-info">
-
-                                    <h4>
-                                        <%= item.name %>
-                                    </h4>
-
-                                    <p>
-                                        سعر القطعة:
-                                        <%= Number(
-                                            item.price
-                                        ).toFixed(2) %>
-                                        د.أ
-                                    </p>
+                                    <h2>
+                                        #<%= order.id %>
+                                    </h2>
 
                                 </div>
 
 
-                                <div class="quantity">
-                                    × <%= item.quantity %>
-                                </div>
+                                <div class="status
+                        <%= order.status === " قيد الانتظار" ? "pending" : "" %>
+                                    <%= order.status==="تم التأكيد" ? "confirmed" : "" %>
+                                        <%= order.status==="قيد التحضير" ? "preparing" : "" %>
+                                            <%= order.status==="جاهز" ? "ready" : "" %>
+                                                <%= order.status==="تم التوصيل" ? "delivered" : "" %>
+                                                    <%= order.status==="ملغي" ? "cancelled" : "" %>
+                                                        ">
 
-
-                                <div class="product-total">
-
-                                    <%= (
-                                        Number(item.price) *
-                                        Number(item.quantity)
-                                    ).toFixed(2) %>
-
-                                    د.أ
+                                                        <%= order.status %>
 
                                 </div>
 
                             </div>
 
-                        <% }) %>
 
-                    </div>
+                            <!-- =================================
+                     Timer
+                ================================== -->
 
-                </div>
+                            <% if ( order.status_changed_at && order.status !=="قيد الانتظار" && order.status !=="ملغي"
+                                ) { %>
+
+                                <div class="timer-box">
+
+                                    <span class="timer-label">
+                                        ⏱️ وقت التحضير
+                                    </span>
+
+                                    <strong class="order-timer" data-order-id="<%= order.id %>"
+                                        data-start="<%= new Date(order.status_changed_at).toISOString() %>" data-end="<%= order.preparation_completed_at
+                                ? new Date(order.preparation_completed_at).toISOString()
+                                : "" %>">
+                                        00:00:00
+                                    </strong>
+
+                                </div>
+
+                                <% } %>
 
 
-                <!-- =================================
+                                    <!-- =================================
+                     Customer Information
+                ================================== -->
+
+                                    <div class="customer-info">
+
+                                        <div class="info-box">
+
+                                            <span>
+                                                👤 الزبون
+                                            </span>
+
+                                            <strong>
+                                                <%= order.customer_name %>
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="info-box">
+
+                                            <span>
+                                                📞 رقم الهاتف
+                                            </span>
+
+                                            <strong>
+                                                <%= order.delivery_phone %>
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="info-box">
+
+                                            <span>
+                                                📍 العنوان
+                                            </span>
+
+                                            <strong>
+                                                <%= order.delivery_address %>
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="info-box">
+
+                                            <span>
+                                                🕐 وقت الطلب
+                                            </span>
+
+                                            <strong>
+                                                <%= new Date( order.created_at ).toLocaleTimeString( "ar-JO" , {
+                                                    hour: "2-digit" , minute: "2-digit" } ) %>
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- =================================
+                     Products
+                ================================== -->
+
+                                    <div class="products-section">
+
+                                        <h3>
+                                            🛒 المنتجات
+                                        </h3>
+
+                                        <div class="products">
+
+                                            <% order.items.forEach(item=> { %>
+
+                                                <div class="product-item">
+
+                                                    <% if (item.image) { %>
+
+                                                        <img src="<%= item.image %>" alt="<%= item.name %>"
+                                                            loading="lazy">
+
+                                                        <% } else { %>
+
+                                                            <div class="no-image">
+                                                                🍔
+                                                            </div>
+
+                                                            <% } %>
+
+
+                                                                <div class="product-info">
+
+                                                                    <h4>
+                                                                        <%= item.name %>
+                                                                    </h4>
+
+                                                                    <p>
+                                                                        سعر القطعة:
+                                                                        <%= Number( item.price ).toFixed(2) %>
+                                                                            د.أ
+                                                                    </p>
+
+                                                                </div>
+
+
+                                                                <div class="quantity">
+                                                                    × <%= item.quantity %>
+                                                                </div>
+
+
+                                                                <div class="product-total">
+
+                                                                    <%= ( Number(item.price) * Number(item.quantity)
+                                                                        ).toFixed(2) %>
+
+                                                                        د.أ
+
+                                                                </div>
+
+                                                </div>
+
+                                                <% }) %>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- =================================
                      Order Footer
                 ================================== -->
 
-                <div class="order-footer">
+                                    <div class="order-footer">
 
-                    <div class="order-type">
+                                        <div class="order-type">
 
-                        نوع الطلب:
+                                            نوع الطلب:
 
-                        <strong>
-                            <%= order.order_type %>
-                        </strong>
+                                            <strong>
+                                                <%= order.order_type %>
+                                            </strong>
 
-                    </div>
-
-
-                    <div class="total">
-
-                        <span>
-                            الإجمالي
-                        </span>
-
-                        <strong>
-
-                            <%= Number(
-                                order.total_price
-                            ).toFixed(2) %>
-
-                            د.أ
-
-                        </strong>
-
-                    </div>
-
-                </div>
+                                        </div>
 
 
-                <!-- =================================
+                                        <div class="total">
+
+                                            <span>
+                                                الإجمالي
+                                            </span>
+
+                                            <strong>
+
+                                                <%= Number( order.total_price ).toFixed(2) %>
+
+                                                    د.أ
+
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- =================================
                      Actions
                 ================================== -->
 
-                <div class="order-actions">
+                                    <div class="order-actions">
 
-                    <a
-                        href="/call-center/orders/<%= order.id %>"
-                        class="details-btn"
-                    >
-                        تفاصيل الطلب
-                    </a>
+                                        <a href="/call-center/orders/<%= order.id %>" class="details-btn">
+                                            تفاصيل الطلب
+                                        </a>
 
 
-                    <form
-                        action="/call-center/orders/<%= order.id %>/status"
-                        method="POST"
-                        class="status-form"
-                        data-current-status="<%= order.status %>"
-                    >
+                                        <form action="/call-center/orders/<%= order.id %>/status" method="POST"
+                                            class="status-form" data-current-status="<%= order.status %>">
 
-                        <select
-                            name="status"
-                            class="status-select"
-                            required
-                        >
+                                            <select name="status" class="status-select" required>
 
-                            <option
-                                value="قيد الانتظار"
-                                <%= order.status === "قيد الانتظار" ? "selected" : "" %>
-                            >
-                                قيد الانتظار
-                            </option>
+                                                <option value="قيد الانتظار" <%=order.status==="قيد الانتظار"
+                                                    ? "selected" : "" %>
+                                                    >
+                                                    قيد الانتظار
+                                                </option>
 
 
-                            <option
-                                value="تم التأكيد"
-                                <%= order.status === "تم التأكيد" ? "selected" : "" %>
-                            >
-                                تم التأكيد
-                            </option>
+                                                <option value="تم التأكيد" <%=order.status==="تم التأكيد" ? "selected"
+                                                    : "" %>
+                                                    >
+                                                    تم التأكيد
+                                                </option>
 
 
-                            <option
-                                value="قيد التحضير"
-                                <%= order.status === "قيد التحضير" ? "selected" : "" %>
-                            >
-                                قيد التحضير
-                            </option>
+                                                <option value="قيد التحضير" <%=order.status==="قيد التحضير" ? "selected"
+                                                    : "" %>
+                                                    >
+                                                    قيد التحضير
+                                                </option>
 
 
-                            <option
-                                value="جاهز"
-                                <%= order.status === "جاهز" ? "selected" : "" %>
-                            >
-                                جاهز
-                            </option>
+                                                <option value="جاهز" <%=order.status==="جاهز" ? "selected" : "" %>
+                                                    >
+                                                    جاهز
+                                                </option>
 
 
-                            <option
-                                value="تم التوصيل"
-                                <%= order.status === "تم التوصيل" ? "selected" : "" %>
-                            >
-                                تم التوصيل
-                            </option>
+                                                <option value="تم التوصيل" <%=order.status==="تم التوصيل" ? "selected"
+                                                    : "" %>
+                                                    >
+                                                    تم التوصيل
+                                                </option>
 
 
-                            <option
-                                value="ملغي"
-                                <%= order.status === "ملغي" ? "selected" : "" %>
-                            >
-                                ملغي
-                            </option>
+                                                <option value="ملغي" <%=order.status==="ملغي" ? "selected" : "" %>
+                                                    >
+                                                    ملغي
+                                                </option>
 
-                        </select>
+                                            </select>
 
 
-                        <button
-                            type="submit"
-                            class="status-btn"
-                        >
-                            تغيير الحالة
-                        </button>
+                                            <button type="submit" class="status-btn">
+                                                تغيير الحالة
+                                            </button>
 
-                    </form>
+                                        </form>
+
+                                    </div>
+
+                        </div>
+
+                        <% }) %>
 
                 </div>
 
-            </div>
-
-        <% }) %>
+                <% } %>
+                    ```
 
     </div>
 
-<% } %>
-```
-
-</div>
-
-<!-- =========================================
+    <!-- =========================================
      Status Warning Modal
 ========================================== -->
 
-<div
-    id="statusModal"
-    class="status-modal"
-    aria-hidden="true"
->
+    <div id="statusModal" class="status-modal" aria-hidden="true">
 
-```
-<div class="status-modal-overlay"></div>
+        ```
+        <div class="status-modal-overlay"></div>
 
-<div class="status-modal-box">
+        <div class="status-modal-box">
 
-    <div class="status-modal-icon">
-        ⚠️
+            <div class="status-modal-icon">
+                ⚠️
+            </div>
+
+            <h2>
+                لا يمكن تغيير الحالة
+            </h2>
+
+            <p id="statusModalMessage">
+                لا يمكن الانتقال إلى هذه الحالة.
+            </p>
+
+            <button type="button" id="closeStatusModal" class="status-modal-btn">
+                فهمت
+            </button>
+
+        </div>
+        ```
+
     </div>
 
-    <h2>
-        لا يمكن تغيير الحالة
-    </h2>
-
-    <p id="statusModalMessage">
-        لا يمكن الانتقال إلى هذه الحالة.
-    </p>
-
-    <button
-        type="button"
-        id="closeStatusModal"
-        class="status-modal-btn"
-    >
-        فهمت
-    </button>
-
-</div>
-```
-
-</div>
-
-<!-- =========================================
+    <!-- =========================================
      Timers + Status Validation
 ========================================== -->
 
-<script>
+    <script>
 
-    /* =========================================
-       Timer
-    ========================================== */
+        /* =========================================
+           Timer
+        ========================================== */
 
-    function updateTimers() {
+        function updateTimers() {
 
-        const timers =
-            document.querySelectorAll(".order-timer");
+            const timers =
+                document.querySelectorAll(".order-timer");
 
-        timers.forEach(timer => {
+            timers.forEach(timer => {
 
-            const startTime =
-                new Date(
-                    timer.dataset.start
-                ).getTime();
+                const startTime =
+                    new Date(
+                        timer.dataset.start
+                    ).getTime();
 
-            const endTime =
-                timer.dataset.end
-                    ? new Date(
-                        timer.dataset.end
-                    ).getTime()
-                    : Date.now();
+                const endTime =
+                    timer.dataset.end
+                        ? new Date(
+                            timer.dataset.end
+                        ).getTime()
+                        : Date.now();
 
-            if (
-                Number.isNaN(startTime) ||
-                Number.isNaN(endTime)
-            ) {
+                if (
+                    Number.isNaN(startTime) ||
+                    Number.isNaN(endTime)
+                ) {
 
-                timer.textContent = "00:00:00";
+                    timer.textContent = "00:00:00";
 
-                return;
-            }
+                    return;
+                }
 
-            let elapsed =
-                endTime - startTime;
+                let elapsed =
+                    endTime - startTime;
 
-            if (elapsed < 0) {
-                elapsed = 0;
-            }
+                if (elapsed < 0) {
+                    elapsed = 0;
+                }
 
-            const totalSeconds =
-                Math.floor(
-                    elapsed / 1000
-                );
+                const totalSeconds =
+                    Math.floor(
+                        elapsed / 1000
+                    );
 
-            const hours =
-                Math.floor(
-                    totalSeconds / 3600
-                );
+                const hours =
+                    Math.floor(
+                        totalSeconds / 3600
+                    );
 
-            const minutes =
-                Math.floor(
-                    (totalSeconds % 3600) / 60
-                );
+                const minutes =
+                    Math.floor(
+                        (totalSeconds % 3600) / 60
+                    );
 
-            const seconds =
-                totalSeconds % 60;
+                const seconds =
+                    totalSeconds % 60;
 
-            timer.textContent =
-                String(hours).padStart(2, "0") +
-                ":" +
-                String(minutes).padStart(2, "0") +
-                ":" +
-                String(seconds).padStart(2, "0");
+                timer.textContent =
+                    String(hours).padStart(2, "0") +
+                    ":" +
+                    String(minutes).padStart(2, "0") +
+                    ":" +
+                    String(seconds).padStart(2, "0");
+
+            });
+
+        }
+
+        updateTimers();
+
+        setInterval(
+            updateTimers,
+            1000
+        );
+
+
+        /* =========================================
+           Allowed Status Transitions
+        ========================================== */
+
+        const allowedTransitions = {
+
+            "قيد الانتظار": [
+                "تم التأكيد",
+                "ملغي"
+            ],
+
+            "تم التأكيد": [
+                "قيد التحضير",
+                "ملغي"
+            ],
+
+            "قيد التحضير": [
+                "جاهز",
+                "ملغي"
+            ],
+
+            "جاهز": [
+                "تم التوصيل"
+            ],
+
+            "تم التوصيل": [],
+
+            "ملغي": []
+
+        };
+
+
+        /* =========================================
+           Status Modal
+        ========================================== */
+
+        const statusModal =
+            document.getElementById("statusModal");
+
+        const statusModalMessage =
+            document.getElementById("statusModalMessage");
+
+        const closeStatusModal =
+            document.getElementById("closeStatusModal");
+
+
+        function showStatusModal(message) {
+
+            statusModalMessage.textContent =
+                message;
+
+            statusModal.classList.add("show");
+
+            statusModal.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+        }
+
+
+        function hideStatusModal() {
+
+            statusModal.classList.remove("show");
+
+            statusModal.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+        }
+
+
+        closeStatusModal.addEventListener(
+            "click",
+            hideStatusModal
+        );
+
+
+        document.querySelector(
+            ".status-modal-overlay"
+        ).addEventListener(
+            "click",
+            hideStatusModal
+        );
+
+
+        /* =========================================
+           Validate Status Before Submit
+        ========================================== */
+
+        document.querySelectorAll(
+            ".status-form"
+        ).forEach(form => {
+
+            form.addEventListener(
+                "submit",
+                function (event) {
+
+                    const currentStatus =
+                        form.dataset.currentStatus;
+
+                    const select =
+                        form.querySelector(
+                            ".status-select"
+                        );
+
+                    const newStatus =
+                        select.value;
+
+
+                    // نفس الحالة
+                    if (
+                        currentStatus === newStatus
+                    ) {
+
+                        event.preventDefault();
+
+                        showStatusModal(
+                            `الطلب حالياً "${currentStatus}". اختر حالة جديدة.`
+                        );
+
+                        return;
+                    }
+
+
+                    const allowed =
+                        allowedTransitions[
+                        currentStatus
+                        ] || [];
+
+
+                    // الانتقال غير مسموح
+                    if (
+                        !allowed.includes(newStatus)
+                    ) {
+
+                        event.preventDefault();
+
+                        let message =
+                            `الحالة الحالية للطلب هي "${currentStatus}".`;
+
+                        if (allowed.length > 0) {
+
+                            message +=
+                                `\n\nيمكنك الانتقال إلى: ${allowed.join(" أو ")}`;
+
+                        } else {
+
+                            message +=
+                                "\n\nلا توجد حالات أخرى يمكن الانتقال إليها.";
+
+                        }
+
+                        statusModalMessage.textContent =
+                            message;
+
+                        showStatusModal(
+                            message
+                        );
+
+                        return;
+                    }
+
+                }
+            );
 
         });
 
-    }
-
-    updateTimers();
-
-    setInterval(
-        updateTimers,
-        1000
-    );
-
-
-    /* =========================================
-       Allowed Status Transitions
-    ========================================== */
-
-    const allowedTransitions = {
-
-        "قيد الانتظار": [
-            "تم التأكيد",
-            "ملغي"
-        ],
-
-        "تم التأكيد": [
-            "قيد التحضير",
-            "ملغي"
-        ],
-
-        "قيد التحضير": [
-            "جاهز",
-            "ملغي"
-        ],
-
-        "جاهز": [
-            "تم التوصيل"
-        ],
-
-        "تم التوصيل": [],
-
-        "ملغي": []
-
-    };
-
-
-    /* =========================================
-       Status Modal
-    ========================================== */
-
-    const statusModal =
-        document.getElementById("statusModal");
-
-    const statusModalMessage =
-        document.getElementById("statusModalMessage");
-
-    const closeStatusModal =
-        document.getElementById("closeStatusModal");
-
-
-    function showStatusModal(message) {
-
-        statusModalMessage.textContent =
-            message;
-
-        statusModal.classList.add("show");
-
-        statusModal.setAttribute(
-            "aria-hidden",
-            "false"
-        );
-
-    }
-
-
-    function hideStatusModal() {
-
-        statusModal.classList.remove("show");
-
-        statusModal.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-    }
-
-
-    closeStatusModal.addEventListener(
-        "click",
-        hideStatusModal
-    );
-
-
-    document.querySelector(
-        ".status-modal-overlay"
-    ).addEventListener(
-        "click",
-        hideStatusModal
-    );
-
-
-    /* =========================================
-       Validate Status Before Submit
-    ========================================== */
-
-    document.querySelectorAll(
-        ".status-form"
-    ).forEach(form => {
-
-        form.addEventListener(
-            "submit",
-            function(event) {
-
-                const currentStatus =
-                    form.dataset.currentStatus;
-
-                const select =
-                    form.querySelector(
-                        ".status-select"
-                    );
-
-                const newStatus =
-                    select.value;
-
-
-                // نفس الحالة
-                if (
-                    currentStatus === newStatus
-                ) {
-
-                    event.preventDefault();
-
-                    showStatusModal(
-                        `الطلب حالياً "${currentStatus}". اختر حالة جديدة.`
-                    );
-
-                    return;
-                }
-
-
-                const allowed =
-                    allowedTransitions[
-                        currentStatus
-                    ] || [];
-
-
-                // الانتقال غير مسموح
-                if (
-                    !allowed.includes(newStatus)
-                ) {
-
-                    event.preventDefault();
-
-                    let message =
-                        `الحالة الحالية للطلب هي "${currentStatus}".`;
-
-                    if (allowed.length > 0) {
-
-                        message +=
-                            `\n\nيمكنك الانتقال إلى: ${allowed.join(" أو ")}`;
-
-                    } else {
-
-                        message +=
-                            "\n\nلا توجد حالات أخرى يمكن الانتقال إليها.";
-
-                    }
-
-                    statusModalMessage.textContent =
-                        message;
-
-                    showStatusModal(
-                        message
-                    );
-
-                    return;
-                }
-
-            }
-        );
-
-    });
-
-</script>
+    </script>
 
 </body>
 

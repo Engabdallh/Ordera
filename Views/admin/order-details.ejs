@@ -5,350 +5,324 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         تفاصيل الطلب #<%= order.id %> - 911
     </title>
 
-    <link rel="stylesheet" href="/css/adminorderdetails.css">
+    <link rel="stylesheet" href="/css/admin/adminorderdetails.css">
 
 </head>
 
 <body>
 
-<div class="dashboard">
+    <div class="dashboard">
 
-    <!-- =========================
+        <!-- =========================
          Header
     ========================== -->
 
-    <header class="header">
+        <header class="header">
 
-        <div>
+            <div>
 
-            <h1>911</h1>
+                <h1>911</h1>
 
-            <p>
-                تفاصيل الطلب
-            </p>
+                <p>
+                    تفاصيل الطلب
+                </p>
 
-        </div>
-
-        <div class="header-actions">
-
-            <button
-    type="button"
-    class="back-btn"
-    onclick="history.back()"
->
-    ← العودة للطلبات
-</button>
-
-            <div class="logo">
-                911
             </div>
 
-        </div>
+            <div class="header-actions">
 
-    </header>
+                <button type="button" class="back-btn" onclick="history.back()">
+                    ← العودة للطلبات
+                </button>
+
+                <div class="logo">
+                    911
+                </div>
+
+            </div>
+
+        </header>
 
 
-    <!-- =========================
+        <!-- =========================
          Content
     ========================== -->
 
-    <main class="content">
+        <main class="content">
 
-        <h2>
-            تفاصيل الطلب #<%= order.id %>
-        </h2>
+            <h2>
+                تفاصيل الطلب #<%= order.id %>
+            </h2>
 
-        <p class="description">
-            معلومات الطلب والزبون والمنتجات.
-        </p>
+            <p class="description">
+                معلومات الطلب والزبون والمنتجات.
+            </p>
 
 
-        <!-- =========================
+            <!-- =========================
              معلومات الطلب
         ========================== -->
 
-        <div class="order-info-grid">
+            <div class="order-info-grid">
 
-            <div class="info-card">
+                <div class="info-card">
 
-                <span>
-                    الزبون
-                </span>
+                    <span>
+                        الزبون
+                    </span>
 
-                <strong>
-                    <%= order.customer_name %>
-                </strong>
+                    <strong>
+                        <%= order.customer_name %>
+                    </strong>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <span>
+                        البريد الإلكتروني
+                    </span>
+
+                    <strong>
+                        <%= order.customer_email || "غير متوفر" %>
+                    </strong>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <span>
+                        رقم الهاتف
+                    </span>
+
+                    <strong>
+                        <%= order.delivery_phone %>
+                    </strong>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <span>
+                        نوع الطلب
+                    </span>
+
+                    <strong>
+                        <%= order.order_type %>
+                    </strong>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <span>
+                        الحالة
+                    </span>
+
+                    <strong>
+                        <%= order.status %>
+                    </strong>
+
+                </div>
+
+
+                <div class="info-card">
+
+                    <span>
+                        المبلغ الإجمالي
+                    </span>
+
+                    <strong>
+                        <%= Number(order.total_price).toFixed(2) %> د.أ
+                    </strong>
+
+                </div>
 
             </div>
 
 
-            <div class="info-card">
-
-                <span>
-                    البريد الإلكتروني
-                </span>
-
-                <strong>
-                    <%= order.customer_email || "غير متوفر" %>
-                </strong>
-
-            </div>
-
-
-            <div class="info-card">
-
-                <span>
-                    رقم الهاتف
-                </span>
-
-                <strong>
-                    <%= order.delivery_phone %>
-                </strong>
-
-            </div>
-
-
-            <div class="info-card">
-
-                <span>
-                    نوع الطلب
-                </span>
-
-                <strong>
-                    <%= order.order_type %>
-                </strong>
-
-            </div>
-
-
-            <div class="info-card">
-
-                <span>
-                    الحالة
-                </span>
-
-                <strong>
-                    <%= order.status %>
-                </strong>
-
-            </div>
-
-
-            <div class="info-card">
-
-                <span>
-                    المبلغ الإجمالي
-                </span>
-
-                <strong>
-                    <%= Number(order.total_price).toFixed(2) %> د.أ
-                </strong>
-
-            </div>
-
-        </div>
-
-
-        <!-- =========================
+            <!-- =========================
              العنوان
         ========================== -->
 
-        <div class="details-section">
+            <div class="details-section">
 
-            <h3>
-                عنوان التوصيل
-            </h3>
+                <h3>
+                    عنوان التوصيل
+                </h3>
 
-            <div class="address-box">
+                <div class="address-box">
 
-                <%= order.delivery_address %>
+                    <%= order.delivery_address %>
+
+                </div>
 
             </div>
 
-        </div>
 
-
-        <!-- =========================
+            <!-- =========================
              المنتجات
         ========================== -->
 
-        <div class="details-section">
+            <div class="details-section">
 
-            <h3>
-                المنتجات
-            </h3>
+                <h3>
+                    المنتجات
+                </h3>
 
-            <% if (items && items.length > 0) { %>
+                <% if (items && items.length> 0) { %>
 
-                <div class="orders-table-wrapper">
+                    <div class="orders-table-wrapper">
 
-                    <table class="orders-table">
+                        <table class="orders-table">
 
-                        <thead>
-
-                            <tr>
-
-                                <th>
-                                    المنتج
-                                </th>
-
-                                <th>
-                                    الكمية
-                                </th>
-
-                                <th>
-                                    السعر
-                                </th>
-
-                                <th>
-                                    الإجمالي
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody>
-
-                            <% items.forEach(item => { %>
+                            <thead>
 
                                 <tr>
 
-                                    <td>
-                                        <%= item.name %>
-                                    </td>
+                                    <th>
+                                        المنتج
+                                    </th>
 
-                                    <td>
-                                        <%= item.quantity %>
-                                    </td>
+                                    <th>
+                                        الكمية
+                                    </th>
 
-                                    <td>
-                                        <%= Number(item.price).toFixed(2) %> د.أ
-                                    </td>
+                                    <th>
+                                        السعر
+                                    </th>
 
-                                    <td>
-                                        <%= (
-                                            Number(item.price) *
-                                            Number(item.quantity)
-                                        ).toFixed(2) %> د.أ
-                                    </td>
+                                    <th>
+                                        الإجمالي
+                                    </th>
 
                                 </tr>
 
-                            <% }) %>
-
-                        </tbody>
-
-                    </table>
-
-                </div>
-
-            <% } else { %>
-
-                <div class="no-orders">
-                    لا توجد منتجات في هذا الطلب.
-                </div>
-
-            <% } %>
-
-        </div>
+                            </thead>
 
 
-        <!-- =========================
-             الأوقات
-        ========================== -->
+                            <tbody>
 
-        <div class="details-section">
+                                <% items.forEach(item=> { %>
 
-            <h3>
-                معلومات الوقت
-            </h3>
-            
+                                    <tr>
 
-            <div class="order-times">
+                                        <td>
+                                            <%= item.name %>
+                                        </td>
 
-                <% if (order.updated_at) { %>
-    <p>
-        <strong>آخر تحديث:</strong>
-        <%= new Date(order.updated_at).toLocaleString("ar-JO") %>
-    </p>
-<% } %>
+                                        <td>
+                                            <%= item.quantity %>
+                                        </td>
 
-                <p>
-                    <strong>وقت إنشاء الطلب:</strong>
+                                        <td>
+                                            <%= Number(item.price).toFixed(2) %> د.أ
+                                        </td>
 
-                    <%= new Date(
-                        order.created_at
-                    ).toLocaleString(
-                        'ar-JO'
-                    ) %>
-                </p>
+                                        <td>
+                                            <%= ( Number(item.price) * Number(item.quantity) ).toFixed(2) %> د.أ
+                                        </td>
 
+                                    </tr>
 
-                <% if (order.status_changed_at) { %>
+                                    <% }) %>
 
-                    <p>
-                        <strong>وقت التأكيد:</strong>
+                            </tbody>
 
-                        <%= new Date(
-                            order.status_changed_at
-                        ).toLocaleString(
-                            'ar-JO'
-                        ) %>
-                    </p>
+                        </table>
 
-                <% } %>
+                    </div>
 
+                    <% } else { %>
 
-                <% if (order.preparation_completed_at) { %>
+                        <div class="no-orders">
+                            لا توجد منتجات في هذا الطلب.
+                        </div>
 
-                    <p>
-                        <strong>وقت الجاهزية:</strong>
-
-                        <%= new Date(
-                            order.preparation_completed_at
-                        ).toLocaleString(
-                            'ar-JO'
-                        ) %>
-                    </p>
-
-                <% } %>
+                        <% } %>
 
             </div>
 
-        </div>
+
+            <!-- =========================
+             الأوقات
+        ========================== -->
+
+            <div class="details-section">
+
+                <h3>
+                    معلومات الوقت
+                </h3>
 
 
-        <button
-    type="button"
-    class="back-btn"
-    onclick="history.back()"
->
-    ← العودة للطلبات
-</button>
+                <div class="order-times">
 
-    </main>
+                    <% if (order.updated_at) { %>
+                        <p>
+                            <strong>آخر تحديث:</strong>
+                            <%= new Date(order.updated_at).toLocaleString("ar-JO") %>
+                        </p>
+                        <% } %>
+
+                            <p>
+                                <strong>وقت إنشاء الطلب:</strong>
+
+                                <%= new Date( order.created_at ).toLocaleString( 'ar-JO' ) %>
+                            </p>
 
 
-    <footer>
+                            <% if (order.status_changed_at) { %>
 
-        <p>
-            911 Restaurant © 2026
-        </p>
+                                <p>
+                                    <strong>وقت التأكيد:</strong>
 
-    </footer>
+                                    <%= new Date( order.status_changed_at ).toLocaleString( 'ar-JO' ) %>
+                                </p>
 
-</div>
+                                <% } %>
+
+
+                                    <% if (order.preparation_completed_at) { %>
+
+                                        <p>
+                                            <strong>وقت الجاهزية:</strong>
+
+                                            <%= new Date( order.preparation_completed_at ).toLocaleString( 'ar-JO' ) %>
+                                        </p>
+
+                                        <% } %>
+
+                </div>
+
+            </div>
+
+
+            <button type="button" class="back-btn" onclick="history.back()">
+                ← العودة للطلبات
+            </button>
+
+        </main>
+
+
+        <footer>
+
+            <p>
+                911 Restaurant © 2026
+            </p>
+
+        </footer>
+
+    </div>
 
 </body>
 

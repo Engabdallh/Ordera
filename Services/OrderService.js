@@ -1,35 +1,32 @@
 const db = require("../Database/db");
 
 class OrderService {
+  // =====================================================
+  // طلبات العميل لليوم
+  // =====================================================
 
-    // =====================================================
-    // طلبات العميل لليوم
-    // =====================================================
-
-    async getCustomerOrders(customerId) {
-  const [orders] = await db.query(
-    `SELECT id, customer_id, total_price, status, order_type, created_at,
+  async getCustomerOrders(customerId) {
+    const [orders] = await db.query(
+      `SELECT id, customer_id, total_price, status, order_type, created_at,
             updated_at, status_changed_at, preparation_completed_at,
             delivery_phone, delivery_address
      FROM orders
      WHERE customer_id = ?
        AND created_at >= NOW() - INTERVAL 3 DAY
      ORDER BY created_at DESC`,
-    [customerId]
-  );
+      [customerId],
+    );
 
-  return orders;
-}
+    return orders;
+  }
 
+  // =====================================================
+  // منتجات طلب معين
+  // =====================================================
 
-    // =====================================================
-    // منتجات طلب معين
-    // =====================================================
-
-    async getOrderItems(orderId) {
-
-        const [items] = await db.query(
-            `SELECT
+  async getOrderItems(orderId) {
+    const [items] = await db.query(
+      `SELECT
                 oi.id,
                 oi.product_id,
                 oi.quantity,
@@ -40,19 +37,15 @@ class OrderService {
              JOIN products p
                 ON oi.product_id = p.id
              WHERE oi.order_id = ?`,
-            [orderId]
-        );
+      [orderId],
+    );
 
-        return items;
-    }
+    return items;
+  }
 
-
-    
-
-    async getDashboardStats() {
-
+  async getDashboardStats() {
     const [stats] = await db.query(
-        `SELECT
+      `SELECT
             COUNT(*) AS total_orders,
 
             COALESCE(SUM(total_price), 0) AS total_sales,
@@ -71,20 +64,19 @@ class OrderService {
 
          FROM orders
 
-         WHERE DATE(created_at) = CURDATE()`
+         WHERE DATE(created_at) = CURDATE()`,
     );
 
     return stats[0];
-}
+  }
 
-// =====================================================
-// آخر الطلبات في لوحة التحكم
-// =====================================================
+  // =====================================================
+  // آخر الطلبات في لوحة التحكم
+  // =====================================================
 
-async getLatestOrders() {
-
+  async getLatestOrders() {
     const [orders] = await db.query(
-        `SELECT
+      `SELECT
             o.id,
             o.total_price,
             o.status,
@@ -99,20 +91,19 @@ async getLatestOrders() {
 
          ORDER BY o.created_at DESC
 
-         LIMIT 10`
+         LIMIT 10`,
     );
 
     return orders;
-}
+  }
 
-// =====================================================
-// جلب تفاصيل طلب معين
-// =====================================================
+  // =====================================================
+  // جلب تفاصيل طلب معين
+  // =====================================================
 
-async getOrderById(orderId) {
-
+  async getOrderById(orderId) {
     const [orders] = await db.query(
-        `SELECT
+      `SELECT
             o.id,
             o.customer_id,
             o.agent_id,
@@ -135,14 +126,13 @@ async getOrderById(orderId) {
             ON o.customer_id = c.id
 
          WHERE o.id = ?`,
-        [orderId]
+      [orderId],
     );
 
     return orders[0] || null;
-}
+  }
 
-async filterOrders(filters = {}) {
-
+  async filterOrders(filters = {}) {
     let sql = `
         SELECT
             o.id,
@@ -159,68 +149,57 @@ async filterOrders(filters = {}) {
 
     const params = [];
 
-
     // =========================
     // الحالة
     // =========================
 
     if (filters.status) {
+      sql += ` AND o.status = ?`;
 
-        sql += ` AND o.status = ?`;
-
-        params.push(filters.status);
+      params.push(filters.status);
     }
-
 
     // =========================
     // الشهر أو التاريخ
     // =========================
 
     if (filters.month) {
-
-        sql += `
+      sql += `
             AND DATE_FORMAT(o.created_at, '%Y-%m') = ?
         `;
 
-        params.push(filters.month);
-
+      params.push(filters.month);
     } else if (filters.date) {
-
-        sql += `
+      sql += `
             AND DATE(o.created_at) = ?
         `;
 
-        params.push(filters.date);
+      params.push(filters.date);
     }
-
 
     // =========================
     // من الساعة
     // =========================
 
     if (filters.fromTime) {
-
-        sql += `
+      sql += `
             AND TIME(o.created_at) >= ?
         `;
 
-        params.push(filters.fromTime);
+      params.push(filters.fromTime);
     }
-
 
     // =========================
     // إلى الساعة
     // =========================
 
     if (filters.toTime) {
-
-        sql += `
+      sql += `
             AND TIME(o.created_at) <= ?
         `;
 
-        params.push(filters.toTime);
+      params.push(filters.toTime);
     }
-
 
     // =========================
     // الترتيب
@@ -230,34 +209,25 @@ async filterOrders(filters = {}) {
         ORDER BY o.created_at DESC
     `;
 
-
-    const [orders] =
-        await db.query(sql, params);
-
+    const [orders] = await db.query(sql, params);
 
     // =========================
     // الإحصائيات
     // =========================
 
-    const totalOrders =
-        orders.length;
+    const totalOrders = orders.length;
 
-
-    const totalSales =
-        orders.reduce(
-            (sum, order) =>
-                sum + Number(order.total_price),
-            0
-        );
-
+    const totalSales = orders.reduce(
+      (sum, order) => sum + Number(order.total_price),
+      0,
+    );
 
     return {
-        orders,
-        totalOrders,
-        totalSales
+      orders,
+      totalOrders,
+      totalSales,
     };
+  }
 }
-}
-
 
 module.exports = OrderService;

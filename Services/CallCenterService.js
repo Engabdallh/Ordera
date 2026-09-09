@@ -1,15 +1,13 @@
 const db = require("../Database/db");
 
 class CallCenterService {
+  // =====================================================
+  // طلبات اليوم للكول سنتر
+  // =====================================================
 
-    // =====================================================
-    // طلبات اليوم للكول سنتر
-    // =====================================================
-
-    async getTodayOrdersForCallCenter() {
-
-        const [orders] = await db.query(
-            `SELECT
+  async getTodayOrdersForCallCenter() {
+    const [orders] = await db.query(
+      `SELECT
                 o.id,
                 o.customer_id,
                 o.total_price,
@@ -31,21 +29,19 @@ class CallCenterService {
 
              WHERE DATE(o.created_at) = CURDATE()
 
-             ORDER BY o.created_at DESC`
-        );
+             ORDER BY o.created_at DESC`,
+    );
 
-        return orders;
-    }
+    return orders;
+  }
 
+  // =====================================================
+  // منتجات طلب معين للكول سنتر
+  // =====================================================
 
-    // =====================================================
-    // منتجات طلب معين للكول سنتر
-    // =====================================================
-
-    async getOrderItemsForCallCenter(orderId) {
-
-        const [items] = await db.query(
-            `SELECT
+  async getOrderItemsForCallCenter(orderId) {
+    const [items] = await db.query(
+      `SELECT
                 oi.id,
                 oi.product_id,
                 oi.quantity,
@@ -59,50 +55,48 @@ class CallCenterService {
                 ON oi.product_id = p.id
 
              WHERE oi.order_id = ?`,
-            [orderId]
-        );
+      [orderId],
+    );
 
-        return items;
-    }
+    return items;
+  }
 
+  // =====================================================
+  // تغيير حالة الطلب
+  // =====================================================
 
-    // =====================================================
-    // تغيير حالة الطلب
-    // =====================================================
-
-    async updateOrderStatus(orderId, newStatus) {
-
+  async updateOrderStatus(orderId, newStatus) {
     const allowedStatuses = [
-        "قيد الانتظار",
-        "تم التأكيد",
-        "قيد التحضير",
-        "جاهز",
-        "تم التوصيل",
-        "ملغي"
+      "قيد الانتظار",
+      "تم التأكيد",
+      "قيد التحضير",
+      "جاهز",
+      "تم التوصيل",
+      "ملغي",
     ];
 
     // التحقق من الحالة الجديدة
     if (!allowedStatuses.includes(newStatus)) {
-        throw new Error("حالة الطلب غير صحيحة");
+      throw new Error("حالة الطلب غير صحيحة");
     }
 
     // جلب الحالة الحالية للطلب
     const [orders] = await db.query(
-        `SELECT id, status
+      `SELECT id, status
          FROM orders
          WHERE id = ?`,
-        [orderId]
+      [orderId],
     );
 
     if (orders.length === 0) {
-        throw new Error("الطلب غير موجود");
+      throw new Error("الطلب غير موجود");
     }
 
     const currentStatus = orders[0].status;
 
     // إذا كانت نفس الحالة
     if (currentStatus === newStatus) {
-        throw new Error("الطلب موجود بالفعل بهذه الحالة");
+      throw new Error("الطلب موجود بالفعل بهذه الحالة");
     }
 
     // =================================================
@@ -110,18 +104,18 @@ class CallCenterService {
     // =================================================
 
     const allowedTransitions = {
-        "قيد الانتظار": ["تم التأكيد", "ملغي"],
-        "تم التأكيد": ["قيد التحضير", "ملغي"],
-        "قيد التحضير": ["جاهز", "ملغي"],
-        "جاهز": ["تم التوصيل"],
-        "تم التوصيل": [],
-        "ملغي": []
+      "قيد الانتظار": ["تم التأكيد", "ملغي"],
+      "تم التأكيد": ["قيد التحضير", "ملغي"],
+      "قيد التحضير": ["جاهز", "ملغي"],
+      جاهز: ["تم التوصيل"],
+      "تم التوصيل": [],
+      ملغي: [],
     };
 
     if (!allowedTransitions[currentStatus]?.includes(newStatus)) {
-        throw new Error(
-            `His situation cannot be changed."${currentStatus}" to "${newStatus}"`
-        );
+      throw new Error(
+        `His situation cannot be changed."${currentStatus}" to "${newStatus}"`,
+      );
     }
 
     // =================================================
@@ -130,22 +124,18 @@ class CallCenterService {
     // =================================================
 
     if (newStatus === "تم التأكيد") {
-
-        const [result] = await db.query(
-            `UPDATE orders
+      const [result] = await db.query(
+        `UPDATE orders
              SET
                 status = ?,
                 status_changed_at = NOW(),
                 preparation_completed_at = NULL,
                 updated_at = NOW()
              WHERE id = ?`,
-            [
-                newStatus,
-                orderId
-            ]
-        );
+        [newStatus, orderId],
+      );
 
-        return result;
+      return result;
     }
 
     // =================================================
@@ -153,20 +143,16 @@ class CallCenterService {
     // =================================================
 
     if (newStatus === "قيد التحضير") {
-
-        const [result] = await db.query(
-            `UPDATE orders
+      const [result] = await db.query(
+        `UPDATE orders
              SET
                 status = ?,
                 updated_at = NOW()
              WHERE id = ?`,
-            [
-                newStatus,
-                orderId
-            ]
-        );
+        [newStatus, orderId],
+      );
 
-        return result;
+      return result;
     }
 
     // =================================================
@@ -175,21 +161,17 @@ class CallCenterService {
     // =================================================
 
     if (newStatus === "جاهز") {
-
-        const [result] = await db.query(
-            `UPDATE orders
+      const [result] = await db.query(
+        `UPDATE orders
              SET
                 status = ?,
                 preparation_completed_at = NOW(),
                 updated_at = NOW()
              WHERE id = ?`,
-            [
-                newStatus,
-                orderId
-            ]
-        );
+        [newStatus, orderId],
+      );
 
-        return result;
+      return result;
     }
 
     // =================================================
@@ -197,20 +179,16 @@ class CallCenterService {
     // =================================================
 
     if (newStatus === "تم التوصيل") {
-
-        const [result] = await db.query(
-            `UPDATE orders
+      const [result] = await db.query(
+        `UPDATE orders
              SET
                 status = ?,
                 updated_at = NOW()
              WHERE id = ?`,
-            [
-                newStatus,
-                orderId
-            ]
-        );
+        [newStatus, orderId],
+      );
 
-        return result;
+      return result;
     }
 
     // =================================================
@@ -218,26 +196,19 @@ class CallCenterService {
     // =================================================
 
     if (newStatus === "ملغي") {
-
-        const [result] = await db.query(
-            `UPDATE orders
+      const [result] = await db.query(
+        `UPDATE orders
              SET
                 status = ?,
                 updated_at = NOW()
              WHERE id = ?`,
-            [
-                newStatus,
-                orderId
-            ]
-        );
+        [newStatus, orderId],
+      );
 
-        return result;
+      return result;
     }
-
+  }
 }
-
-}
-
 
 // =====================================================
 // Export
