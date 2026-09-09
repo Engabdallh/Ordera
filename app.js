@@ -53,6 +53,7 @@ const customerRoutes = require('./Routes/customerRoutes');
 const cartRoutes = require('./Routes/cartRoutes');
 const orderRoutes = require('./Routes/orderRoutes');
 const callCenterRoutes = require('./Routes/callCenterRoutes');
+const couponRoutes = require("./Routes/couponRoutes");
 
 app.use((req, res, next) => {
     console.log(`Method: ${req.method} | URL: ${req.url}`);
@@ -67,6 +68,7 @@ app.use('/', customerRoutes);
 app.use('/', orderRoutes);
 app.use('/cart', cartRoutes);
 app.use('/call-center', callCenterRoutes);
+app.use("/admin/coupons", couponRoutes);
 
 
 

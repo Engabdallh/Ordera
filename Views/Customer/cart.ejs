@@ -192,33 +192,99 @@
 
         </div>
 
+        <!-- ============================== -->
+<!-- كوبون الخصم -->
+<!-- ============================== -->
 
-        <!-- إجمالي الطلب -->
+<div class="coupon-section">
 
-        <div class="total">
+    <h3>🎟️ هل لديك كوبون خصم؟</h3>
 
-            <h2>
-                إجمالي الطلب:
-            </h2>
+    <form action="/cart/apply-coupon" method="POST" class="coupon-form">
+
+        <input
+            type="text"
+            name="code"
+            placeholder="أدخل كود الخصم"
+            maxlength="50"
+            required
+        >
+
+        <button type="submit">
+            تطبيق
+        </button>
+
+    </form>
+
+    <% if (couponError) { %>
+        <p class="coupon-error">
+            <%= couponError %>
+        </p>
+    <% } %>
+
+    <% if (couponSuccess) { %>
+        <p class="coupon-success">
+            <%= couponSuccess %>
+        </p>
+    <% } %>
+
+</div>
+
+        <!-- ============================== -->
+<!-- إجمالي الطلب والخصم -->
+<!-- ============================== -->
+
+<%
+    const cartSubtotal = cart.reduce(
+        (total, item) =>
+            total +
+            Number(item.price) * item.quantity,
+        0
+    );
+
+    const finalSubtotal = Number(cartSubtotal).toFixed(2);
+
+    const discountAmount = coupon
+        ? Number(coupon.discountAmount).toFixed(2)
+        : "0.00";
+
+    const finalTotal = coupon
+        ? Number(coupon.totalPrice).toFixed(2)
+        : finalSubtotal;
+%>
+
+<div class="total">
+
+    <div class="total-row">
+        <span>المجموع:</span>
+        <strong>
+            <%= finalSubtotal %> د.أ
+        </strong>
+    </div>
+
+    <% if (coupon) { %>
+
+        <div class="total-row discount-row">
+            <span>
+                الخصم (<%= coupon.couponCode %>):
+            </span>
 
             <strong>
-
-                <%= cart
-                    .reduce(
-                        (total, item) =>
-                            total +
-                            Number(item.price) *
-                            item.quantity,
-                        0
-                    )
-                    .toFixed(2)
-                %>
-
-                د.أ
-
+                -<%= discountAmount %> د.أ
             </strong>
-
         </div>
+
+    <% } %>
+
+    <div class="total-row final-total">
+        <span>الإجمالي النهائي:</span>
+
+        <strong>
+            <%= finalTotal %> د.أ
+        </strong>
+    </div>
+
+</div>
 
 
         <!-- أزرار السلة -->

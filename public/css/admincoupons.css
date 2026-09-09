@@ -1,0 +1,545 @@
+/* ==============================
+   صفحة إدارة الكوبونات
+   911 Restaurant
+   Black + Orange Theme
+============================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #111111;
+    color: white;
+    min-height: 100vh;
+}
+
+.dashboard {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* ==============================
+   الهيدر
+============================== */
+
+.header {
+    background: #000000;
+    border-bottom: 3px solid #ff6a00;
+    padding: 20px 50px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header h1 {
+    margin: 0;
+    color: #ff6a00;
+    font-size: 36px;
+}
+
+.header p {
+    margin: 5px 0 0;
+    color: #bbbbbb;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
+/* ==============================
+   اللوجو
+============================== */
+
+.logo {
+    width: 65px;
+    height: 65px;
+
+    border: 3px solid #ff6a00;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ff6a00;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+
+/* ==============================
+   زر تسجيل الخروج
+============================== */
+
+.logout-btn {
+    text-decoration: none;
+
+    background: #333;
+    color: white;
+
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    background: #dc3545;
+    transform: translateY(-2px);
+}
+
+
+/* ==============================
+   المحتوى
+============================== */
+
+.content {
+    width: 90%;
+    max-width: 1100px;
+
+    margin: 50px auto;
+
+    flex: 1;
+}
+
+.content h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+
+/* ==============================
+   صفحة الكوبونات
+============================== */
+
+.coupon-page {
+    width: 100%;
+}
+
+.coupon-header {
+    margin-bottom: 30px;
+}
+
+.coupon-header h2 {
+    margin-bottom: 8px;
+}
+
+.coupon-header p {
+    margin: 0;
+    color: #aaaaaa;
+}
+
+
+/* ==============================
+   رسائل النجاح والخطأ
+============================== */
+
+.coupon-message {
+    padding: 14px 18px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.coupon-success {
+    background: rgba(255, 106, 0, 0.12);
+    color: #ff6a00;
+    border: 1px solid rgba(255, 106, 0, 0.3);
+}
+
+.coupon-error {
+    background: rgba(255, 60, 60, 0.12);
+    color: #ff5c5c;
+    border: 1px solid rgba(255, 60, 60, 0.3);
+}
+
+
+/* ==============================
+   كرت إضافة الكوبون
+============================== */
+
+.coupon-form-card {
+    background: #1c1c1c;
+
+    border: 1px solid #333333;
+    border-right: 5px solid #ff6a00;
+
+    padding: 28px;
+
+    border-radius: 12px;
+
+    margin-bottom: 30px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.coupon-form-card h3 {
+    margin-top: 0;
+    margin-bottom: 25px;
+
+    color: #ff6a00;
+}
+
+
+/* ==============================
+   فورم الكوبون
+============================== */
+
+.coupon-form-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.coupon-form-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+.coupon-form-group label {
+    font-weight: bold;
+    color: #fff;
+}
+
+.coupon-form-group input,
+.coupon-form-group select {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    background: #111111;
+    color: #fff;
+
+    border: 1px solid #333;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.coupon-form-group input::placeholder {
+    color: #777;
+}
+
+.coupon-form-group input:focus,
+.coupon-form-group select:focus {
+    border-color: #ff6a00;
+
+    box-shadow:
+        0 0 0 2px rgba(255, 106, 0, 0.12);
+}
+
+
+/* ==============================
+   زر إضافة الكوبون
+============================== */
+
+.coupon-add-btn {
+    margin-top: 22px;
+
+    padding: 13px 28px;
+
+    background: #ff6a00;
+    color: #000;
+
+    border: none;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    transition: 0.2s;
+}
+
+.coupon-add-btn:hover {
+    background: #ff8533;
+
+    transform: translateY(-1px);
+}
+
+
+/* ==============================
+   كرت قائمة الكوبونات
+============================== */
+
+.coupons-list-card {
+    background: #1c1c1c;
+
+    border: 1px solid #333333;
+    border-right: 5px solid #ff6a00;
+
+    padding: 28px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.coupons-list-card h3 {
+    margin-top: 0;
+    margin-bottom: 25px;
+
+    color: #ff6a00;
+}
+
+
+/* ==============================
+   جدول الكوبونات
+============================== */
+
+.coupons-table-container {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+.coupons-table {
+    width: 100%;
+
+    min-width: 800px;
+
+    border-collapse: collapse;
+}
+
+.coupons-table th,
+.coupons-table td {
+    padding: 15px 12px;
+
+    text-align: center;
+
+    border-bottom: 1px solid #292929;
+}
+
+.coupons-table th {
+    color: #ff6a00;
+
+    font-weight: bold;
+
+    background: #111111;
+}
+
+.coupons-table td {
+    color: #ddd;
+}
+
+.coupons-table tbody tr {
+    transition: 0.2s;
+}
+
+.coupons-table tbody tr:hover {
+    background: #252525;
+}
+
+
+/* ==============================
+   شكل كود الكوبون
+============================== */
+
+.coupon-code {
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    background: rgba(255, 106, 0, 0.1);
+
+    color: #ff6a00;
+
+    border: 1px solid rgba(255, 106, 0, 0.25);
+
+    border-radius: 7px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+}
+
+
+/* ==============================
+   حالة الكوبون
+============================== */
+
+.coupon-status {
+    display: inline-block;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.coupon-status.active {
+    background: rgba(255, 106, 0, 0.12);
+
+    color: #ff6a00;
+
+    border: 1px solid rgba(255, 106, 0, 0.25);
+}
+
+.coupon-status.inactive {
+    background: rgba(255, 255, 255, 0.06);
+
+    color: #888;
+
+    border: 1px solid #333;
+}
+
+
+/* ==============================
+   زر تفعيل وتعطيل
+============================== */
+
+.coupon-toggle-btn {
+    border: none;
+
+    padding: 8px 15px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    background: #ff6a00;
+    color: #000;
+
+    transition: 0.2s;
+}
+
+.coupon-toggle-btn:hover {
+    background: #ff8533;
+}
+
+
+/* ==============================
+   لا يوجد كوبونات
+============================== */
+
+.no-coupons {
+    text-align: center;
+
+    padding: 35px;
+
+    color: #888;
+}
+
+
+/* ==============================
+   الفوتر
+============================== */
+
+footer {
+    background: #000000;
+
+    border-top: 1px solid #333333;
+
+    text-align: center;
+
+    padding: 18px;
+
+    color: #777777;
+}
+
+
+/* ==============================
+   الموبايل
+============================== */
+
+@media (max-width: 700px) {
+
+    .header {
+        padding: 18px 20px;
+    }
+
+    .header h1 {
+        font-size: 28px;
+    }
+
+    .logo {
+        width: 55px;
+        height: 55px;
+        font-size: 19px;
+    }
+
+    .content {
+        width: 94%;
+        margin: 30px auto;
+    }
+
+    .coupon-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .coupon-form-card,
+    .coupons-list-card {
+        padding: 18px;
+    }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    .logout-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+}
+/* ==============================
+   أيقونة تاريخ انتهاء الكوبون
+============================== */
+
+.coupon-form-group input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(55%) sepia(100%) saturate(2000%) hue-rotate(360deg) brightness(105%);
+    cursor: pointer;
+}
+
+/* ==============================
+   زر حذف الكوبون
+============================== */
+
+.coupon-delete-btn {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin-right: 6px;
+    transition: 0.2s ease;
+}
+
+.coupon-delete-btn:hover {
+    background: #b91c1c;
+    transform: translateY(-1px);
+}
+
+.coupon-delete-btn:active {
+    transform: translateY(0);
+}

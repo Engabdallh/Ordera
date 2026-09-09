@@ -1,10 +1,12 @@
 const ProductService = require("../Services/ProductService");
 const RestaurantService = require("../Services/RestaurantService");
 const CheckoutService = require("../Services/CheckoutService");
+const CouponService = require("../Services/CouponService");
 
 const productService = new ProductService();
 const restaurantService = new RestaurantService();
 const checkoutService = new CheckoutService();
+const couponService = new CouponService();
 
 
 // =====================================================
@@ -136,6 +138,7 @@ const addToCart = async (req, res) => {
 
         }
 
+        delete req.session.coupon;
 
         res.redirect("/cart");
 
@@ -177,7 +180,14 @@ const showCart = (req, res) => {
             "customer/cart",
             {
                 cart: cart,
-                userName: req.session.userName
+                userName: req.session.userName,
+
+                coupon:req.session.coupon || null,
+
+                couponError:req.query.couponError || null,
+
+                couponSuccess:req.query.couponSuccess || null
+
             }
         );
 
@@ -235,6 +245,8 @@ const increaseQuantity = (req, res) => {
 
 
         product.quantity += 1;
+
+        delete req.session.coupon;
 
 
         res.redirect("/cart");
@@ -305,6 +317,8 @@ const decreaseQuantity = (req, res) => {
 
         }
 
+        delete req.session.coupon;
+
 
         res.redirect("/cart");
 
@@ -351,6 +365,7 @@ const removeFromCart = (req, res) => {
                 item => item.productId !== productId
             );
 
+         delete req.session.coupon;
 
         res.redirect("/cart");
 
@@ -386,6 +401,7 @@ const clearCart = (req, res) => {
 
         req.session.cart = [];
 
+        delete req.session.coupon;
 
         res.redirect("/cart");
 
@@ -405,6 +421,165 @@ const clearCart = (req, res) => {
 
 };
 
+// =====================================================
+// تطبيق كوبون الخصم
+// =====================================================
+
+const applyCoupon = async (req, res) => {
+
+    try {
+
+        if (!checkCustomer(req, res)) {
+            return;
+        }
+
+        const code =
+            String(req.body.code || "").trim();
+
+        if (!code) {
+
+            return res.redirect(
+                "/cart?couponError=" +
+                encodeURIComponent("أدخل كود الخصم")
+            );
+
+        }
+
+        const cart =
+            req.session.cart || [];
+
+        if (cart.length === 0) {
+
+            return res.redirect(
+                "/cart?couponError=" +
+                encodeURIComponent("السلة فارغة")
+            );
+
+        }
+
+        // =============================================
+        // إعادة حساب subtotal من قاعدة البيانات
+        // =============================================
+
+        let subtotal = 0;
+
+        for (const item of cart) {
+
+            const product =
+                await productService.getProductById(
+                    item.productId
+                );
+
+            if (!product) {
+
+                return res.redirect(
+                    "/cart?couponError=" +
+                    encodeURIComponent(
+                        `المنتج "${item.name}" غير موجود`
+                    )
+                );
+
+            }
+
+            const quantity =
+                Number(item.quantity);
+
+            const price =
+                Number(product.price);
+
+            if (
+                !Number.isInteger(quantity) ||
+                quantity < 1 ||
+                quantity > 99 ||
+                !Number.isFinite(price) ||
+                price < 0
+            ) {
+
+                return res.redirect(
+                    "/cart?couponError=" +
+                    encodeURIComponent(
+                        "بيانات السلة غير صحيحة"
+                    )
+                );
+
+            }
+
+            subtotal += price * quantity;
+        }
+
+        subtotal =
+            Number(subtotal.toFixed(2));
+
+        // =============================================
+        // التحقق من الكوبون
+        // =============================================
+
+        const result =
+        await couponService.validateCoupon(
+        code,
+        subtotal,
+        req.session.userId
+    );
+
+        if (!result.valid) {
+
+            // إزالة الكوبون القديم إذا كان موجودًا
+            delete req.session.coupon;
+
+            return res.redirect(
+                "/cart?couponError=" +
+                encodeURIComponent(result.message)
+            );
+
+        }
+
+        // =============================================
+        // حفظ الكوبون في Session
+        // =============================================
+
+        req.session.coupon = {
+
+            couponId: result.couponId,
+
+            couponCode: result.couponCode,
+
+            discountType:
+                result.discountType,
+
+            discountValue:
+                result.discountValue,
+
+            discountAmount:
+                result.discountAmount,
+
+            subtotal:
+                result.subtotal,
+
+            totalPrice:
+                result.totalPrice
+        };
+
+        return res.redirect(
+            "/cart?couponSuccess=" +
+            encodeURIComponent(
+                `تم تطبيق الكوبون ${result.couponCode}`
+            )
+        );
+
+    } catch (error) {
+
+        console.error(
+            "APPLY COUPON ERROR:",
+            error
+        );
+
+        return res.status(500).send(
+            "حدث خطأ أثناء تطبيق الكوبون"
+        );
+
+    }
+
+};
 
 // =====================================================
 // تأكيد الطلب
@@ -497,22 +672,23 @@ const checkout = async (req, res) => {
         // إنشاء الطلب
         // ==============================
 
-        const order =
-            await checkoutService.createOrder({
+        const order = await checkoutService.createOrder({
 
-                customerId:
-                    req.session.userId,
+                 customerId: req.session.userId,
 
-                phone,
+                 phone,
 
-                address,
+                 address,
 
-                cart
+                 cart,
 
-            });
+                 couponCode: req.session.coupon?.couponCode || null
 
+        });
 
         req.session.cart = [];
+        delete req.session.coupon;
+
 
 
         return res.render(
@@ -520,8 +696,7 @@ const checkout = async (req, res) => {
             {
                 orderId: order.orderId,
 
-                totalPrice:
-                    Number(order.totalPrice).toFixed(2),
+                totalPrice:Number(order.totalPrice).toFixed(2),
 
                 phone,
 
@@ -563,6 +738,8 @@ module.exports = {
     removeFromCart,
 
     clearCart,
+
+    applyCoupon,
 
     checkout
 

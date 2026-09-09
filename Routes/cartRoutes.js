@@ -1,29 +1,35 @@
 const express = require("express");
 
 const router = express.Router();
+
 const { requireRole } = require('../Middleware/auth');
+
 router.use(requireRole('customer'));
 
 const cartController = require("../Controllers/CartController");
 
 // إضافة منتج للسلة
-router.post("/add",cartController.addToCart);
+router.post("/add", cartController.addToCart);
 
 // عرض السلة
-router.get("/",cartController.showCart);
+router.get("/", cartController.showCart);
 
 // زيادة الكمية
-router.post("/increase/:id",cartController.increaseQuantity);
+router.post("/increase/:id", cartController.increaseQuantity);
 
 // إنقاص الكمية
-router.post("/decrease/:id",cartController.decreaseQuantity);
+router.post("/decrease/:id", cartController.decreaseQuantity);
 
 // حذف منتج
-router.post("/remove/:id",cartController.removeFromCart);
+router.post("/remove/:id", cartController.removeFromCart);
 
 // تفريغ السلة
-router.post("/clear",cartController.clearCart);
+router.post("/clear", cartController.clearCart);
 
-router.post("/checkout",cartController.checkout);
+// تطبيق كوبون الخصم
+router.post("/apply-coupon", cartController.applyCoupon);
+
+// تأكيد الطلب
+router.post("/checkout", cartController.checkout);
 
 module.exports = router;
