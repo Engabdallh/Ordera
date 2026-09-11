@@ -33,7 +33,24 @@ const showTodayOrders = async (req, res) => {
     console.log("CALL CENTER ID:", userId);
     console.log("CALL CENTER NAME:", userName);
 
-    const orders = await callCenterService.getTodayOrdersForCallCenter();
+    const { search = "", status = "", page = 1 } = req.query;
+
+    console.log("FILTER SEARCH:", search);
+    console.log("FILTER STATUS:", status);
+
+    const orders = await callCenterService.getTodayOrdersForCallCenter({
+      search,
+      status,
+      page: Number(page),
+      limit: 10,
+    });
+
+    const totalOrders = await callCenterService.getOrdersCountForCallCenter({
+      search,
+      status,
+    });
+
+    const totalPages = Math.ceil(totalOrders / 10);
 
     for (const order of orders) {
       order.items = await callCenterService.getOrderItemsForCallCenter(
@@ -46,6 +63,12 @@ const showTodayOrders = async (req, res) => {
     res.render("callcenter/orders", {
       orders: orders,
       userName: userName,
+      page: Number(page),
+      totalPages: totalPages,
+      filters: {
+        search: req.query.search || "",
+        status: req.query.status || "",
+      },
     });
   } catch (error) {
     console.error("SHOW CALL CENTER ORDERS ERROR:", error);
@@ -82,7 +105,7 @@ const updateOrderStatus = async (req, res) => {
 
     console.log("ORDER STATUS UPDATED:", orderId, newStatus);
 
-    return res.redirect("/call-center");
+    return res.redirect(`/call-center/orders/${orderId}`); 
   } catch (error) {
     console.error("UPDATE ORDER STATUS ERROR:", error);
 

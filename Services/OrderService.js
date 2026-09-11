@@ -102,35 +102,40 @@ class OrderService {
   // =====================================================
 
   async getOrderById(orderId) {
-    const [orders] = await db.query(
-      `SELECT
-            o.id,
-            o.customer_id,
-            o.agent_id,
-            o.total_price,
-            o.status,
-            o.order_type,
-            o.created_at,
-            o.updated_at,
-            o.status_changed_at,
-            o.preparation_completed_at,
-            o.delivery_phone,
-            o.delivery_address,
+  const [orders] = await db.query(
+    `SELECT
+          o.id,
+          o.customer_id,
+          o.agent_id,
 
-            c.name AS customer_name,
-            c.email AS customer_email
+          o.subtotal,
+          o.discount_amount,
+          o.coupon_code,
+          o.total_price,
 
-         FROM orders o
+          o.status,
+          o.order_type,
+          o.created_at,
+          o.updated_at,
+          o.status_changed_at,
+          o.preparation_completed_at,
+          o.delivery_phone,
+          o.delivery_address,
 
-         JOIN customers c
-            ON o.customer_id = c.id
+          c.name AS customer_name,
+          c.email AS customer_email
 
-         WHERE o.id = ?`,
-      [orderId],
-    );
+       FROM orders o
 
-    return orders[0] || null;
-  }
+       JOIN customers c
+          ON o.customer_id = c.id
+
+       WHERE o.id = ?`,
+    [orderId],
+  );
+
+  return orders[0] || null;
+}
 
   async filterOrders(filters = {}) {
     let sql = `

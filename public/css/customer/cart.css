@@ -18,7 +18,9 @@ body {
   padding: 20px;
 }
 
-/* Header */
+/* =========================
+   Header
+========================= */
 
 .header {
   background: #181818;
@@ -63,7 +65,9 @@ body {
   background: #ff8c1a;
 }
 
-/* Empty */
+/* =========================
+   Empty
+========================= */
 
 .empty {
   background: #181818;
@@ -93,7 +97,9 @@ body {
   font-weight: bold;
 }
 
-/* Cart */
+/* =========================
+   Cart
+========================= */
 
 .cart {
   display: flex;
@@ -137,7 +143,9 @@ body {
   margin-bottom: 10px;
 }
 
-/* Quantity */
+/* =========================
+   Quantity
+========================= */
 
 .quantity {
   display: flex;
@@ -173,7 +181,9 @@ body {
   font-weight: bold;
 }
 
-/* Total product */
+/* =========================
+   Total Product
+========================= */
 
 .item-total {
   display: block;
@@ -182,7 +192,9 @@ body {
   margin-bottom: 12px;
 }
 
-/* Delete */
+/* =========================
+   Delete
+========================= */
 
 .delete-btn {
   border: 1px solid #ff7900;
@@ -199,7 +211,9 @@ body {
   color: #111;
 }
 
-/* Total */
+/* ==============================
+   Total
+============================== */
 
 .total {
   background: #181818;
@@ -207,21 +221,68 @@ body {
   border-radius: 18px;
   margin-top: 20px;
   padding: 20px;
+}
+
+/* ==============================
+   Original Price
+============================== */
+
+.price-original,
+.price-discount,
+.price-final {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border-radius: 8px;
 }
 
-.total h2 {
-  font-size: 20px;
+/* السعر الأصلي */
+
+.price-original {
+  background: #1a1a1a;
+  color: #aaa;
 }
 
-.total strong {
+.price-original strong {
+  color: #fff;
+}
+
+/* ==============================
+   Discount
+============================== */
+
+.price-discount {
+  background: #1b2a1b;
+  color: #aaa;
+}
+
+.price-discount strong {
+  color: #22c55e;
+}
+
+/* ==============================
+   Final Price
+============================== */
+
+.price-final {
+  margin-top: 10px;
+  margin-bottom: 0;
+  padding: 15px 16px;
+  background: #222;
+  border-top: 2px solid #ff7900;
+  font-size: 18px;
+}
+
+.price-final strong {
   color: #ff7900;
-  font-size: 25px;
+  font-size: 22px;
 }
 
-/* Actions */
+/* =========================
+   Actions
+========================= */
 
 .cart-actions {
   display: flex;
@@ -264,84 +325,6 @@ body {
   background: #ff8c1a;
 }
 
-/* Mobile */
-
-@media (max-width: 600px) {
-  .container {
-    padding: 12px;
-  }
-
-  .header {
-    padding: 16px;
-    border-radius: 15px;
-    align-items: flex-start;
-  }
-
-  .header h1 {
-    font-size: 28px;
-  }
-
-  .header h2 {
-    font-size: 18px;
-  }
-
-  .back-btn {
-    padding: 9px 11px;
-    font-size: 13px;
-  }
-
-  .cart-item {
-    padding: 12px;
-    gap: 12px;
-  }
-
-  .cart-item img {
-    width: 95px;
-    height: 95px;
-  }
-
-  .item-info h3 {
-    font-size: 18px;
-  }
-
-  .item-info p {
-    font-size: 13px;
-  }
-
-  .quantity {
-    gap: 8px;
-  }
-
-  .quantity-btn {
-    width: 34px;
-    height: 34px;
-  }
-
-  .item-total {
-    font-size: 15px;
-  }
-
-  .delete-btn {
-    padding: 8px 10px;
-    font-size: 12px;
-  }
-
-  .total {
-    padding: 16px;
-  }
-
-  .total h2 {
-    font-size: 17px;
-  }
-
-  .total strong {
-    font-size: 21px;
-  }
-
-  .cart-actions {
-    flex-direction: column;
-  }
-}
 /* =========================
    Order Confirmation Modal
 ========================= */
@@ -388,6 +371,7 @@ body {
 .modal-buttons {
   display: flex;
   gap: 10px;
+  margin-top: 5px;
 }
 
 .modal-buttons form {
@@ -424,17 +408,6 @@ body {
   background: #ff8c1a;
 }
 
-/* Mobile */
-
-@media (max-width: 600px) {
-  .modal-box {
-    padding: 25px 18px;
-  }
-
-  .modal-buttons {
-    flex-direction: column;
-  }
-}
 /* =========================
    Checkout Form
 ========================= */
@@ -490,42 +463,6 @@ body {
   color: #666;
 }
 
-/* أزرار نافذة التأكيد */
-
-.modal-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 5px;
-}
-
-.modal-buttons .cancel-btn {
-  flex: 1;
-}
-
-.modal-buttons .confirm-btn {
-  flex: 1;
-}
-
-/* Mobile */
-
-@media (max-width: 600px) {
-  .modal-box {
-    max-width: 95%;
-    padding: 25px 18px;
-  }
-
-  .form-group input {
-    height: 44px;
-  }
-
-  .form-group textarea {
-    min-height: 80px;
-  }
-
-  .modal-buttons {
-    flex-direction: column;
-  }
-}
 /* ==============================
    Coupon
 ============================== */
@@ -572,6 +509,10 @@ body {
   font-weight: bold;
 }
 
+.final-price{
+  color: #ff6a00 ;
+}
+
 .coupon-error {
   color: #ff4d4d;
   margin-bottom: 0;
@@ -583,38 +524,110 @@ body {
 }
 
 /* ==============================
-   Total
-============================== */
-
-.total-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.discount-row {
-  color: #22c55e;
-}
-
-.final-total {
-  margin-top: 15px;
-  padding-top: 15px;
-  border-top: 1px solid #333;
-  font-size: 20px;
-}
-
-/* ==============================
-   Mobile Responsive  Coupon
+   Mobile
 ============================== */
 
 @media (max-width: 600px) {
+  .container {
+    padding: 12px;
+  }
+
+  /* Header */
+
+  .header {
+    padding: 16px;
+    border-radius: 15px;
+    align-items: flex-start;
+  }
+
+  .header h1 {
+    font-size: 28px;
+  }
+
+  .header h2 {
+    font-size: 18px;
+  }
+
+  .back-btn {
+    padding: 9px 11px;
+    font-size: 13px;
+  }
+
+  /* Cart */
+
+  .cart-item {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .cart-item img {
+    width: 95px;
+    height: 95px;
+  }
+
+  .item-info h3 {
+    font-size: 18px;
+  }
+
+  .item-info p {
+    font-size: 13px;
+  }
+
+  /* Quantity */
+
+  .quantity {
+    gap: 8px;
+  }
+
+  .quantity-btn {
+    width: 34px;
+    height: 34px;
+  }
+
+  .item-total {
+    font-size: 15px;
+  }
+
+  .delete-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  /* Total */
+
+  .total {
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .price-original,
+  .price-discount,
+  .price-final {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .price-original strong,
+  .price-discount strong {
+    font-size: 14px;
+  }
+
+  .price-final {
+    font-size: 15px;
+  }
+
+  .price-final strong {
+    font-size: 19px;
+  }
+
+  /* Coupon */
+
   .coupon-section {
     width: 100%;
     max-width: 100%;
     padding: 12px;
     margin: 15px 0;
-    box-sizing: border-box;
   }
 
   .coupon-section h3 {
@@ -627,7 +640,6 @@ body {
     flex-direction: row;
     width: 100%;
     gap: 6px;
-    box-sizing: border-box;
   }
 
   .coupon-form input {
@@ -636,7 +648,6 @@ body {
     flex: 1;
     padding: 9px;
     font-size: 13px;
-    box-sizing: border-box;
   }
 
   .coupon-form button {
@@ -652,23 +663,28 @@ body {
     line-height: 1.5;
   }
 
-  .total {
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
+  /* Actions */
+
+  .cart-actions {
+    flex-direction: column;
   }
 
-  .total-row {
-    font-size: 12px;
-    gap: 5px;
-    line-height: 1.3;
-    margin-bottom: 8px;
+  /* Modal */
+
+  .modal-box {
+    max-width: 95%;
+    padding: 25px 18px;
   }
 
-  .final-total {
-    font-size: 14px;
-    margin-top: 10;
-    padding-top: 10px;
+  .modal-buttons {
+    flex-direction: column;
+  }
+
+  .form-group input {
+    height: 44px;
+  }
+
+  .form-group textarea {
+    min-height: 80px;
   }
 }

@@ -5,36 +5,72 @@ class CallCenterService {
   // طلبات اليوم للكول سنتر
   // =====================================================
 
-  async getTodayOrdersForCallCenter() {
-    const [orders] = await db.query(
-      `SELECT
-                o.id,
-                o.customer_id,
-                o.total_price,
-                o.status,
-                o.order_type,
-                o.delivery_phone,
-                o.delivery_address,
-                o.created_at,
-                o.updated_at,
-                o.status_changed_at,
-                o.preparation_completed_at,
+  async getTodayOrdersForCallCenter({
+  search = "",
+  status = "",
+  page = 1,
+  limit = 20,
+} = {}) {
+  const offset = (page - 1) * limit;
 
-                c.name AS customer_name
+  let sql = `
+    SELECT
+      o.id,
+      o.customer_id,
+      o.total_price,
+      o.status,
+      o.order_type,
+      o.delivery_phone,
+      o.delivery_address,
+      o.created_at,
+      o.updated_at,
+      o.status_changed_at,
+      o.preparation_completed_at,
 
-             FROM orders o
+      c.name AS customer_name
 
-             JOIN customers c
-                ON o.customer_id = c.id
+    FROM orders o
 
-             WHERE DATE(o.created_at) = CURDATE()
+    JOIN customers c
+      ON o.customer_id = c.id
 
-             ORDER BY o.created_at DESC`,
-    );
+    WHERE 1
+  `;
 
-    return orders;
+  const params = [];
+
+  // البحث برقم الطلب أو رقم الهاتف
+if (search) {
+  sql += `
+    AND (
+      CAST(o.id AS CHAR) = ?
+      OR o.delivery_phone = ?
+    )
+  `;
+
+  params.push(search, search);
+}
+
+  // فلترة الحالة
+  if (status) {
+    sql += `
+      AND o.status = ?
+    `;
+
+    params.push(status);
   }
 
+  sql += `
+    ORDER BY o.created_at DESC
+    LIMIT ? OFFSET ?
+  `;
+
+  params.push(limit, offset);
+
+  const [orders] = await db.query(sql, params);
+
+  return orders;
+}
   // =====================================================
   // منتجات طلب معين للكول سنتر
   // =====================================================
@@ -208,7 +244,47 @@ class CallCenterService {
       return result;
     }
   }
+
+  async getOrdersCountForCallCenter({
+  search = "",
+  status = "",
+} = {}) {
+  let sql = `
+    SELECT COUNT(*) AS total
+    FROM orders o
+    JOIN customers c
+      ON o.customer_id = c.id
+    WHERE 1
+  `;
+
+  const params = [];
+
+  if (search) {
+    sql += `
+      AND (
+        CAST(o.id AS CHAR) = ?
+        OR o.delivery_phone = ?
+      )
+    `;
+
+    params.push(search, search);
+  }
+
+  if (status) {
+    sql += `
+      AND o.status = ?
+    `;
+
+    params.push(status);
+  }
+
+  const [rows] = await db.query(sql, params);
+
+  return rows[0].total;
 }
+}
+
+
 
 // =====================================================
 // Export

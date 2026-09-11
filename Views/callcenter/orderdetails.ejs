@@ -37,7 +37,7 @@
 
             <div class="header-actions">
 
-                <button type="button" class="back-btn" onclick="history.back()">
+                <button type="button" class="back-btn" onclick="window.location.href='/call-center'">
                     ← العودة للطلبات
                 </button>
 
@@ -254,6 +254,153 @@
                         </div>
 
                         <% } %>
+
+            </div>
+
+            <!-- =========================
+     الحساب والخصم
+========================== -->
+
+            <div class="details-section">
+
+                <h3>
+                    الحساب والخصم
+                </h3>
+
+                <div class="order-summary">
+
+                    <div class="summary-row">
+                        <span>
+                            المجموع الفرعي
+                        </span>
+
+                        <strong>
+                            <%= Number(order.subtotal).toFixed(2) %> د.أ
+                        </strong>
+                    </div>
+
+                    <% if (order.coupon_code && Number(order.discount_amount)> 0) { %>
+
+                        <div class="summary-row coupon-row">
+                            <span>
+                                الكوبون
+                            </span>
+
+                            <strong>
+                                <%= order.coupon_code %>
+                            </strong>
+                        </div>
+
+                        <div class="summary-row discount-row">
+                            <span>
+                                الخصم
+                            </span>
+
+                            <strong>
+                                -<%= Number(order.discount_amount).toFixed(2) %> د.أ
+                            </strong>
+                        </div>
+
+                        <% } %>
+
+                            <div class="summary-row total-row">
+                                <span>
+                                    الإجمالي النهائي
+                                </span>
+
+                                <strong>
+                                    <%= Number(order.total_price).toFixed(2) %> د.أ
+                                </strong>
+                            </div>
+
+                </div>
+
+            </div>
+
+            <!-- =========================
+     تغيير حالة الطلب
+========================== -->
+
+            <div class="details-section">
+
+                <h3>
+                    تغيير حالة الطلب
+                </h3>
+
+                <form action="/call-center/orders/<%= order.id %>/status" method="POST" class="status-form"
+                    onsubmit="return validateStatusChange()">
+
+                    <div class="status-control">
+
+                        <label for="status">
+                            الحالة الحالية:
+                        </label>
+
+                        <strong>
+                            <%= order.status %>
+                        </strong>
+
+                    </div>
+
+                    <div class="status-control">
+
+                        <label for="status">
+                            الحالة الجديدة:
+                        </label>
+
+                        <select id="status" name="status" required>
+
+                            <option value="">
+                                اختر الحالة
+                            </option>
+
+                            <% if (order.status==="قيد الانتظار" ) { %>
+
+                                <option value="تم التأكيد">
+                                    تم التأكيد
+                                </option>
+
+                                <option value="ملغي">
+                                    ملغي
+                                </option>
+
+                                <% } else if (order.status==="تم التأكيد" ) { %>
+
+                                    <option value="قيد التحضير">
+                                        قيد التحضير
+                                    </option>
+
+                                    <option value="ملغي">
+                                        ملغي
+                                    </option>
+
+                                    <% } else if (order.status==="قيد التحضير" ) { %>
+
+                                        <option value="جاهز">
+                                            جاهز
+                                        </option>
+
+                                        <option value="ملغي">
+                                            ملغي
+                                        </option>
+
+                                        <% } else if (order.status==="جاهز" ) { %>
+
+                                            <option value="تم التوصيل">
+                                                تم التوصيل
+                                            </option>
+
+                                            <% } %>
+
+                        </select>
+
+                    </div>
+
+                    <button type="submit" class="change-status-btn">
+                        تحديث الحالة
+                    </button>
+
+                </form>
 
             </div>
 

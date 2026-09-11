@@ -215,8 +215,8 @@
                     <div class="total">
 
                         <div class="total-row">
-                            <span>المجموع:</span>
-                            <strong>
+                            <span>المجموع:......</span>
+                            <strong class="final-price">
                                 <%= finalSubtotal %> د.أ
                             </strong>
                         </div>
@@ -225,10 +225,10 @@
 
                             <div class="total-row discount-row">
                                 <span>
-                                    الخصم (<%= coupon.couponCode %>):
+                                    الخصم (<%= coupon.couponCode %>):.....
                                 </span>
 
-                                <strong>
+                                <strong class="final-price">
                                     -<%= discountAmount %> د.أ
                                 </strong>
                             </div>
@@ -236,9 +236,9 @@
                             <% } %>
 
                                 <div class="total-row final-total">
-                                    <span>الإجمالي النهائي:</span>
+                                    <span>الإجمالي النهائي:.....</span>
 
-                                    <strong>
+                                    <strong class="final-price">
                                         <%= finalTotal %> د.أ
                                     </strong>
                                 </div>
