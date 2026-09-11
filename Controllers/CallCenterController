@@ -105,7 +105,7 @@ const updateOrderStatus = async (req, res) => {
 
     console.log("ORDER STATUS UPDATED:", orderId, newStatus);
 
-    return res.redirect(`/call-center/orders/${orderId}`); 
+    return res.redirect(`/call-center/orders/${orderId}`);
   } catch (error) {
     console.error("UPDATE ORDER STATUS ERROR:", error);
 
@@ -146,6 +146,29 @@ const showOrderDetails = async (req, res) => {
   }
 };
 
+const getNewOrdersCount = async (req, res) => {
+  try {
+    if (!checkCallCenter(req, res)) {
+      return;
+    }
+
+    const result = await callCenterService.getNewOrdersCount();
+
+    return res.json({
+      success: true,
+      count: result.count,
+      latestOrderId: result.latestOrderId,
+    });
+  } catch (error) {
+    console.error("GET NEW ORDERS COUNT ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      count: 0,
+    });
+  }
+};
+
 // =====================================================
 // Export
 // =====================================================
@@ -156,4 +179,6 @@ module.exports = {
   updateOrderStatus,
 
   showOrderDetails,
+
+  getNewOrdersCount,
 };

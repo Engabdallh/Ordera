@@ -8,14 +8,19 @@ const {
   showTodayOrders,
   updateOrderStatus,
   showOrderDetails,
+  getNewOrdersCount,
 } = require("../Controllers/CallCenterController");
 
 // عرض طلبات اليوم
 router.get("/", showTodayOrders);
 
+// فحص الطلبات الجديدة
+router.get("/new-orders", getNewOrdersCount);
+
 // تغيير حالة الطلب
 router.post("/orders/:id/status", updateOrderStatus);
 
+//عرض تفاصيل طلب
 router.get("/orders/:id", showOrderDetails);
 
 module.exports = router;

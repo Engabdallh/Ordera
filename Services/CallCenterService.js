@@ -6,14 +6,14 @@ class CallCenterService {
   // =====================================================
 
   async getTodayOrdersForCallCenter({
-  search = "",
-  status = "",
-  page = 1,
-  limit = 20,
-} = {}) {
-  const offset = (page - 1) * limit;
+    search = "",
+    status = "",
+    page = 1,
+    limit = 20,
+  } = {}) {
+    const offset = (page - 1) * limit;
 
-  let sql = `
+    let sql = `
     SELECT
       o.id,
       o.customer_id,
@@ -37,40 +37,40 @@ class CallCenterService {
     WHERE 1
   `;
 
-  const params = [];
+    const params = [];
 
-  // البحث برقم الطلب أو رقم الهاتف
-if (search) {
-  sql += `
+    // البحث برقم الطلب أو رقم الهاتف
+    if (search) {
+      sql += `
     AND (
       CAST(o.id AS CHAR) = ?
       OR o.delivery_phone = ?
     )
   `;
 
-  params.push(search, search);
-}
+      params.push(search, search);
+    }
 
-  // فلترة الحالة
-  if (status) {
-    sql += `
+    // فلترة الحالة
+    if (status) {
+      sql += `
       AND o.status = ?
     `;
 
-    params.push(status);
-  }
+      params.push(status);
+    }
 
-  sql += `
+    sql += `
     ORDER BY o.created_at DESC
     LIMIT ? OFFSET ?
   `;
 
-  params.push(limit, offset);
+    params.push(limit, offset);
 
-  const [orders] = await db.query(sql, params);
+    const [orders] = await db.query(sql, params);
 
-  return orders;
-}
+    return orders;
+  }
   // =====================================================
   // منتجات طلب معين للكول سنتر
   // =====================================================
@@ -245,11 +245,8 @@ if (search) {
     }
   }
 
-  async getOrdersCountForCallCenter({
-  search = "",
-  status = "",
-} = {}) {
-  let sql = `
+  async getOrdersCountForCallCenter({ search = "", status = "" } = {}) {
+    let sql = `
     SELECT COUNT(*) AS total
     FROM orders o
     JOIN customers c
@@ -257,34 +254,53 @@ if (search) {
     WHERE 1
   `;
 
-  const params = [];
+    const params = [];
 
-  if (search) {
-    sql += `
+    if (search) {
+      sql += `
       AND (
         CAST(o.id AS CHAR) = ?
         OR o.delivery_phone = ?
       )
     `;
 
-    params.push(search, search);
-  }
+      params.push(search, search);
+    }
 
-  if (status) {
-    sql += `
+    if (status) {
+      sql += `
       AND o.status = ?
     `;
 
-    params.push(status);
+      params.push(status);
+    }
+
+    const [rows] = await db.query(sql, params);
+
+    return rows[0].total;
   }
 
-  const [rows] = await db.query(sql, params);
+  async getNewOrdersCount() {
+    const [countRows] = await db.query(`
+    SELECT COUNT(*) AS count
+    FROM orders
+    WHERE status = 'قيد الانتظار'
+  `);
 
-  return rows[0].total;
+    const [latestRows] = await db.query(`
+    SELECT id
+    FROM orders
+    WHERE status = 'قيد الانتظار'
+    ORDER BY created_at DESC
+    LIMIT 1
+  `);
+
+    return {
+      count: countRows[0].count,
+      latestOrderId: latestRows.length > 0 ? latestRows[0].id : null,
+    };
+  }
 }
-}
-
-
 
 // =====================================================
 // Export

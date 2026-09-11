@@ -36,6 +36,11 @@
 
             <div class="header-actions">
 
+                <div class="new-orders-counter">
+                    🔔عدد طلبات جديده و قيد الانتظار
+                    <span id="newOrdersCount">0</span>
+                </div>
+
                 <a href="/call-center" class="refresh-btn">
                     🔄 تحديث
                 </a>
@@ -63,6 +68,15 @@
                 عدد الطلبات: <%= orders.length %>
             </span>
 
+            <div id="newOrderAlert" class="new-order-alert">
+                <div class="new-order-alert-icon">🔔</div>
+
+                <div>
+                    <strong>طلب جديد!</strong>
+                    <p>تم استلام طلب جديد</p>
+                </div>
+            </div>
+
         </div>
 
 
@@ -82,13 +96,8 @@
                             🔎 البحث
                         </label>
 
-                        <input
-                            type="text"
-                            id="search"
-                            name="search"
-                            placeholder="رقم الطلب أو رقم الهاتف"
-                            value="<%= filters?.search || '' %>"
-                        >
+                        <input type="text" id="search" name="search" placeholder="رقم الطلب أو رقم الهاتف"
+                            value="<%= filters?.search || '' %>">
 
                     </div>
 
@@ -105,45 +114,33 @@
                                 كل الحالات
                             </option>
 
-                            <option
-                                value="قيد الانتظار"
-                                <%= filters?.status === "قيد الانتظار" ? "selected" : "" %>
-                            >
+                            <option value="قيد الانتظار" <%=filters?.status==="قيد الانتظار" ? "selected" : "" %>
+                                >
                                 قيد الانتظار
                             </option>
 
-                            <option
-                                value="تم التأكيد"
-                                <%= filters?.status === "تم التأكيد" ? "selected" : "" %>
-                            >
+                            <option value="تم التأكيد" <%=filters?.status==="تم التأكيد" ? "selected" : "" %>
+                                >
                                 تم التأكيد
                             </option>
 
-                            <option
-                                value="قيد التحضير"
-                                <%= filters?.status === "قيد التحضير" ? "selected" : "" %>
-                            >
+                            <option value="قيد التحضير" <%=filters?.status==="قيد التحضير" ? "selected" : "" %>
+                                >
                                 قيد التحضير
                             </option>
 
-                            <option
-                                value="جاهز"
-                                <%= filters?.status === "جاهز" ? "selected" : "" %>
-                            >
+                            <option value="جاهز" <%=filters?.status==="جاهز" ? "selected" : "" %>
+                                >
                                 جاهز
                             </option>
 
-                            <option
-                                value="تم التوصيل"
-                                <%= filters?.status === "تم التوصيل" ? "selected" : "" %>
-                            >
+                            <option value="تم التوصيل" <%=filters?.status==="تم التوصيل" ? "selected" : "" %>
+                                >
                                 تم التوصيل
                             </option>
 
-                            <option
-                                value="ملغي"
-                                <%= filters?.status === "ملغي" ? "selected" : "" %>
-                            >
+                            <option value="ملغي" <%=filters?.status==="ملغي" ? "selected" : "" %>
+                                >
                                 ملغي
                             </option>
 
@@ -154,17 +151,11 @@
 
                     <div class="filter-actions">
 
-                        <button
-                            type="submit"
-                            class="filter-btn"
-                        >
+                        <button type="submit" class="filter-btn">
                             🔍 بحث
                         </button>
 
-                        <a
-                            href="/call-center"
-                            class="reset-filter-btn"
-                        >
+                        <a href="/call-center" class="reset-filter-btn">
                             🔄 إعادة تعيين
                         </a>
 
@@ -181,7 +172,7 @@
              No Orders
         ========================================== -->
 
-        <% if (orders.length === 0) { %>
+        <% if (orders.length===0) { %>
 
             <div class="empty">
 
@@ -199,340 +190,311 @@
 
             </div>
 
-        <% } else { %>
+            <% } else { %>
 
 
-            <!-- =========================================
+                <!-- =========================================
                  Orders
             ========================================== -->
 
-            <div class="orders">
+                <div class="orders">
 
-                <% orders.forEach(order => { %>
+                    <% orders.forEach(order=> { %>
 
-                    <div class="order-card">
+                        <div class="order-card">
 
 
-                        <!-- =================================
+                            <!-- =================================
                              Order Header
                         ================================== -->
 
-                        <div class="order-header">
+                            <div class="order-header">
 
-                            <div>
+                                <div>
 
-                                <span class="order-label">
-                                    رقم الطلب
-                                </span>
+                                    <span class="order-label">
+                                        رقم الطلب
+                                    </span>
 
-                                <h2>
-                                    #<%= order.id %>
-                                </h2>
+                                    <h2>
+                                        #<%= order.id %>
+                                    </h2>
+
+                                </div>
+
+
+                                <div class="status
+                                <%= order.status === " قيد الانتظار" ? "pending" : "" %>
+                                    <%= order.status==="تم التأكيد" ? "confirmed" : "" %>
+                                        <%= order.status==="قيد التحضير" ? "preparing" : "" %>
+                                            <%= order.status==="جاهز" ? "ready" : "" %>
+                                                <%= order.status==="تم التوصيل" ? "delivered" : "" %>
+                                                    <%= order.status==="ملغي" ? "cancelled" : "" %>"
+                                                        >
+
+                                                        <%= order.status %>
+
+                                </div>
 
                             </div>
 
 
-                            <div
-                                class="status
-                                <%= order.status === "قيد الانتظار" ? "pending" : "" %>
-                                <%= order.status === "تم التأكيد" ? "confirmed" : "" %>
-                                <%= order.status === "قيد التحضير" ? "preparing" : "" %>
-                                <%= order.status === "جاهز" ? "ready" : "" %>
-                                <%= order.status === "تم التوصيل" ? "delivered" : "" %>
-                                <%= order.status === "ملغي" ? "cancelled" : "" %>"
-                            >
-
-                                <%= order.status %>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- =================================
+                            <!-- =================================
                              Timer
                         ================================== -->
 
-                        <% if (
-                            order.status_changed_at &&
-                            order.status !== "قيد الانتظار" &&
-                            order.status !== "ملغي"
-                        ) { %>
+                            <% if ( order.status_changed_at && order.status !=="قيد الانتظار" && order.status !=="ملغي"
+                                ) { %>
 
-                            <div class="timer-box">
+                                <div class="timer-box">
 
-                                <span class="timer-label">
-                                    ⏱️ وقت التحضير
-                                </span>
+                                    <span class="timer-label">
+                                        ⏱️ وقت التحضير
+                                    </span>
 
-                                <strong
-                                    class="order-timer"
-                                    data-order-id="<%= order.id %>"
-                                    data-start="<%= new Date(order.status_changed_at).toISOString() %>"
-                                    data-end="<%= order.preparation_completed_at
+                                    <strong class="order-timer" data-order-id="<%= order.id %>"
+                                        data-start="<%= new Date(order.status_changed_at).toISOString() %>" data-end="<%= order.preparation_completed_at
                                         ? new Date(order.preparation_completed_at).toISOString()
-                                        : "" %>"
-                                >
-                                    00:00:00
-                                </strong>
+                                        : "" %>">
+                                        00:00:00
+                                    </strong>
 
-                            </div>
+                                </div>
 
-                        <% } %>
+                                <% } %>
 
 
-                        <!-- =================================
+                                    <!-- =================================
                              Customer Information
                         ================================== -->
 
-                        <div class="customer-info">
+                                    <div class="customer-info">
 
-                            <div class="info-box">
+                                        <div class="info-box">
 
-                                <span>
-                                    👤 الزبون
-                                </span>
+                                            <span>
+                                                👤 الزبون
+                                            </span>
 
-                                <strong>
-                                    <%= order.customer_name %>
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-box">
-
-                                <span>
-                                    📞 رقم الهاتف
-                                </span>
-
-                                <strong>
-                                    <%= order.delivery_phone %>
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-box">
-
-                                <span>
-                                    📍 العنوان
-                                </span>
-
-                                <strong>
-                                    <%= order.delivery_address %>
-                                </strong>
-
-                            </div>
-
-
-                            <div class="info-box">
-
-                                <span>
-                                    🕐 وقت الطلب
-                                </span>
-
-                                <strong>
-                                    <%= new Date(order.created_at).toLocaleTimeString(
-                                        "ar-JO",
-                                        {
-                                            hour: "2-digit",
-                                            minute: "2-digit"
-                                        }
-                                    ) %>
-                                </strong>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- =================================
-                             Products
-                        ================================== -->
-
-                        <div class="products-section">
-
-                            <h3>
-                                🛒 المنتجات
-                            </h3>
-
-                            <div class="products">
-
-                                <% order.items.forEach(item => { %>
-
-                                    <div class="product-item">
-
-
-                                        <% if (item.image) { %>
-
-                                            <img
-                                                src="<%= item.image %>"
-                                                alt="<%= item.name %>"
-                                                loading="lazy"
-                                            >
-
-                                        <% } else { %>
-
-                                            <div class="no-image">
-                                                🍔
-                                            </div>
-
-                                        <% } %>
-
-
-                                        <div class="product-info">
-
-                                            <h4>
-                                                <%= item.name %>
-                                            </h4>
-
-                                            <p>
-                                                سعر القطعة:
-                                                <%= Number(item.price).toFixed(2) %>
-                                                د.أ
-                                            </p>
+                                            <strong>
+                                                <%= order.customer_name %>
+                                            </strong>
 
                                         </div>
 
 
-                                        <div class="quantity">
-                                            × <%= item.quantity %>
+                                        <div class="info-box">
+
+                                            <span>
+                                                📞 رقم الهاتف
+                                            </span>
+
+                                            <strong>
+                                                <%= order.delivery_phone %>
+                                            </strong>
+
                                         </div>
 
 
-                                        <div class="product-total">
+                                        <div class="info-box">
 
-                                            <%= (
-                                                Number(item.price) *
-                                                Number(item.quantity)
-                                            ).toFixed(2) %>
+                                            <span>
+                                                📍 العنوان
+                                            </span>
 
-                                            د.أ
+                                            <strong>
+                                                <%= order.delivery_address %>
+                                            </strong>
+
+                                        </div>
+
+
+                                        <div class="info-box">
+
+                                            <span>
+                                                🕐 وقت الطلب
+                                            </span>
+
+                                            <strong>
+                                                <%= new Date(order.created_at).toLocaleTimeString( "ar-JO" , {
+                                                    hour: "2-digit" , minute: "2-digit" } ) %>
+                                            </strong>
 
                                         </div>
 
                                     </div>
 
-                                <% }) %>
 
-                            </div>
+                                    <!-- =================================
+                             Products
+                        ================================== -->
 
-                        </div>
+                                    <div class="products-section">
+
+                                        <h3>
+                                            🛒 المنتجات
+                                        </h3>
+
+                                        <div class="products">
+
+                                            <% order.items.forEach(item=> { %>
+
+                                                <div class="product-item">
 
 
-                        <!-- =================================
+                                                    <% if (item.image) { %>
+
+                                                        <img src="<%= item.image %>" alt="<%= item.name %>"
+                                                            loading="lazy">
+
+                                                        <% } else { %>
+
+                                                            <div class="no-image">
+                                                                🍔
+                                                            </div>
+
+                                                            <% } %>
+
+
+                                                                <div class="product-info">
+
+                                                                    <h4>
+                                                                        <%= item.name %>
+                                                                    </h4>
+
+                                                                    <p>
+                                                                        سعر القطعة:
+                                                                        <%= Number(item.price).toFixed(2) %>
+                                                                            د.أ
+                                                                    </p>
+
+                                                                </div>
+
+
+                                                                <div class="quantity">
+                                                                    × <%= item.quantity %>
+                                                                </div>
+
+
+                                                                <div class="product-total">
+
+                                                                    <%= ( Number(item.price) * Number(item.quantity)
+                                                                        ).toFixed(2) %>
+
+                                                                        د.أ
+
+                                                                </div>
+
+                                                </div>
+
+                                                <% }) %>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- =================================
                              Order Footer
                         ================================== -->
 
-                        <div class="order-footer">
+                                    <div class="order-footer">
 
-                            <div class="order-type">
+                                        <div class="order-type">
 
-                                نوع الطلب:
+                                            نوع الطلب:
 
-                                <strong>
-                                    <%= order.order_type %>
-                                </strong>
+                                            <strong>
+                                                <%= order.order_type %>
+                                            </strong>
 
-                            </div>
-
-
-                            <div class="total">
-
-                                <span>
-                                    الإجمالي
-                                </span>
-
-                                <strong>
-
-                                    <%= Number(
-                                        order.total_price
-                                    ).toFixed(2) %>
-
-                                    د.أ
-
-                                </strong>
-
-                            </div>
-
-                        </div>
+                                        </div>
 
 
-                        <!-- =================================
+                                        <div class="total">
+
+                                            <span>
+                                                الإجمالي
+                                            </span>
+
+                                            <strong>
+
+                                                <%= Number( order.total_price ).toFixed(2) %>
+
+                                                    د.أ
+
+                                            </strong>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- =================================
                              Actions
                         ================================== -->
 
-                        <div class="order-actions">
+                                    <div class="order-actions">
 
-                            <a
-                                href="/call-center/orders/<%= order.id %>"
-                                class="details-btn"
-                            >
-                                تفاصيل الطلب
-                            </a>
+                                        <a href="/call-center/orders/<%= order.id %>" class="details-btn">
+                                            تفاصيل الطلب
+                                        </a>
+
+                                    </div>
+
 
                         </div>
+
+                        <% }) %>
+
+                </div>
+
+
+                <!-- =========================================
+                 Pagination
+            ========================================== -->
+
+                <% if (totalPages> 1) { %>
+
+                    <div class="pagination">
+
+
+                        <% if (page> 1) { %>
+
+                            <a href="/call-center?page=<%= page - 1 %>&search=<%= encodeURIComponent(filters?.search || '') %>&status=<%= encodeURIComponent(filters?.status || '') %>"
+                                class="pagination-btn">
+                                السابق
+                            </a>
+
+                            <% } %>
+
+
+                                <% for (let i=1; i <=totalPages; i++) { %>
+
+                                    <a href="/call-center?page=<%= i %>&search=<%= encodeURIComponent(filters?.search || '') %>&status=<%= encodeURIComponent(filters?.status || '') %>"
+                                        class="pagination-number <%= page === i ? 'active' : '' %>">
+                                        <%= i %>
+                                    </a>
+
+                                    <% } %>
+
+
+                                        <% if (page < totalPages) { %>
+
+                                            <a href="/call-center?page=<%= page + 1 %>&search=<%= encodeURIComponent(filters?.search || '') %>&status=<%= encodeURIComponent(filters?.status || '') %>"
+                                                class="pagination-btn">
+                                                التالي
+                                            </a>
+
+                                            <% } %>
 
 
                     </div>
 
-                <% }) %>
-
-            </div>
-
-
-            <!-- =========================================
-                 Pagination
-            ========================================== -->
-
-            <% if (totalPages > 1) { %>
-
-                <div class="pagination">
-
-
-                    <% if (page > 1) { %>
-
-                        <a
-                            href="/call-center?page=<%= page - 1 %>&search=<%= encodeURIComponent(filters?.search || '') %>&status=<%= encodeURIComponent(filters?.status || '') %>"
-                            class="pagination-btn"
-                        >
-                            السابق
-                        </a>
-
                     <% } %>
 
 
-                    <% for (let i = 1; i <= totalPages; i++) { %>
-
-                        <a
-                            href="/call-center?page=<%= i %>&search=<%= encodeURIComponent(filters?.search || '') %>&status=<%= encodeURIComponent(filters?.status || '') %>"
-                            class="pagination-number <%= page === i ? 'active' : '' %>"
-                        >
-                            <%= i %>
-                        </a>
-
-                    <% } %>
-
-
-                    <% if (page < totalPages) { %>
-
-                        <a
-                            href="/call-center?page=<%= page + 1 %>&search=<%= encodeURIComponent(filters?.search || '') %>&status=<%= encodeURIComponent(filters?.status || '') %>"
-                            class="pagination-btn"
-                        >
-                            التالي
-                        </a>
-
-                    <% } %>
-
-
-                </div>
-
-            <% } %>
-
-
-        <% } %>
+                        <% } %>
 
     </div>
 
@@ -630,6 +592,8 @@
         );
 
     </script>
+
+    <script src="/js/callcenter/new-orders.js"></script>
 
 </body>
 
