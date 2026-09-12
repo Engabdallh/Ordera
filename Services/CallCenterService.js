@@ -281,25 +281,19 @@ class CallCenterService {
   }
 
   async getNewOrdersCount() {
-    const [countRows] = await db.query(`
-    SELECT COUNT(*) AS count
-    FROM orders
-    WHERE status = 'قيد الانتظار'
-  `);
-
-    const [latestRows] = await db.query(`
+  const [rows] = await db.query(`
     SELECT id
     FROM orders
     WHERE status = 'قيد الانتظار'
     ORDER BY created_at DESC
-    LIMIT 1
   `);
 
-    return {
-      count: countRows[0].count,
-      latestOrderId: latestRows.length > 0 ? latestRows[0].id : null,
-    };
-  }
+  return {
+    count: rows.length,
+    orderIds: rows.map((order) => order.id),
+    latestOrderId: rows.length > 0 ? rows[0].id : null,
+  };
+}
 }
 
 // =====================================================

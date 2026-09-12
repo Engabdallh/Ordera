@@ -1,5 +1,9 @@
 let previousOrdersCount = null;
 
+let notifiedOrderIds = JSON.parse(
+  localStorage.getItem("notifiedOrderIds") || "[]",
+);
+
 function playNewOrderSound() {
   const AudioContext = window.AudioContext || window.webkitAudioContext;
 
@@ -20,12 +24,16 @@ function playNewOrderSound() {
     const gainNode = audioContext.createGain();
 
     oscillator.type = "sine";
+
     oscillator.frequency.setValueAtTime(
       note.frequency,
       audioContext.currentTime + note.start,
     );
 
-    gainNode.gain.setValueAtTime(0.001, audioContext.currentTime + note.start);
+    gainNode.gain.setValueAtTime(
+      0.001,
+      audioContext.currentTime + note.start,
+    );
 
     gainNode.gain.exponentialRampToValueAtTime(
       0.25,
@@ -42,7 +50,9 @@ function playNewOrderSound() {
 
     oscillator.start(audioContext.currentTime + note.start);
 
-    oscillator.stop(audioContext.currentTime + note.start + note.duration);
+    oscillator.stop(
+      audioContext.currentTime + note.start + note.duration,
+    );
   });
 
   setTimeout(() => {
@@ -56,6 +66,8 @@ async function updateNewOrdersCount() {
 
     const data = await response.json();
 
+    console.log("NEW ORDERS DATA:", data);
+
     const counter = document.getElementById("newOrdersCount");
 
     if (counter) {
@@ -68,33 +80,56 @@ async function updateNewOrdersCount() {
       }
     }
 
-    // أول فحص فقط بدون صوت
+    // أول فحص فقط بدون إشعار
     if (previousOrdersCount === null) {
       previousOrdersCount = Number(data.count);
+
+      notifiedOrderIds = (data.orderIds || []).map(Number);
+
+      localStorage.setItem(
+        "notifiedOrderIds",
+        JSON.stringify(notifiedOrderIds),
+      );
+
+      console.log("INITIAL ORDER IDS:", notifiedOrderIds);
+
       return;
     }
 
-    // تشغيل الصوت فقط عند وصول طلب جديد
-    if (Number(data.count) > previousOrdersCount) {
-      console.log("NEW ORDER RECEIVED");
+    // البحث عن الطلبات الجديدة
+    const newOrderIds = (data.orderIds || [])
+      .map(Number)
+      .filter((orderId) => !notifiedOrderIds.includes(orderId));
 
+    console.log("NEW ORDER IDS:", newOrderIds);
+
+    if (newOrderIds.length > 0) {
+      console.log("NEW ORDERS RECEIVED:", newOrderIds);
+
+      // تشغيل الصوت
       playNewOrderSound();
 
+      // إظهار الإشعار
       const alertBox = document.getElementById("newOrderAlert");
 
       if (alertBox) {
         alertBox.classList.add("show");
 
-        alertBox.onclick = function () {
-          if (data.latestOrderId) {
-            window.location.href = `/call-center/orders/${data.latestOrderId}`;
-          }
-        };
-
         setTimeout(() => {
           alertBox.classList.remove("show");
         }, 5000);
       }
+
+      // حفظ الطلبات التي تم التنبيه عنها
+      notifiedOrderIds = [
+        ...notifiedOrderIds,
+        ...newOrderIds,
+      ];
+
+      localStorage.setItem(
+        "notifiedOrderIds",
+        JSON.stringify(notifiedOrderIds),
+      );
     }
 
     previousOrdersCount = Number(data.count);

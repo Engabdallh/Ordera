@@ -154,11 +154,12 @@ const getNewOrdersCount = async (req, res) => {
 
     const result = await callCenterService.getNewOrdersCount();
 
-    return res.json({
-      success: true,
-      count: result.count,
-      latestOrderId: result.latestOrderId,
-    });
+return res.json({
+  success: true,
+  count: result.count,
+  latestOrderId: result.latestOrderId,
+  orderIds: result.orderIds,
+});
   } catch (error) {
     console.error("GET NEW ORDERS COUNT ERROR:", error);
 

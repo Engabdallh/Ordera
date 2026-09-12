@@ -524,3 +524,76 @@ footer {
     min-width: 650px;
   }
 }
+/* ==============================
+   New Order Notification
+============================== */
+
+.new-order-alert {
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    min-width: 300px;
+    padding: 16px 20px;
+
+    background: #1a1a1a;
+    color: white;
+
+    border: 1px solid #ff7a00;
+    border-radius: 10px;
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(30px);
+
+    transition: all 0.3s ease;
+}
+
+.new-order-alert.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.new-order-alert-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ff7a00;
+    border-radius: 50%;
+
+    font-size: 20px;
+}
+
+.new-order-alert strong {
+    display: block;
+    color: #ff7a00;
+    font-size: 17px;
+    margin-bottom: 4px;
+}
+
+.new-order-alert p {
+    margin: 0;
+    color: #ddd;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .new-order-alert {
+        top: 15px;
+        right: 15px;
+        left: 15px;
+        min-width: 0;
+    }
+}
