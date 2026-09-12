@@ -42,4 +42,35 @@ router.post(
   productController.toggleProductAvailability,
 );
 
+
+router.get(
+  "/call-center-agents",
+  adminController.showCallCenterAgents,
+);
+
+router.post(
+  "/call-center-agents",
+  adminController.createCallCenterAgent,
+);
+
+router.post(
+  "/call-center-agents/delete/:id",
+  adminController.deleteCallCenterAgent,
+);
+
+router.post(
+  "/call-center-agents/toggle/:id",
+  adminController.toggleCallCenterAgentStatus,
+);
+
+router.post(
+  "/call-center-agents/edit/:id",
+  adminController.updateCallCenterAgent,
+);
+
+router.get(
+  "/call-center-agents/edit/:id",
+  adminController.showEditCallCenterAgent,
+);
+
 module.exports = router;

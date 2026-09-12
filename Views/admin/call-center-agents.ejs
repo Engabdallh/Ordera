@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>إدارة موظفي الكول سنتر</title>
+
+    <link rel="stylesheet" href="/css/admin/call-center-agents.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Header -->
+        <div class="page-header">
+
+            <div>
+                <h1>إدارة موظفي الكول سنتر</h1>
+                <p>إضافة وإدارة موظفي خدمة العملاء</p>
+            </div>
+
+            <a href="/admin" class="back-btn">
+                العودة للوحة التحكم
+            </a>
+
+        </div>
+
+
+        <!-- Add Agent -->
+        <div class="card">
+
+            <h2>إضافة موظف جديد</h2>
+
+            <form action="/admin/call-center-agents" method="POST" class="agent-form">
+
+                <div class="form-group">
+
+                    <label for="name">
+                        اسم الموظف
+                    </label>
+
+                    <input type="text" id="name" name="name" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        رقم الهاتف
+                    </label>
+
+                    <input type="text" id="phone" name="phone">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        البريد الإلكتروني
+                    </label>
+
+                    <input type="email" id="email" name="email" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        كلمة المرور
+                    </label>
+
+                    <input type="password" id="password" name="password" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="confirmPassword">
+                        تأكيد كلمة المرور
+                    </label>
+
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+                </div>
+
+
+                <button type="submit" class="add-btn">
+                    إضافة الموظف
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- Agents List -->
+        <div class="card">
+
+            <h2>موظفو الكول سنتر</h2>
+
+            <% if (agents.length===0) { %>
+
+                <div class="empty">
+                    لا يوجد موظفون حالياً
+                </div>
+
+                <% } else { %>
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+                                    <th>#</th>
+                                    <th>الاسم</th>
+                                    <th>الهاتف</th>
+                                    <th>البريد الإلكتروني</th>
+                                    <th>الحالة</th>
+                                    <th>الإجراءات</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <% agents.forEach((agent, index)=> { %>
+
+                                    <tr>
+
+                                        <td>
+                                            <%= index + 1 %>
+                                        </td>
+
+                                        <td>
+                                            <%= agent.name %>
+                                        </td>
+
+                                        <td>
+                                            <%= agent.phone || "-" %>
+                                        </td>
+
+                                        <td>
+                                            <%= agent.email %>
+                                        </td>
+
+                                        <td>
+
+                                            <% if (agent.status==="فعال" ) { %>
+
+                                                <span class="status active">
+                                                    فعال
+                                                </span>
+
+                                                <% } else { %>
+
+                                                    <span class="status inactive">
+                                                        غير فعال
+                                                    </span>
+
+                                                    <% } %>
+
+                                        </td>
+
+                                        <td>
+
+                                            <div class="actions">
+
+                                                <a href="/admin/call-center-agents/edit/<%= agent.id %>"
+                                                    class="edit-btn">
+                                                    تعديل
+                                                </a>
+
+                                                <form action="/admin/call-center-agents/toggle/<%= agent.id %>"
+                                                    method="POST">
+
+                                                    <button type="submit" class="toggle-btn">
+                                                        <%= agent.status==="فعال" ? "تعطيل" : "تفعيل" %>
+                                                    </button>
+
+                                                </form>
+
+
+                                                <form action="/admin/call-center-agents/delete/<%= agent.id %>"
+                                                    method="POST"
+                                                    onsubmit="return confirm('هل أنت متأكد من حذف هذا الموظف؟');">
+
+                                                    <button type="submit" class="delete-btn">
+                                                        حذف
+                                                    </button>
+
+                                                </form>
+
+                                            </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <% }); %>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <% } %>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

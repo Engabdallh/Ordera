@@ -1,8 +1,10 @@
 const OrderService = require("../Services/OrderService");
 const RestaurantService = require("../Services/RestaurantService");
+const CallCenterAgentService = require("../Services/CallCenterAgentService");
 
 const orderService = new OrderService();
 const restaurantService = new RestaurantService();
+const callCenterAgentService = new CallCenterAgentService();
 
 // =====================================================
 // لوحة تحكم الأدمن
@@ -148,10 +150,198 @@ const filterOrders = async (req, res) => {
   }
 };
 
+// =====================================================
+// موظفو الكول سنتر
+// =====================================================
+
+const showCallCenterAgents = async (req, res) => {
+  try {
+    const agents = await callCenterAgentService.getAllAgents();
+
+    res.render("admin/call-center-agents", {
+      agents: agents,
+    });
+  } catch (error) {
+    console.error("SHOW CALL CENTER AGENTS ERROR:", error);
+
+    res.status(500).send("حدث خطأ أثناء تحميل موظفي الكول سنتر");
+  }
+};
+
+// =====================================================
+// إضافة موظف كول سنتر
+// =====================================================
+
+const createCallCenterAgent = async (req, res) => {
+  try {
+    const { name, phone, email, password, confirmPassword } = req.body;
+
+    if (!name || !email || !password || !confirmPassword) {
+      return res.status(400).send("جميع الحقول المطلوبة يجب تعبئتها");
+    }
+
+    if (password !== confirmPassword) {
+      return res.status(400).send("كلمتا المرور غير متطابقتين");
+    }
+
+    await callCenterAgentService.createAgent({
+      name,
+      phone,
+      email,
+      password,
+    });
+
+    res.redirect("/admin/call-center-agents");
+  } catch (error) {
+    console.error("CREATE CALL CENTER AGENT ERROR:", error);
+
+    if (error.code === "ER_DUP_ENTRY") {
+      return res.status(400).send("البريد الإلكتروني مستخدم بالفعل");
+    }
+
+    res.status(500).send("حدث خطأ أثناء إضافة الموظف");
+  }
+};
+
+// =====================================================
+// حذف موظف كول سنتر
+// =====================================================
+
+const deleteCallCenterAgent = async (req, res) => {
+  try {
+    const agentId = Number(req.params.id);
+
+    if (!agentId) {
+      return res.status(400).send("رقم الموظف غير صحيح");
+    }
+
+    await callCenterAgentService.deleteAgent(agentId);
+
+    res.redirect("/admin/call-center-agents");
+  } catch (error) {
+    console.error("DELETE CALL CENTER AGENT ERROR:", error);
+
+    res.status(500).send("حدث خطأ أثناء حذف الموظف");
+  }
+};
+
+// =====================================================
+// تفعيل / تعطيل موظف
+// =====================================================
+
+const toggleCallCenterAgentStatus = async (req, res) => {
+  try {
+    const agentId = Number(req.params.id);
+
+    if (!agentId) {
+      return res.status(400).send("رقم الموظف غير صحيح");
+    }
+
+    await callCenterAgentService.toggleAgentStatus(agentId);
+
+    res.redirect("/admin/call-center-agents");
+  } catch (error) {
+    console.error("TOGGLE CALL CENTER AGENT STATUS ERROR:", error);
+
+    res.status(500).send("حدث خطأ أثناء تغيير حالة الموظف");
+  }
+};
+
+// =====================================================
+// تحديث بيانات موظف كول سنتر
+// =====================================================
+
+const updateCallCenterAgent = async (req, res) => {
+  try {
+    const agentId = Number(req.params.id);
+
+    const {
+      name,
+      phone,
+      email,
+      password,
+      confirmPassword,
+    } = req.body;
+
+    if (!agentId) {
+      return res.status(400).send("رقم الموظف غير صحيح");
+    }
+
+    if (!name || !email) {
+      return res.status(400).send(
+        "الاسم والبريد الإلكتروني مطلوبان",
+      );
+    }
+
+    if (password || confirmPassword) {
+      if (password !== confirmPassword) {
+        return res.status(400).send(
+          "كلمتا المرور غير متطابقتين",
+        );
+      }
+    }
+
+    await callCenterAgentService.updateAgent(agentId, {
+      name,
+      phone,
+      email,
+      password,
+    });
+
+    res.redirect("/admin/call-center-agents");
+  } catch (error) {
+    console.error("UPDATE CALL CENTER AGENT ERROR:", error);
+
+    if (error.code === "ER_DUP_ENTRY") {
+      return res.status(400).send(
+        "البريد الإلكتروني مستخدم بالفعل",
+      );
+    }
+
+    res.status(500).send(
+      "حدث خطأ أثناء تحديث بيانات الموظف",
+    );
+  }
+};
+
+const showEditCallCenterAgent = async (req, res) => {
+  try {
+    const agentId = Number(req.params.id);
+
+    if (!agentId) {
+      return res.status(400).send("رقم الموظف غير صحيح");
+    }
+
+    const agents = await callCenterAgentService.getAllAgents();
+
+    const agent = agents.find((item) => item.id === agentId);
+
+    if (!agent) {
+      return res.status(404).send("الموظف غير موجود");
+    }
+
+    res.render("admin/edit-call-center-agent", {
+      agent: agent,
+    });
+  } catch (error) {
+    console.error("SHOW EDIT CALL CENTER AGENT ERROR:", error);
+
+    res.status(500).send(
+      "حدث خطأ أثناء تحميل صفحة تعديل الموظف",
+    );
+  }
+};
+
 module.exports = {
   showDashboard,
   toggleRestaurantStatus,
   showOrders,
   showOrderDetails,
   filterOrders,
+  showCallCenterAgents,
+  createCallCenterAgent,
+  deleteCallCenterAgent,
+  toggleCallCenterAgentStatus,
+  updateCallCenterAgent,
+  showEditCallCenterAgent
 };
