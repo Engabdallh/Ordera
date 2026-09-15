@@ -16,6 +16,7 @@ class CallCenterService {
     let sql = `
     SELECT
       o.id,
+      o.daily_order_number,
       o.customer_id,
       o.total_price,
       o.status,
@@ -34,7 +35,8 @@ class CallCenterService {
     JOIN customers c
       ON o.customer_id = c.id
 
-    WHERE 1
+   WHERE 1
+  AND o.created_at >= NOW() - INTERVAL 24 HOUR
   `;
 
     const params = [];
@@ -43,8 +45,8 @@ class CallCenterService {
     if (search) {
       sql += `
     AND (
-      CAST(o.id AS CHAR) = ?
-      OR o.delivery_phone = ?
+     CAST(o.daily_order_number AS CHAR) = ?
+OR o.delivery_phone = ?
     )
   `;
 
@@ -281,19 +283,19 @@ class CallCenterService {
   }
 
   async getNewOrdersCount() {
-  const [rows] = await db.query(`
+    const [rows] = await db.query(`
     SELECT id
     FROM orders
     WHERE status = 'قيد الانتظار'
     ORDER BY created_at DESC
   `);
 
-  return {
-    count: rows.length,
-    orderIds: rows.map((order) => order.id),
-    latestOrderId: rows.length > 0 ? rows[0].id : null,
-  };
-}
+    return {
+      count: rows.length,
+      orderIds: rows.map((order) => order.id),
+      latestOrderId: rows.length > 0 ? rows[0].id : null,
+    };
+  }
 }
 
 // =====================================================

@@ -439,14 +439,16 @@ const checkout = async (req, res) => {
     delete req.session.coupon;
 
     return res.render("customer/ordersuccess", {
-      orderId: order.orderId,
+  orderId: order.orderId,
 
-      totalPrice: Number(order.totalPrice).toFixed(2),
+  dailyOrderNumber: order.dailyOrderNumber,
 
-      phone,
+  totalPrice: Number(order.totalPrice).toFixed(2),
 
-      address,
-    });
+  phone,
+
+  address,
+});
   } catch (error) {
     console.error("CHECKOUT ERROR:", error);
 

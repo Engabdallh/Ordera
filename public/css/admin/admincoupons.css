@@ -525,3 +525,26 @@ footer {
 .coupon-delete-btn:active {
   transform: translateY(0);
 }
+
+.dashboard-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45px;
+  padding: 0 20px;
+  background: #ff6a00;
+  color: #ffffff;
+  border: 1px solid #ff6a00;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.dashboard-btn:hover {
+  background: #e55f00;
+  border-color: #e55f00;
+  color: #ffffff;
+  transform: translateY(-2px);
+}

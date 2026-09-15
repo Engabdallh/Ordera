@@ -167,6 +167,46 @@ class CheckoutService {
 
       const totalPrice = Number((subtotal - discountAmount).toFixed(2));
 
+      // ==============================
+      // التحقق من حالة المطعم ودورة الـ24 ساعة
+      // ==============================
+
+      const [restaurantRows] = await connection.query(
+        `SELECT is_open, cycle_started_at
+   FROM restaurant_settings
+   WHERE id = 1`,
+      );
+
+      const restaurant = restaurantRows[0];
+
+      if (!restaurant || !restaurant.is_open) {
+        throw new Error("المطعم مغلق حاليًا");
+      }
+
+      const cycleStartedAt = new Date(restaurant.cycle_started_at);
+
+      const cycleExpiresAt = new Date(
+        cycleStartedAt.getTime() + 24 * 60 * 60 * 1000,
+      );
+
+      if (new Date() >= cycleExpiresAt) {
+        throw new Error("انتهت دورة المطعم الحالية");
+      }
+
+      // ==============================
+      // توليد رقم الطلب داخل دورة الـ24 ساعة
+      // ==============================
+
+      const [dailyOrderRows] = await connection.query(
+        `SELECT COUNT(*) AS orderCount
+   FROM orders
+   WHERE created_at >= ?
+   AND created_at < ?`,
+        [cycleStartedAt, cycleExpiresAt],
+      );
+
+      const dailyOrderNumber = Number(dailyOrderRows[0].orderCount) + 1;
+
       await connection.query(
         `UPDATE customers
                  SET phone = ?, address = ?
@@ -178,32 +218,38 @@ class CheckoutService {
       // حفظ بيانات الطلب والخصم
       // ==============================
 
-      const [orderResult] = await connection.query(
-        `INSERT INTO orders
-        (
-            customer_id,
-            total_price,
-            subtotal,
-            discount_amount,
-            coupon_code,
-            status,
-            order_type,
-            delivery_phone,
-            delivery_address
-        )
-     VALUES (?, ?, ?, ?, ?, 'قيد الانتظار', 'الموقع', ?, ?)`,
-        [
-          customerId,
-          totalPrice,
-          subtotal,
-          discountAmount,
-          appliedCouponCode,
-          phone,
-          address,
-        ],
-      );
+      // ==============================
+// حفظ بيانات الطلب ورقم الطلب
+// ==============================
 
-      const orderId = orderResult.insertId;
+const [orderResult] = await connection.query(
+  `INSERT INTO orders
+  (
+      customer_id,
+      daily_order_number,
+      total_price,
+      subtotal,
+      discount_amount,
+      coupon_code,
+      status,
+      order_type,
+      delivery_phone,
+      delivery_address
+  )
+  VALUES (?, ?, ?, ?, ?, ?, 'قيد الانتظار', 'الموقع', ?, ?)`,
+  [
+    customerId,
+    dailyOrderNumber,
+    totalPrice,
+    subtotal,
+    discountAmount,
+    appliedCouponCode,
+    phone,
+    address,
+  ],
+);
+
+const orderId = orderResult.insertId;
 
       // ==============================
       // تسجيل استخدام الكوبون
@@ -241,6 +287,7 @@ class CheckoutService {
 
       return {
         orderId,
+        dailyOrderNumber,
         subtotal,
         discountAmount,
         couponCode: appliedCouponCode,

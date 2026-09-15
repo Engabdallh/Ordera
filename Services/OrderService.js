@@ -5,20 +5,34 @@ class OrderService {
   // طلبات العميل لليوم
   // =====================================================
 
-  async getCustomerOrders(customerId) {
-    const [orders] = await db.query(
-      `SELECT id, customer_id, total_price, status, order_type, created_at,
-            updated_at, status_changed_at, preparation_completed_at,
-            delivery_phone, delivery_address
+  // =====================================================
+// طلبات العميل لليوم
+// =====================================================
+
+async getCustomerOrders(customerId) {
+  const [orders] = await db.query(
+    `SELECT
+          id,
+          customer_id,
+          daily_order_number,
+          total_price,
+          status,
+          order_type,
+          created_at,
+          updated_at,
+          status_changed_at,
+          preparation_completed_at,
+          delivery_phone,
+          delivery_address
      FROM orders
      WHERE customer_id = ?
        AND created_at >= NOW() - INTERVAL 3 DAY
      ORDER BY created_at DESC`,
-      [customerId],
-    );
+    [customerId],
+  );
 
-    return orders;
-  }
+  return orders;
+}
 
   // =====================================================
   // منتجات طلب معين
@@ -46,25 +60,16 @@ class OrderService {
   async getDashboardStats() {
     const [stats] = await db.query(
       `SELECT
-            COUNT(*) AS total_orders,
-
-            COALESCE(SUM(total_price), 0) AS total_sales,
-
-            SUM(status = 'قيد الانتظار') AS pending_orders,
-
-            SUM(status = 'تم التأكيد') AS confirmed_orders,
-
-            SUM(status = 'قيد التحضير') AS preparing_orders,
-
-            SUM(status = 'جاهز') AS ready_orders,
-
-            SUM(status = 'تم التوصيل') AS delivered_orders,
-
-            SUM(status = 'ملغي') AS cancelled_orders
-
-         FROM orders
-
-         WHERE DATE(created_at) = CURDATE()`,
+          COUNT(*) AS total_orders,
+          COALESCE(SUM(total_price), 0) AS total_sales,
+          SUM(status = 'قيد الانتظار') AS pending_orders,
+          SUM(status = 'تم التأكيد') AS confirmed_orders,
+          SUM(status = 'قيد التحضير') AS preparing_orders,
+          SUM(status = 'جاهز') AS ready_orders,
+          SUM(status = 'تم التوصيل') AS delivered_orders,
+          SUM(status = 'ملغي') AS cancelled_orders
+       FROM orders
+       WHERE created_at >= NOW() - INTERVAL 24 HOUR`,
     );
 
     return stats[0];
@@ -78,6 +83,7 @@ class OrderService {
     const [orders] = await db.query(
       `SELECT
             o.id,
+             o.daily_order_number,
             o.total_price,
             o.status,
             o.order_type,
@@ -102,9 +108,10 @@ class OrderService {
   // =====================================================
 
   async getOrderById(orderId) {
-  const [orders] = await db.query(
-    `SELECT
+    const [orders] = await db.query(
+      `SELECT
           o.id,
+          o.daily_order_number,
           o.customer_id,
           o.agent_id,
 
@@ -131,16 +138,17 @@ class OrderService {
           ON o.customer_id = c.id
 
        WHERE o.id = ?`,
-    [orderId],
-  );
+      [orderId],
+    );
 
-  return orders[0] || null;
-}
+    return orders[0] || null;
+  }
 
   async filterOrders(filters = {}) {
     let sql = `
         SELECT
             o.id,
+             o.daily_order_number,
             o.total_price,
             o.status,
             o.order_type,

@@ -413,3 +413,50 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+/* ==============================
+   Filter Inputs Icons - Orange
+============================== */
+
+.filters-form input[type="date"]::-webkit-calendar-picker-indicator,
+.filters-form input[type="time"]::-webkit-calendar-picker-indicator,
+.filters-form input[type="month"]::-webkit-calendar-picker-indicator {
+    filter: invert(48%) sepia(96%) saturate(2500%) hue-rotate(2deg) brightness(105%) contrast(105%);
+    cursor: pointer;
+}
+
+/* Select arrow */
+.filters-form select {
+    color-scheme: dark;
+}
+
+.filters-form select option {
+    background: #111;
+    color: white;
+}
+
+/* =========================
+   Dashboard Button
+========================= */
+
+.logout-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 45px;
+  padding: 0 20px;
+  background: #ff6a00;
+  color: white;
+  border: 1px solid #ff6a00;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.logout-btn:hover {
+  background: #e55f00;
+  border-color: #e55f00;
+  color: white;
+  transform: translateY(-2px);
+}
