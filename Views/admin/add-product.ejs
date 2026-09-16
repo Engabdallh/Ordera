@@ -12,84 +12,92 @@
 
 <body>
 
-    <div class="container">
-
-        <div class="header">
-            <div>
-                <h1>إضافة منتج جديد</h1>
-                <p>إضافة منتج جديد إلى قائمة مطعم 911</p>
-            </div>
-
-            <div class="logo">
-                911
-            </div>
+    <% if (success==="product-added" ) { %>
+        <div class="success-message" id="successMessage">
+            <span>✓</span>
+            تم إضافة المنتج بنجاح
         </div>
+        <% } %>
 
-        <form action="/admin/products" method="POST" enctype="multipart/form-data">
+            <div class="container">
 
-            <div class="form-group">
-                <label>اسم المنتج</label>
+                <div class="header">
+                    <div>
+                        <h1>إضافة منتج جديد</h1>
+                        <p>إضافة منتج جديد إلى قائمة مطعم 911</p>
+                    </div>
 
-                <input type="text" name="name" placeholder="مثال: شاورما دجاج" required>
+                    <div class="logo">
+                        911
+                    </div>
+                </div>
+
+                <form action="/admin/products" method="POST" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label>اسم المنتج</label>
+
+                        <input type="text" name="name" placeholder="مثال: شاورما دجاج" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>وصف المنتج</label>
+
+                        <textarea name="description" placeholder="اكتب وصف المنتج..."></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>السعر</label>
+
+                        <input type="number" name="price" step="0.01" min="0" placeholder="مثال: 3.50" required>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="category">التصنيف</label>
+
+                        <select name="category" id="category" required>
+                            <option value="" disabled selected>اختر تصنيف المنتج</option>
+
+                            <option value="وجبات">وجبات</option>
+                            <option value="وجبات شاورما">وجبات شاورما</option>
+                            <option value="وجبات شاورما عائلية">وجبات شاورما عائلية</option>
+                            <option value="مقبلات">مقبلات</option>
+                            <option value="مشروبات">مشروبات</option>
+                            <option value="مشاوي">مشاوي</option>
+                            <option value="كرسبي">كرسبي</option>
+                            <option value="برستد">برستد</option>
+                            <option value="سناكات">سناكات</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>صورة المنتج</label>
+
+                        <input type="file" name="image" accept="image/jpeg,image/png,image/webp" required>
+                    </div>
+
+
+                    <div class="buttons">
+
+                        <button type="submit" class="save-btn">
+                            إضافة المنتج
+                        </button>
+
+                        <a href="/admin/products" class="back-btn">
+                            العودة إلى المنتجات
+                        </a>
+
+                    </div>
+
+                </form>
+
             </div>
-
-
-            <div class="form-group">
-                <label>وصف المنتج</label>
-
-                <textarea name="description" placeholder="اكتب وصف المنتج..."></textarea>
-            </div>
-
-
-            <div class="form-group">
-                <label>السعر</label>
-
-                <input type="number" name="price" step="0.01" min="0" placeholder="مثال: 3.50" required>
-            </div>
-
-
-            <div class="form-group">
-                <label for="category">التصنيف</label>
-
-                <select name="category" id="category" required>
-                    <option value="" disabled selected>اختر تصنيف المنتج</option>
-
-                    <option value="وجبات">وجبات</option>
-                    <option value="وجبات شاورما">وجبات شاورما</option>
-                    <option value="وجبات شاورما عائلية">وجبات شاورما عائلية</option>
-                    <option value="مقبلات">مقبلات</option>
-                    <option value="مشروبات">مشروبات</option>
-                    <option value="مشاوي">مشاوي</option>
-                    <option value="كرسبي">كرسبي</option>
-                    <option value="برستد">برستد</option>
-                    <option value="سناكات">سناكات</option>
-                </select>
-            </div>
-
-
-            <div class="form-group">
-                <label>صورة المنتج</label>
-
-                <input type="file" name="image" accept="image/jpeg,image/png,image/webp" required>
-            </div>
-
-
-            <div class="buttons">
-
-                <button type="submit" class="save-btn">
-                    إضافة المنتج
-                </button>
-
-                <a href="/admin/products" class="back-btn">
-                    العودة إلى المنتجات
-                </a>
-
-            </div>
-
-        </form>
-
-    </div>
 
 </body>
+<script src="/js/admin/addproduct.js" defer></script>
 
 </html>

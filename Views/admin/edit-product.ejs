@@ -17,221 +17,184 @@
 
 <body>
 
-    <div class="container">
-
-
-        <div class="header">
-
-            <div>
-                <h1>تعديل المنتج</h1>
-                <p>تعديل بيانات المنتج في مطعم 911</p>
-            </div>
-
-            <div class="logo">
-                911
-            </div>
-
+    <% if (success==="product-updated" ) { %>
+        <div class="success-message" id="successMessage">
+            <span>✓</span>
+            تم تعديل المنتج بنجاح
         </div>
+        <% } %>
+
+            <div class="container">
 
 
-        <form id="editForm" action="/admin/products/edit/<%= product.id %>" method="POST" enctype="multipart/form-data"
-            onsubmit="openConfirmModal(event)">
+                <div class="header">
 
-            <div class="form-group">
+                    <div>
+                        <h1>تعديل المنتج</h1>
+                        <p>تعديل بيانات المنتج في مطعم 911</p>
+                    </div>
 
-                <label>اسم المنتج</label>
+                    <div class="logo">
+                        911
+                    </div>
 
-                <input type="text" name="name" value="<%= product.name %>" required>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label>وصف المنتج</label>
-
-                <textarea name="description"><%= product.description || "" %></textarea>
-
-            </div>
+                </div>
 
 
-            <div class="form-group">
+                <form id="editForm" action="/admin/products/edit/<%= product.id %>" method="POST"
+                    enctype="multipart/form-data" onsubmit="openConfirmModal(event)">
 
-                <label>السعر</label>
+                    <div class="form-group">
 
-                <input type="number" name="price" value="<%= product.price %>" step="0.01" min="0" required>
+                        <label>اسم المنتج</label>
 
-            </div>
-
-            <div class="form-group">
-                <label>التصنيف</label>
-
-                <select name="category" required>
-                    <option value="">اختر التصنيف</option>
-
-                    <option value="وجبات" <%=product.category==="وجبات" ? "selected" : "" %>>
-                        وجبات
-                    </option>
-
-                    <option value="وجبات شاورما" <%=product.category==="وجبات شاورما" ? "selected" : "" %>>
-                        وجبات شاورما
-                    </option>
-
-                    <option value="وجبات شاورما عائلية" <%=product.category==="وجبات شاورما عائلية" ? "selected" : "" %>
-                        >
-                        وجبات شاورما عائلية
-                    </option>
-
-                    <option value="مقبلات" <%=product.category==="مقبلات" ? "selected" : "" %>>
-                        مقبلات
-                    </option>
-
-                    <option value="مشروبات" <%=product.category==="مشروبات" ? "selected" : "" %>>
-                        مشروبات
-                    </option>
-
-                    <option value="مشاوي" <%=product.category==="مشاوي" ? "selected" : "" %>>
-                        مشاوي
-                    </option>
-
-                    <option value="كرسبي" <%=product.category==="كرسبي" ? "selected" : "" %>>
-                        كرسبي
-                    </option>
-
-                    <option value="برستد" <%=product.category==="برستد" ? "selected" : "" %>>
-                        برستد
-                    </option>
-
-                    <option value="سناكات" <%=product.category==="سناكات" ? "selected" : "" %>>
-                        سناكات
-                    </option>
-                </select>
-            </div>
-
-
-            <div class="form-group">
-
-                <label>صورة المنتج</label>
-
-                <% if (product.image) { %>
-
-                    <div class="current-image">
-
-                        <p>الصورة الحالية:</p>
-
-                        <img src="<%= product.image %>" alt="<%= product.name %>">
+                        <input type="text" name="name" value="<%= product.name %>" required>
 
                     </div>
 
-                    <% } %>
 
-                        <input type="file" name="image" accept="image/jpeg,image/png,image/webp">
+                    <div class="form-group">
 
-                        <small>
-                            اترك الحقل فارغًا إذا كنت لا تريد تغيير الصورة.
-                        </small>
+                        <label>وصف المنتج</label>
+
+                        <textarea name="description"><%= product.description || "" %></textarea>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>السعر</label>
+
+                        <input type="number" name="price" value="<%= product.price %>" step="0.01" min="0" required>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>التصنيف</label>
+
+                        <select name="category" required>
+                            <option value="">اختر التصنيف</option>
+
+                            <option value="وجبات" <%=product.category==="وجبات" ? "selected" : "" %>>
+                                وجبات
+                            </option>
+
+                            <option value="وجبات شاورما" <%=product.category==="وجبات شاورما" ? "selected" : "" %>>
+                                وجبات شاورما
+                            </option>
+
+                            <option value="وجبات شاورما عائلية" <%=product.category==="وجبات شاورما عائلية" ? "selected"
+                                : "" %>
+                                >
+                                وجبات شاورما عائلية
+                            </option>
+
+                            <option value="مقبلات" <%=product.category==="مقبلات" ? "selected" : "" %>>
+                                مقبلات
+                            </option>
+
+                            <option value="مشروبات" <%=product.category==="مشروبات" ? "selected" : "" %>>
+                                مشروبات
+                            </option>
+
+                            <option value="مشاوي" <%=product.category==="مشاوي" ? "selected" : "" %>>
+                                مشاوي
+                            </option>
+
+                            <option value="كرسبي" <%=product.category==="كرسبي" ? "selected" : "" %>>
+                                كرسبي
+                            </option>
+
+                            <option value="برستد" <%=product.category==="برستد" ? "selected" : "" %>>
+                                برستد
+                            </option>
+
+                            <option value="سناكات" <%=product.category==="سناكات" ? "selected" : "" %>>
+                                سناكات
+                            </option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>صورة المنتج</label>
+
+                        <% if (product.image) { %>
+
+                            <div class="current-image">
+
+                                <p>الصورة الحالية:</p>
+
+                                <img src="<%= product.image %>" alt="<%= product.name %>">
+
+                            </div>
+
+                            <% } %>
+
+                                <input type="file" name="image" accept="image/jpeg,image/png,image/webp">
+
+                                <small>
+                                    اترك الحقل فارغًا إذا كنت لا تريد تغيير الصورة.
+                                </small>
+
+                    </div>
+
+
+                    <div class="buttons">
+
+                        <button type="submit" class="save-btn">
+                            حفظ التعديل
+                        </button>
+
+                        <a href="/admin/products" class="back-btn">
+                            العودة إلى المنتجات
+                        </a>
+
+                    </div>
+
+                </form>
+
 
             </div>
 
+            <!-- نافذة تأكيد التعديل -->
 
-            <div class="buttons">
+            <div id="confirmModal" class="modal">
 
-                <button type="submit" class="save-btn">
-                    حفظ التعديل
-                </button>
 
-                <a href="/admin/products" class="back-btn">
-                    العودة إلى المنتجات
-                </a>
+                <div class="modal-box">
+
+                    <div class="edit-icon">
+                        ?
+                    </div>
+
+                    <h2>
+                        تأكيد التعديل
+                    </h2>
+
+                    <p>
+                        هل أنت متأكد من حفظ التعديلات على هذا المنتج؟
+                    </p>
+
+                    <div class="modal-buttons">
+
+                        <button type="button" class="cancel-btn" onclick="closeConfirmModal()">
+                            إلغاء
+                        </button>
+
+                        <button type="button" class="confirm-btn" onclick="confirmEdit()">
+                            نعم، حفظ التعديل
+                        </button>
+
+                    </div>
+
+                </div>
+
 
             </div>
-
-        </form>
-
-
-    </div>
-
-    <!-- نافذة تأكيد التعديل -->
-
-    <div id="confirmModal" class="modal">
-
-
-        <div class="modal-box">
-
-            <div class="edit-icon">
-                ?
-            </div>
-
-            <h2>
-                تأكيد التعديل
-            </h2>
-
-            <p>
-                هل أنت متأكد من حفظ التعديلات على هذا المنتج؟
-            </p>
-
-            <div class="modal-buttons">
-
-                <button type="button" class="cancel-btn" onclick="closeConfirmModal()">
-                    إلغاء
-                </button>
-
-                <button type="button" class="confirm-btn" onclick="confirmEdit()">
-                    نعم، حفظ التعديل
-                </button>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-    <script>
-
-        const editForm =
-            document.getElementById("editForm");
-
-        const confirmModal =
-            document.getElementById("confirmModal");
-
-
-        function openConfirmModal(event) {
-
-            event.preventDefault();
-
-            confirmModal.style.display = "flex";
-
-        }
-
-
-        function closeConfirmModal() {
-
-            confirmModal.style.display = "none";
-
-        }
-
-
-        function confirmEdit() {
-
-            editForm.submit();
-
-        }
-
-
-        // إغلاق النافذة عند الضغط خارج الفقاعة
-
-        window.onclick = function (event) {
-
-            if (event.target === confirmModal) {
-
-                closeConfirmModal();
-
-            }
-
-        };
-
-    </script>
+            <script src="/js/admin/editproduct.js" defer></script>
 
 </body>
 

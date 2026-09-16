@@ -5,12 +5,16 @@ const path = require("path");
 const productService = new ProductService();
 
 // عرض صفحة المنتجات
+// عرض صفحة المنتجات
 const showProductsPage = async (req, res) => {
   try {
     const products = await productService.getAllProducts();
 
+    const success = req.query.success;
+
     res.render("admin/products", {
       products: products,
+      success,
     });
   } catch (error) {
     console.error(error);
@@ -24,7 +28,6 @@ const createProduct = async (req, res) => {
   try {
     const { name, description, price, category } = req.body;
 
-    // مسار الصورة
     let image = null;
 
     if (req.file) {
@@ -39,7 +42,7 @@ const createProduct = async (req, res) => {
       image,
     );
 
-    res.redirect("/admin/products");
+    res.redirect("/admin/products/add?success=product-added");
   } catch (error) {
     console.error(error);
 
@@ -56,8 +59,11 @@ const showEditProductPage = async (req, res) => {
       return res.status(404).send("المنتج غير موجود");
     }
 
+    const success = req.query.success;
+
     res.render("admin/edit-product", {
       product: product,
+      success,
     });
   } catch (error) {
     console.error(error);
@@ -132,7 +138,7 @@ const updateProduct = async (req, res) => {
       image,
     );
 
-    res.redirect("/admin/products");
+    res.redirect(`/admin/products/edit/${req.params.id}?success=product-updated`);
   } catch (error) {
     console.error(error);
 
@@ -173,20 +179,32 @@ const deleteProduct = async (req, res) => {
     // حذف المنتج من قاعدة البيانات
     await productService.deleteProduct(req.params.id);
 
-    res.redirect("/admin/products");
+    res.redirect("/admin/products?success=product-deleted");
   } catch (error) {
     console.error(error);
 
     res.status(500).send("حدث خطأ أثناء حذف المنتج");
   }
 };
+// تغيير حالة توفر المنتج
 const toggleProductAvailability = async (req, res) => {
   try {
+    const product = await productService.getProductById(req.params.id);
+
+    if (!product) {
+      return res.status(404).send("المنتج غير موجود");
+    }
+
     await productService.toggleProductAvailability(req.params.id);
 
-    res.redirect("/admin/products");
+    if (product.is_available) {
+      return res.redirect("/admin/products?success=product-disabled");
+    }
+
+    return res.redirect("/admin/products?success=product-enabled");
   } catch (error) {
     console.error(error);
+
     res.status(500).send("حدث خطأ أثناء تغيير حالة المنتج");
   }
 };

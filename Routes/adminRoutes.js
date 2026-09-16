@@ -19,7 +19,13 @@ router.get("/orders/:id", adminController.showOrderDetails);
 
 router.get("/products", productController.showProductsPage);
 
-router.get("/products/add", (req, res) => res.render("admin/add-product"));
+router.get("/products/add", (req, res) => {
+  const success = req.query.success;
+
+  res.render("admin/add-product", {
+    success,
+  });
+});
 
 router.post(
   "/products",
@@ -27,7 +33,9 @@ router.post(
   productController.createProduct,
 );
 
-router.get("/products/edit/:id", productController.showEditProductPage);
+router.get("/products/edit/:id", (req, res) => {
+  productController.showEditProductPage(req, res);
+});
 
 router.post(
   "/products/edit/:id",
@@ -42,16 +50,9 @@ router.post(
   productController.toggleProductAvailability,
 );
 
+router.get("/call-center-agents", adminController.showCallCenterAgents);
 
-router.get(
-  "/call-center-agents",
-  adminController.showCallCenterAgents,
-);
-
-router.post(
-  "/call-center-agents",
-  adminController.createCallCenterAgent,
-);
+router.post("/call-center-agents", adminController.createCallCenterAgent);
 
 router.post(
   "/call-center-agents/delete/:id",

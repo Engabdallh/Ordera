@@ -12,515 +12,381 @@
 
 <body>
 
-    <div class="container">
+    <% if (success==="product-deleted" ) { %>
+        <div class="success-message" id="successMessage">
+            <span>✓</span>
+            تم حذف المنتج بنجاح
+        </div>
 
-        <!-- ==============================
+        <% } else if (success==="product-enabled" ) { %>
+            <div class="success-message" id="successMessage">
+                <span>✓</span>
+                تم تشغيل المنتج بنجاح
+            </div>
+
+            <% } else if (success==="product-disabled" ) { %>
+                <div class="success-message" id="successMessage">
+                    <span>✓</span>
+                    تم إيقاف المنتج بنجاح
+                </div>
+                <% } %>
+
+                    <div class="container">
+
+
+                        <!-- ==============================
          الهيدر
     =============================== -->
-        <div class="header">
+                        <div class="header">
 
-            <div class="header-title">
-                <h1>إدارة المنتجات</h1>
-                <p>إدارة منتجات مطعم 911</p>
-            </div>
-
-            <div class="header-buttons">
-
-                <a href="/admin" class="btn dashboard-btn">
-                    لوحة التحكم
-                </a>
-
-                <a href="/admin/products/add" class="btn add-btn">
-                    + إضافة منتج جديد
-                </a>
-
-            </div>
-
-        </div>
-
-
-        <!-- الخط -->
-        <div class="orange-line"></div>
-
-
-        <!-- ==============================
-         عنوان المنتجات
-    =============================== -->
-        <div class="section-title">
-            <h2>المنتجات الحالية</h2>
-
-            <span id="productsCount">
-                <%= products.length %> منتج
-            </span>
-        </div>
-
-
-        <!-- ==============================
-         فلتر التصنيفات
-    =============================== -->
-        <section class="categories-section">
-
-            <div class="categories-title">
-                <span>التصنيفات</span>
-            </div>
-
-            <div class="categories">
-
-                <button type="button" class="category-btn active" data-category="all"
-                    onclick="filterProducts('all', this)">
-                    الكل
-                </button>
-
-                <button type="button" class="category-btn" data-category="وجبات"
-                    onclick="filterProducts('وجبات', this)">
-                    وجبات
-                </button>
-
-                <button type="button" class="category-btn" data-category="وجبات شاورما"
-                    onclick="filterProducts('وجبات شاورما', this)">
-                    وجبات شاورما
-                </button>
-
-                <button type="button" class="category-btn" data-category="وجبات شاورما عائلية"
-                    onclick="filterProducts('وجبات شاورما عائلية', this)">
-                    شاورما عائلية
-                </button>
-
-                <button type="button" class="category-btn" data-category="مقبلات"
-                    onclick="filterProducts('مقبلات', this)">
-                    مقبلات
-                </button>
-
-                <button type="button" class="category-btn" data-category="مشروبات"
-                    onclick="filterProducts('مشروبات', this)">
-                    مشروبات
-                </button>
-
-                <button type="button" class="category-btn" data-category="مشاوي"
-                    onclick="filterProducts('مشاوي', this)">
-                    مشاوي
-                </button>
-
-                <button type="button" class="category-btn" data-category="كرسبي"
-                    onclick="filterProducts('كرسبي', this)">
-                    كرسبي
-                </button>
-
-                <button type="button" class="category-btn" data-category="برستد"
-                    onclick="filterProducts('برستد', this)">
-                    برستد
-                </button>
-
-                <button type="button" class="category-btn" data-category="سناكات"
-                    onclick="filterProducts('سناكات', this)">
-                    سناكات
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- ==============================
-         المنتجات
-    =============================== -->
-
-        <% if (products.length===0) { %>
-
-            <div class="empty">
-                <div class="empty-icon">🍽️</div>
-
-                <h3>لا يوجد منتجات حاليًا</h3>
-
-                <p>
-                    قم بإضافة منتج جديد حتى يظهر هنا.
-                </p>
-
-                <a href="/admin/products/add" class="btn add-btn empty-btn">
-                    + إضافة منتج
-                </a>
-            </div>
-
-            <% } else { %>
-
-                <div class="products" id="productsContainer">
-
-                    <% products.forEach(product=> { %>
-
-                        <div class="product" data-category="<%= product.category || '' %>">
-
-                            <!-- صورة المنتج -->
-                            <div class="product-image-wrapper">
-
-                                <% if (product.image) { %>
-
-                                    <img src="<%= product.image %>" alt="<%= product.name %>" class="product-image"
-                                        loading="lazy">
-
-                                    <% } else { %>
-
-                                        <div class="no-image">
-                                            🍽️
-                                            <span>لا توجد صورة</span>
-                                        </div>
-
-                                        <% } %>
-
-                                            <!-- حالة المنتج -->
-                                            <div class="image-status">
-
-                                                <% if (product.is_available) { %>
-
-                                                    <span class="status available-status">
-                                                        متاح
-                                                    </span>
-
-                                                    <% } else { %>
-
-                                                        <span class="status unavailable-status">
-                                                            غير متاح
-                                                        </span>
-
-                                                        <% } %>
-
-                                            </div>
-
+                            <div class="header-title">
+                                <h1>إدارة المنتجات</h1>
+                                <p>إدارة منتجات مطعم 911</p>
                             </div>
 
+                            <div class="header-buttons">
 
-                            <!-- معلومات المنتج -->
-                            <div class="product-content">
+                                <a href="/admin" class="btn dashboard-btn">
+                                    لوحة التحكم
+                                </a>
 
-                                <!-- التصنيف -->
-                                <span class="category-badge">
-
-                                    <%= product.category || "بدون تصنيف" %>
-
-                                </span>
-
-
-                                <!-- الاسم -->
-                                <h3>
-                                    <%= product.name %>
-                                </h3>
-
-
-                                <!-- الوصف -->
-                                <p class="description">
-
-                                    <%= product.description || "لا يوجد وصف" %>
-
-                                </p>
-
-
-                                <!-- السعر -->
-                                <div class="price-row">
-
-                                    <span class="price-label">
-                                        السعر
-                                    </span>
-
-                                    <strong class="price">
-                                        <%= Number(product.price).toFixed(2) %>
-                                            <small>د.أ</small>
-                                    </strong>
-
-                                </div>
-
-
-                                <!-- ==============================
-                             حالة المنتج
-                        =============================== -->
-
-                                <div class="availability">
-
-                                    <% if (product.is_available) { %>
-
-                                        <div class="availability-info">
-
-                                            <span class="availability-status available">
-                                                🟢 متاح للطلب
-                                            </span>
-
-                                        </div>
-
-                                        <form action="/admin/products/toggle/<%= product.id %>" method="POST"
-                                            class="availability-form">
-
-                                            <button type="submit" class="btn availability-btn disable-btn">
-                                                إيقاف المنتج
-                                            </button>
-
-                                        </form>
-
-                                        <% } else { %>
-
-                                            <div class="availability-info">
-
-                                                <span class="availability-status unavailable">
-                                                    🔴 غير متاح للطلب
-                                                </span>
-
-                                            </div>
-
-                                            <form action="/admin/products/toggle/<%= product.id %>" method="POST"
-                                                class="availability-form">
-
-                                                <button type="submit" class="btn availability-btn enable-btn">
-                                                    تشغيل المنتج
-                                                </button>
-
-                                            </form>
-
-                                            <% } %>
-
-                                </div>
-
-
-                                <!-- ==============================
-                             أزرار المنتج
-                        =============================== -->
-
-                                <div class="product-buttons">
-
-                                    <a href="/admin/products/edit/<%= product.id %>" class="btn edit-btn">
-                                        تعديل
-                                    </a>
-
-                                    <button class="btn delete-btn" type="button"
-                                        onclick="confirmDelete('<%= product.id %>')">
-                                        حذف
-                                    </button>
-
-                                </div>
+                                <a href="/admin/products/add" class="btn add-btn">
+                                    + إضافة منتج جديد
+                                </a>
 
                             </div>
 
                         </div>
 
-                        <% }) %>
 
-                </div>
+                        <!-- الخط -->
+                        <div class="orange-line"></div>
 
 
-                <!-- لا توجد منتجات في التصنيف -->
-                <div id="noFilterResults" class="empty filter-empty" style="display: none;">
+                        <!-- ==============================
+         عنوان المنتجات
+    =============================== -->
+                        <div class="section-title">
+                            <h2>المنتجات الحالية</h2>
 
-                    <div class="empty-icon">
-                        🔍
+                            <span id="productsCount">
+                                <%= products.length %> منتج
+                            </span>
+                        </div>
+
+
+                        <!-- ==============================
+         فلتر التصنيفات
+    =============================== -->
+                        <section class="categories-section">
+
+                            <div class="categories-title">
+                                <span>التصنيفات</span>
+                            </div>
+
+                            <div class="categories">
+
+                                <button type="button" class="category-btn active" data-category="all"
+                                    onclick="filterProducts('all', this)">
+                                    الكل
+                                </button>
+
+                                <button type="button" class="category-btn" data-category="وجبات"
+                                    onclick="filterProducts('وجبات', this)">
+                                    وجبات
+                                </button>
+
+                                <button type="button" class="category-btn" data-category="وجبات شاورما"
+                                    onclick="filterProducts('وجبات شاورما', this)">
+                                    وجبات شاورما
+                                </button>
+
+                                <button type="button" class="category-btn" data-category="وجبات شاورما عائلية"
+                                    onclick="filterProducts('وجبات شاورما عائلية', this)">
+                                    شاورما عائلية
+                                </button>
+
+                                <button type="button" class="category-btn" data-category="مقبلات"
+                                    onclick="filterProducts('مقبلات', this)">
+                                    مقبلات
+                                </button>
+
+                                <button type="button" class="category-btn" data-category="مشروبات"
+                                    onclick="filterProducts('مشروبات', this)">
+                                    مشروبات
+                                </button>
+
+                                <button type="button" class="category-btn" data-category="مشاوي"
+                                    onclick="filterProducts('مشاوي', this)">
+                                    مشاوي
+                                </button>
+
+                                <button type="button" class="category-btn" data-category="كرسبي"
+                                    onclick="filterProducts('كرسبي', this)">
+                                    كرسبي
+                                </button>
+
+                                <button type="button" class="category-btn" data-category="برستد"
+                                    onclick="filterProducts('برستد', this)">
+                                    برستد
+                                </button>
+
+                                <button type="button" class="category-btn" data-category="سناكات"
+                                    onclick="filterProducts('سناكات', this)">
+                                    سناكات
+                                </button>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- ==============================
+         المنتجات
+    =============================== -->
+
+                        <% if (products.length===0) { %>
+
+                            <div class="empty">
+                                <div class="empty-icon">🍽️</div>
+
+                                <h3>لا يوجد منتجات حاليًا</h3>
+
+                                <p>
+                                    قم بإضافة منتج جديد حتى يظهر هنا.
+                                </p>
+
+                                <a href="/admin/products/add" class="btn add-btn empty-btn">
+                                    + إضافة منتج
+                                </a>
+                            </div>
+
+                            <% } else { %>
+
+                                <div class="products" id="productsContainer">
+
+                                    <% products.forEach(product=> { %>
+
+                                        <div class="product" data-category="<%= product.category || '' %>">
+
+                                            <!-- صورة المنتج -->
+                                            <div class="product-image-wrapper">
+
+                                                <% if (product.image) { %>
+
+                                                    <img src="<%= product.image %>" alt="<%= product.name %>"
+                                                        class="product-image" loading="lazy">
+
+                                                    <% } else { %>
+
+                                                        <div class="no-image">
+                                                            🍽️
+                                                            <span>لا توجد صورة</span>
+                                                        </div>
+
+                                                        <% } %>
+
+                                                            <!-- حالة المنتج -->
+                                                            <div class="image-status">
+
+                                                                <% if (product.is_available) { %>
+
+                                                                    <span class="status available-status">
+                                                                        متاح
+                                                                    </span>
+
+                                                                    <% } else { %>
+
+                                                                        <span class="status unavailable-status">
+                                                                            غير متاح
+                                                                        </span>
+
+                                                                        <% } %>
+
+                                                            </div>
+
+                                            </div>
+
+
+                                            <!-- معلومات المنتج -->
+                                            <div class="product-content">
+
+                                                <!-- التصنيف -->
+                                                <span class="category-badge">
+
+                                                    <%= product.category || "بدون تصنيف" %>
+
+                                                </span>
+
+
+                                                <!-- الاسم -->
+                                                <h3>
+                                                    <%= product.name %>
+                                                </h3>
+
+
+                                                <!-- الوصف -->
+                                                <p class="description">
+
+                                                    <%= product.description || "لا يوجد وصف" %>
+
+                                                </p>
+
+
+                                                <!-- السعر -->
+                                                <div class="price-row">
+
+                                                    <span class="price-label">
+                                                        السعر
+                                                    </span>
+
+                                                    <strong class="price">
+                                                        <%= Number(product.price).toFixed(2) %>
+                                                            <small>د.أ</small>
+                                                    </strong>
+
+                                                </div>
+
+
+                                                <!-- ==============================
+                             حالة المنتج
+                        =============================== -->
+
+                                                <div class="availability">
+
+                                                    <% if (product.is_available) { %>
+
+                                                        <div class="availability-info">
+
+                                                            <span class="availability-status available">
+                                                                🟢 متاح للطلب
+                                                            </span>
+
+                                                        </div>
+
+                                                        <form action="/admin/products/toggle/<%= product.id %>"
+                                                            method="POST" class="availability-form">
+
+                                                            <button type="submit"
+                                                                class="btn availability-btn disable-btn">
+                                                                إيقاف المنتج
+                                                            </button>
+
+                                                        </form>
+
+                                                        <% } else { %>
+
+                                                            <div class="availability-info">
+
+                                                                <span class="availability-status unavailable">
+                                                                    🔴 غير متاح للطلب
+                                                                </span>
+
+                                                            </div>
+
+                                                            <form action="/admin/products/toggle/<%= product.id %>"
+                                                                method="POST" class="availability-form">
+
+                                                                <button type="submit"
+                                                                    class="btn availability-btn enable-btn">
+                                                                    تشغيل المنتج
+                                                                </button>
+
+                                                            </form>
+
+                                                            <% } %>
+
+                                                </div>
+
+
+                                                <!-- ==============================
+                             أزرار المنتج
+                        =============================== -->
+
+                                                <div class="product-buttons">
+
+                                                    <a href="/admin/products/edit/<%= product.id %>"
+                                                        class="btn edit-btn">
+                                                        تعديل
+                                                    </a>
+
+                                                    <button class="btn delete-btn" type="button"
+                                                        onclick="confirmDelete('<%= product.id %>')">
+                                                        حذف
+                                                    </button>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <% }) %>
+
+                                </div>
+
+
+                                <!-- لا توجد منتجات في التصنيف -->
+                                <div id="noFilterResults" class="empty filter-empty" style="display: none;">
+
+                                    <div class="empty-icon">
+                                        🔍
+                                    </div>
+
+                                    <h3>
+                                        لا توجد منتجات
+                                    </h3>
+
+                                    <p>
+                                        لا يوجد منتجات ضمن هذا التصنيف.
+                                    </p>
+
+                                </div>
+
+                                <% } %>
+
                     </div>
 
-                    <h3>
-                        لا توجد منتجات
-                    </h3>
 
-                    <p>
-                        لا يوجد منتجات ضمن هذا التصنيف.
-                    </p>
-
-                </div>
-
-                <% } %>
-
-    </div>
-
-
-    <!-- ==============================
+                    <!-- ==============================
      نافذة تأكيد الحذف
 =============================== -->
 
-    <div id="confirmModal" class="modal">
+                    <div id="confirmModal" class="modal">
 
-        <div class="modal-box">
+                        <div class="modal-box">
 
-            <div class="warning-icon">
-                !
-            </div>
+                            <div class="warning-icon">
+                                !
+                            </div>
 
-            <h2>
-                حذف المنتج
-            </h2>
+                            <h2>
+                                حذف المنتج
+                            </h2>
 
-            <p>
-                هل أنت متأكد من حذف هذا المنتج؟
-                <br>
-                لا يمكن التراجع عن هذه العملية.
-            </p>
+                            <p>
+                                هل أنت متأكد من حذف هذا المنتج؟
+                                <br>
+                                لا يمكن التراجع عن هذه العملية.
+                            </p>
 
-            <div class="modal-buttons">
+                            <div class="modal-buttons">
 
-                <button class="btn cancel-btn" type="button" onclick="closeModal()">
-                    إلغاء
-                </button>
+                                <button class="btn cancel-btn" type="button" onclick="closeModal()">
+                                    إلغاء
+                                </button>
 
-                <button id="confirmButton" class="btn confirm-btn" type="button">
-                    نعم، حذف
-                </button>
+                                <button id="confirmButton" class="btn confirm-btn" type="button">
+                                    نعم، حذف
+                                </button>
 
-            </div>
+                            </div>
 
-        </div>
+                        </div>
 
-    </div>
+                    </div>
 
-
-    <!-- ==============================
-     JavaScript
-=============================== -->
-
-    <script>
-
-        /* ==============================
-           فلتر التصنيفات
-        =============================== */
-
-        function filterProducts(category, button) {
-
-            const products = document.querySelectorAll(".product");
-
-            const noResults = document.getElementById("noFilterResults");
-
-            const countElement = document.getElementById("productsCount");
-
-            let visibleCount = 0;
-
-
-            /* إزالة active من جميع الأزرار */
-
-            document
-                .querySelectorAll(".category-btn")
-                .forEach(btn => {
-                    btn.classList.remove("active");
-                });
-
-
-            /* إضافة active للزر الحالي */
-
-            button.classList.add("active");
-
-
-            /* فلترة المنتجات */
-
-            products.forEach(product => {
-
-                const productCategory =
-                    product.dataset.category;
-
-                if (
-                    category === "all" ||
-                    productCategory === category
-                ) {
-
-                    product.style.display = "flex";
-
-                    visibleCount++;
-
-                } else {
-
-                    product.style.display = "none";
-
-                }
-
-            });
-
-
-            /* تحديث العدد */
-
-            if (countElement) {
-
-                countElement.textContent =
-                    visibleCount + " منتج";
-
-            }
-
-
-            /* إظهار رسالة إذا لا يوجد نتائج */
-
-            if (noResults) {
-
-                if (visibleCount === 0) {
-
-                    noResults.style.display = "block";
-
-                } else {
-
-                    noResults.style.display = "none";
-
-                }
-
-            }
-
-        }
-
-
-        /* ==============================
-           نافذة الحذف
-        =============================== */
-
-        const modal =
-            document.getElementById("confirmModal");
-
-        const confirmButton =
-            document.getElementById("confirmButton");
-
-
-        function confirmDelete(id) {
-
-            modal.style.display = "flex";
-
-
-            confirmButton.onclick = function () {
-
-                const form =
-                    document.createElement("form");
-
-                form.method = "POST";
-
-                form.action =
-                    "/admin/products/delete/" + id;
-
-                document.body.appendChild(form);
-
-                form.submit();
-
-            };
-
-        }
-
-
-        function closeModal() {
-
-            modal.style.display = "none";
-
-        }
-
-
-        /* إغلاق عند الضغط خارج النافذة */
-
-        window.onclick = function (event) {
-
-            if (event.target === modal) {
-
-                closeModal();
-
-            }
-
-        };
-
-
-        /* إغلاق زر ESC */
-
-        document.addEventListener("keydown", function (event) {
-
-            if (event.key === "Escape") {
-
-                closeModal();
-
-            }
-
-        });
-
-    </script>
+                    <script src="/js/admin/products.js" defer></script>
 
 </body>
 
