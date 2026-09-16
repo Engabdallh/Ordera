@@ -63,13 +63,49 @@
 
             </div>
 
-
             <div class="form-group">
-
                 <label>التصنيف</label>
 
-                <input type="text" name="category" value="<%= product.category || "" %>">
+                <select name="category" required>
+                    <option value="">اختر التصنيف</option>
 
+                    <option value="وجبات" <%=product.category==="وجبات" ? "selected" : "" %>>
+                        وجبات
+                    </option>
+
+                    <option value="وجبات شاورما" <%=product.category==="وجبات شاورما" ? "selected" : "" %>>
+                        وجبات شاورما
+                    </option>
+
+                    <option value="وجبات شاورما عائلية" <%=product.category==="وجبات شاورما عائلية" ? "selected" : "" %>
+                        >
+                        وجبات شاورما عائلية
+                    </option>
+
+                    <option value="مقبلات" <%=product.category==="مقبلات" ? "selected" : "" %>>
+                        مقبلات
+                    </option>
+
+                    <option value="مشروبات" <%=product.category==="مشروبات" ? "selected" : "" %>>
+                        مشروبات
+                    </option>
+
+                    <option value="مشاوي" <%=product.category==="مشاوي" ? "selected" : "" %>>
+                        مشاوي
+                    </option>
+
+                    <option value="كرسبي" <%=product.category==="كرسبي" ? "selected" : "" %>>
+                        كرسبي
+                    </option>
+
+                    <option value="برستد" <%=product.category==="برستد" ? "selected" : "" %>>
+                        برستد
+                    </option>
+
+                    <option value="سناكات" <%=product.category==="سناكات" ? "selected" : "" %>>
+                        سناكات
+                    </option>
+                </select>
             </div>
 
 

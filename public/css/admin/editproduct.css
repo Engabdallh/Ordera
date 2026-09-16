@@ -286,6 +286,43 @@ body {
 }
 
 /* ==============================
+   قائمة التصنيف
+============================== */
+
+.form-group select {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #0d0d0d;
+  color: white;
+  font-size: 15px;
+  outline: none;
+  font-family: Arial, sans-serif;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.form-group select:focus {
+  border-color: #ff6a00;
+  box-shadow: 0 0 0 2px rgba(255, 106, 0, 0.15);
+}
+
+/* خيارات القائمة */
+
+.form-group select option {
+  background: #1a1a1a;
+  color: white;
+}
+
+/* الخيار المحدد */
+
+.form-group select option:checked {
+  background: #ff6a00;
+  color: white;
+}
+/* ==============================
    Tablet
 ============================== */
 
@@ -440,6 +477,13 @@ body {
   }
 }
 
+.form-group select {
+  width: 100%;
+  max-width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+}
 /* ==============================
    تلفونات صغيرة جداً
 ============================== */
