@@ -121,7 +121,7 @@ const showCart = (req, res) => {
 
     const cart = req.session.cart || [];
 
-    res.render("customer/cart", {
+    res.render("Customer/cart", {
       cart: cart,
       userName: req.session.userName,
 
@@ -438,7 +438,7 @@ const checkout = async (req, res) => {
     req.session.cart = [];
     delete req.session.coupon;
 
-    return res.render("customer/ordersuccess", {
+    return res.render("Customer/ordersuccess", {
   orderId: order.orderId,
 
   dailyOrderNumber: order.dailyOrderNumber,

@@ -30,7 +30,7 @@ const showCustomerOrders = async (req, res) => {
 
     console.log("CUSTOMER ORDERS:", orders);
 
-    res.render("customer/orders", {
+    res.render("Customer/orders", {
       orders: orders,
       userName: userName,
     });
