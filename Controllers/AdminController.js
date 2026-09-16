@@ -158,8 +158,13 @@ const showCallCenterAgents = async (req, res) => {
   try {
     const agents = await callCenterAgentService.getAllAgents();
 
+    const success = req.query.success;
+    const errorMessage = req.query.error;
+
     res.render("admin/call-center-agents", {
       agents: agents,
+      success: success,
+       errorMessage: errorMessage,
     });
   } catch (error) {
     console.error("SHOW CALL CENTER AGENTS ERROR:", error);
@@ -177,11 +182,11 @@ const createCallCenterAgent = async (req, res) => {
     const { name, phone, email, password, confirmPassword } = req.body;
 
     if (!name || !email || !password || !confirmPassword) {
-      return res.status(400).send("جميع الحقول المطلوبة يجب تعبئتها");
+      return res.redirect("/admin/call-center-agents?error=required-fields");
     }
 
     if (password !== confirmPassword) {
-      return res.status(400).send("كلمتا المرور غير متطابقتين");
+      return res.redirect("/admin/call-center-agents?error=password-mismatch");
     }
 
     await callCenterAgentService.createAgent({
@@ -191,15 +196,15 @@ const createCallCenterAgent = async (req, res) => {
       password,
     });
 
-    res.redirect("/admin/call-center-agents");
+    res.redirect("/admin/call-center-agents?success=agent-added");
   } catch (error) {
     console.error("CREATE CALL CENTER AGENT ERROR:", error);
 
     if (error.code === "ER_DUP_ENTRY") {
-      return res.status(400).send("البريد الإلكتروني مستخدم بالفعل");
+      return res.redirect("/admin/call-center-agents?error=email-exists");
     }
 
-    res.status(500).send("حدث خطأ أثناء إضافة الموظف");
+    res.redirect("/admin/call-center-agents?error=agent-create-failed");
   }
 };
 
@@ -217,7 +222,7 @@ const deleteCallCenterAgent = async (req, res) => {
 
     await callCenterAgentService.deleteAgent(agentId);
 
-    res.redirect("/admin/call-center-agents");
+    res.redirect("/admin/call-center-agents?success=agent-deleted");
   } catch (error) {
     console.error("DELETE CALL CENTER AGENT ERROR:", error);
 
@@ -237,9 +242,21 @@ const toggleCallCenterAgentStatus = async (req, res) => {
       return res.status(400).send("رقم الموظف غير صحيح");
     }
 
+    const agents = await callCenterAgentService.getAllAgents();
+
+    const agent = agents.find((item) => item.id === agentId);
+
+    if (!agent) {
+      return res.status(404).send("الموظف غير موجود");
+    }
+
     await callCenterAgentService.toggleAgentStatus(agentId);
 
-    res.redirect("/admin/call-center-agents");
+    if (agent.status === "فعال") {
+      return res.redirect("/admin/call-center-agents?success=agent-disabled");
+    }
+
+    return res.redirect("/admin/call-center-agents?success=agent-enabled");
   } catch (error) {
     console.error("TOGGLE CALL CENTER AGENT STATUS ERROR:", error);
 
@@ -255,29 +272,19 @@ const updateCallCenterAgent = async (req, res) => {
   try {
     const agentId = Number(req.params.id);
 
-    const {
-      name,
-      phone,
-      email,
-      password,
-      confirmPassword,
-    } = req.body;
+    const { name, phone, email, password, confirmPassword } = req.body;
 
     if (!agentId) {
       return res.status(400).send("رقم الموظف غير صحيح");
     }
 
     if (!name || !email) {
-      return res.status(400).send(
-        "الاسم والبريد الإلكتروني مطلوبان",
-      );
+      return res.status(400).send("الاسم والبريد الإلكتروني مطلوبان");
     }
 
     if (password || confirmPassword) {
       if (password !== confirmPassword) {
-        return res.status(400).send(
-          "كلمتا المرور غير متطابقتين",
-        );
+        return res.status(400).send("كلمتا المرور غير متطابقتين");
       }
     }
 
@@ -288,19 +295,15 @@ const updateCallCenterAgent = async (req, res) => {
       password,
     });
 
-    res.redirect("/admin/call-center-agents");
+    res.redirect("/admin/call-center-agents?success=agent-updated");
   } catch (error) {
     console.error("UPDATE CALL CENTER AGENT ERROR:", error);
 
     if (error.code === "ER_DUP_ENTRY") {
-      return res.status(400).send(
-        "البريد الإلكتروني مستخدم بالفعل",
-      );
+      return res.status(400).send("البريد الإلكتروني مستخدم بالفعل");
     }
 
-    res.status(500).send(
-      "حدث خطأ أثناء تحديث بيانات الموظف",
-    );
+    res.status(500).send("حدث خطأ أثناء تحديث بيانات الموظف");
   }
 };
 
@@ -326,9 +329,7 @@ const showEditCallCenterAgent = async (req, res) => {
   } catch (error) {
     console.error("SHOW EDIT CALL CENTER AGENT ERROR:", error);
 
-    res.status(500).send(
-      "حدث خطأ أثناء تحميل صفحة تعديل الموظف",
-    );
+    res.status(500).send("حدث خطأ أثناء تحميل صفحة تعديل الموظف");
   }
 };
 
@@ -343,5 +344,5 @@ module.exports = {
   deleteCallCenterAgent,
   toggleCallCenterAgentStatus,
   updateCallCenterAgent,
-  showEditCallCenterAgent
+  showEditCallCenterAgent,
 };

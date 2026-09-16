@@ -289,3 +289,137 @@ tbody tr:hover {
 .edit-btn:hover {
     background: #ff8f26;
 }
+/* ==============================
+   Success Message
+============================== */
+
+.success-message {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  padding: 14px 18px;
+  background: #142a1b;
+  border: 1px solid #22c55e;
+  border-right: 5px solid #22c55e;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  animation: successSlide 0.3s ease;
+}
+
+.success-message span {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #22c55e;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+@keyframes successSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ==============================
+   Error Message
+============================== */
+
+.error-message {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  padding: 14px 18px;
+  background: #2a1414;
+  border: 1px solid #ef4444;
+  border-right: 5px solid #ef4444;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  animation: errorSlide 0.3s ease;
+}
+
+.error-message span {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #ef4444;
+  color: #000;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+@keyframes errorSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ==============================
+   Password Input
+============================== */
+
+.password-input {
+  position: relative;
+  width: 100%;
+}
+
+.password-input input {
+  width: 100%;
+  padding-left: 48px;
+}
+
+.toggle-password {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  background: transparent;
+  color: #999;
+
+  font-size: 17px;
+  cursor: pointer;
+
+  padding: 0;
+}
+
+.toggle-password:hover {
+  color: #ff6a00;
+}
