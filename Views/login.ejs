@@ -66,8 +66,15 @@
                                         كلمة السر
                                     </label>
 
-                                    <input type="password" id="password" name="password" placeholder="أدخل كلمة السر"
-                                        required>
+                                    <div class="password-input">
+                                        <input type="password" id="password" name="password"
+                                            placeholder="أدخل كلمة السر" required>
+
+                                        <button type="button" class="toggle-password"
+                                            onclick="togglePassword('password', this)">
+                                            👁
+                                        </button>
+                                    </div>
 
                                 </div>
 
@@ -95,6 +102,7 @@
 
     </div>
 
+    <script src="/js/login.js" defer></script>
 
 </body>
 
