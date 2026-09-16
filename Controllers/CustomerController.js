@@ -37,7 +37,7 @@ const showProductsCustomer = async (req, res) => {
     // ==============================
 
     if (!restaurant || !restaurant.is_open) {
-      return res.render("{Customer}/showproductscostmer", {
+      return res.render("Customer/showproductscostmer", {
         products: [],
         userName: req.session.userName,
         restaurantOpen: false,
