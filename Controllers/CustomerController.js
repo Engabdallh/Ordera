@@ -37,7 +37,7 @@ const showProductsCustomer = async (req, res) => {
     // ==============================
 
     if (!restaurant || !restaurant.is_open) {
-      return res.render("customer/showproductscostmer", {
+      return res.render("{Customer}/showproductscostmer", {
         products: [],
         userName: req.session.userName,
         restaurantOpen: false,
@@ -52,7 +52,7 @@ const showProductsCustomer = async (req, res) => {
 
     const products = await productService.getAvailableProducts();
 
-    return res.render("customer/showproductscostmer", {
+    return res.render("Customer/showproductscostmer", {
       products: products,
       userName: req.session.userName,
       restaurantOpen: true,
