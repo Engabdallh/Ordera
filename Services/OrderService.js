@@ -243,6 +243,45 @@ async getCustomerOrders(customerId) {
   }
 
     // =====================================================
+  // طلبات دورة معينة
+  // =====================================================
+
+  async getOrdersByCycle(cycleId) {
+    const [orders] = await db.query(
+      `SELECT
+          o.id,
+          o.daily_order_number,
+          o.total_price,
+          o.status,
+          o.order_type,
+          o.created_at,
+          c.name AS customer_name
+       FROM orders o
+       JOIN customers c
+          ON o.customer_id = c.id
+       JOIN restaurant_cycles rc
+          ON o.created_at >= rc.started_at
+         AND o.created_at <= COALESCE(rc.ended_at, NOW())
+       WHERE rc.id = ?
+       ORDER BY o.created_at DESC`,
+      [cycleId],
+    );
+
+    const totalOrders = orders.length;
+
+    const totalSales = orders.reduce(
+      (sum, order) => sum + Number(order.total_price),
+      0,
+    );
+
+    return {
+      orders,
+      totalOrders,
+      totalSales,
+    };
+  }
+
+    // =====================================================
   // حذف طلب
   // =====================================================
 

@@ -82,6 +82,19 @@ class RestaurantService {
       cycleId: cycleResult.insertId,
     };
   }
+    async getCycles() {
+    const [cycles] = await db.query(
+      `SELECT
+          id,
+          started_at,
+          ended_at,
+          orders_count
+       FROM restaurant_cycles
+       ORDER BY id DESC`,
+    );
+
+    return cycles;
+  }
 }
 
 module.exports = RestaurantService;

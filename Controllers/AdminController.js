@@ -49,17 +49,53 @@ const toggleRestaurantStatus = async (req, res) => {
 
 const showOrders = async (req, res) => {
   try {
-    const { status, date, fromTime, toTime, month } = req.query;
-
-    const result = await orderService.filterOrders({
+    const {
       status,
       date,
       fromTime,
       toTime,
       month,
-    });
+      cycle,
+    } = req.query;
+
+    let result;
+
+    // =========================
+    // إذا تم اختيار دورة
+    // =========================
+
+    if (cycle) {
+      result = await orderService.getOrdersByCycle(Number(cycle));
+    } else {
+      // =========================
+      // الطلبات العادية
+      // =========================
+
+      result = await orderService.filterOrders({
+        status,
+        date,
+        fromTime,
+        toTime,
+        month,
+      });
+    }
+
+    // =========================
+    // جلب جميع الدورات
+    // =========================
+
+    const cycles = await restaurantService.getCycles();
+
+    // =========================
+    // الدورة المختارة
+    // =========================
+
+    const selectedCycle = cycle
+      ? cycles.find((item) => item.id === Number(cycle))
+      : null;
 
     const success = req.query.success;
+
     res.render("admin/orders", {
       orders: result.orders,
 
@@ -68,6 +104,12 @@ const showOrders = async (req, res) => {
       totalSales: result.totalSales,
 
       success,
+
+      cycles,
+
+      selectedCycle,
+
+      selectedCycleId: cycle || "",
 
       filters: {
         status: status || "",

@@ -66,6 +66,21 @@
 
                         <div class="filter-group">
 
+                            <div class="filter-group">
+                                <label for="cycle">الدورة</label>
+
+                                <select id="cycle" name="cycle">
+                                    <option value="">جميع الدورات</option>
+
+                                    <% cycles.forEach((item)=> { %>
+                                        <option value="<%= item.id %>" <%=selectedCycleId==item.id ? "selected" : "" %>
+                                            >
+                                            الدورة #<%= item.id %>
+                                        </option>
+                                        <% }) %>
+                                </select>
+                            </div>
+
                             <label>الحالة</label>
 
                             <select name="status">
