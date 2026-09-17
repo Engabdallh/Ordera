@@ -75,5 +75,6 @@ router.get(
 );
 
 router.post("/orders/:id/delete", adminController.deleteOrder);
+router.post("/cycles/:id/delete", adminController.deleteCycle);
 
 module.exports = router;

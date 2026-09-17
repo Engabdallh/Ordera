@@ -376,6 +376,32 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+const deleteCycle = async (req, res) => {
+  try {
+    const cycleId = Number(req.params.id);
+
+    if (!cycleId) {
+      return res.status(400).send("رقم الدورة غير صحيح");
+    }
+
+    const result = await restaurantService.deleteCycle(cycleId);
+
+    if (!result.success) {
+      if (result.reason === "active") {
+        return res.status(400).send("لا يمكن حذف الدورة الحالية المفتوحة");
+      }
+
+      return res.status(404).send("الدورة غير موجودة");
+    }
+
+    res.redirect("/admin/orders?success=cycle-deleted");
+  } catch (error) {
+    console.error("DELETE CYCLE ERROR:", error);
+
+    res.status(500).send("حدث خطأ أثناء حذف الدورة");
+  }
+};
+
 module.exports = {
   showDashboard,
   toggleRestaurantStatus,
@@ -389,4 +415,5 @@ module.exports = {
   updateCallCenterAgent,
   showEditCallCenterAgent,
   deleteOrder,
+  deleteCycle,
 };

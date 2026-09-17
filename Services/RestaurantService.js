@@ -95,6 +95,46 @@ class RestaurantService {
 
     return cycles;
   }
+
+    // =====================================================
+  // حذف دورة
+  // =====================================================
+
+  async deleteCycle(cycleId) {
+    const [rows] = await db.query(
+      `SELECT id, ended_at
+       FROM restaurant_cycles
+       WHERE id = ?`,
+      [cycleId],
+    );
+
+    if (rows.length === 0) {
+      return {
+        success: false,
+        reason: "not-found",
+      };
+    }
+
+    // لا يمكن حذف الدورة المفتوحة
+    if (!rows[0].ended_at) {
+      return {
+        success: false,
+        reason: "active",
+      };
+    }
+
+    const [result] = await db.query(
+      `DELETE FROM restaurant_cycles
+       WHERE id = ?`,
+      [cycleId],
+    );
+
+    return {
+      success: result.affectedRows > 0,
+      reason: result.affectedRows > 0 ? null : "not-found",
+    };
+  }
 }
+
 
 module.exports = RestaurantService;

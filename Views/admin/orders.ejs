@@ -22,297 +22,327 @@
             </div>
             <% } %>
 
-                <!-- =========================
+                <% if (success==="cycle-deleted" ) { %>
+                    <div class="success-message">
+                        تم حذف الدورة بنجاح ✅
+                    </div>
+                    <% } %>
+
+                        <!-- =========================
          Header
     ========================== -->
 
-                <header class="header">
+                        <header class="header">
 
-                    <div>
-                        <h1>ordera</h1>
+                            <div>
+                                <h1>ordera</h1>
 
-                        <p>
-                            إدارة الطلبات
-                        </p>
-                    </div>
+                                <p>
+                                    إدارة الطلبات
+                                </p>
+                            </div>
 
-                    <div class="header-actions">
+                            <div class="header-actions">
 
-                        <a href="/admin" class="logout-btn">
-                            لوحة التحكم
-                        </a>
+                                <a href="/admin" class="logout-btn">
+                                    لوحة التحكم
+                                </a>
 
-                        <div class="logo">
-                            ordera
-                        </div>
+                                <div class="logo">
+                                    ordera
+                                </div>
 
-                    </div>
+                            </div>
 
-                </header>
+                        </header>
 
 
-                <!-- =========================
+                        <!-- =========================
          Content
     ========================== -->
 
-                <main class="content">
+                        <main class="content">
 
-                    <h2>
-                        جميع الطلبات
-                    </h2>
+                            <h2>
+                                جميع الطلبات
+                            </h2>
 
 
-                    <form action="/admin/orders" method="GET" class="filters-form">
+                            <form action="/admin/orders" method="GET" class="filters-form">
 
-                        <div class="filter-group">
+                                <div class="filter-group">
 
-                            <div class="filter-group">
-                                <label for="cycle">الدورة</label>
+                                    <div class="filter-group">
+                                        <label for="cycle">الدورة</label>
 
-                                <select id="cycle" name="cycle">
-                                    <option value="">جميع الدورات</option>
+                                        <select id="cycle" name="cycle">
+                                            <option value="">جميع الدورات</option>
 
-                                    <% cycles.forEach((item)=> { %>
-                                        <option value="<%= item.id %>" <%=selectedCycleId==item.id ? "selected" : "" %>
-                                            >
-                                            الدورة #<%= item.id %>
+                                            <% cycles.forEach((item)=> { %>
+
+                                                <% const cycleStartedAt=new
+                                                    Date(item.started_at).toLocaleString("ar-JO", { day: "2-digit" ,
+                                                    month: "2-digit" , year: "numeric" , hour: "2-digit" ,
+                                                    minute: "2-digit" }); const cycleEndedAt=item.ended_at ? new
+                                                    Date(item.ended_at).toLocaleString("ar-JO", { day: "2-digit" ,
+                                                    month: "2-digit" , year: "numeric" , hour: "2-digit" ,
+                                                    minute: "2-digit" }) : "مفتوحة حاليًا" ; %>
+
+                                                    <option value="<%= item.id %>" <%=selectedCycleId==item.id
+                                                        ? "selected" : "" %>
+                                                        >
+                                                        الدورة #<%= item.id %>
+                                                            — <%= cycleStartedAt %>
+                                                                إلى
+                                                                <%= cycleEndedAt %>
+                                                    </option>
+
+                                                    <% }) %>
+                                        </select>
+                                    </div>
+
+                                    <label>الحالة</label>
+
+                                    <select name="status">
+
+                                        <option value="">
+                                            كل الحالات
                                         </option>
-                                        <% }) %>
-                                </select>
+
+                                        <option value="قيد الانتظار" <%=filters?.status==="قيد الانتظار" ? "selected"
+                                            : "" %>>
+                                            قيد الانتظار
+                                        </option>
+
+                                        <option value="تم التأكيد" <%=filters?.status==="تم التأكيد" ? "selected" : ""
+                                            %>>
+                                            تم التأكيد
+                                        </option>
+
+                                        <option value="قيد التحضير" <%=filters?.status==="قيد التحضير" ? "selected" : ""
+                                            %>>
+                                            قيد التحضير
+                                        </option>
+
+                                        <option value="جاهز" <%=filters?.status==="جاهز" ? "selected" : "" %>>
+                                            جاهز
+                                        </option>
+
+                                        <option value="تم التوصيل" <%=filters?.status==="تم التوصيل" ? "selected" : ""
+                                            %>>
+                                            تم التوصيل
+                                        </option>
+
+                                        <option value="ملغي" <%=filters?.status==="ملغي" ? "selected" : "" %>>
+                                            ملغي
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+
+                                <div class="filter-group">
+
+                                    <label>التاريخ</label>
+
+                                    <input type="date" name="date" value="<%= filters?.date || '' %>">
+
+                                </div>
+
+
+                                <div class="filter-group">
+
+                                    <label>من الساعة</label>
+
+                                    <input type="time" name="fromTime" value="<%= filters?.fromTime || '' %>">
+
+                                </div>
+
+
+                                <div class="filter-group">
+
+                                    <label>إلى الساعة</label>
+
+                                    <input type="time" name="toTime" value="<%= filters?.toTime || '' %>">
+
+                                </div>
+
+
+                                <div class="filter-group">
+
+                                    <label>الشهر</label>
+
+                                    <input type="month" name="month" value="<%= filters?.month || '' %>">
+
+                                </div>
+
+
+                                <div class="filter-buttons">
+
+                                    <button type="submit" class="filter-btn">
+                                        🔎 فلترة
+                                    </button>
+
+                                    <a href="/admin/orders" class="clear-filter-btn">
+                                        مسح
+                                    </a>
+
+                                </div>
+
+                            </form>
+                            <form id="deleteCycleForm" method="POST" style="margin-top: 10px;"
+                                onsubmit="return confirm('هل أنت متأكد من حذف الدورة المحددة؟');">
+                                <button type="submit" id="deleteCycleBtn" class="delete-cycle-btn" disabled>
+                                    حذف الدورة
+                                </button>
+                            </form>
+
+                            <div class="orders-summary">
+
+                                <div class="summary-card">
+
+                                    <span>
+                                        عدد الطلبات
+                                    </span>
+
+                                    <strong>
+                                        <%= totalOrders || 0 %>
+                                    </strong>
+
+                                </div>
+
+
+                                <div class="summary-card">
+
+                                    <span>
+                                        إجمالي المبيعات
+                                    </span>
+
+                                    <strong>
+                                        <%= Number(totalSales || 0).toFixed(2) %> د.أ
+                                    </strong>
+
+                                </div>
+
                             </div>
 
-                            <label>الحالة</label>
 
-                            <select name="status">
+                            <p class="description">
+                                عرض أحدث الطلبات المسجلة في النظام.
+                            </p>
 
-                                <option value="">
-                                    كل الحالات
-                                </option>
 
-                                <option value="قيد الانتظار" <%=filters?.status==="قيد الانتظار" ? "selected" : "" %>>
-                                    قيد الانتظار
-                                </option>
+                            <% if (orders && orders.length> 0) { %>
 
-                                <option value="تم التأكيد" <%=filters?.status==="تم التأكيد" ? "selected" : "" %>>
-                                    تم التأكيد
-                                </option>
+                                <div class="orders-table-wrapper">
 
-                                <option value="قيد التحضير" <%=filters?.status==="قيد التحضير" ? "selected" : "" %>>
-                                    قيد التحضير
-                                </option>
+                                    <table class="orders-table">
 
-                                <option value="جاهز" <%=filters?.status==="جاهز" ? "selected" : "" %>>
-                                    جاهز
-                                </option>
+                                        <thead>
 
-                                <option value="تم التوصيل" <%=filters?.status==="تم التوصيل" ? "selected" : "" %>>
-                                    تم التوصيل
-                                </option>
+                                            <tr>
 
-                                <option value="ملغي" <%=filters?.status==="ملغي" ? "selected" : "" %>>
-                                    ملغي
-                                </option>
+                                                <th>
+                                                    التفاصيل
+                                                </th>
 
-                            </select>
+                                                <th>
+                                                    حذف
+                                                </th>
 
-                        </div>
+                                                <th>
+                                                    رقم الطلب
+                                                </th>
 
+                                                <th>
+                                                    الزبون
+                                                </th>
 
-                        <div class="filter-group">
+                                                <th>
+                                                    المبلغ
+                                                </th>
 
-                            <label>التاريخ</label>
+                                                <th>
+                                                    نوع الطلب
+                                                </th>
 
-                            <input type="date" name="date" value="<%= filters?.date || '' %>">
+                                                <th>
+                                                    الحالة
+                                                </th>
 
-                        </div>
+                                                <th>
+                                                    وقت الطلب
+                                                </th>
 
+                                            </tr>
 
-                        <div class="filter-group">
+                                        </thead>
 
-                            <label>من الساعة</label>
 
-                            <input type="time" name="fromTime" value="<%= filters?.fromTime || '' %>">
+                                        <tbody>
 
-                        </div>
+                                            <% orders.forEach(order=> { %>
 
+                                                <tr>
 
-                        <div class="filter-group">
+                                                    <td>
 
-                            <label>إلى الساعة</label>
+                                                        <a href="/admin/orders/<%= order.id %>" class="details-btn">
+                                                            تفاصيل
+                                                        </a>
 
-                            <input type="time" name="toTime" value="<%= filters?.toTime || '' %>">
+                                                    </td>
 
-                        </div>
 
+                                                    <td>
 
-                        <div class="filter-group">
+                                                        <form action="/admin/orders/<%= order.id %>/delete"
+                                                            method="POST"
+                                                            onsubmit="return confirm('هل أنت متأكد من حذف الطلب رقم #<%= order.daily_order_number %>؟ سيتم حذف الطلب نهائيًا.');">
 
-                            <label>الشهر</label>
+                                                            <button type="submit" class="delete-order-btn">
+                                                                حذف
+                                                            </button>
 
-                            <input type="month" name="month" value="<%= filters?.month || '' %>">
+                                                        </form>
 
-                        </div>
+                                                    </td>
 
 
-                        <div class="filter-buttons">
+                                                    <td>
 
-                            <button type="submit" class="filter-btn">
-                                🔎 فلترة
-                            </button>
+                                                        <strong>
+                                                            #<%= order.daily_order_number %>
+                                                        </strong>
 
-                            <a href="/admin/orders" class="clear-filter-btn">
-                                مسح
-                            </a>
+                                                    </td>
 
-                        </div>
 
-                    </form>
+                                                    <td>
 
+                                                        <%= order.customer_name %>
 
-                    <div class="orders-summary">
+                                                    </td>
 
-                        <div class="summary-card">
 
-                            <span>
-                                عدد الطلبات
-                            </span>
+                                                    <td>
 
-                            <strong>
-                                <%= totalOrders || 0 %>
-                            </strong>
+                                                        <%= Number(order.total_price).toFixed(2) %> د.أ
 
-                        </div>
+                                                    </td>
 
 
-                        <div class="summary-card">
+                                                    <td>
 
-                            <span>
-                                إجمالي المبيعات
-                            </span>
+                                                        <%= order.order_type %>
 
-                            <strong>
-                                <%= Number(totalSales || 0).toFixed(2) %> د.أ
-                            </strong>
+                                                    </td>
 
-                        </div>
 
-                    </div>
+                                                    <td>
 
-
-                    <p class="description">
-                        عرض أحدث الطلبات المسجلة في النظام.
-                    </p>
-
-
-                    <% if (orders && orders.length> 0) { %>
-
-                        <div class="orders-table-wrapper">
-
-                            <table class="orders-table">
-
-                                <thead>
-
-                                    <tr>
-
-                                        <th>
-                                            التفاصيل
-                                        </th>
-
-                                        <th>
-                                            حذف
-                                        </th>
-
-                                        <th>
-                                            رقم الطلب
-                                        </th>
-
-                                        <th>
-                                            الزبون
-                                        </th>
-
-                                        <th>
-                                            المبلغ
-                                        </th>
-
-                                        <th>
-                                            نوع الطلب
-                                        </th>
-
-                                        <th>
-                                            الحالة
-                                        </th>
-
-                                        <th>
-                                            وقت الطلب
-                                        </th>
-
-                                    </tr>
-
-                                </thead>
-
-
-                                <tbody>
-
-                                    <% orders.forEach(order=> { %>
-
-                                        <tr>
-
-                                            <td>
-
-                                                <a href="/admin/orders/<%= order.id %>" class="details-btn">
-                                                    تفاصيل
-                                                </a>
-
-                                            </td>
-
-
-                                            <td>
-
-                                                <form action="/admin/orders/<%= order.id %>/delete" method="POST"
-                                                    onsubmit="return confirm('هل أنت متأكد من حذف الطلب رقم #<%= order.daily_order_number %>؟ سيتم حذف الطلب نهائيًا.');">
-
-                                                    <button type="submit" class="delete-order-btn">
-                                                        حذف
-                                                    </button>
-
-                                                </form>
-
-                                            </td>
-
-
-                                            <td>
-
-                                                <strong>
-                                                    #<%= order.daily_order_number %>
-                                                </strong>
-
-                                            </td>
-
-
-                                            <td>
-
-                                                <%= order.customer_name %>
-
-                                            </td>
-
-
-                                            <td>
-
-                                                <%= Number(order.total_price).toFixed(2) %> د.أ
-
-                                            </td>
-
-
-                                            <td>
-
-                                                <%= order.order_type %>
-
-                                            </td>
-
-
-                                            <td>
-
-                                                <span class="order-status
+                                                        <span class="order-status
                                         <%= order.status === 'قيد الانتظار' ? 'pending' : '' %>
                                         <%= order.status === 'تم التأكيد' ? 'confirmed' : '' %>
                                         <%= order.status === 'قيد التحضير' ? 'preparing' : '' %>
@@ -320,50 +350,52 @@
                                         <%= order.status === 'تم التوصيل' ? 'delivered' : '' %>
                                         <%= order.status === 'ملغي' ? 'cancelled' : '' %>">
 
-                                                    <%= order.status %>
+                                                            <%= order.status %>
 
-                                                </span>
+                                                        </span>
 
-                                            </td>
-
-
-                                            <td>
-
-                                                <%= new Date(order.created_at).toLocaleTimeString( 'ar-JO' , {
-                                                    hour: '2-digit' , minute: '2-digit' } ) %>
-
-                                            </td>
-
-                                        </tr>
-
-                                        <% }) %>
-
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
-                        <% } else { %>
-
-                            <div class="no-orders">
-                                لا توجد طلبات حتى الآن 📦
-                            </div>
-
-                            <% } %>
-
-                </main>
+                                                    </td>
 
 
-                <footer>
+                                                    <td>
 
-                    <p>
-                        ordera Restaurant © 2026
-                    </p>
+                                                        <%= new Date(order.created_at).toLocaleTimeString( 'ar-JO' , {
+                                                            hour: '2-digit' , minute: '2-digit' } ) %>
 
-                </footer>
+                                                    </td>
+
+                                                </tr>
+
+                                                <% }) %>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                                <% } else { %>
+
+                                    <div class="no-orders">
+                                        لا توجد طلبات حتى الآن 📦
+                                    </div>
+
+                                    <% } %>
+
+                        </main>
+
+
+                        <footer>
+
+                            <p>
+                                ordera Restaurant © 2026
+                            </p>
+
+                        </footer>
 
     </div>
+
+    <script src="/js/admin/adminorders.js"></script>
 
 </body>
 
