@@ -162,6 +162,27 @@ async getCustomerOrders(customerId) {
 
     const params = [];
 
+        // =========================
+    // الدورة
+    // =========================
+
+    if (filters.cycle) {
+      sql += `
+        AND o.created_at >= (
+          SELECT started_at
+          FROM restaurant_cycles
+          WHERE id = ?
+        )
+        AND o.created_at <= (
+          SELECT COALESCE(ended_at, NOW())
+          FROM restaurant_cycles
+          WHERE id = ?
+        )
+      `;
+
+      params.push(filters.cycle, filters.cycle);
+    }
+
     // =========================
     // الحالة
     // =========================
