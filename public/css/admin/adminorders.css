@@ -460,3 +460,34 @@ footer {
   color: white;
   transform: translateY(-2px);
 }
+.success-message {
+    margin: 15px 0;
+    padding: 12px 18px;
+    background: #123d1f;
+    border: 1px solid #20c45a;
+    color: #5cff8a;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+}
+.delete-order-btn {
+    background: #b30000;
+    color: #ffffff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.delete-order-btn:hover {
+    background: #e00000;
+    transform: translateY(-1px);
+}
+
+.delete-order-btn:active {
+    transform: scale(0.96);
+}

@@ -74,4 +74,6 @@ router.get(
   adminController.showEditCallCenterAgent,
 );
 
+router.post("/orders/:id/delete", adminController.deleteOrder);
+
 module.exports = router;

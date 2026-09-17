@@ -59,12 +59,15 @@ const showOrders = async (req, res) => {
       month,
     });
 
+    const success = req.query.success;
     res.render("admin/orders", {
       orders: result.orders,
 
       totalOrders: result.totalOrders,
 
       totalSales: result.totalSales,
+
+      success,
 
       filters: {
         status: status || "",
@@ -333,6 +336,28 @@ const showEditCallCenterAgent = async (req, res) => {
   }
 };
 
+const deleteOrder = async (req, res) => {
+  try {
+    const orderId = Number(req.params.id);
+
+    if (!orderId) {
+      return res.status(400).send("رقم الطلب غير صحيح");
+    }
+
+    const deleted = await orderService.deleteOrder(orderId);
+
+    if (!deleted) {
+      return res.status(404).send("الطلب غير موجود");
+    }
+
+    res.redirect("/admin/orders?success=order-deleted");
+  } catch (error) {
+    console.error("DELETE ORDER ERROR:", error);
+
+    res.status(500).send("حدث خطأ أثناء حذف الطلب");
+  }
+};
+
 module.exports = {
   showDashboard,
   toggleRestaurantStatus,
@@ -345,4 +370,5 @@ module.exports = {
   toggleCallCenterAgentStatus,
   updateCallCenterAgent,
   showEditCallCenterAgent,
+  deleteOrder,
 };

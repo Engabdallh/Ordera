@@ -241,6 +241,20 @@ async getCustomerOrders(customerId) {
       totalSales,
     };
   }
+
+    // =====================================================
+  // حذف طلب
+  // =====================================================
+
+  async deleteOrder(orderId) {
+    const [result] = await db.query(
+      `DELETE FROM orders
+       WHERE id = ?`,
+      [orderId],
+    );
+
+    return result.affectedRows > 0;
+  }
 }
 
 module.exports = OrderService;
