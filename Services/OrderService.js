@@ -26,7 +26,7 @@ async getCustomerOrders(customerId) {
           delivery_address
      FROM orders
      WHERE customer_id = ?
-       AND created_at >= NOW() - INTERVAL 3 DAY
+       AND created_at >= NOW() - INTERVAL 24 HOUR
      ORDER BY created_at DESC`,
     [customerId],
   );

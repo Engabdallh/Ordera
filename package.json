@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "migrate": "node scriptss/migrate.js"
   },
   "repository": {
     "type": "git",

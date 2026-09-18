@@ -11,11 +11,15 @@ class RestaurantService {
     return rows[0];
   }
 
+  // =====================================================
+  // فتح وإغلاق المطعم وإدارة الدورات
+  // =====================================================
+
   async toggleRestaurantStatus() {
     const [currentRows] = await db.query(
       `SELECT is_open, cycle_started_at
-       FROM restaurant_settings
-       WHERE id = 1`,
+     FROM restaurant_settings
+     WHERE id = 1`,
     );
 
     if (currentRows.length === 0) {
@@ -23,36 +27,49 @@ class RestaurantService {
     }
 
     const isOpen = Boolean(currentRows[0].is_open);
-    const cycleStartedAt = currentRows[0].cycle_started_at;
 
     // ==========================================
     // إغلاق المطعم
     // ==========================================
+
     if (isOpen) {
-      if (cycleStartedAt) {
+      // جلب آخر دورة مفتوحة
+      const [cycleRows] = await db.query(
+        `SELECT id, started_at
+       FROM restaurant_cycles
+       WHERE ended_at IS NULL
+       ORDER BY id DESC
+       LIMIT 1`,
+      );
+
+      if (cycleRows.length > 0) {
+        const activeCycle = cycleRows[0];
+
+        // حساب عدد الطلبات داخل الدورة
         const [countRows] = await db.query(
           `SELECT COUNT(*) AS orders_count
-           FROM orders
-           WHERE created_at >= ?`,
-          [cycleStartedAt],
+         FROM orders
+         WHERE created_at >= ?`,
+          [activeCycle.started_at],
         );
 
         const ordersCount = Number(countRows[0].orders_count);
 
+        // إغلاق الدورة
         await db.query(
           `UPDATE restaurant_cycles
-           SET ended_at = NOW(),
-               orders_count = ?
-           WHERE started_at = ?
-             AND ended_at IS NULL`,
-          [ordersCount, cycleStartedAt],
+         SET ended_at = NOW(),
+             orders_count = ?
+         WHERE id = ?`,
+          [ordersCount, activeCycle.id],
         );
       }
 
+      // إغلاق المطعم
       const [result] = await db.query(
         `UPDATE restaurant_settings
-         SET is_open = 0
-         WHERE id = 1`,
+       SET is_open = 0
+       WHERE id = 1`,
       );
 
       return result;
@@ -61,20 +78,18 @@ class RestaurantService {
     // ==========================================
     // فتح المطعم - دورة جديدة
     // ==========================================
+
     const [cycleResult] = await db.query(
       `INSERT INTO restaurant_cycles
-       (started_at, orders_count)
-       VALUES (NOW(), 0)`,
+     (started_at, orders_count)
+     VALUES (NOW(), 0)`,
     );
-
-    const newCycleStartedAt = new Date();
 
     const [result] = await db.query(
       `UPDATE restaurant_settings
-       SET is_open = 1,
-           cycle_started_at = ?
-       WHERE id = 1`,
-      [newCycleStartedAt],
+     SET is_open = 1,
+         cycle_started_at = NOW()
+     WHERE id = 1`,
     );
 
     return {
@@ -82,7 +97,7 @@ class RestaurantService {
       cycleId: cycleResult.insertId,
     };
   }
-    async getCycles() {
+  async getCycles() {
     const [cycles] = await db.query(
       `SELECT
           id,
@@ -96,7 +111,7 @@ class RestaurantService {
     return cycles;
   }
 
-    // =====================================================
+  // =====================================================
   // حذف دورة
   // =====================================================
 
@@ -135,6 +150,5 @@ class RestaurantService {
     };
   }
 }
-
 
 module.exports = RestaurantService;

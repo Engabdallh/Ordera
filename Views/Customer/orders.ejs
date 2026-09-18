@@ -40,6 +40,11 @@
                     أهلاً بك، <%= userName %>
                 </p>
 
+                <a href="/notifications" class="notifications-btn">
+                    🔔 الإشعارات
+                    <span id="notificationsUnreadCount">0</span>
+                </a>
+
             </div>
 
 
@@ -102,7 +107,7 @@
                                 <div>
 
                                     <h3>
-                                       طلب #<%= order.daily_order_number %>
+                                        طلب #<%= order.daily_order_number %>
                                     </h3>
 
                                     <span>
@@ -282,9 +287,29 @@
 
 
 
+                                                    <div class="order-actions">
+
+                                                        <a href="/orders/<%= order.id %>" class="order-details-btn">
+                                                            💬 تفاصيل الطلب والمحادثة
+                                                        </a>
+
+                                                    </div>
+
+                                                    <div class="order-footer">
+
+                                                        <span>
+                                                            إجمالي الطلب
+                                                        </span>
+
+                                                        <strong>
+                                                            <%= Number(order.total_price).toFixed(2) %> د.أ
+                                                        </strong>
+
+                                                    </div>
+
                                                     <!-- =================================
-                         Footer
-                    ================================== -->
+                                                    Footer
+                                                    ================================== -->
 
                                                     <div class="order-footer">
 
@@ -439,6 +464,8 @@
 
 
     </script>
+
+    <script src="/js/customer/notifications.js"></script>
 
 
 </body>

@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-    تفاصيل الطلب #<%= order.daily_order_number %> - ordera
-</title>
+        تفاصيل الطلب #<%= order.daily_order_number %> - ordera
+    </title>
 
     <link rel="stylesheet" href="/css/callcenter/orderdetails.css">
 
@@ -42,7 +42,7 @@
                 </button>
 
                 <div class="logo">
-                    911
+                    ordera
                 </div>
 
             </div>
@@ -52,13 +52,13 @@
 
         <!-- =========================
          Content
-    ========================== -->
+        ========================== -->
 
         <main class="content">
 
             <h2>
-    تفاصيل الطلب #<%= order.daily_order_number %>
-</h2>
+                تفاصيل الطلب #<%= order.daily_order_number %>
+            </h2>
 
             <p class="description">
                 معلومات الطلب والزبون والمنتجات.
@@ -67,7 +67,7 @@
 
             <!-- =========================
              معلومات الطلب
-        ========================== -->
+            ========================== -->
 
             <div class="order-info-grid">
 
@@ -153,7 +153,7 @@
 
             <!-- =========================
              العنوان
-        ========================== -->
+            ========================== -->
 
             <div class="details-section">
 
@@ -172,7 +172,7 @@
 
             <!-- =========================
              المنتجات
-        ========================== -->
+            ========================== -->
 
             <div class="details-section">
 
@@ -258,8 +258,8 @@
             </div>
 
             <!-- =========================
-     الحساب والخصم
-========================== -->
+            الحساب والخصم
+            ========================== -->
 
             <div class="details-section">
 
@@ -318,8 +318,8 @@
             </div>
 
             <!-- =========================
-     تغيير حالة الطلب
-========================== -->
+            تغيير حالة الطلب
+            ========================== -->
 
             <div class="details-section">
 
@@ -404,10 +404,39 @@
 
             </div>
 
+            <!-- =========================
+              المحادثة
+            ========================== -->
+
+            <div class="details-section chat-section">
+
+                <h3>
+                    المحادثة مع الزبون
+                </h3>
+
+                <div id="orderChat" class="order-chat" data-order-id="<%= order.id %>">
+                    <div class="chat-loading">
+                        جاري تحميل المحادثة...
+                    </div>
+                </div>
+
+                <form id="chatForm" class="chat-form">
+
+                    <textarea id="chatMessage" name="message" placeholder="اكتب رسالتك للزبون..." rows="3"
+                        maxlength="1000" required></textarea>
+
+                    <button type="submit" class="send-message-btn">
+                        إرسال
+                    </button>
+
+                </form>
+
+            </div>
+
 
             <!-- =========================
              الأوقات
-        ========================== -->
+            ========================== -->
 
             <div class="details-section">
 
@@ -468,22 +497,15 @@
 
             </div>
 
-
-
-
-
             <!-- =========================
              Back Button
-        ========================== -->
-
-
+           ========================== -->
 
         </main>
 
-
         <!-- =========================
          Footer
-    ========================== -->
+        ========================== -->
 
         <footer>
 
@@ -496,15 +518,16 @@
     </div>
 
     <div id="newOrderAlert" class="new-order-alert">
-    <div class="new-order-alert-icon">🔔</div>
+        <div class="new-order-alert-icon">🔔</div>
 
-    <div>
-        <strong>طلب جديد!</strong>
-        <p>تم استلام طلب جديد</p>
+        <div>
+            <strong>طلب جديد!</strong>
+            <p>تم استلام طلب جديد</p>
+        </div>
     </div>
-</div>
 
     <script src="/js/callcenter/new-orders.js"></script>
+    <script src="/js/callcenter/order-chat.js"></script>
 
 </body>
 

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>الإشعارات - ordera</title>
+
+    <link rel="stylesheet" href="/css/notifications.css">
+</head>
+
+<body>
+
+    <div class="notifications-page">
+
+        <header class="notifications-header">
+
+            <div>
+                <h1>الإشعارات</h1>
+
+                <p>
+                    مرحبًا <%= userName || "" %>
+                </p>
+            </div>
+
+            <div>
+                <strong>
+                    غير المقروءة:
+                    <%= unreadCount || 0 %>
+                </strong>
+            </div>
+
+            <a href="<%= userRole === 'customer' ? '/products' : '/call-center' %>" class="notifications-back-btn">
+                ← الصفحة الرئيسية
+            </a>
+
+        </header>
+
+        <main class="notifications-content">
+
+            <% if (notifications && notifications.length> 0) { %>
+
+                <div class="notifications-list">
+
+                    <% notifications.forEach((notification)=> { %>
+
+                        <div class="notification-card <%= notification.is_read ? 'read' : 'unread' %>"
+                            data-notification-id="<%= notification.id %>" data-order-id="<%= notification.order_id %>"
+                            data-user-role="<%= userRole %>">
+
+                            <div class="notification-content">
+
+                                <h3>
+                                    <%= notification.title %>
+                                </h3>
+
+                                <p>
+                                    <%= notification.message_preview %>
+                                </p>
+
+                                <span>
+                                    <%= new Date(notification.created_at).toLocaleString("ar-JO") %>
+                                </span>
+
+                                <a href="<%= userRole === 'customer'
+        ? `/orders/${notification.order_id}`
+        : `/call-center/orders/${notification.order_id}` %>" class="open-notification-btn">
+                                    فتح المحادثة
+                                </a>
+
+                            </div>
+
+                            <div class="notification-actions">
+
+                                <% if (!notification.is_read) { %>
+
+                                    <button type="button" class="mark-read-btn" data-id="<%= notification.id %>">
+                                        تعليم كمقروء
+                                    </button>
+
+                                    <% } else { %>
+
+                                        <span class="read-label">
+                                            مقروء ✓
+                                        </span>
+
+                                        <% } %>
+
+                            </div>
+
+                        </div>
+
+                        <% }) %>
+
+                </div>
+
+                <% } else { %>
+
+                    <div class="no-notifications">
+                        لا توجد إشعارات حاليًا 🔔
+                    </div>
+
+                    <% } %>
+
+        </main>
+
+    </div>
+
+    <script src="/js/notifications.js"></script>
+
+</body>
+
+</html>

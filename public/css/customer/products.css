@@ -904,3 +904,35 @@ RESPONSIVE
     font-size: 11px;
   }
 }
+.notifications-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #111111;
+    color: #ff7a00;
+    border: 1px solid #ff7a00;
+    padding: 10px 14px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.notifications-btn:hover {
+    background: #ff7a00;
+    color: #111111;
+}
+
+.notifications-btn span {
+    min-width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #ff7a00;
+    color: #111111;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: bold;
+}

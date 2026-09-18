@@ -1,0 +1,270 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 20px;
+    font-family: Arial, sans-serif;
+    background: #0d0d0d;
+    color: #ffffff;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    background: #111111;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    color: #ff7a00;
+}
+
+.header h2 {
+    margin: 8px 0;
+}
+
+.header p {
+    margin: 0;
+    color: #999999;
+}
+
+.back-btn {
+    text-decoration: none;
+    background: #111111;
+    color: #ff7a00;
+    border: 1px solid #ff7a00;
+    padding: 10px 16px;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.details-section {
+    background: #111111;
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.details-section h3 {
+    margin-top: 0;
+    color: #ff7a00;
+}
+
+.order-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.info-card {
+    background: #171717;
+    border: 1px solid #292929;
+    border-radius: 8px;
+    padding: 14px;
+}
+
+.info-card span {
+    display: block;
+    color: #999999;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.info-card strong {
+    color: #ffffff;
+}
+
+.address-box,
+.empty-box {
+    background: #171717;
+    border: 1px solid #292929;
+    border-radius: 8px;
+    padding: 14px;
+    line-height: 1.7;
+}
+
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: #171717;
+    border: 1px solid #292929;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.item-card img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-info h4 {
+    margin: 0 0 6px;
+}
+
+.item-info p {
+    margin: 0 0 6px;
+    color: #999999;
+}
+
+/* =====================================================
+   Chat
+===================================================== */
+
+.chat-section {
+    margin-top: 20px;
+}
+
+.order-chat {
+    max-height: 450px;
+    overflow-y: auto;
+    background: #0d0d0d;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.chat-loading,
+.chat-empty,
+.chat-error {
+    text-align: center;
+    color: #888888;
+    padding: 25px 10px;
+}
+
+.chat-message {
+    max-width: 75%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.chat-message-customer {
+    margin-left: auto;
+    background: #ff7a00;
+    color: #111111;
+}
+
+.chat-message-agent {
+    margin-right: auto;
+    background: #191919;
+    border: 1px solid #333333;
+    color: #ffffff;
+}
+
+.chat-message-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 7px;
+    font-size: 12px;
+}
+
+.chat-message-header span {
+    opacity: 0.7;
+}
+
+.chat-message-body {
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.chat-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.chat-form textarea {
+    flex: 1;
+    resize: vertical;
+    min-height: 60px;
+    background: #171717;
+    color: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 8px;
+    padding: 12px;
+    font-family: inherit;
+    outline: none;
+}
+
+.chat-form textarea:focus {
+    border-color: #ff7a00;
+}
+
+.send-message-btn {
+    align-self: flex-end;
+    background: #111111;
+    color: #ff7a00;
+    border: 1px solid #ff7a00;
+    border-radius: 8px;
+    padding: 11px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s ease;
+}
+
+.send-message-btn:hover:not(:disabled) {
+    background: #ff7a00;
+    color: #111111;
+}
+
+.send-message-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+footer {
+    text-align: center;
+    color: #666666;
+    padding: 20px;
+}
+
+@media (max-width: 650px) {
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .order-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-message {
+        max-width: 90%;
+    }
+
+    .chat-form {
+        flex-direction: column;
+    }
+
+    .send-message-btn {
+        width: 100%;
+    }
+}
