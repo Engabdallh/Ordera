@@ -154,12 +154,12 @@ const getNewOrdersCount = async (req, res) => {
 
     const result = await callCenterService.getNewOrdersCount();
 
-return res.json({
-  success: true,
-  count: result.count,
-  latestOrderId: result.latestOrderId,
-  orderIds: result.orderIds,
-});
+    return res.json({
+      success: true,
+      count: result.count,
+      latestOrderId: result.latestOrderId,
+      orderIds: result.orderIds,
+    });
   } catch (error) {
     console.error("GET NEW ORDERS COUNT ERROR:", error);
 
@@ -188,20 +188,12 @@ const showOrderByTrackingToken = async (req, res) => {
       return res.status(400).send("رمز الطلب مطلوب");
     }
 
-    console.log(
-      "CALL CENTER TRACKING TOKEN:",
-      guestTrackingToken,
-    );
+    console.log("CALL CENTER TRACKING TOKEN:", guestTrackingToken);
 
     const order =
-      await callCenterService.getOrderByTrackingToken(
-        guestTrackingToken,
-      );
+      await callCenterService.getOrderByTrackingToken(guestTrackingToken);
 
-    console.log(
-      "TRACKING ORDER FOUND:",
-      order.id,
-    );
+    console.log("TRACKING ORDER FOUND:", order.id);
 
     return res.render("callcenter/orderdetails", {
       order: order,
@@ -209,23 +201,13 @@ const showOrderByTrackingToken = async (req, res) => {
       userName: req.session.userName,
     });
   } catch (error) {
-    console.error(
-      "SHOW ORDER BY TRACKING TOKEN ERROR:",
-      error,
-    );
+    console.error("SHOW ORDER BY TRACKING TOKEN ERROR:", error);
 
-    if (
-      error.message ===
-      "لم يتم العثور على طلب بهذا الرمز"
-    ) {
-      return res.status(404).send(
-        "لم يتم العثور على طلب بهذا الرمز",
-      );
+    if (error.message === "لم يتم العثور على طلب بهذا الرمز") {
+      return res.status(404).send("لم يتم العثور على طلب بهذا الرمز");
     }
 
-    return res.status(500).send(
-      "حدث خطأ أثناء البحث عن الطلب",
-    );
+    return res.status(500).send("حدث خطأ أثناء البحث عن الطلب");
   }
 };
 

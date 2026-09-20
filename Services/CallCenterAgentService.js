@@ -76,15 +76,15 @@ class CallCenterAgentService {
   }
 
   // ==========================================
-// تعديل بيانات موظف
-// ==========================================
+  // تعديل بيانات موظف
+  // ==========================================
 
-async updateAgent(agentId, { name, phone, email, password }) {
-  if (password) {
-    const hashedPassword = await bcrypt.hash(password, 12);
+  async updateAgent(agentId, { name, phone, email, password }) {
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 12);
 
-    await db.query(
-      `
+      await db.query(
+        `
       UPDATE call_center_agents
       SET
         name = ?,
@@ -93,11 +93,11 @@ async updateAgent(agentId, { name, phone, email, password }) {
         password = ?
       WHERE id = ?
       `,
-      [name, phone || null, email, hashedPassword, agentId],
-    );
-  } else {
-    await db.query(
-      `
+        [name, phone || null, email, hashedPassword, agentId],
+      );
+    } else {
+      await db.query(
+        `
       UPDATE call_center_agents
       SET
         name = ?,
@@ -105,10 +105,10 @@ async updateAgent(agentId, { name, phone, email, password }) {
         email = ?
       WHERE id = ?
       `,
-      [name, phone || null, email, agentId],
-    );
+        [name, phone || null, email, agentId],
+      );
+    }
   }
-}
 }
 
 module.exports = CallCenterAgentService;

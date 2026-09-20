@@ -37,15 +37,9 @@ body {
   border: 1px solid #242424;
   border-radius: 16px;
 
-  background:
-    linear-gradient(
-      145deg,
-      #161616,
-      #0e0e0e
-    );
+  background: linear-gradient(145deg, #161616, #0e0e0e);
 
-  box-shadow:
-    0 0 30px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
 }
 
 .header-title h1 {
@@ -93,12 +87,7 @@ body {
   border: 1px solid #242424;
   border-radius: 16px;
 
-  background:
-    linear-gradient(
-      145deg,
-      #151515,
-      #0e0e0e
-    );
+  background: linear-gradient(145deg, #151515, #0e0e0e);
 }
 
 .search-title {
@@ -138,9 +127,7 @@ body {
 .search-input:focus {
   border-color: #ff6500;
 
-  box-shadow:
-    0 0 0 2px
-    rgba(255, 101, 0, 0.12);
+  box-shadow: 0 0 0 2px rgba(255, 101, 0, 0.12);
 }
 
 .search-btn {
@@ -206,12 +193,7 @@ body {
   border: 1px solid #292929;
   border-radius: 16px;
 
-  background:
-    linear-gradient(
-      145deg,
-      #171717,
-      #101010
-    );
+  background: linear-gradient(145deg, #171717, #101010);
 }
 
 .employee-header.show {
@@ -252,8 +234,7 @@ body {
 .stats-grid {
   display: grid;
 
-  grid-template-columns:
-    repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 
   gap: 15px;
 
@@ -268,12 +249,7 @@ body {
   border: 1px solid #252525;
   border-radius: 15px;
 
-  background:
-    linear-gradient(
-      145deg,
-      #151515,
-      #0e0e0e
-    );
+  background: linear-gradient(145deg, #151515, #0e0e0e);
 }
 
 .stat-label {
@@ -299,8 +275,7 @@ body {
 .content-grid {
   display: grid;
 
-  grid-template-columns:
-    360px minmax(0, 1fr);
+  grid-template-columns: 360px minmax(0, 1fr);
 
   gap: 20px;
 
@@ -311,12 +286,7 @@ body {
   border: 1px solid #252525;
   border-radius: 16px;
 
-  background:
-    linear-gradient(
-      145deg,
-      #151515,
-      #0e0e0e
-    );
+  background: linear-gradient(145deg, #151515, #0e0e0e);
 
   overflow: hidden;
 }
@@ -339,8 +309,7 @@ body {
 .rating-row {
   display: grid;
 
-  grid-template-columns:
-    70px minmax(0, 1fr) 35px;
+  grid-template-columns: 70px minmax(0, 1fr) 35px;
 
   align-items: center;
 
@@ -422,13 +391,7 @@ td {
 }
 
 tbody tr:hover {
-  background:
-    rgba(
-      255,
-      101,
-      0,
-      0.04
-    );
+  background: rgba(255, 101, 0, 0.04);
 }
 
 .stars {
@@ -483,20 +446,16 @@ tbody tr:hover {
 }
 
 @media (max-width: 1100px) {
-
   .stats-grid {
-    grid-template-columns:
-      repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .content-grid {
     grid-template-columns: 1fr;
   }
-
 }
 
 @media (max-width: 700px) {
-
   .page {
     padding: 15px;
   }
@@ -531,5 +490,4 @@ tbody tr:hover {
   .search-input {
     width: 100%;
   }
-
 }

@@ -32,9 +32,6 @@ router.get("/orders/:id", showOrderDetails);
 // البحث عن طلب بواسطة رمز التتبع
 // =====================================================
 
-router.get(
-  "/tracking",
-  showOrderByTrackingToken,
-);
+router.get("/tracking", showOrderByTrackingToken);
 
 module.exports = router;

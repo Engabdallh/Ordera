@@ -76,18 +76,18 @@ class CallCenterService {
   }
 
   // =====================================================
-// البحث عن طلب بواسطة رمز التتبع
-// =====================================================
+  // البحث عن طلب بواسطة رمز التتبع
+  // =====================================================
 
-async getOrderByTrackingToken(guestTrackingToken) {
-  const token = String(guestTrackingToken || "").trim();
+  async getOrderByTrackingToken(guestTrackingToken) {
+    const token = String(guestTrackingToken || "").trim();
 
-  if (!token) {
-    throw new Error("رمز الطلب مطلوب");
-  }
+    if (!token) {
+      throw new Error("رمز الطلب مطلوب");
+    }
 
-  const [orders] = await db.query(
-    `SELECT
+    const [orders] = await db.query(
+      `SELECT
         o.id,
         o.daily_order_number,
         o.customer_id,
@@ -114,23 +114,23 @@ async getOrderByTrackingToken(guestTrackingToken) {
      WHERE o.guest_tracking_token = ?
 
      LIMIT 1`,
-    [token],
-  );
+      [token],
+    );
 
-  if (orders.length === 0) {
-    throw new Error("لم يتم العثور على طلب بهذا الرمز");
+    if (orders.length === 0) {
+      throw new Error("لم يتم العثور على طلب بهذا الرمز");
+    }
+
+    const order = orders[0];
+
+    // جلب المنتجات الخاصة بالطلب
+    const items = await this.getOrderItemsForCallCenter(order.id);
+
+    return {
+      ...order,
+      items,
+    };
   }
-
-  const order = orders[0];
-
-  // جلب المنتجات الخاصة بالطلب
-  const items = await this.getOrderItemsForCallCenter(order.id);
-
-  return {
-    ...order,
-    items,
-  };
-}
 
   // =====================================================
   // منتجات طلب معين للكول سنتر
@@ -301,10 +301,7 @@ async getOrderByTrackingToken(guestTrackingToken) {
   // عدد الطلبات للكول سنتر
   // =====================================================
 
-  async getOrdersCountForCallCenter({
-    search = "",
-    status = "",
-  } = {}) {
+  async getOrdersCountForCallCenter({ search = "", status = "" } = {}) {
     let sql = `
       SELECT COUNT(*) AS total
 
@@ -357,8 +354,7 @@ async getOrderByTrackingToken(guestTrackingToken) {
     return {
       count: rows.length,
       orderIds: rows.map((order) => order.id),
-      latestOrderId:
-        rows.length > 0 ? rows[0].id : null,
+      latestOrderId: rows.length > 0 ? rows[0].id : null,
     };
   }
 }

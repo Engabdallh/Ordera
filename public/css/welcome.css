@@ -3,679 +3,584 @@
 ========================================= */
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    min-height: 100%;
+  min-height: 100%;
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
+  margin: 0;
+  min-height: 100vh;
 
-    font-family:
-        Arial,
-        Tahoma,
-        sans-serif;
+  font-family: Arial, Tahoma, sans-serif;
 
-    background:
-        radial-gradient(
-            circle at 50% -10%,
-            rgba(255, 101, 0, 0.18),
-            transparent 42%
-        ),
-        linear-gradient(
-            180deg,
-            #080808 0%,
-            #0d0d0d 55%,
-            #080808 100%
-        );
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(255, 101, 0, 0.18),
+      transparent 42%
+    ),
+    linear-gradient(180deg, #080808 0%, #0d0d0d 55%, #080808 100%);
 
-    color: #fff;
+  color: #fff;
 
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
-
 
 /* =========================================
    PAGE
 ========================================= */
 
 .welcome-page {
-    min-height: 100vh;
+  min-height: 100vh;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    padding:
-        max(18px, env(safe-area-inset-top))
-        14px
-        max(18px, env(safe-area-inset-bottom))
-        14px;
+  padding: max(18px, env(safe-area-inset-top)) 14px
+    max(18px, env(safe-area-inset-bottom)) 14px;
 }
-
 
 /* =========================================
    MAIN CARD
 ========================================= */
 
 .welcome-card {
-    width: 100%;
-    max-width: 650px;
+  width: 100%;
+  max-width: 650px;
 
-    padding:
-        22px
-        18px
-        18px;
+  padding: 22px 18px 18px;
 
-    border:
-        1px solid #242424;
+  border: 1px solid #242424;
 
-    border-radius: 24px;
+  border-radius: 24px;
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(22, 22, 22, 0.98),
-            rgba(11, 11, 11, 0.98)
-        );
+  background: linear-gradient(
+    145deg,
+    rgba(22, 22, 22, 0.98),
+    rgba(11, 11, 11, 0.98)
+  );
 
-    box-shadow:
-        0 25px 80px
-        rgba(0, 0, 0, 0.45);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
 
-    position: relative;
+  position: relative;
 
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .welcome-card::before {
-    content: "";
+  content: "";
 
-    position: absolute;
+  position: absolute;
 
-    top: -110px;
-    right: -110px;
+  top: -110px;
+  right: -110px;
 
-    width: 230px;
-    height: 230px;
+  width: 230px;
+  height: 230px;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    background:
-        rgba(255, 101, 0, 0.07);
+  background: rgba(255, 101, 0, 0.07);
 
-    pointer-events: none;
+  pointer-events: none;
 }
-
 
 /* =========================================
    BRAND
 ========================================= */
 
 .brand-area {
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    gap: 10px;
+  gap: 10px;
 
-    margin-bottom: 23px;
+  margin-bottom: 23px;
 }
 
 .logo {
-    width: 58px;
-    height: 58px;
+  width: 58px;
+  height: 58px;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    border:
-        2px solid #ff6500;
+  border: 2px solid #ff6500;
 
-    border-radius: 17px;
+  border-radius: 17px;
 
-    color: #ff7200;
+  color: #ff7200;
 
-    font-size: 19px;
+  font-size: 19px;
 
-    font-weight: 900;
+  font-weight: 900;
 
-    box-shadow:
-        0 0 25px
-        rgba(255, 101, 0, 0.12);
+  box-shadow: 0 0 25px rgba(255, 101, 0, 0.12);
 }
 
 .brand-name {
-    color: #eee;
+  color: #eee;
 
-    font-size: 20px;
+  font-size: 20px;
 
-    font-weight: 900;
+  font-weight: 900;
 
-    letter-spacing: 1px;
+  letter-spacing: 1px;
 }
-
 
 /* =========================================
    HERO
 ========================================= */
 
 .hero {
-    text-align: center;
+  text-align: center;
 
-    padding:
-        8px 0
-        10px;
+  padding: 8px 0 10px;
 }
 
 .hero-badge {
-    display: inline-flex;
+  display: inline-flex;
 
-    align-items: center;
+  align-items: center;
 
-    margin-bottom: 13px;
+  margin-bottom: 13px;
 
-    padding:
-        7px 12px;
+  padding: 7px 12px;
 
-    border:
-        1px solid
-        rgba(255, 101, 0, 0.22);
+  border: 1px solid rgba(255, 101, 0, 0.22);
 
-    border-radius: 999px;
+  border-radius: 999px;
 
-    background:
-        rgba(255, 101, 0, 0.07);
+  background: rgba(255, 101, 0, 0.07);
 
-    color: #ff8a40;
+  color: #ff8a40;
 
-    font-size: 10px;
+  font-size: 10px;
 
-    font-weight: 900;
+  font-weight: 900;
 }
 
 .hero h1 {
-    margin: 0;
+  margin: 0;
 
-    font-size:
-        clamp(
-            27px,
-            8vw,
-            40px
-        );
+  font-size: clamp(27px, 8vw, 40px);
 
-    line-height: 1.25;
+  line-height: 1.25;
 
-    font-weight: 900;
+  font-weight: 900;
 }
 
 .subtitle {
-    margin:
-        10px 0 7px;
+  margin: 10px 0 7px;
 
-    color: #ff7200;
+  color: #ff7200;
 
-    font-size: 15px;
+  font-size: 15px;
 
-    font-weight: 800;
+  font-weight: 800;
 }
 
 .hero-description {
-    max-width: 470px;
+  max-width: 470px;
 
-    margin:
-        0 auto;
+  margin: 0 auto;
 
-    color: #777;
+  color: #777;
 
-    font-size: 11px;
+  font-size: 11px;
 
-    line-height: 1.9;
+  line-height: 1.9;
 }
-
 
 /* =========================================
    BENEFITS
 ========================================= */
 
 .account-benefits {
-    margin-top: 27px;
+  margin-top: 27px;
 }
 
 .section-heading {
-    margin-bottom: 13px;
+  margin-bottom: 13px;
 
-    text-align: right;
+  text-align: right;
 }
 
 .section-heading span {
-    display: block;
+  display: block;
 
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 
-    color: #ff7200;
+  color: #ff7200;
 
-    font-size: 10px;
+  font-size: 10px;
 
-    font-weight: 900;
+  font-weight: 900;
 }
 
 .section-heading h2 {
-    margin: 0;
+  margin: 0;
 
-    color: #eee;
+  color: #eee;
 
-    font-size: 17px;
+  font-size: 17px;
 }
-
 
 /* =========================================
    BENEFIT GRID
 ========================================= */
 
 .benefits {
-    display: grid;
+  display: grid;
 
-    grid-template-columns:
-        repeat(
-            2,
-            minmax(0, 1fr)
-        );
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 
-    gap: 9px;
+  gap: 9px;
 }
 
 .benefit {
-    display: flex;
+  display: flex;
 
-    align-items: flex-start;
+  align-items: flex-start;
 
-    gap: 10px;
+  gap: 10px;
 
-    min-width: 0;
+  min-width: 0;
 
-    padding:
-        12px 10px;
+  padding: 12px 10px;
 
-    border:
-        1px solid #222;
+  border: 1px solid #222;
 
-    border-radius: 13px;
+  border-radius: 13px;
 
-    background:
-        rgba(255, 255, 255, 0.018);
+  background: rgba(255, 255, 255, 0.018);
 
-    transition:
-        0.2s ease;
+  transition: 0.2s ease;
 }
 
 .benefit:hover {
-    border-color:
-        rgba(255, 101, 0, 0.45);
+  border-color: rgba(255, 101, 0, 0.45);
 
-    transform:
-        translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .benefit-icon {
-    width: 38px;
-    height: 38px;
+  width: 38px;
+  height: 38px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    flex-shrink: 0;
+  flex-shrink: 0;
 
-    border-radius: 10px;
+  border-radius: 10px;
 
-    background:
-        rgba(255, 101, 0, 0.10);
+  background: rgba(255, 101, 0, 0.1);
 
-    font-size: 17px;
+  font-size: 17px;
 }
 
 .benefit-content {
-    min-width: 0;
+  min-width: 0;
 }
 
 .benefit-content strong {
-    display: block;
+  display: block;
 
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 
-    color: #eee;
+  color: #eee;
 
-    font-size: 11px;
+  font-size: 11px;
 
-    line-height: 1.5;
+  line-height: 1.5;
 }
 
 .benefit-content p {
-    margin: 0;
+  margin: 0;
 
-    color: #666;
+  color: #666;
 
-    font-size: 9px;
+  font-size: 9px;
 
-    line-height: 1.7;
+  line-height: 1.7;
 }
-
 
 /* =========================================
    BUTTONS
 ========================================= */
 
 .main-actions {
-    display: grid;
+  display: grid;
 
-    grid-template-columns:
-        1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 
-    gap: 10px;
+  gap: 10px;
 
-    margin-top: 21px;
+  margin-top: 21px;
 }
 
 .primary-btn,
 .secondary-btn,
 .guest-btn {
-    min-height: 50px;
+  min-height: 50px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    gap: 8px;
+  gap: 8px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    text-decoration: none;
+  text-decoration: none;
 
-    font-size: 12px;
+  font-size: 12px;
 
-    font-weight: 900;
+  font-weight: 900;
 
-    transition:
-        0.2s ease;
+  transition: 0.2s ease;
 }
 
 .primary-btn {
-    background:
-        linear-gradient(
-            135deg,
-            #ff7200,
-            #ff5a00
-        );
+  background: linear-gradient(135deg, #ff7200, #ff5a00);
 
-    color: #fff;
+  color: #fff;
 
-    box-shadow:
-        0 8px 25px
-        rgba(255, 101, 0, 0.18);
+  box-shadow: 0 8px 25px rgba(255, 101, 0, 0.18);
 }
 
 .primary-btn:hover {
-    transform:
-        translateY(-2px);
+  transform: translateY(-2px);
 
-    box-shadow:
-        0 12px 30px
-        rgba(255, 101, 0, 0.28);
+  box-shadow: 0 12px 30px rgba(255, 101, 0, 0.28);
 }
 
 .secondary-btn {
-    border:
-        1px solid #343434;
+  border: 1px solid #343434;
 
-    background:
-        #141414;
+  background: #141414;
 
-    color: #eee;
+  color: #eee;
 }
 
 .secondary-btn:hover {
-    border-color:
-        #ff6500;
+  border-color: #ff6500;
 
-    color: #ff7200;
+  color: #ff7200;
 
-    transform:
-        translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .button-icon {
-    font-size: 15px;
+  font-size: 15px;
 }
-
 
 /* =========================================
    DIVIDER
 ========================================= */
 
 .divider {
-    display: flex;
+  display: flex;
 
-    align-items: center;
+  align-items: center;
 
-    gap: 12px;
+  gap: 12px;
 
-    margin:
-        17px 0;
+  margin: 17px 0;
 }
 
 .divider::before,
 .divider::after {
-    content: "";
+  content: "";
 
-    height: 1px;
+  height: 1px;
 
-    flex: 1;
+  flex: 1;
 
-    background:
-        #252525;
+  background: #252525;
 }
 
 .divider span {
-    color: #555;
+  color: #555;
 
-    font-size: 10px;
+  font-size: 10px;
 
-    font-weight: 700;
+  font-weight: 700;
 }
-
 
 /* =========================================
    GUEST
 ========================================= */
 
 .guest-btn {
-    width: 100%;
+  width: 100%;
 
-    border:
-        1px solid #333;
+  border: 1px solid #333;
 
-    background:
-        transparent;
+  background: transparent;
 
-    color: #aaa;
+  color: #aaa;
 }
 
 .guest-btn:hover {
-    border-color:
-        #ff6500;
+  border-color: #ff6500;
 
-    color: #ff7200;
+  color: #ff7200;
 
-    background:
-        rgba(255, 101, 0, 0.04);
+  background: rgba(255, 101, 0, 0.04);
 }
 
 .guest-note {
-    max-width: 420px;
+  max-width: 420px;
 
-    margin:
-        9px auto 0;
+  margin: 9px auto 0;
 
-    color: #555;
+  color: #555;
 
-    font-size: 9px;
+  font-size: 9px;
 
-    line-height: 1.7;
+  line-height: 1.7;
 
-    text-align: center;
+  text-align: center;
 }
-
 
 /* =========================================
    FOOTER
 ========================================= */
 
 .welcome-footer {
-    display: flex;
+  display: flex;
 
-    align-items: center;
+  align-items: center;
 
-    justify-content: center;
+  justify-content: center;
 
-    gap: 8px;
+  gap: 8px;
 
-    margin-top: 19px;
+  margin-top: 19px;
 
-    padding-top: 14px;
+  padding-top: 14px;
 
-    border-top:
-        1px solid #202020;
+  border-top: 1px solid #202020;
 
-    color: #4f4f4f;
+  color: #4f4f4f;
 
-    font-size: 9px;
+  font-size: 9px;
 }
 
 .welcome-footer span:first-child {
-    color: #ff7200;
+  color: #ff7200;
 
-    font-weight: 900;
+  font-weight: 900;
 }
 
 .footer-dot {
-    color: #333;
+  color: #333;
 }
-
 
 /* =========================================
    TABLET / DESKTOP
 ========================================= */
 
 @media (min-width: 700px) {
+  .welcome-page {
+    padding: 35px;
+  }
 
-    .welcome-page {
-        padding: 35px;
-    }
+  .welcome-card {
+    padding: 32px 30px 24px;
 
-    .welcome-card {
-        padding:
-            32px
-            30px
-            24px;
+    border-radius: 26px;
+  }
 
-        border-radius: 26px;
-    }
+  .benefit {
+    padding: 14px 13px;
+  }
 
-    .benefit {
-        padding:
-            14px 13px;
-    }
+  .benefit-content strong {
+    font-size: 12px;
+  }
 
-    .benefit-content strong {
-        font-size: 12px;
-    }
+  .benefit-content p {
+    font-size: 10px;
+  }
 
-    .benefit-content p {
-        font-size: 10px;
-    }
+  .primary-btn,
+  .secondary-btn,
+  .guest-btn {
+    min-height: 53px;
 
-    .primary-btn,
-    .secondary-btn,
-    .guest-btn {
-        min-height: 53px;
-
-        font-size: 13px;
-    }
+    font-size: 13px;
+  }
 }
-
 
 /* =========================================
    SMALL PHONES
 ========================================= */
 
 @media (max-width: 380px) {
+  .welcome-page {
+    padding: 10px 9px;
+  }
 
-    .welcome-page {
-        padding:
-            10px
-            9px;
-    }
+  .welcome-card {
+    padding: 18px 13px 15px;
 
-    .welcome-card {
-        padding:
-            18px
-            13px
-            15px;
+    border-radius: 20px;
+  }
 
-        border-radius: 20px;
-    }
+  .brand-area {
+    margin-bottom: 17px;
+  }
 
-    .brand-area {
-        margin-bottom: 17px;
-    }
+  .logo {
+    width: 50px;
+    height: 50px;
 
-    .logo {
-        width: 50px;
-        height: 50px;
+    font-size: 17px;
+  }
 
-        font-size: 17px;
-    }
+  .brand-name {
+    font-size: 18px;
+  }
 
-    .brand-name {
-        font-size: 18px;
-    }
+  .hero h1 {
+    font-size: 25px;
+  }
 
-    .hero h1 {
-        font-size: 25px;
-    }
+  .subtitle {
+    font-size: 13px;
+  }
 
-    .subtitle {
-        font-size: 13px;
-    }
+  .hero-description {
+    font-size: 10px;
+  }
 
-    .hero-description {
-        font-size: 10px;
-    }
+  .benefits {
+    grid-template-columns: 1fr;
+  }
 
-    .benefits {
-        grid-template-columns: 1fr;
-    }
+  .benefit {
+    padding: 11px;
+  }
 
-    .benefit {
-        padding:
-            11px;
-    }
+  .main-actions {
+    grid-template-columns: 1fr;
+  }
 
-    .main-actions {
-        grid-template-columns: 1fr;
-    }
-
-    .primary-btn,
-    .secondary-btn {
-        min-height: 51px;
-    }
-
+  .primary-btn,
+  .secondary-btn {
+    min-height: 51px;
+  }
 }

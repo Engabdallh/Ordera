@@ -29,7 +29,6 @@ router.get("/register-help", (req, res) => {
   return res.render("register-help");
 });
 
-
 // =========================================
 // Login Help
 // مساعدة تسجيل الدخول

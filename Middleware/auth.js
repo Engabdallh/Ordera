@@ -25,10 +25,7 @@ const requireRole = (role) => (req, res, next) => {
 
 const requireCustomerOrGuest = (req, res, next) => {
   // زبون مسجل
-  if (
-    req.session?.userId &&
-    req.session?.role === "customer"
-  ) {
+  if (req.session?.userId && req.session?.role === "customer") {
     return next();
   }
 
@@ -43,5 +40,5 @@ const requireCustomerOrGuest = (req, res, next) => {
 module.exports = {
   requireAuth,
   requireRole,
-  requireCustomerOrGuest
+  requireCustomerOrGuest,
 };

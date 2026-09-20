@@ -4,17 +4,11 @@
 <head>
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>لوحة تحكم 911 | Admin</title>
 
-    <link
-        rel="stylesheet"
-        href="/css/admin/admin.css"
-    >
+    <link rel="stylesheet" href="/css/admin/admin.css">
 </head>
 
 <body>
@@ -29,15 +23,15 @@
 
             <div class="sidebar-brand">
 
-                 <strong>
-                        سلسلة مطاعم
-                    </strong>
+                <strong>
+                    سلسلة مطاعم
+                </strong>
 
                 <div>
-                   
+
                     <div class="brand-logo">
-                    911
-                </div>
+                        911
+                    </div>
                     <span>
                         Admin Dashboard
                     </span>
@@ -52,10 +46,7 @@
                     الرئيسية
                 </div>
 
-                <a
-                    href="/admin"
-                    class="nav-item active"
-                >
+                <a href="/admin" class="nav-item active">
                     <span class="nav-icon">
                         🏠
                     </span>
@@ -70,10 +61,7 @@
                     إدارة المطعم
                 </div>
 
-                <a
-                    href="/admin/orders"
-                    class="nav-item"
-                >
+                <a href="/admin/orders" class="nav-item">
                     <span class="nav-icon">
                         📦
                     </span>
@@ -84,10 +72,7 @@
                 </a>
 
 
-                <a
-                    href="/admin/products"
-                    class="nav-item"
-                >
+                <a href="/admin/products" class="nav-item">
                     <span class="nav-icon">
                         🍔
                     </span>
@@ -98,10 +83,7 @@
                 </a>
 
 
-                <a
-                    href="/admin/coupons"
-                    class="nav-item"
-                >
+                <a href="/admin/coupons" class="nav-item">
                     <span class="nav-icon">
                         🎟️
                     </span>
@@ -116,10 +98,7 @@
                     الموظفون والدعم
                 </div>
 
-                <a
-                    href="/admin/call-center-agents"
-                    class="nav-item"
-                >
+                <a href="/admin/call-center-agents" class="nav-item">
                     <span class="nav-icon">
                         👨‍💼
                     </span>
@@ -130,10 +109,7 @@
                 </a>
 
 
-                <a
-                    href="/admin/support/ratings"
-                    class="nav-item"
-                >
+                <a href="/admin/support/ratings" class="nav-item">
                     <span class="nav-icon">
                         ⭐
                     </span>
@@ -148,10 +124,7 @@
 
             <div class="sidebar-bottom">
 
-                <a
-                    href="/logout"
-                    class="sidebar-logout"
-                >
+                <a href="/logout" class="sidebar-logout">
                     🚪 تسجيل الخروج
                 </a>
 
@@ -303,12 +276,10 @@
                         </span>
 
                         <strong class="stat-value">
-                            <%= Number(
-                                stats.total_sales || 0
-                            ).toFixed(2) %>
-                            <small>
-                                د.أ
-                            </small>
+                            <%= Number( stats.total_sales || 0 ).toFixed(2) %>
+                                <small>
+                                    د.أ
+                                </small>
                         </strong>
 
                     </div>
@@ -534,15 +505,9 @@
                             </div>
 
 
-                            <form
-                                action="/admin/restaurant/toggle"
-                                method="POST"
-                            >
+                            <form action="/admin/restaurant/toggle" method="POST">
 
-                                <button
-                                    type="submit"
-                                    class="restaurant-toggle-btn close-btn"
-                                >
+                                <button type="submit" class="restaurant-toggle-btn close-btn">
                                     إغلاق المطعم
                                 </button>
 
@@ -550,52 +515,46 @@
 
                         </div>
 
-                    <% } else { %>
+                        <% } else { %>
 
-                        <div class="restaurant-status-content closed">
+                            <div class="restaurant-status-content closed">
 
-                            <div class="restaurant-status-main">
+                                <div class="restaurant-status-main">
 
-                                <div class="restaurant-status-icon">
-                                    🔴
+                                    <div class="restaurant-status-icon">
+                                        🔴
+                                    </div>
+
+                                    <div>
+
+                                        <span class="status-badge closed">
+                                            مغلق الآن
+                                        </span>
+
+                                        <h3>
+                                            المطعم مغلق
+                                        </h3>
+
+                                        <p>
+                                            المطعم مغلق حالياً ولا يتم استقبال الطلبات.
+                                        </p>
+
+                                    </div>
+
                                 </div>
 
-                                <div>
 
-                                    <span class="status-badge closed">
-                                        مغلق الآن
-                                    </span>
+                                <form action="/admin/restaurant/toggle" method="POST">
 
-                                    <h3>
-                                        المطعم مغلق
-                                    </h3>
+                                    <button type="submit" class="restaurant-toggle-btn open-btn">
+                                        تشغيل المطعم
+                                    </button>
 
-                                    <p>
-                                        المطعم مغلق حالياً ولا يتم استقبال الطلبات.
-                                    </p>
-
-                                </div>
+                                </form>
 
                             </div>
 
-
-                            <form
-                                action="/admin/restaurant/toggle"
-                                method="POST"
-                            >
-
-                                <button
-                                    type="submit"
-                                    class="restaurant-toggle-btn open-btn"
-                                >
-                                    تشغيل المطعم
-                                </button>
-
-                            </form>
-
-                        </div>
-
-                    <% } %>
+                            <% } %>
 
                 </div>
 
@@ -634,10 +593,7 @@
 
                     <!-- Products -->
 
-                    <a
-                        href="/admin/products"
-                        class="management-card"
-                    >
+                    <a href="/admin/products" class="management-card">
 
                         <div class="management-icon">
                             🍔
@@ -665,10 +621,7 @@
 
                     <!-- Orders -->
 
-                    <a
-                        href="/admin/orders"
-                        class="management-card"
-                    >
+                    <a href="/admin/orders" class="management-card">
 
                         <div class="management-icon">
                             📦
@@ -696,10 +649,7 @@
 
                     <!-- Coupons -->
 
-                    <a
-                        href="/admin/coupons"
-                        class="management-card"
-                    >
+                    <a href="/admin/coupons" class="management-card">
 
                         <div class="management-icon">
                             🎟️
@@ -727,10 +677,7 @@
 
                     <!-- Call Center -->
 
-                    <a
-                        href="/admin/call-center-agents"
-                        class="management-card"
-                    >
+                    <a href="/admin/call-center-agents" class="management-card">
 
                         <div class="management-icon">
                             👨‍💼
@@ -758,10 +705,7 @@
 
                     <!-- Support Ratings -->
 
-                    <a
-                        href="/admin/support/ratings"
-                        class="management-card featured"
-                    >
+                    <a href="/admin/support/ratings" class="management-card featured">
 
                         <div class="management-icon">
                             ⭐
@@ -814,4 +758,5 @@
     </div>
 
 </body>
+
 </html>

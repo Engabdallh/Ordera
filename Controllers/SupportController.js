@@ -350,19 +350,14 @@ const closeConversation = async (req, res) => {
 // =========================================
 const cancelConversation = async (req, res) => {
   try {
-    if (
-      !req.session.userId ||
-      req.session.role !== "customer"
-    ) {
+    if (!req.session.userId || req.session.role !== "customer") {
       return res.status(403).json({
         success: false,
         message: "غير مصرح لك بهذا الإجراء",
       });
     }
 
-    const conversationId = Number(
-      req.params.conversationId,
-    );
+    const conversationId = Number(req.params.conversationId);
 
     if (!Number.isInteger(conversationId)) {
       return res.status(400).json({
@@ -371,26 +366,18 @@ const cancelConversation = async (req, res) => {
       });
     }
 
-    await supportService.cancelConversation(
-      conversationId,
-      req.session.userId,
-    );
+    await supportService.cancelConversation(conversationId, req.session.userId);
 
     return res.json({
       success: true,
       message: "تم إلغاء المحادثة بنجاح",
     });
   } catch (error) {
-    console.error(
-      "CANCEL CUSTOMER SUPPORT ERROR:",
-      error,
-    );
+    console.error("CANCEL CUSTOMER SUPPORT ERROR:", error);
 
     return res.status(400).json({
       success: false,
-      message:
-        error.message ||
-        "تعذر إلغاء المحادثة",
+      message: error.message || "تعذر إلغاء المحادثة",
     });
   }
 };
@@ -399,36 +386,19 @@ const cancelConversation = async (req, res) => {
 // ADMIN SUPPORT REPORT PAGE
 // صفحة تقرير أداء موظف الدعم
 // =========================================
-const showAdminSupportRatings = async (
-  req,
-  res,
-) => {
+const showAdminSupportRatings = async (req, res) => {
   try {
-    if (
-      !req.session?.userId ||
-      req.session?.role !== "admin"
-    ) {
+    if (!req.session?.userId || req.session?.role !== "admin") {
       return res.redirect("/login");
     }
 
-    return res.render(
-      "Admin/support-ratings",
-      {
-        userName:
-          req.session.userName,
-      },
-    );
+    return res.render("Admin/support-ratings", {
+      userName: req.session.userName,
+    });
   } catch (error) {
-    console.error(
-      "SHOW ADMIN SUPPORT RATINGS ERROR:",
-      error,
-    );
+    console.error("SHOW ADMIN SUPPORT RATINGS ERROR:", error);
 
-    return res
-      .status(500)
-      .send(
-        "حدث خطأ أثناء تحميل تقرير الدعم",
-      );
+    return res.status(500).send("حدث خطأ أثناء تحميل تقرير الدعم");
   }
 };
 // =========================================
@@ -437,19 +407,14 @@ const showAdminSupportRatings = async (
 // =========================================
 const getAdminSupportRatings = async (req, res) => {
   try {
-    if (
-      !req.session?.userId ||
-      req.session?.role !== "admin"
-    ) {
+    if (!req.session?.userId || req.session?.role !== "admin") {
       return res.status(403).json({
         success: false,
         message: "غير مصرح لك بهذا الإجراء",
       });
     }
 
-    const employeeName = String(
-      req.query.employeeName || "",
-    ).trim();
+    const employeeName = String(req.query.employeeName || "").trim();
 
     if (!employeeName) {
       return res.status(400).json({
@@ -458,26 +423,18 @@ const getAdminSupportRatings = async (req, res) => {
       });
     }
 
-    const report =
-      await supportService.getAdminSupportRatings(
-        employeeName,
-      );
+    const report = await supportService.getAdminSupportRatings(employeeName);
 
     return res.json({
       success: true,
       ...report,
     });
   } catch (error) {
-    console.error(
-      "GET ADMIN SUPPORT EMPLOYEE REPORT ERROR:",
-      error,
-    );
+    console.error("GET ADMIN SUPPORT EMPLOYEE REPORT ERROR:", error);
 
     return res.status(500).json({
       success: false,
-      message:
-        error.message ||
-        "تعذر تحميل تقرير الموظف",
+      message: error.message || "تعذر تحميل تقرير الموظف",
     });
   }
 };

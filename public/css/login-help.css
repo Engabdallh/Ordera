@@ -3,338 +3,292 @@
 ========================================= */
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    min-height: 100%;
+  min-height: 100%;
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
+  margin: 0;
+  min-height: 100vh;
 
-    font-family:
-        Arial,
-        Tahoma,
-        sans-serif;
+  font-family: Arial, Tahoma, sans-serif;
 
-    background:
-        radial-gradient(
-            circle at 50% -10%,
-            rgba(255, 101, 0, 0.18),
-            transparent 42%
-        ),
-        linear-gradient(
-            180deg,
-            #080808 0%,
-            #0d0d0d 55%,
-            #080808 100%
-        );
+  background:
+    radial-gradient(
+      circle at 50% -10%,
+      rgba(255, 101, 0, 0.18),
+      transparent 42%
+    ),
+    linear-gradient(180deg, #080808 0%, #0d0d0d 55%, #080808 100%);
 
-    color: #fff;
+  color: #fff;
 
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
-
 
 /* =========================================
    PAGE
 ========================================= */
 
 .login-help-page {
-    min-height: 100vh;
+  min-height: 100vh;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    padding:
-        max(18px, env(safe-area-inset-top))
-        14px
-        max(18px, env(safe-area-inset-bottom))
-        14px;
+  padding: max(18px, env(safe-area-inset-top)) 14px
+    max(18px, env(safe-area-inset-bottom)) 14px;
 }
-
 
 /* =========================================
    CARD
 ========================================= */
 
 .login-help-card {
-    width: 100%;
-    max-width: 650px;
+  width: 100%;
+  max-width: 650px;
 
-    padding:
-        25px 18px
-        18px;
+  padding: 25px 18px 18px;
 
-    border:
-        1px solid #242424;
+  border: 1px solid #242424;
 
-    border-radius: 24px;
+  border-radius: 24px;
 
-    background:
-        linear-gradient(
-            145deg,
-            rgba(22, 22, 22, 0.98),
-            rgba(11, 11, 11, 0.98)
-        );
+  background: linear-gradient(
+    145deg,
+    rgba(22, 22, 22, 0.98),
+    rgba(11, 11, 11, 0.98)
+  );
 
-    box-shadow:
-        0 25px 80px
-        rgba(0, 0, 0, 0.45);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
 
-    position: relative;
+  position: relative;
 
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .login-help-card::before {
-    content: "";
+  content: "";
 
-    position: absolute;
+  position: absolute;
 
-    top: -100px;
-    right: -100px;
+  top: -100px;
+  right: -100px;
 
-    width: 220px;
-    height: 220px;
+  width: 220px;
+  height: 220px;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    background:
-        rgba(255, 101, 0, 0.07);
+  background: rgba(255, 101, 0, 0.07);
 
-    pointer-events: none;
+  pointer-events: none;
 }
-
 
 /* =========================================
    BRAND
 ========================================= */
 
 .brand-area {
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    gap: 10px;
+  gap: 10px;
 
-    margin-bottom: 23px;
+  margin-bottom: 23px;
 }
 
 .logo {
-    width: 57px;
-    height: 57px;
+  width: 57px;
+  height: 57px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    border:
-        2px solid #ff6500;
+  border: 2px solid #ff6500;
 
-    border-radius: 17px;
+  border-radius: 17px;
 
-    color: #ff7200;
+  color: #ff7200;
 
-    font-size: 19px;
+  font-size: 19px;
 
-    font-weight: 900;
+  font-weight: 900;
 
-    box-shadow:
-        0 0 25px
-        rgba(255, 101, 0, 0.12);
+  box-shadow: 0 0 25px rgba(255, 101, 0, 0.12);
 }
 
 .brand-name {
-    color: #eee;
+  color: #eee;
 
-    font-size: 20px;
+  font-size: 20px;
 
-    font-weight: 900;
+  font-weight: 900;
 
-    letter-spacing: 1px;
+  letter-spacing: 1px;
 }
-
 
 /* =========================================
    HERO
 ========================================= */
 
 .hero {
-    text-align: center;
+  text-align: center;
 
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 }
 
 .help-badge {
-    display: inline-flex;
+  display: inline-flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    margin-bottom: 11px;
+  margin-bottom: 11px;
 
-    padding:
-        7px 12px;
+  padding: 7px 12px;
 
-    border:
-        1px solid
-        rgba(255, 101, 0, 0.22);
+  border: 1px solid rgba(255, 101, 0, 0.22);
 
-    border-radius: 999px;
+  border-radius: 999px;
 
-    background:
-        rgba(255, 101, 0, 0.07);
+  background: rgba(255, 101, 0, 0.07);
 
-    color: #ff8a40;
+  color: #ff8a40;
 
-    font-size: 10px;
+  font-size: 10px;
 
-    font-weight: 900;
+  font-weight: 900;
 }
 
 .hero h1 {
-    margin: 0;
+  margin: 0;
 
-    font-size:
-        clamp(
-            27px,
-            8vw,
-            36px
-        );
+  font-size: clamp(27px, 8vw, 36px);
 
-    line-height: 1.25;
+  line-height: 1.25;
 
-    font-weight: 900;
+  font-weight: 900;
 }
 
 .hero p {
-    max-width: 500px;
+  max-width: 500px;
 
-    margin:
-        9px auto 0;
+  margin: 9px auto 0;
 
-    color: #777;
+  color: #777;
 
-    font-size: 11px;
+  font-size: 11px;
 
-    line-height: 1.9;
+  line-height: 1.9;
 }
-
 
 /* =========================================
    STEPS
 ========================================= */
 
 .steps {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
+  flex-direction: column;
 
-    gap: 10px;
+  gap: 10px;
 }
 
 .step {
-    display: grid;
+  display: grid;
 
-    grid-template-columns:
-        30px
-        42px
-        minmax(0, 1fr);
+  grid-template-columns:
+    30px
+    42px
+    minmax(0, 1fr);
 
-    align-items: center;
+  align-items: center;
 
-    gap: 10px;
+  gap: 10px;
 
-    padding:
-        13px 11px;
+  padding: 13px 11px;
 
-    border:
-        1px solid #252525;
+  border: 1px solid #252525;
 
-    border-radius: 13px;
+  border-radius: 13px;
 
-    background:
-        rgba(255, 255, 255, 0.018);
+  background: rgba(255, 255, 255, 0.018);
 
-    transition:
-        0.2s ease;
+  transition: 0.2s ease;
 }
 
 .step:hover {
-    border-color:
-        rgba(255, 101, 0, 0.45);
+  border-color: rgba(255, 101, 0, 0.45);
 
-    transform:
-        translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .step-number {
-    width: 27px;
-    height: 27px;
+  width: 27px;
+  height: 27px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    border-radius: 8px;
+  border-radius: 8px;
 
-    background:
-        #ff6500;
+  background: #ff6500;
 
-    color: #fff;
+  color: #fff;
 
-    font-size: 11px;
+  font-size: 11px;
 
-    font-weight: 900;
+  font-weight: 900;
 }
 
 .step-icon {
-    width: 42px;
-    height: 42px;
+  width: 42px;
+  height: 42px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    border-radius: 11px;
+  border-radius: 11px;
 
-    background:
-        rgba(255, 101, 0, 0.09);
+  background: rgba(255, 101, 0, 0.09);
 
-    font-size: 18px;
+  font-size: 18px;
 }
 
 .step-content {
-    min-width: 0;
+  min-width: 0;
 }
 
 .step-content h3 {
-    margin:
-        0 0 4px;
+  margin: 0 0 4px;
 
-    color: #eee;
+  color: #eee;
 
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .step-content p {
-    margin: 0;
+  margin: 0;
 
-    color: #666;
+  color: #666;
 
-    font-size: 9px;
+  font-size: 9px;
 
-    line-height: 1.8;
+  line-height: 1.8;
 }
-
 
 /* =========================================
    NOTES
@@ -342,359 +296,317 @@ body {
 
 .help-note,
 .guest-note {
-    display: flex;
+  display: flex;
 
-    align-items: flex-start;
+  align-items: flex-start;
 
-    gap: 11px;
+  gap: 11px;
 
-    margin-top: 12px;
+  margin-top: 12px;
 
-    padding:
-        13px;
+  padding: 13px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 }
 
 .help-note {
-    border:
-        1px solid
-        rgba(255, 101, 0, 0.18);
+  border: 1px solid rgba(255, 101, 0, 0.18);
 
-    background:
-        rgba(255, 101, 0, 0.045);
+  background: rgba(255, 101, 0, 0.045);
 }
 
 .guest-note {
-    border:
-        1px solid #252525;
+  border: 1px solid #252525;
 
-    background:
-        rgba(255, 255, 255, 0.018);
+  background: rgba(255, 255, 255, 0.018);
 }
 
 .help-note-icon,
 .guest-note-icon {
-    width: 35px;
-    height: 35px;
+  width: 35px;
+  height: 35px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    flex-shrink: 0;
+  flex-shrink: 0;
 
-    border-radius: 9px;
+  border-radius: 9px;
 
-    background:
-        rgba(255, 101, 0, 0.09);
+  background: rgba(255, 101, 0, 0.09);
 
-    font-size: 16px;
+  font-size: 16px;
 }
 
 .help-note strong,
 .guest-note strong {
-    display: block;
+  display: block;
 
-    margin-bottom: 4px;
+  margin-bottom: 4px;
 
-    color: #eee;
+  color: #eee;
 
-    font-size: 11px;
+  font-size: 11px;
 }
 
 .help-note p,
 .guest-note p {
-    margin: 0;
+  margin: 0;
 
-    color: #777;
+  color: #777;
 
-    font-size: 9px;
+  font-size: 9px;
 
-    line-height: 1.8;
+  line-height: 1.8;
 }
-
 
 /* =========================================
    ACTIONS
 ========================================= */
 
 .actions {
-    display: flex;
+  display: flex;
 
-    flex-direction: column;
+  flex-direction: column;
 
-    gap: 9px;
+  gap: 9px;
 
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .primary-btn,
 .secondary-btn,
 .guest-btn {
-    width: 100%;
+  width: 100%;
 
-    min-height: 49px;
+  min-height: 49px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    border-radius: 11px;
+  border-radius: 11px;
 
-    text-decoration: none;
+  text-decoration: none;
 
-    font-size: 11px;
+  font-size: 11px;
 
-    font-weight: 900;
+  font-weight: 900;
 
-    transition:
-        0.2s ease;
+  transition: 0.2s ease;
 }
 
 .primary-btn {
-    background:
-        linear-gradient(
-            135deg,
-            #ff7200,
-            #ff5a00
-        );
+  background: linear-gradient(135deg, #ff7200, #ff5a00);
 
-    color: #fff;
+  color: #fff;
 
-    box-shadow:
-        0 8px 25px
-        rgba(255, 101, 0, 0.16);
+  box-shadow: 0 8px 25px rgba(255, 101, 0, 0.16);
 }
 
 .primary-btn:hover {
-    transform:
-        translateY(-2px);
+  transform: translateY(-2px);
 
-    box-shadow:
-        0 12px 30px
-        rgba(255, 101, 0, 0.25);
+  box-shadow: 0 12px 30px rgba(255, 101, 0, 0.25);
 }
 
 .secondary-btn {
-    border:
-        1px solid #303030;
+  border: 1px solid #303030;
 
-    background:
-        #131313;
+  background: #131313;
 
-    color: #eee;
+  color: #eee;
 }
 
 .secondary-btn:hover {
-    border-color:
-        #ff6500;
+  border-color: #ff6500;
 
-    color: #ff7200;
+  color: #ff7200;
 
-    transform:
-        translateY(-2px);
+  transform: translateY(-2px);
 }
 
 .guest-btn {
-    border:
-        1px solid #2d2d2d;
+  border: 1px solid #2d2d2d;
 
-    background:
-        transparent;
+  background: transparent;
 
-    color: #999;
+  color: #999;
 }
 
 .guest-btn:hover {
-    border-color:
-        #ff6500;
+  border-color: #ff6500;
 
-    color: #ff7200;
+  color: #ff7200;
 }
-
 
 /* =========================================
    FOOTER
 ========================================= */
 
 footer {
-    display: flex;
+  display: flex;
 
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
-    gap: 7px;
+  gap: 7px;
 
-    margin-top: 18px;
+  margin-top: 18px;
 
-    padding-top: 13px;
+  padding-top: 13px;
 
-    border-top:
-        1px solid #202020;
+  border-top: 1px solid #202020;
 
-    color: #4d4d4d;
+  color: #4d4d4d;
 
-    font-size: 9px;
+  font-size: 9px;
 }
 
 footer span:first-child {
-    color: #ff7200;
+  color: #ff7200;
 
-    font-weight: 900;
+  font-weight: 900;
 }
-
 
 /* =========================================
    TABLET / DESKTOP
 ========================================= */
 
 @media (min-width: 650px) {
+  .login-help-page {
+    padding: 35px;
+  }
 
-    .login-help-page {
-        padding: 35px;
-    }
+  .login-help-card {
+    padding: 31px 30px 22px;
 
-    .login-help-card {
-        padding:
-            31px 30px
-            22px;
+    border-radius: 26px;
+  }
 
-        border-radius: 26px;
-    }
+  .step {
+    grid-template-columns:
+      34px
+      48px
+      minmax(0, 1fr);
 
-    .step {
-        grid-template-columns:
-            34px
-            48px
-            minmax(0, 1fr);
+    padding: 15px 14px;
+  }
 
-        padding:
-            15px 14px;
-    }
+  .step-number {
+    width: 30px;
+    height: 30px;
+  }
 
-    .step-number {
-        width: 30px;
-        height: 30px;
-    }
+  .step-icon {
+    width: 48px;
+    height: 48px;
 
-    .step-icon {
-        width: 48px;
-        height: 48px;
+    font-size: 20px;
+  }
 
-        font-size: 20px;
-    }
+  .step-content h3 {
+    font-size: 13px;
+  }
 
-    .step-content h3 {
-        font-size: 13px;
-    }
+  .step-content p {
+    font-size: 10px;
+  }
 
-    .step-content p {
-        font-size: 10px;
-    }
+  .actions {
+    display: grid;
 
-    .actions {
-        display: grid;
+    grid-template-columns: 1fr 1fr;
 
-        grid-template-columns:
-            1fr 1fr;
+    gap: 10px;
+  }
 
-        gap: 10px;
-    }
+  .guest-btn {
+    grid-column: 1 / -1;
+  }
 
-    .guest-btn {
-        grid-column:
-            1 / -1;
-    }
+  .primary-btn,
+  .secondary-btn,
+  .guest-btn {
+    min-height: 52px;
 
-    .primary-btn,
-    .secondary-btn,
-    .guest-btn {
-        min-height: 52px;
-
-        font-size: 12px;
-    }
+    font-size: 12px;
+  }
 }
-
 
 /* =========================================
    SMALL PHONES
 ========================================= */
 
 @media (max-width: 380px) {
+  .login-help-page {
+    padding: 10px 9px;
+  }
 
-    .login-help-page {
-        padding:
-            10px 9px;
-    }
+  .login-help-card {
+    padding: 20px 13px 15px;
 
-    .login-help-card {
-        padding:
-            20px 13px
-            15px;
+    border-radius: 20px;
+  }
 
-        border-radius: 20px;
-    }
+  .brand-area {
+    margin-bottom: 18px;
+  }
 
-    .brand-area {
-        margin-bottom: 18px;
-    }
+  .logo {
+    width: 50px;
+    height: 50px;
 
-    .logo {
-        width: 50px;
-        height: 50px;
+    font-size: 17px;
+  }
 
-        font-size: 17px;
-    }
+  .brand-name {
+    font-size: 18px;
+  }
 
-    .brand-name {
-        font-size: 18px;
-    }
+  .hero {
+    margin-bottom: 20px;
+  }
 
-    .hero {
-        margin-bottom: 20px;
-    }
+  .hero h1 {
+    font-size: 25px;
+  }
 
-    .hero h1 {
-        font-size: 25px;
-    }
+  .hero p {
+    font-size: 10px;
+  }
 
-    .hero p {
-        font-size: 10px;
-    }
+  .step {
+    grid-template-columns:
+      27px
+      38px
+      minmax(0, 1fr);
 
-    .step {
-        grid-template-columns:
-            27px
-            38px
-            minmax(0, 1fr);
+    gap: 8px;
 
-        gap: 8px;
+    padding: 11px 9px;
+  }
 
-        padding:
-            11px 9px;
-    }
+  .step-number {
+    width: 25px;
+    height: 25px;
+  }
 
-    .step-number {
-        width: 25px;
-        height: 25px;
-    }
+  .step-icon {
+    width: 38px;
+    height: 38px;
 
-    .step-icon {
-        width: 38px;
-        height: 38px;
+    font-size: 16px;
+  }
 
-        font-size: 16px;
-    }
+  .step-content h3 {
+    font-size: 11px;
+  }
 
-    .step-content h3 {
-        font-size: 11px;
-    }
-
-    .step-content p {
-        font-size: 8px;
-    }
-
+  .step-content p {
+    font-size: 8px;
+  }
 }

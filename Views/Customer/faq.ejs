@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>المساعدة والأسئلة الشائعة | 911</title>
 
-  <link
-    rel="stylesheet"
-    href="/css/customer/faq.css"
-  >
+  <link rel="stylesheet" href="/css/customer/faq.css">
 </head>
 
 <body>
@@ -38,23 +33,17 @@
 
       <div class="header-actions">
 
-        <a
-          href="/products"
-          class="header-btn"
-        >
+        <a href="/products" class="header-btn">
           🍔 المنتجات
         </a>
 
-        <% if (typeof isLoggedIn !== "undefined" && isLoggedIn) { %>
+        <% if (typeof isLoggedIn !=="undefined" && isLoggedIn) { %>
 
-          <a
-            href="/support"
-            class="header-btn support"
-          >
+          <a href="/support" class="header-btn support">
             💬 تواصل معنا
           </a>
 
-        <% } %>
+          <% } %>
 
       </div>
 
@@ -86,12 +75,7 @@
           🔎
         </span>
 
-        <input
-          type="text"
-          id="faqSearch"
-          placeholder="ابحث عن سؤالك..."
-          autocomplete="off"
-        >
+        <input type="text" id="faqSearch" placeholder="ابحث عن سؤالك..." autocomplete="off">
 
       </div>
 
@@ -171,36 +155,27 @@
          FAQ
     =============================== -->
 
-    <main
-      id="faqContainer"
-      class="faq-container"
-    >
+    <main id="faqContainer" class="faq-container">
 
 
       <!-- ==========================
            استخدام المطعم
       =========================== -->
 
-      <section
-        class="faq-section"
-        data-category="تجربة الطلب"
-      >
+      <section class="faq-section" data-category="تجربة الطلب">
 
         <div class="section-title">
           🍔 تجربة الطلب
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             كيف اطلب
             طريقة الطلب
             طلب وجبة
             اضافة للسلة
             شراء
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -227,16 +202,13 @@
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             كيف اشوف المنتجات
             اصناف
             وجبات
             قائمة الطعام
             menu
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -263,15 +235,12 @@
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             السلة
             تعديل الكمية
             حذف منتج
             cart
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -304,26 +273,20 @@
            الضيف والحساب
       =========================== -->
 
-      <section
-        class="faq-section"
-        data-category="الحساب"
-      >
+      <section class="faq-section" data-category="الحساب">
 
         <div class="section-title">
           👤 الحساب والضيف
         </div>
 
 
-        <div
-          class="faq-item highlight"
-          data-search="
+        <div class="faq-item highlight" data-search="
             هل اقدر اطلب بدون حساب
             ضيف
             guest
             بدون تسجيل
             غير مسجل
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -355,16 +318,13 @@
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             لماذا اسجل
             فوائد التسجيل
             مزايا الحساب
             مميزات العضوية
             تسجيل دخول
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -411,16 +371,13 @@
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             لماذا لا استطيع استخدام الدعم
             الضيف الدعم
             تواصل معنا
             chat
             support
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -458,26 +415,20 @@
            الكوبونات
       =========================== -->
 
-      <section
-        class="faq-section"
-        data-category="الكوبونات"
-      >
+      <section class="faq-section" data-category="الكوبونات">
 
         <div class="section-title">
           🎟️ الكوبونات والخصومات
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             كوبون
             خصم
             كود خصم
             coupon
             discount
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -510,15 +461,12 @@
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             لماذا الكوبون لا يعمل
             كوبون منتهي
             الحد الأدنى
             استخدام الكوبون
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -555,19 +503,14 @@
            الطلب
       =========================== -->
 
-      <section
-        class="faq-section"
-        data-category="الطلبات"
-      >
+      <section class="faq-section" data-category="الطلبات">
 
         <div class="section-title">
           📦 الطلبات
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             حالة الطلب
             قيد الانتظار
             تم التأكيد
@@ -575,8 +518,7 @@
             جاهز
             تم التوصيل
             ملغي
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -631,15 +573,12 @@
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             رقم الطلب
             رمز الطلب
             guest token
             رقم الضيف
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -678,27 +617,21 @@
            دعم العملاء
       =========================== -->
 
-      <section
-        class="faq-section"
-        data-category="الدعم"
-      >
+      <section class="faq-section" data-category="الدعم">
 
         <div class="section-title">
           💬 دعم العملاء
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             دعم
             تواصل
             موظف
             كول سنتر
             مشكلة
             استفسار
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -731,14 +664,11 @@
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             الغاء المحادثة
             إلغاء الدعم
             لم يرد الموظف
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -771,15 +701,12 @@
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             تقييم الموظف
             تقييم الدعم
             نجوم
             rating
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -812,25 +739,19 @@
            تجربة أفضل
       =========================== -->
 
-      <section
-        class="faq-section"
-        data-category="نصائح"
-      >
+      <section class="faq-section" data-category="نصائح">
 
         <div class="section-title">
           💡 نصائح للحصول على أفضل تجربة
         </div>
 
 
-        <div
-          class="faq-item"
-          data-search="
+        <div class="faq-item" data-search="
             نصائح
             أفضل تجربة
             سرعة الطلب
             معلومات صحيحة
-          "
-        >
+          ">
 
           <button class="faq-question">
 
@@ -890,10 +811,7 @@
          NO RESULTS
     =============================== -->
 
-    <div
-      id="noResults"
-      class="no-results hidden"
-    >
+    <div id="noResults" class="no-results hidden">
 
       <div>
         🔎
@@ -905,19 +823,16 @@
 
       <p>
         جرّب البحث بكلمة مختلفة أو تواصل مع
-        فريق الدعم.لاكن سجل دخول لي تستطيع تواصل معهم 
+        فريق الدعم.لاكن سجل دخول لي تستطيع تواصل معهم
       </p>
 
-      <% if (typeof isLoggedIn !== "undefined" && isLoggedIn) { %>
+      <% if (typeof isLoggedIn !=="undefined" && isLoggedIn) { %>
 
-        <a
-          href="/support"
-          class="support-link"
-        >
+        <a href="/support" class="support-link">
           💬 تواصل مع الدعم
         </a>
 
-      <% } %>
+        <% } %>
 
     </div>
 
@@ -944,8 +859,9 @@
   <!-- ==============================
        JAVASCRIPT
   =============================== -->
- 
+
   <script src="/js/customer/faq.js"></script>
 
 </body>
+
 </html>

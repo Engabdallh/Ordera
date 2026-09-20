@@ -4,17 +4,11 @@
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>تقييمات موظفي الدعم | 911</title>
 
-  <link
-    rel="stylesheet"
-    href="/css/admin/support-ratings.css"
-  >
+  <link rel="stylesheet" href="/css/admin/support-ratings.css">
 </head>
 
 <body>
@@ -39,10 +33,7 @@
 
       </div>
 
-      <a
-        href="/admin"
-        class="back-btn"
-      >
+      <a href="/admin" class="back-btn">
         ← لوحة الإدارة
       </a>
 
@@ -61,28 +52,16 @@
 
       <div class="search-row">
 
-        <input
-          type="text"
-          id="employeeNameInput"
-          class="search-input"
-          placeholder="اكتب اسم الموظف..."
-          autocomplete="off"
-        >
+        <input type="text" id="employeeNameInput" class="search-input" placeholder="اكتب اسم الموظف..."
+          autocomplete="off">
 
-        <button
-          type="button"
-          id="searchEmployeeBtn"
-          class="search-btn"
-        >
+        <button type="button" id="searchEmployeeBtn" class="search-btn">
           🔍 عرض التقرير
         </button>
 
       </div>
 
-      <div
-        id="message"
-        class="message"
-      ></div>
+      <div id="message" class="message"></div>
 
     </section>
 
@@ -91,10 +70,7 @@
          EMPLOYEE HEADER
     =============================== -->
 
-    <section
-      id="employeeHeader"
-      class="employee-header"
-    >
+    <section id="employeeHeader" class="employee-header">
 
       <div class="employee-info">
 
@@ -110,17 +86,11 @@
 
       <div class="employee-rating">
 
-        <div
-          id="averageRating"
-          class="employee-rating-value"
-        >
+        <div id="averageRating" class="employee-rating-value">
           0.00
         </div>
 
-        <div
-          id="averageStars"
-          class="employee-rating-stars"
-        >
+        <div id="averageStars" class="employee-rating-stars">
           -
         </div>
 
@@ -133,11 +103,7 @@
          STATS
     =============================== -->
 
-    <section
-      id="statsGrid"
-      class="stats-grid"
-      style="display:none;"
-    >
+    <section id="statsGrid" class="stats-grid" style="display:none;">
 
       <div class="stat-card">
 
@@ -145,10 +111,7 @@
           إجمالي المحادثات المستلمة
         </div>
 
-        <div
-          id="totalAssigned"
-          class="stat-value"
-        >
+        <div id="totalAssigned" class="stat-value">
           0
         </div>
 
@@ -161,10 +124,7 @@
           المحادثات التي تم الرد عليها
         </div>
 
-        <div
-          id="respondedConversations"
-          class="stat-value green"
-        >
+        <div id="respondedConversations" class="stat-value green">
           0
         </div>
 
@@ -177,10 +137,7 @@
           إجمالي الرسائل المرسلة
         </div>
 
-        <div
-          id="totalMessages"
-          class="stat-value orange"
-        >
+        <div id="totalMessages" class="stat-value orange">
           0
         </div>
 
@@ -193,10 +150,7 @@
           نسبة الرد
         </div>
 
-        <div
-          id="responseRate"
-          class="stat-value orange"
-        >
+        <div id="responseRate" class="stat-value orange">
           0%
         </div>
 
@@ -209,11 +163,7 @@
          CONTENT
     =============================== -->
 
-    <section
-      id="contentGrid"
-      class="content-grid"
-      style="display:none;"
-    >
+    <section id="contentGrid" class="content-grid" style="display:none;">
 
       <!-- ==========================
            RATING BREAKDOWN
@@ -236,17 +186,11 @@
 
             <div class="rating-bar">
 
-              <div
-                id="bar5"
-                class="rating-bar-fill"
-              ></div>
+              <div id="bar5" class="rating-bar-fill"></div>
 
             </div>
 
-            <div
-              id="count5"
-              class="rating-count"
-            >
+            <div id="count5" class="rating-count">
               0
             </div>
 
@@ -262,17 +206,11 @@
 
             <div class="rating-bar">
 
-              <div
-                id="bar4"
-                class="rating-bar-fill"
-              ></div>
+              <div id="bar4" class="rating-bar-fill"></div>
 
             </div>
 
-            <div
-              id="count4"
-              class="rating-count"
-            >
+            <div id="count4" class="rating-count">
               0
             </div>
 
@@ -288,17 +226,11 @@
 
             <div class="rating-bar">
 
-              <div
-                id="bar3"
-                class="rating-bar-fill"
-              ></div>
+              <div id="bar3" class="rating-bar-fill"></div>
 
             </div>
 
-            <div
-              id="count3"
-              class="rating-count"
-            >
+            <div id="count3" class="rating-count">
               0
             </div>
 
@@ -314,17 +246,11 @@
 
             <div class="rating-bar">
 
-              <div
-                id="bar2"
-                class="rating-bar-fill"
-              ></div>
+              <div id="bar2" class="rating-bar-fill"></div>
 
             </div>
 
-            <div
-              id="count2"
-              class="rating-count"
-            >
+            <div id="count2" class="rating-count">
               0
             </div>
 
@@ -340,17 +266,11 @@
 
             <div class="rating-bar">
 
-              <div
-                id="bar1"
-                class="rating-bar-fill"
-              ></div>
+              <div id="bar1" class="rating-bar-fill"></div>
 
             </div>
 
-            <div
-              id="count1"
-              class="rating-count"
-            >
+            <div id="count1" class="rating-count">
               0
             </div>
 
@@ -371,10 +291,7 @@
           💬 تفاصيل تقييمات العملاء
         </div>
 
-        <div
-          id="ratingsContainer"
-          class="table-wrapper"
-        >
+        <div id="ratingsContainer" class="table-wrapper">
 
           <div class="empty">
             ابحث عن موظف لعرض التقييمات.
@@ -392,4 +309,5 @@
   <script src="/js/admin/support-ratings.js"></script>
 
 </body>
+
 </html>

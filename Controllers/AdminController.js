@@ -49,14 +49,7 @@ const toggleRestaurantStatus = async (req, res) => {
 
 const showOrders = async (req, res) => {
   try {
-    const {
-      status,
-      date,
-      fromTime,
-      toTime,
-      month,
-      cycle,
-    } = req.query;
+    const { status, date, fromTime, toTime, month, cycle } = req.query;
 
     const result = await orderService.filterOrders({
       status,
@@ -185,7 +178,7 @@ const showCallCenterAgents = async (req, res) => {
     res.render("admin/call-center-agents", {
       agents: agents,
       success: success,
-       errorMessage: errorMessage,
+      errorMessage: errorMessage,
     });
   } catch (error) {
     console.error("SHOW CALL CENTER AGENTS ERROR:", error);

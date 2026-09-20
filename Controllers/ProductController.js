@@ -138,7 +138,9 @@ const updateProduct = async (req, res) => {
       image,
     );
 
-    res.redirect(`/admin/products/edit/${req.params.id}?success=product-updated`);
+    res.redirect(
+      `/admin/products/edit/${req.params.id}?success=product-updated`,
+    );
   } catch (error) {
     console.error(error);
 
