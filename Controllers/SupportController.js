@@ -172,7 +172,7 @@ const showCallCenterSupport = async (req, res) => {
 
     const conversations = await supportService.getConversationsForCallCenter();
 
-    return res.render("CallCenter/support", {
+    return res.render("callcenter/support", {
       conversations,
       userName: req.session.userName,
     });
