@@ -19,7 +19,29 @@ const requireRole = (role) => (req, res, next) => {
   next();
 };
 
+// =====================================================
+// السماح للزبون المسجل أو الزائر
+// =====================================================
+
+const requireCustomerOrGuest = (req, res, next) => {
+  // زبون مسجل
+  if (
+    req.session?.userId &&
+    req.session?.role === "customer"
+  ) {
+    return next();
+  }
+
+  // زائر
+  if (req.session?.isGuest === true) {
+    return next();
+  }
+
+  return res.redirect("/");
+};
+
 module.exports = {
   requireAuth,
   requireRole,
+  requireCustomerOrGuest
 };

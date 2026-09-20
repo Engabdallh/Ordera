@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 
 <head>
@@ -8,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-        تفاصيل الطلب #<%= order.daily_order_number %> - ordera
+        تفاصيل الطلب #<%= order.daily_order_number %> - 911
     </title>
 
     <link rel="stylesheet" href="/css/callcenter/orderdetails.css">
@@ -20,20 +21,23 @@
     <div class="dashboard">
 
         <!-- =========================
-         Header
-    ========================== -->
+             Header
+        ========================== -->
 
         <header class="header">
 
             <div>
 
-                <h1>ordera</h1>
+                <h1>
+                    911
+                </h1>
 
                 <p>
                     تفاصيل الطلب
                 </p>
 
             </div>
+
 
             <div class="header-actions">
 
@@ -42,7 +46,7 @@
                 </button>
 
                 <div class="logo">
-                    ordera
+                    911
                 </div>
 
             </div>
@@ -51,7 +55,7 @@
 
 
         <!-- =========================
-         Content
+             Content
         ========================== -->
 
         <main class="content">
@@ -66,7 +70,7 @@
 
 
             <!-- =========================
-             معلومات الطلب
+                 معلومات الطلب
             ========================== -->
 
             <div class="order-info-grid">
@@ -152,7 +156,7 @@
 
 
             <!-- =========================
-             العنوان
+                 العنوان
             ========================== -->
 
             <div class="details-section">
@@ -162,16 +166,14 @@
                 </h3>
 
                 <div class="address-box">
-
                     <%= order.delivery_address || "غير متوفر" %>
-
                 </div>
 
             </div>
 
 
             <!-- =========================
-             المنتجات
+                 المنتجات
             ========================== -->
 
             <div class="details-section">
@@ -230,9 +232,7 @@
                                         </td>
 
                                         <td>
-
                                             <%= ( Number(item.price) * Number(item.quantity) ).toFixed(2) %> د.أ
-
                                         </td>
 
                                     </tr>
@@ -248,17 +248,16 @@
                     <% } else { %>
 
                         <div class="no-orders">
-
                             لا توجد منتجات في هذا الطلب.
-
                         </div>
 
                         <% } %>
 
             </div>
 
+
             <!-- =========================
-            الحساب والخصم
+                 الحساب والخصم
             ========================== -->
 
             <div class="details-section">
@@ -270,6 +269,7 @@
                 <div class="order-summary">
 
                     <div class="summary-row">
+
                         <span>
                             المجموع الفرعي
                         </span>
@@ -277,11 +277,15 @@
                         <strong>
                             <%= Number(order.subtotal).toFixed(2) %> د.أ
                         </strong>
+
                     </div>
 
-                    <% if (order.coupon_code && Number(order.discount_amount)> 0) { %>
+
+                    <% if ( order.coupon_code && Number(order.discount_amount)> 0
+                        ) { %>
 
                         <div class="summary-row coupon-row">
+
                             <span>
                                 الكوبون
                             </span>
@@ -289,36 +293,44 @@
                             <strong>
                                 <%= order.coupon_code %>
                             </strong>
+
                         </div>
 
+
                         <div class="summary-row discount-row">
+
                             <span>
                                 الخصم
                             </span>
 
                             <strong>
-                                -<%= Number(order.discount_amount).toFixed(2) %> د.أ
+                                -<%= Number( order.discount_amount ).toFixed(2) %> د.أ
                             </strong>
+
                         </div>
 
                         <% } %>
 
+
                             <div class="summary-row total-row">
+
                                 <span>
                                     الإجمالي النهائي
                                 </span>
 
                                 <strong>
-                                    <%= Number(order.total_price).toFixed(2) %> د.أ
+                                    <%= Number( order.total_price ).toFixed(2) %> د.أ
                                 </strong>
+
                             </div>
 
                 </div>
 
             </div>
 
+
             <!-- =========================
-            تغيير حالة الطلب
+                 تغيير حالة الطلب
             ========================== -->
 
             <div class="details-section">
@@ -342,6 +354,7 @@
 
                     </div>
 
+
                     <div class="status-control">
 
                         <label for="status">
@@ -354,6 +367,7 @@
                                 اختر الحالة
                             </option>
 
+
                             <% if (order.status==="قيد الانتظار" ) { %>
 
                                 <option value="تم التأكيد">
@@ -363,6 +377,7 @@
                                 <option value="ملغي">
                                     ملغي
                                 </option>
+
 
                                 <% } else if (order.status==="تم التأكيد" ) { %>
 
@@ -374,6 +389,7 @@
                                         ملغي
                                     </option>
 
+
                                     <% } else if (order.status==="قيد التحضير" ) { %>
 
                                         <option value="جاهز">
@@ -383,6 +399,7 @@
                                         <option value="ملغي">
                                             ملغي
                                         </option>
+
 
                                         <% } else if (order.status==="جاهز" ) { %>
 
@@ -396,6 +413,7 @@
 
                     </div>
 
+
                     <button type="submit" class="change-status-btn">
                         تحديث الحالة
                     </button>
@@ -404,38 +422,9 @@
 
             </div>
 
-            <!-- =========================
-              المحادثة
-            ========================== -->
-
-            <div class="details-section chat-section">
-
-                <h3>
-                    المحادثة مع الزبون
-                </h3>
-
-                <div id="orderChat" class="order-chat" data-order-id="<%= order.id %>">
-                    <div class="chat-loading">
-                        جاري تحميل المحادثة...
-                    </div>
-                </div>
-
-                <form id="chatForm" class="chat-form">
-
-                    <textarea id="chatMessage" name="message" placeholder="اكتب رسالتك للزبون..." rows="3"
-                        maxlength="1000" required></textarea>
-
-                    <button type="submit" class="send-message-btn">
-                        إرسال
-                    </button>
-
-                </form>
-
-            </div>
-
 
             <!-- =========================
-             الأوقات
+                 الأوقات
             ========================== -->
 
             <div class="details-section">
@@ -445,12 +434,21 @@
                 </h3>
 
                 <div class="order-times">
+
                     <% if (order.updated_at) { %>
+
                         <p>
-                            <strong>آخر تحديث:</strong>
-                            <%= new Date(order.updated_at).toLocaleString("ar-JO") %>
+
+                            <strong>
+                                آخر تحديث:
+                            </strong>
+
+                            <%= new Date( order.updated_at ).toLocaleString("ar-JO") %>
+
                         </p>
+
                         <% } %>
+
 
                             <p>
 
@@ -482,7 +480,6 @@
 
                                         <p>
 
-
                                             <strong>
                                                 وقت الجاهزية:
                                             </strong>
@@ -497,14 +494,11 @@
 
             </div>
 
-            <!-- =========================
-             Back Button
-           ========================== -->
-
         </main>
 
+
         <!-- =========================
-         Footer
+             Footer
         ========================== -->
 
         <footer>
@@ -517,17 +511,33 @@
 
     </div>
 
+
+    <!-- =========================
+         تنبيه الطلب الجديد
+    ========================== -->
+
     <div id="newOrderAlert" class="new-order-alert">
-        <div class="new-order-alert-icon">🔔</div>
+
+        <div class="new-order-alert-icon">
+            🔔
+        </div>
 
         <div>
-            <strong>طلب جديد!</strong>
-            <p>تم استلام طلب جديد</p>
+
+            <strong>
+                طلب جديد!
+            </strong>
+
+            <p>
+                تم استلام طلب جديد
+            </p>
+
         </div>
+
     </div>
 
+
     <script src="/js/callcenter/new-orders.js"></script>
-    <script src="/js/callcenter/order-chat.js"></script>
 
 </body>
 

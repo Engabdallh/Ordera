@@ -14,41 +14,42 @@ class CallCenterService {
     const offset = (page - 1) * limit;
 
     let sql = `
-    SELECT
-      o.id,
-      o.daily_order_number,
-      o.customer_id,
-      o.total_price,
-      o.status,
-      o.order_type,
-      o.delivery_phone,
-      o.delivery_address,
-      o.created_at,
-      o.updated_at,
-      o.status_changed_at,
-      o.preparation_completed_at,
+      SELECT
+        o.id,
+        o.daily_order_number,
+        o.customer_id,
+        o.guest_name,
+        o.total_price,
+        o.status,
+        o.order_type,
+        o.delivery_phone,
+        o.delivery_address,
+        o.created_at,
+        o.updated_at,
+        o.status_changed_at,
+        o.preparation_completed_at,
 
-      c.name AS customer_name
+        COALESCE(c.name, o.guest_name) AS customer_name
 
-    FROM orders o
+      FROM orders o
 
-    JOIN customers c
-      ON o.customer_id = c.id
+      LEFT JOIN customers c
+        ON o.customer_id = c.id
 
-   WHERE 1
-  AND o.created_at >= NOW() - INTERVAL 24 HOUR
-  `;
+      WHERE 1
+        AND o.created_at >= NOW() - INTERVAL 24 HOUR
+    `;
 
     const params = [];
 
     // البحث برقم الطلب أو رقم الهاتف
     if (search) {
       sql += `
-    AND (
-     CAST(o.daily_order_number AS CHAR) = ?
-OR o.delivery_phone = ?
-    )
-  `;
+        AND (
+          CAST(o.daily_order_number AS CHAR) = ?
+          OR o.delivery_phone = ?
+        )
+      `;
 
       params.push(search, search);
     }
@@ -56,23 +57,81 @@ OR o.delivery_phone = ?
     // فلترة الحالة
     if (status) {
       sql += `
-      AND o.status = ?
-    `;
+        AND o.status = ?
+      `;
 
       params.push(status);
     }
 
     sql += `
-    ORDER BY o.created_at DESC
-    LIMIT ? OFFSET ?
-  `;
+      ORDER BY o.created_at DESC
+      LIMIT ? OFFSET ?
+    `;
 
-    params.push(limit, offset);
+    params.push(Number(limit), Number(offset));
 
     const [orders] = await db.query(sql, params);
 
     return orders;
   }
+
+  // =====================================================
+// البحث عن طلب بواسطة رمز التتبع
+// =====================================================
+
+async getOrderByTrackingToken(guestTrackingToken) {
+  const token = String(guestTrackingToken || "").trim();
+
+  if (!token) {
+    throw new Error("رمز الطلب مطلوب");
+  }
+
+  const [orders] = await db.query(
+    `SELECT
+        o.id,
+        o.daily_order_number,
+        o.customer_id,
+        o.guest_name,
+        o.total_price,
+        o.status,
+        o.order_type,
+        o.delivery_phone,
+        o.delivery_address,
+        o.guest_tracking_token,
+        o.created_at,
+        o.updated_at,
+        o.status_changed_at,
+        o.preparation_completed_at,
+
+        COALESCE(c.name, o.guest_name) AS customer_name,
+        c.email AS customer_email
+
+     FROM orders o
+
+     LEFT JOIN customers c
+       ON o.customer_id = c.id
+
+     WHERE o.guest_tracking_token = ?
+
+     LIMIT 1`,
+    [token],
+  );
+
+  if (orders.length === 0) {
+    throw new Error("لم يتم العثور على طلب بهذا الرمز");
+  }
+
+  const order = orders[0];
+
+  // جلب المنتجات الخاصة بالطلب
+  const items = await this.getOrderItemsForCallCenter(order.id);
+
+  return {
+    ...order,
+    items,
+  };
+}
+
   // =====================================================
   // منتجات طلب معين للكول سنتر
   // =====================================================
@@ -80,19 +139,19 @@ OR o.delivery_phone = ?
   async getOrderItemsForCallCenter(orderId) {
     const [items] = await db.query(
       `SELECT
-                oi.id,
-                oi.product_id,
-                oi.quantity,
-                oi.price,
-                p.name,
-                p.image
+          oi.id,
+          oi.product_id,
+          oi.quantity,
+          oi.price,
+          p.name,
+          p.image
 
-             FROM order_items oi
+       FROM order_items oi
 
-             JOIN products p
-                ON oi.product_id = p.id
+       JOIN products p
+         ON oi.product_id = p.id
 
-             WHERE oi.order_id = ?`,
+       WHERE oi.order_id = ?`,
       [orderId],
     );
 
@@ -113,16 +172,14 @@ OR o.delivery_phone = ?
       "ملغي",
     ];
 
-    // التحقق من الحالة الجديدة
     if (!allowedStatuses.includes(newStatus)) {
       throw new Error("حالة الطلب غير صحيحة");
     }
 
-    // جلب الحالة الحالية للطلب
     const [orders] = await db.query(
       `SELECT id, status
-         FROM orders
-         WHERE id = ?`,
+       FROM orders
+       WHERE id = ?`,
       [orderId],
     );
 
@@ -132,14 +189,9 @@ OR o.delivery_phone = ?
 
     const currentStatus = orders[0].status;
 
-    // إذا كانت نفس الحالة
     if (currentStatus === newStatus) {
       throw new Error("الطلب موجود بالفعل بهذه الحالة");
     }
-
-    // =================================================
-    // الحالات المسموحة للانتقال
-    // =================================================
 
     const allowedTransitions = {
       "قيد الانتظار": ["تم التأكيد", "ملغي"],
@@ -158,18 +210,17 @@ OR o.delivery_phone = ?
 
     // =================================================
     // تم التأكيد
-    // يبدأ وقت التحضير
     // =================================================
 
     if (newStatus === "تم التأكيد") {
       const [result] = await db.query(
         `UPDATE orders
-             SET
-                status = ?,
-                status_changed_at = NOW(),
-                preparation_completed_at = NULL,
-                updated_at = NOW()
-             WHERE id = ?`,
+         SET
+            status = ?,
+            status_changed_at = NOW(),
+            preparation_completed_at = NULL,
+            updated_at = NOW()
+         WHERE id = ?`,
         [newStatus, orderId],
       );
 
@@ -183,10 +234,10 @@ OR o.delivery_phone = ?
     if (newStatus === "قيد التحضير") {
       const [result] = await db.query(
         `UPDATE orders
-             SET
-                status = ?,
-                updated_at = NOW()
-             WHERE id = ?`,
+         SET
+            status = ?,
+            updated_at = NOW()
+         WHERE id = ?`,
         [newStatus, orderId],
       );
 
@@ -195,17 +246,16 @@ OR o.delivery_phone = ?
 
     // =================================================
     // جاهز
-    // يسجل وقت انتهاء التحضير
     // =================================================
 
     if (newStatus === "جاهز") {
       const [result] = await db.query(
         `UPDATE orders
-             SET
-                status = ?,
-                preparation_completed_at = NOW(),
-                updated_at = NOW()
-             WHERE id = ?`,
+         SET
+            status = ?,
+            preparation_completed_at = NOW(),
+            updated_at = NOW()
+         WHERE id = ?`,
         [newStatus, orderId],
       );
 
@@ -219,10 +269,10 @@ OR o.delivery_phone = ?
     if (newStatus === "تم التوصيل") {
       const [result] = await db.query(
         `UPDATE orders
-             SET
-                status = ?,
-                updated_at = NOW()
-             WHERE id = ?`,
+         SET
+            status = ?,
+            updated_at = NOW()
+         WHERE id = ?`,
         [newStatus, orderId],
       );
 
@@ -236,10 +286,10 @@ OR o.delivery_phone = ?
     if (newStatus === "ملغي") {
       const [result] = await db.query(
         `UPDATE orders
-             SET
-                status = ?,
-                updated_at = NOW()
-             WHERE id = ?`,
+         SET
+            status = ?,
+            updated_at = NOW()
+         WHERE id = ?`,
         [newStatus, orderId],
       );
 
@@ -247,32 +297,42 @@ OR o.delivery_phone = ?
     }
   }
 
-  async getOrdersCountForCallCenter({ search = "", status = "" } = {}) {
+  // =====================================================
+  // عدد الطلبات للكول سنتر
+  // =====================================================
+
+  async getOrdersCountForCallCenter({
+    search = "",
+    status = "",
+  } = {}) {
     let sql = `
-    SELECT COUNT(*) AS total
-    FROM orders o
-    JOIN customers c
-      ON o.customer_id = c.id
-    WHERE 1
-  `;
+      SELECT COUNT(*) AS total
+
+      FROM orders o
+
+      LEFT JOIN customers c
+        ON o.customer_id = c.id
+
+      WHERE 1
+    `;
 
     const params = [];
 
     if (search) {
       sql += `
-      AND (
-        CAST(o.id AS CHAR) = ?
-        OR o.delivery_phone = ?
-      )
-    `;
+        AND (
+          CAST(o.id AS CHAR) = ?
+          OR o.delivery_phone = ?
+        )
+      `;
 
       params.push(search, search);
     }
 
     if (status) {
       sql += `
-      AND o.status = ?
-    `;
+        AND o.status = ?
+      `;
 
       params.push(status);
     }
@@ -282,18 +342,23 @@ OR o.delivery_phone = ?
     return rows[0].total;
   }
 
+  // =====================================================
+  // الطلبات الجديدة
+  // =====================================================
+
   async getNewOrdersCount() {
     const [rows] = await db.query(`
-    SELECT id
-    FROM orders
-    WHERE status = 'قيد الانتظار'
-    ORDER BY created_at DESC
-  `);
+      SELECT id
+      FROM orders
+      WHERE status = 'قيد الانتظار'
+      ORDER BY created_at DESC
+    `);
 
     return {
       count: rows.length,
       orderIds: rows.map((order) => order.id),
-      latestOrderId: rows.length > 0 ? rows[0].id : null,
+      latestOrderId:
+        rows.length > 0 ? rows[0].id : null,
     };
   }
 }

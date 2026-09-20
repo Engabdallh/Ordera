@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>دعم العملاء - 911</title>
+
+    <link rel="stylesheet" href="/css/callcenter/support.css">
+</head>
+
+<body>
+
+    <div class="support-dashboard">
+
+        <!-- =========================================
+             HEADER
+        ========================================== -->
+
+        <header class="support-header">
+
+            <div>
+
+                <div class="brand">
+                    911
+                </div>
+
+                <h1>
+                    💬 دعم العملاء
+                </h1>
+
+                <p>
+                    إدارة محادثات العملاء والتواصل معهم
+                </p>
+
+            </div>
+
+            <div class="header-actions">
+
+                <span class="agent-name">
+                    👤 <%= userName %>
+                </span>
+
+                <a href="/call-center" class="back-btn">
+                    ← العودة للكول سنتر
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- =========================================
+             STATS
+        ========================================== -->
+
+        <section class="support-stats">
+
+            <div class="stat-card waiting-stat">
+
+                <span>
+                    🟡 بانتظار الرد
+                </span>
+
+                <strong id="waitingCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card active-stat">
+
+                <span>
+                    🟢 قيد المتابعة
+                </span>
+
+                <strong id="activeCount">
+                    0
+                </strong>
+
+            </div>
+
+
+            <div class="stat-card closed-stat">
+
+                <span>
+                    🔴 مغلقة
+                </span>
+
+                <strong id="closedCount">
+                    0
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             CONTENT
+        ========================================== -->
+
+        <main class="support-content">
+
+
+            <!-- =====================================
+                 CONVERSATIONS LIST
+            ====================================== -->
+
+            <section class="conversations-panel">
+
+                <div class="panel-header">
+
+                    <div>
+
+                        <h2>
+                            محادثات العملاء
+                        </h2>
+
+                        <p>
+                            اختر محادثة لعرضها والرد عليها
+                        </p>
+
+                    </div>
+
+                    <button type="button" id="refreshConversationsBtn" class="refresh-btn">
+                        ↻ تحديث
+                    </button>
+
+                </div>
+
+
+                <div id="conversationsList" class="conversations-list">
+
+                    <div class="list-loading">
+
+                        <div class="small-loader"></div>
+
+                        جاري تحميل المحادثات...
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 CHAT PANEL
+            ====================================== -->
+
+            <section class="chat-panel">
+
+                <div id="chatEmpty" class="chat-empty">
+
+                    <div class="empty-icon">
+                        💬
+                    </div>
+
+                    <h3>
+                        اختر محادثة
+                    </h3>
+
+                    <p>
+                        اختر محادثة من القائمة للبدء
+                        بالتواصل مع العميل.
+                    </p>
+
+                </div>
+
+
+                <div id="chatContent" class="chat-content hidden">
+
+                    <!-- ==============================
+                         CHAT HEADER
+                    =============================== -->
+
+                    <div class="chat-header">
+
+                        <div>
+
+                            <h2 id="customerName">
+                                العميل
+                            </h2>
+
+                            <div id="chatStatus" class="chat-status">
+                                <span></span>
+
+                                <span id="chatStatusText">
+                                    بانتظار الرد
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="chat-actions">
+
+                            <button type="button" id="assignBtn" class="assign-btn">
+                                استلام المحادثة
+                            </button>
+
+                            <button type="button" id="closeConversationBtn" class="close-conversation-btn">
+                                🔒 إنهاء
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==============================
+                         CUSTOMER INFO
+                    =============================== -->
+
+                    <div id="customerInfo" class="customer-info">
+
+                        <span id="customerEmail">
+                            📧 -
+                        </span>
+
+                        <span id="customerPhone">
+                            📱 -
+                        </span>
+
+                    </div>
+
+
+                    <!-- ==============================
+                         MESSAGES
+                    =============================== -->
+
+                    <div id="supportMessages" class="support-messages">
+                    </div>
+
+
+                    <!-- ==============================
+                         TYPING
+                    =============================== -->
+
+                    <div id="agentTyping" class="typing-indicator hidden">
+
+                        أنت تكتب...
+
+                    </div>
+
+
+                    <!-- ==============================
+                         MESSAGE FORM
+                    =============================== -->
+
+                    <form id="agentMessageForm" class="agent-message-form">
+
+                        <textarea id="agentMessageInput" name="message" rows="1" maxlength="1000"
+                            placeholder="اكتب ردك للعميل..." required></textarea>
+
+                        <button type="submit" id="agentSendBtn" class="agent-send-btn">
+                            إرسال
+                            <span>➤</span>
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+   <script src="/js/callcenter/support.js"></script>
+
+</body>
+
+</html>

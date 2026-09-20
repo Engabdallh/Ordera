@@ -10,15 +10,31 @@ const orderService = new OrderService();
 // عرض منتجات الزبون
 // ==============================
 
+// ==============================
+// عرض منتجات الزبون / الزائر
+// ==============================
+
 const showProductsCustomer = async (req, res) => {
   try {
-    console.log("Customer ID:", req.session.userId);
-    console.log("Customer Name:", req.session.userName);
-    console.log("Customer Role:", req.session.role);
+    const isCustomer = req.session?.userId && req.session?.role === "customer";
 
-    if (!req.session.userId || req.session.role !== "customer") {
-      return res.redirect("/login");
+    const isGuest = req.session?.isGuest === true;
+
+    console.log("Customer ID:", req.session?.userId);
+    console.log("Customer Name:", req.session?.userName);
+    console.log("Customer Role:", req.session?.role);
+    console.log("Guest:", isGuest);
+
+    // يجب أن يكون المستخدم زبونًا أو زائرًا
+    if (!isCustomer && !isGuest) {
+      return res.redirect("/");
     }
+
+    // ==============================
+    // اسم المستخدم
+    // ==============================
+
+    const userName = isGuest ? "زائر" : req.session.userName;
 
     // ==============================
     // قراءة سبب الرجوع للصفحة
@@ -41,7 +57,8 @@ const showProductsCustomer = async (req, res) => {
     if (!restaurant || !restaurant.is_open) {
       return res.render("Customer/showproductscostmer", {
         products: [],
-        userName: req.session.userName,
+        userName,
+        isGuest,
         restaurantOpen: false,
         queryReason: reason,
         unavailableProduct: productName,
@@ -55,8 +72,9 @@ const showProductsCustomer = async (req, res) => {
     const products = await productService.getAvailableProducts();
 
     return res.render("Customer/showproductscostmer", {
-      products: products,
-      userName: req.session.userName,
+      products,
+      userName,
+      isGuest,
       restaurantOpen: true,
       queryReason: reason,
       unavailableProduct: productName,

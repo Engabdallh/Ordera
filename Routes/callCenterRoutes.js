@@ -9,6 +9,7 @@ const {
   updateOrderStatus,
   showOrderDetails,
   getNewOrdersCount,
+  showOrderByTrackingToken,
 } = require("../Controllers/CallCenterController");
 
 // عرض طلبات اليوم
@@ -22,5 +23,18 @@ router.post("/orders/:id/status", updateOrderStatus);
 
 //عرض تفاصيل طلب
 router.get("/orders/:id", showOrderDetails);
+
+// =====================================================
+// البحث عن طلب بواسطة رمز التتبع
+// =====================================================
+
+// =====================================================
+// البحث عن طلب بواسطة رمز التتبع
+// =====================================================
+
+router.get(
+  "/tracking",
+  showOrderByTrackingToken,
+);
 
 module.exports = router;

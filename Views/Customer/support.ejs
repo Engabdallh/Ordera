@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        تواصل معنا - 911
+    </title>
+
+    <link rel="stylesheet" href="/css/customer/support.css">
+
+</head>
+
+
+<body>
+
+    <div class="support-page">
+
+        <!-- =========================
+             HEADER
+        ========================== -->
+
+        <header class="support-header">
+
+            <div class="brand-area">
+
+                <div class="brand">
+                    911
+                </div>
+
+                <div>
+
+                    <h1>
+                        تواصل معنا 💬
+                    </h1>
+
+                    <p>
+                        فريق الكول سنتر جاهز لمساعدتك
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <a href="/products" class="back-btn">
+                ← العودة للمنتجات
+            </a>
+
+        </header>
+
+
+        <!-- =========================
+             SUPPORT CARD
+        ========================== -->
+
+        <main class="support-container">
+
+            <section class="support-card">
+
+                <!-- =========================
+                     TOP STATUS
+                ========================== -->
+
+                <div class="conversation-header">
+
+                    <div>
+
+                        <h2>
+                            المحادثة مع الكول سنتر
+                        </h2>
+
+                        <div id="conversationStatus" class="conversation-status waiting">
+
+                            <span class="status-dot"></span>
+
+                            <span id="statusText">
+                                اضغط بدء المحادثة للتواصل معنا
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="support-icon">
+                        💬
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     WELCOME
+                ========================== -->
+
+                <div id="supportWelcome" class="support-welcome">
+
+                    <div class="welcome-icon">
+                        🎧
+                    </div>
+
+
+                    <h3>
+                        أهلاً <%= userName %> 👋
+                    </h3>
+
+
+                    <p>
+                        اكتب رسالتك وسيتواصل معك أحد موظفي الكول سنتر.
+                    </p>
+
+
+                    <button type="button" id="startConversationBtn" class="start-btn">
+                        بدء المحادثة
+                    </button>
+
+                </div>
+
+
+                <!-- =========================
+                     WAITING FOR CALL CENTER
+                ========================== -->
+
+                <div id="waitingArea" class="waiting-area hidden">
+
+                    <div class="waiting-loader">
+
+                        <div class="loader-ring"></div>
+
+                        <div class="loader-icon">
+                            💬
+                        </div>
+
+                    </div>
+
+
+                    <h3>
+                        بانتظار الكول سنتر
+                    </h3>
+
+
+                    <p>
+                        تم إرسال طلب التواصل بنجاح.
+                    </p>
+
+
+                    <p class="waiting-main-text">
+                        جاري انتظار أحد موظفي الكول سنتر للرد عليك...
+                    </p>
+
+                    <button type="button" id="cancelConversationBtn" class="cancel-conversation-btn">
+                        ✖ إلغاء المحادثة
+                    </button>
+
+                    <div class="waiting-dots">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                    </div>
+
+
+                    <div class="waiting-note">
+
+                        يمكنك إبقاء هذه الصفحة مفتوحة،
+                        وسنبدأ المحادثة تلقائيًا عند استلام أحد الموظفين لها.
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================
+                     CHAT
+                ========================== -->
+
+                <div id="chatArea" class="chat-area hidden">
+
+                    <div id="messages" class="messages">
+                    </div>
+
+
+                    <div id="typingIndicator" class="typing-indicator hidden">
+
+                        <span></span>
+                        <span></span>
+                        <span></span>
+
+                        <strong>
+                            الكول سنتر يكتب...
+                        </strong>
+
+                    </div>
+
+
+                    <!-- =========================
+                         INPUT
+                    ========================== -->
+
+                    <form id="messageForm" class="message-form">
+
+                        <textarea id="messageInput" name="message" rows="1" maxlength="1000"
+                            placeholder="اكتب رسالتك هنا..." required></textarea>
+
+
+                        <button type="submit" id="sendBtn" class="send-btn">
+
+                            إرسال
+
+                            <span>
+                                ➤
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- =========================
+                     CLOSED + RATING
+                ========================== -->
+
+                <div id="closedArea" class="closed-area hidden">
+
+                    <div class="closed-icon">
+                        ✅
+                    </div>
+
+
+                    <h3>
+                        تم إنهاء المحادثة
+                    </h3>
+
+
+                    <p>
+                        شكرًا لتواصلك معنا ❤️
+                    </p>
+
+
+                    <!-- =========================
+                         RATING
+                    ========================== -->
+
+                    <div id="ratingArea" class="rating-area">
+
+                        <h4>
+                            كيف كانت تجربتك مع الكول سنتر؟
+                        </h4>
+
+
+                        <div id="stars" class="stars">
+
+                            <button type="button" data-rating="1">
+                                ★
+                            </button>
+
+                            <button type="button" data-rating="2">
+                                ★
+                            </button>
+
+                            <button type="button" data-rating="3">
+                                ★
+                            </button>
+
+                            <button type="button" data-rating="4">
+                                ★
+                            </button>
+
+                            <button type="button" data-rating="5">
+                                ★
+                            </button>
+
+                        </div>
+
+
+                        <p id="selectedRatingText" class="selected-rating-text">
+                            اختر تقييمك
+                        </p>
+
+
+                        <textarea id="ratingComment" maxlength="500" placeholder="ملاحظتك (اختياري)..."></textarea>
+
+
+                        <button type="button" id="submitRatingBtn" class="submit-rating-btn" disabled>
+                            إرسال التقييم ⭐
+                        </button>
+
+                    </div>
+
+
+                    <!-- =========================
+                         NEW CONVERSATION
+                    ========================== -->
+
+                    <button type="button" id="newConversationBtn" class="new-conversation-btn">
+                        💬 بدء محادثة جديدة
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="/js/customer/support.js"></script>
+
+</body>
+
+</html>

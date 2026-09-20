@@ -1,282 +1,757 @@
+/* =========================================
+   RESET
+========================================= */
+
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
+    margin: 0;
+    min-height: 100vh;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    font-family:
+        Arial,
+        Tahoma,
+        sans-serif;
 
-  font-family: Arial, sans-serif;
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(255, 101, 0, 0.18),
+            transparent 42%
+        ),
+        linear-gradient(
+            180deg,
+            #080808 0%,
+            #0d0d0d 55%,
+            #080808 100%
+        );
 
-  background: #0d0d0d;
-  color: #ffffff;
+    color: #fff;
 
-  padding: 20px;
+    overflow-x: hidden;
 }
 
-.register-container {
-  width: 100%;
-  max-width: 500px;
+
+/* =========================================
+   PAGE
+========================================= */
+
+.register-page {
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        max(18px, env(safe-area-inset-top))
+        14px
+        max(18px, env(safe-area-inset-bottom))
+        14px;
 }
 
-.register-box {
-  width: 100%;
 
-  background: #1a1a1a;
+/* =========================================
+   CARD
+========================================= */
 
-  padding: 40px 35px;
+.register-card {
+    width: 100%;
 
-  border-radius: 20px;
+    max-width: 500px;
 
-  border-top: 5px solid #ff6a00;
+    padding:
+        26px 20px
+        18px;
 
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+    border:
+        1px solid #242424;
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(22, 22, 22, 0.98),
+            rgba(11, 11, 11, 0.98)
+        );
+
+    box-shadow:
+        0 25px 80px
+        rgba(0, 0, 0, 0.45);
+
+    position: relative;
+
+    overflow: hidden;
 }
 
-/* الشعار */
+.register-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: -100px;
+    right: -100px;
+
+    width: 220px;
+    height: 220px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 101, 0, 0.07);
+
+    pointer-events: none;
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.brand-area {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-bottom: 23px;
+}
 
 .logo {
-  width: 80px;
-  height: 80px;
+    width: 58px;
+    height: 58px;
 
-  margin: 0 auto 20px;
+    display: flex;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    align-items: center;
+    justify-content: center;
 
-  border-radius: 50%;
+    border:
+        2px solid #ff6500;
 
-  background: #ff6a00;
-  color: #000000;
+    border-radius: 17px;
 
-  font-size: 25px;
-  font-weight: bold;
+    color: #ff7200;
 
-  box-shadow: 0 5px 20px rgba(255, 106, 0, 0.25);
+    font-size: 19px;
+
+    font-weight: 900;
+
+    box-shadow:
+        0 0 25px
+        rgba(255, 101, 0, 0.12);
 }
 
-/* العنوان */
+.brand-name {
+    color: #eee;
 
-h1 {
-  margin: 0;
+    font-size: 20px;
 
-  text-align: center;
+    font-weight: 900;
 
-  color: #ff6a00;
-
-  font-size: 30px;
+    letter-spacing: 1px;
 }
 
-.subtitle {
-  text-align: center;
 
-  color: #999999;
+/* =========================================
+   TITLE
+========================================= */
 
-  margin: 10px 0 30px;
+.title-area {
+    text-align: center;
 
-  font-size: 15px;
+    margin-bottom: 22px;
 }
 
-/* الحقول */
+.register-badge {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 11px;
+
+    padding:
+        7px 12px;
+
+    border:
+        1px solid
+        rgba(255, 101, 0, 0.22);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255, 101, 0, 0.07);
+
+    color: #ff8a40;
+
+    font-size: 10px;
+
+    font-weight: 900;
+}
+
+.title-area h1 {
+    margin: 0;
+
+    font-size:
+        clamp(
+            26px,
+            8vw,
+            34px
+        );
+
+    font-weight: 900;
+}
+
+.title-area p {
+    margin:
+        8px 0 0;
+
+    color: #777;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   ERROR
+========================================= */
+
+.error-message {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-bottom: 16px;
+
+    padding:
+        11px 12px;
+
+    border:
+        1px solid
+        rgba(220, 60, 60, 0.25);
+
+    border-radius: 10px;
+
+    background:
+        rgba(220, 60, 60, 0.06);
+
+    color: #ff8c8c;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+}
+
+.message-icon {
+    width: 23px;
+    height: 23px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background:
+        rgba(220, 60, 60, 0.15);
+
+    color: #ff7070;
+
+    font-size: 11px;
+
+    font-weight: 900;
+}
+
+
+/* =========================================
+   FORM
+========================================= */
+
+.register-form {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
 
 .input-group {
-  margin-bottom: 18px;
+    width: 100%;
 }
 
 .input-group label {
-  display: block;
+    display: block;
 
-  margin-bottom: 8px;
+    margin-bottom: 7px;
 
-  color: #ff6a00;
+    color: #ccc;
 
-  font-weight: bold;
+    font-size: 11px;
 
-  text-align: right;
+    font-weight: 800;
 }
 
-.input-group input {
-  width: 100%;
+.input-wrapper,
+.password-input {
+    width: 100%;
 
-  padding: 13px 14px;
+    min-height: 51px;
 
-  border: 1px solid #333333;
+    display: flex;
 
-  border-radius: 8px;
+    align-items: center;
 
-  background: #0d0d0d;
+    gap: 9px;
 
-  color: #ffffff;
+    padding:
+        0 12px;
 
-  font-size: 15px;
+    border:
+        1px solid #303030;
 
-  outline: none;
+    border-radius: 12px;
 
-  transition: 0.2s;
+    background:
+        #0d0d0d;
+
+    transition:
+        0.2s ease;
 }
 
-.input-group input::placeholder {
-  color: #666666;
+.input-wrapper:focus-within,
+.password-input:focus-within {
+    border-color:
+        #ff6500;
+
+    box-shadow:
+        0 0 0 2px
+        rgba(255, 101, 0, 0.08);
 }
 
-.input-group input:focus {
-  border-color: #ff6a00;
+.input-icon {
+    width: 25px;
 
-  box-shadow: 0 0 0 2px rgba(255, 106, 0, 0.15);
+    flex-shrink: 0;
+
+    text-align: center;
+
+    font-size: 14px;
 }
 
-/* رسالة الخطأ */
+.input-wrapper input,
+.password-input input {
+    width: 100%;
 
-.error-message {
-  background: #3a1717;
+    min-width: 0;
 
-  border: 1px solid #dc3545;
+    height: 49px;
 
-  color: #ff7b7b;
+    border: 0;
 
-  padding: 12px;
+    outline: 0;
 
-  border-radius: 8px;
+    background: transparent;
 
-  margin-bottom: 20px;
+    color: #fff;
 
-  text-align: center;
+    font-family: inherit;
 
-  font-size: 14px;
+    font-size: 12px;
 }
 
-/* زر إنشاء الحساب */
-
-.register-btn {
-  width: 100%;
-
-  border: none;
-
-  padding: 13px;
-
-  border-radius: 8px;
-
-  background: #ff6a00;
-
-  color: #ffffff;
-
-  font-size: 16px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-  transition: 0.2s;
+.input-wrapper input::placeholder,
+.password-input input::placeholder {
+    color: #555;
 }
 
-.register-btn:hover {
-  background: #e85f00;
 
-  transform: translateY(-2px);
-}
-
-/* رابط تسجيل الدخول */
-
-.login-link {
-  margin-top: 25px;
-
-  padding-top: 20px;
-
-  border-top: 1px solid #333333;
-
-  text-align: center;
-}
-
-.login-link p {
-  margin: 0 0 8px;
-
-  color: #999999;
-}
-
-.login-link a {
-  color: #ff6a00;
-
-  text-decoration: none;
-
-  font-weight: bold;
-
-  transition: 0.2s;
-}
-
-.login-link a:hover {
-  color: #ff8c33;
-
-  text-decoration: underline;
-}
-
-/* الموبايل */
-
-@media (max-width: 600px) {
-  body {
-    padding: 15px;
-  }
-
-  .register-box {
-    padding: 30px 22px;
-  }
-
-  .logo {
-    width: 70px;
-    height: 70px;
-
-    font-size: 22px;
-  }
-
-  h1 {
-    font-size: 26px;
-  }
-
-  .input-group {
-    margin-bottom: 16px;
-  }
-}
-/* ==============================
-   Password Input
-============================== */
+/* =========================================
+   PASSWORD
+========================================= */
 
 .password-input {
-  position: relative;
-  width: 100%;
-}
-
-.password-input input {
-  width: 100%;
-  padding-left: 48px;
+    position: relative;
 }
 
 .toggle-password {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
+    width: 37px;
+    height: 37px;
 
-  width: 32px;
-  height: 32px;
+    flex-shrink: 0;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
 
-  border: none;
-  background: transparent;
-  color: #999;
+    align-items: center;
+    justify-content: center;
 
-  font-size: 17px;
-  cursor: pointer;
+    border: 0;
 
-  padding: 0;
+    border-radius: 9px;
+
+    background:
+        #1a1a1a;
+
+    color: #aaa;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    transition:
+        0.2s ease;
 }
 
 .toggle-password:hover {
-  color: #ff6a00;
+    background:
+        #242424;
+
+    color:
+        #ff7200;
+}
+
+
+/* =========================================
+   REGISTER BUTTON
+========================================= */
+
+.register-btn {
+    width: 100%;
+
+    min-height: 53px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 3px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff7200,
+            #ff5a00
+        );
+
+    color: #fff;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px
+        rgba(255, 101, 0, 0.18);
+
+    transition:
+        0.2s ease;
+}
+
+.register-btn:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 12px 30px
+        rgba(255, 101, 0, 0.27);
+}
+
+.register-btn:active {
+    transform:
+        translateY(0);
+}
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+.login-area {
+    margin-top: 18px;
+
+    text-align: center;
+}
+
+.login-area p {
+    display: inline;
+
+    margin: 0;
+
+    color: #666;
+
+    font-size: 10px;
+}
+
+.login-area a {
+    margin-right: 4px;
+
+    color: #ff7200;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 900;
+}
+
+.login-area a:hover {
+    text-decoration:
+        underline;
+}
+
+
+/* =========================================
+   DIVIDER
+========================================= */
+
+.divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    margin:
+        17px 0 11px;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+
+    height: 1px;
+
+    flex: 1;
+
+    background:
+        #242424;
+}
+
+.divider span {
+    color: #555;
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   EXTRA LINKS
+========================================= */
+
+.guest-link,
+.help-link {
+    width: 100%;
+
+    min-height: 45px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 8px;
+
+    border:
+        1px solid #2d2d2d;
+
+    border-radius: 10px;
+
+    background:
+        #111;
+
+    color: #aaa;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    transition:
+        0.2s ease;
+}
+
+.guest-link:hover,
+.help-link:hover {
+    border-color:
+        #ff6500;
+
+    color:
+        #ff7200;
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.register-footer {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 17px;
+
+    padding-top: 13px;
+
+    border-top:
+        1px solid #202020;
+
+    color: #4d4d4d;
+
+    font-size: 9px;
+}
+
+.register-footer span:first-child {
+    color: #ff7200;
+
+    font-weight: 900;
+}
+
+.footer-dot {
+    color: #333;
+}
+
+
+/* =========================================
+   TABLET / DESKTOP
+========================================= */
+
+@media (min-width: 650px) {
+
+    .register-page {
+        padding: 35px;
+    }
+
+    .register-card {
+        padding:
+            31px 30px
+            22px;
+
+        border-radius: 26px;
+    }
+
+    .register-form {
+        gap: 17px;
+    }
+
+    .input-wrapper,
+    .password-input {
+        min-height: 54px;
+    }
+
+    .input-wrapper input,
+    .password-input input {
+        height: 52px;
+    }
+
+    .register-btn {
+        min-height: 55px;
+    }
+
+    .guest-link,
+    .help-link {
+        min-height: 47px;
+
+        font-size: 11px;
+    }
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+    .register-page {
+        padding:
+            10px 9px;
+    }
+
+    .register-card {
+        padding:
+            20px 13px
+            15px;
+
+        border-radius: 20px;
+    }
+
+    .brand-area {
+        margin-bottom: 18px;
+    }
+
+    .logo {
+        width: 50px;
+        height: 50px;
+
+        font-size: 17px;
+    }
+
+    .brand-name {
+        font-size: 18px;
+    }
+
+    .title-area {
+        margin-bottom: 18px;
+    }
+
+    .title-area h1 {
+        font-size: 25px;
+    }
+
+    .title-area p {
+        font-size: 10px;
+    }
+
+    .register-form {
+        gap: 12px;
+    }
+
+    .input-wrapper,
+    .password-input {
+        min-height: 49px;
+    }
+
+    .input-wrapper input,
+    .password-input input {
+        height: 47px;
+    }
+
+    .register-btn {
+        min-height: 51px;
+    }
+
 }

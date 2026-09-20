@@ -54,15 +54,16 @@ const cartRoutes = require('./Routes/cartRoutes');
 const orderRoutes = require('./Routes/orderRoutes');
 const callCenterRoutes = require('./Routes/callCenterRoutes');
 const couponRoutes = require("./Routes/couponRoutes");
-const orderMessageRoutes = require("./Routes/OrderMessageRoutes");
-const notificationRoutes = require("./Routes/NotificationRoutes");
+const supportRoutes = require("./Routes/supportRoutes");
 
 app.use((req, res, next) => {
     console.log(`Method: ${req.method} | URL: ${req.url}`);
     next();
 });
 
-app.get('/', (req, res) => res.redirect('/login'));
+app.get(["/", "/welcome"], (req, res) => {
+    res.render("welcome");
+});
 
 app.use('/admin', adminRoutes);
 app.use('/', authRoutes);
@@ -71,8 +72,7 @@ app.use('/', orderRoutes);
 app.use('/cart', cartRoutes);
 app.use('/call-center', callCenterRoutes);
 app.use("/admin/coupons", couponRoutes);
-app.use("/api", orderMessageRoutes);
-app.use("/", notificationRoutes);
+app.use("/", supportRoutes);
 
 
 // Multer / request errors should not expose stack traces to users.

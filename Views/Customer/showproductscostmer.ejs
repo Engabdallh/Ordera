@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>منتجات ordera</title>
+    <title>منتجات 911</title>
 
     <link rel="stylesheet" href="/css/customer/products.css">
 
@@ -23,7 +23,7 @@
 
             <div>
 
-                <h1>ordera</h1>
+                <h1>911</h1>
 
                 <h2>
                     أهلاً بك، <%= userName %> 👋
@@ -38,22 +38,62 @@
 
             <div class="header-buttons">
 
-                <a href="/orders" class="orders-btn">
-                    📋 سجل طلباتي
-                </a>
+                <% if (isGuest) { %>
 
-                <a href="/notifications" class="notifications-btn">
-                    🔔 الإشعارات
-                    <span id="notificationsUnreadCount">0</span>
-                </a>
+                    <div class="orders-wrapper">
 
-                <a href="/cart" class="cart-btn">
-                    🛒 السلة
-                </a>
+                        <button type="button" class="orders-btn orders-disabled" disabled>
+                            📋 سجل طلباتي
+                        </button>
 
-                <a href="/logout" class="logout-btn">
-                    تسجيل الخروج
-                </a>
+                        <div class="orders-disabled-note">
+                            🔒 سجل الطلبات متاح بعد تسجيل الدخول
+                        </div>
+
+                    </div>
+
+                    <% } else { %>
+
+                        <a href="/orders" class="orders-btn">
+                            📋 سجل طلباتي
+                        </a>
+
+                        <% } %>
+
+
+                            <% if (isGuest) { %>
+
+                                <div class="support-wrapper">
+
+                                    <button type="button" class="support-btn support-disabled" disabled>
+                                        💬 تواصل معنا
+                                    </button>
+
+                                    <div class="support-disabled-note">
+                                        🔒 التواصل مع الكول سنتر متاح بعد تسجيل الدخول
+                                    </div>
+
+                                </div>
+
+                                <% } else { %>
+
+                                    <a href="/support" class="support-btn">
+                                        💬 تواصل معنا
+                                    </a>
+
+                                    <% } %>
+
+                                        <a href="/faq" class="faq-btn">
+                                            ❓ المساعدة
+                                        </a>
+
+                                        <a href="/cart" class="cart-btn">
+                                            🛒 السلة
+                                        </a>
+
+                                        <a href="/logout" class="logout-btn">
+                                            تسجيل الخروج
+                                        </a>
 
             </div>
 
@@ -384,7 +424,9 @@
 
                 </script>
 
-                <script src="/js/customer/notifications.js"></script>
+                <% if (!isGuest) { %>
+                    <script src="/js/customer/notifications.js"></script>
+                    <% } %>
 
 </body>
 

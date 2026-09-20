@@ -4,9 +4,14 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>إنشاء حساب - ordera</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <meta name="theme-color" content="#090909">
+
+    <title>
+        إنشاء حساب - 911
+    </title>
 
     <link rel="stylesheet" href="/css/register.css">
 
@@ -14,32 +19,77 @@
 
 <body>
 
-    <div class="register-container">
+    <main class="register-page">
 
-        <div class="register-box">
+        <section class="register-card">
 
-            <div class="logo">
-                ordera
+            <!-- =================================
+                 BRAND
+            ================================== -->
+
+            <div class="brand-area">
+
+                <div class="logo">
+                    سلسلة مطاعم
+                </div>
+
+                <div class="brand-name">
+                    911
+                </div>
+
             </div>
 
-            <h1>إنشاء حساب</h1>
 
-            <p class="subtitle">
-                أنشئ حسابك في ordera
-            </p>
+            <!-- =================================
+                 TITLE
+            ================================== -->
 
+            <div class="title-area">
+
+                <span class="register-badge">
+                    ✨ انضم إلينا
+                </span>
+
+                <h1>
+                    إنشاء حساب
+                </h1>
+
+                <p>
+                    أنشئ حسابك واستمتع بتجربة 911
+                </p>
+
+            </div>
+
+
+            <!-- =================================
+                 ERROR
+            ================================== -->
 
             <% if (typeof error !=="undefined" && error) { %>
 
                 <div class="error-message">
-                    <%= error %>
+
+                    <span class="message-icon">
+                        !
+                    </span>
+
+                    <span>
+                        <%= error %>
+                    </span>
+
                 </div>
 
                 <% } %>
 
 
-                    <form action="/registration" method="POST">
+                    <!-- =================================
+                 REGISTER FORM
+            ================================== -->
 
+                    <form action="/registration" method="POST" class="register-form">
+
+
+                        <!-- NAME -->
 
                         <div class="input-group">
 
@@ -47,10 +97,21 @@
                                 الاسم
                             </label>
 
-                            <input type="text" id="name" name="name" placeholder="أدخل اسمك" required>
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    👤
+                                </span>
+
+                                <input type="text" id="name" name="name" placeholder="أدخل اسمك" autocomplete="name"
+                                    required>
+
+                            </div>
 
                         </div>
 
+
+                        <!-- PHONE -->
 
                         <div class="input-group">
 
@@ -58,10 +119,21 @@
                                 رقم الهاتف
                             </label>
 
-                            <input type="tel" id="phone" name="phone" placeholder="أدخل رقم الهاتف" required>
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    📱
+                                </span>
+
+                                <input type="tel" id="phone" name="phone" placeholder="أدخل رقم الهاتف"
+                                    autocomplete="tel" inputmode="tel" required>
+
+                            </div>
 
                         </div>
 
+
+                        <!-- ADDRESS -->
 
                         <div class="input-group">
 
@@ -69,10 +141,21 @@
                                 العنوان
                             </label>
 
-                            <input type="text" id="address" name="address" placeholder="أدخل عنوانك" required>
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    📍
+                                </span>
+
+                                <input type="text" id="address" name="address" placeholder="أدخل عنوانك"
+                                    autocomplete="street-address" required>
+
+                            </div>
 
                         </div>
 
+
+                        <!-- EMAIL -->
 
                         <div class="input-group">
 
@@ -80,10 +163,21 @@
                                 البريد الإلكتروني
                             </label>
 
-                            <input type="email" id="email" name="email" placeholder="أدخل البريد الإلكتروني" required>
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    ✉️
+                                </span>
+
+                                <input type="email" id="email" name="email" placeholder="أدخل البريد الإلكتروني"
+                                    autocomplete="email" required>
+
+                            </div>
 
                         </div>
 
+
+                        <!-- PASSWORD -->
 
                         <div class="input-group">
 
@@ -92,25 +186,73 @@
                             </label>
 
                             <div class="password-input">
-                                <input type="password" id="password" name="password" placeholder="أدخل كلمة السر"
-                                    required>
 
-                                <button type="button" class="toggle-password"
-                                    onclick="togglePassword('password', this)">
+                                <span class="input-icon">
+                                    🔒
+                                </span>
+
+                                <input type="password" id="password" name="password" placeholder="أنشئ كلمة سر"
+                                    autocomplete="new-password" required>
+
+                                <button type="button" class="toggle-password" onclick="togglePassword('password', this)"
+                                    aria-label="إظهار كلمة السر">
                                     👁
                                 </button>
+
                             </div>
+
+                        </div>
+
+                        <!-- CONFIRM PASSWORD -->
+
+                        <div class="input-group">
+
+                            <label for="confirmPassword">
+                                تأكيد كلمة السر
+                            </label>
+
+                            <div class="password-input">
+
+                                <span class="input-icon">
+                                    🔐
+                                </span>
+
+                                <input type="password" id="confirmPassword" name="confirmPassword"
+                                    placeholder="أعد كتابة كلمة السر" autocomplete="new-password" required>
+
+                                <button type="button" class="toggle-password"
+                                    onclick="togglePassword('confirmPassword', this)"
+                                    aria-label="إظهار تأكيد كلمة السر">
+                                    👁
+                                </button>
+
+                            </div>
+
                         </div>
 
 
+                        <!-- SUBMIT -->
+
                         <button type="submit" class="register-btn">
-                            إنشاء الحساب
+
+                            <span>
+                                إنشاء الحساب
+                            </span>
+
+                            <span>
+                                ←
+                            </span>
+
                         </button>
 
                     </form>
 
 
-                    <div class="login-link">
+                    <!-- =================================
+                 LOGIN
+            ================================== -->
+
+                    <div class="login-area">
 
                         <p>
                             لديك حساب بالفعل؟
@@ -122,9 +264,62 @@
 
                     </div>
 
-        </div>
 
-    </div>
+                    <!-- =================================
+                 DIVIDER
+            ================================== -->
+
+                    <div class="divider">
+
+                        <span>
+                            أو
+                        </span>
+
+                    </div>
+
+
+                    <!-- =================================
+                 GUEST
+            ================================== -->
+
+                    <a href="/guest" class="guest-link">
+                        🚀 المتابعة كزائر
+                    </a>
+
+
+                    <!-- =================================
+                 HELP
+            ================================== -->
+
+                    <a href="/register-help" class="help-link">
+                        ❓ كيف أنشئ حساب؟
+                    </a>
+
+
+                    <!-- =================================
+                 FOOTER
+            ================================== -->
+
+                    <div class="register-footer">
+
+                        <span>
+                            911 Restaurant
+                        </span>
+
+                        <span class="footer-dot">
+                            •
+                        </span>
+
+                        <span>
+                            أهلاً بك معنا
+                        </span>
+
+                    </div>
+
+        </section>
+
+    </main>
+
 
     <script src="/js/register.js" defer></script>
 

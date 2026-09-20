@@ -52,57 +52,170 @@ const login = async (req, res) => {
 
 const register = async (req, res) => {
   try {
-    const name = String(req.body.name || "").trim();
-    const phone = String(req.body.phone || "").trim();
-    const address = String(req.body.address || "").trim();
-    const email = String(req.body.email || "")
+    const name = String(
+      req.body.name || "",
+    ).trim();
+
+    const phone = String(
+      req.body.phone || "",
+    ).trim();
+
+    const address = String(
+      req.body.address || "",
+    ).trim();
+
+    const email = String(
+      req.body.email || "",
+    )
       .trim()
       .toLowerCase();
-    const password = String(req.body.password || "");
 
-    if (!name || !phone || !address || !email || !password) {
-      return res.status(400).render("register", {
-        error: "جميع الحقول مطلوبة",
-      });
+    const password = String(
+      req.body.password || "",
+    );
+
+    const confirmPassword = String(
+      req.body.confirmPassword || "",
+    );
+
+    // =========================================
+    // REQUIRED FIELDS
+    // =========================================
+
+    if (
+      !name ||
+      !phone ||
+      !address ||
+      !email ||
+      !password ||
+      !confirmPassword
+    ) {
+      return res.status(400).render(
+        "register",
+        {
+          error: "جميع الحقول مطلوبة",
+        },
+      );
     }
+
+    // =========================================
+    // PASSWORD LENGTH
+    // =========================================
 
     if (password.length < 8) {
-      return res.status(400).render("register", {
-        error: "كلمة السر يجب أن تكون 8 أحرف على الأقل",
-      });
+      return res.status(400).render(
+        "register",
+        {
+          error:
+            "كلمة السر يجب أن تكون 8 أحرف على الأقل",
+        },
+      );
     }
 
-    if (!/^\S+@\S+\.\S+$/.test(email)) {
-      return res.status(400).render("register", {
-        error: "البريد الإلكتروني غير صحيح",
-      });
+    // =========================================
+    // PASSWORD CONFIRMATION
+    // =========================================
+
+    if (
+      password !==
+      confirmPassword
+    ) {
+      return res.status(400).render(
+        "register",
+        {
+          error:
+            "كلمتا السر غير متطابقتين",
+        },
+      );
     }
 
-    const existingCustomer = await authService.findCustomerByEmail(email);
+    // =========================================
+    // EMAIL VALIDATION
+    // =========================================
+
+    if (
+      !/^\S+@\S+\.\S+$/.test(
+        email,
+      )
+    ) {
+      return res.status(400).render(
+        "register",
+        {
+          error:
+            "البريد الإلكتروني غير صحيح",
+        },
+      );
+    }
+
+    // =========================================
+    // CHECK EXISTING EMAIL
+    // =========================================
+
+    const existingCustomer =
+      await authService.findCustomerByEmail(
+        email,
+      );
 
     if (existingCustomer) {
-      return res.status(409).render("register", {
-        error: "البريد الإلكتروني مستخدم مسبقًا",
-      });
+      return res.status(409).render(
+        "register",
+        {
+          error:
+            "البريد الإلكتروني مستخدم مسبقًا",
+        },
+      );
     }
 
-    await authService.createCustomer(name, phone, address, email, password);
+    // =========================================
+    // CREATE CUSTOMER
+    // =========================================
 
-    res.render("login", {
-      message: "تم إنشاء الحساب بنجاح، يمكنك الآن تسجيل الدخول",
-      error: null,
-    });
+    await authService.createCustomer(
+      name,
+      phone,
+      address,
+      email,
+      password,
+    );
+
+    // =========================================
+    // SUCCESS
+    // =========================================
+
+    return res.render(
+      "login",
+      {
+        message:
+          "تم إنشاء الحساب بنجاح، يمكنك الآن تسجيل الدخول",
+        error: null,
+      },
+    );
+
   } catch (error) {
-    console.error("REGISTER ERROR:", error);
+    console.error(
+      "REGISTER ERROR:",
+      error,
+    );
 
-    // MySQL duplicate-key protection if email has a UNIQUE index.
-    if (error.code === "ER_DUP_ENTRY") {
-      return res.status(409).render("register", {
-        error: "البريد الإلكتروني مستخدم مسبقًا",
-      });
+    // MySQL duplicate-key protection
+    if (
+      error.code ===
+      "ER_DUP_ENTRY"
+    ) {
+      return res.status(409).render(
+        "register",
+        {
+          error:
+            "البريد الإلكتروني مستخدم مسبقًا",
+        },
+      );
     }
 
-    res.status(500).send("حدث خطأ أثناء إنشاء الحساب");
+    return res
+      .status(500)
+      .send(
+        "حدث خطأ أثناء إنشاء الحساب",
+      );
   }
 };
 
@@ -110,11 +223,14 @@ const logout = (req, res) => {
   req.session.destroy((err) => {
     if (err) {
       console.error("LOGOUT ERROR:", err);
-      return res.status(500).send("حدث خطأ أثناء تسجيل الخروج");
+      return res
+        .status(500)
+        .send("حدث خطأ أثناء تسجيل الخروج");
     }
 
     res.clearCookie("connect.sid");
-    res.redirect("/login");
+
+    res.redirect("/");
   });
 };
 

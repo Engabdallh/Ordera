@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>طلبات الكول سنتر - ordera</title>
+    <title>طلبات الكول سنتر - 911</title>
 
     <link rel="stylesheet" href="/css/callcenter/orders.css">
 </head>
@@ -22,7 +22,7 @@
 
             <div>
 
-                <h1>ordera</h1>
+                <h1>911</h1>
 
                 <h2>
                     لوحة الكول سنتر 📞
@@ -36,9 +36,9 @@
 
             <div class="header-actions">
 
-                <a href="/notifications" class="notifications-btn">
-                    🔔 الإشعارات
-                    <span id="notificationsUnreadCount">0</span>
+                <a href="/call-center/support" class="support-btn">
+                    💬 دعم العملاء
+                    <span id="supportWaitingCount">0</span>
                 </a>
 
                 <div class="new-orders-counter">
@@ -169,6 +169,46 @@
                 </div>
 
             </form>
+
+        </div>
+
+        <!-- =========================================
+     البحث عن طلب بواسطة رمز التتبع
+========================================== -->
+
+        <div class="tracking-search-section">
+
+            <div class="tracking-search-header">
+                <div>
+                    <h3>🔐 متابعة طلب برمز الطلب</h3>
+                    <p>
+                        أدخل رمز الطلب الذي أعطاك إياه الزبون للوصول إلى طلبه.
+                    </p>
+                </div>
+            </div>
+
+            <form action="/call-center/tracking" method="GET" class="tracking-search-form">
+
+                <div class="tracking-input-group">
+
+                    <label for="guestTrackingToken">
+                        رمز الطلب
+                    </label>
+
+                    <input type="text" id="guestTrackingToken" name="guestTrackingToken" placeholder="مثال: 482731"
+                        maxlength="20" inputmode="numeric" autocomplete="off" required>
+
+                </div>
+
+                <button type="submit" class="tracking-search-btn">
+                    🔎 البحث عن الطلب
+                </button>
+
+            </form>
+
+            <div class="tracking-search-note">
+                💡 الزبون يعطيك رمز الطلب الموجود في صفحة تأكيد الطلب.
+            </div>
 
         </div>
 
@@ -598,9 +638,8 @@
 
     </script>
 
-    <script src="/js/callcenter/notifications.js"></script>
-
     <script src="/js/callcenter/new-orders.js"></script>
+    <script src="/js/callcenter/support-counter.js"></script>
 
 </body>
 

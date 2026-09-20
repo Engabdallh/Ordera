@@ -5,15 +5,12 @@ class OrderService {
   // طلبات العميل لليوم
   // =====================================================
 
-  // =====================================================
-// طلبات العميل لليوم
-// =====================================================
-
-async getCustomerOrders(customerId) {
-  const [orders] = await db.query(
-    `SELECT
+  async getCustomerOrders(customerId) {
+    const [orders] = await db.query(
+      `SELECT
           id,
           customer_id,
+          guest_name,
           daily_order_number,
           total_price,
           status,
@@ -24,15 +21,15 @@ async getCustomerOrders(customerId) {
           preparation_completed_at,
           delivery_phone,
           delivery_address
-     FROM orders
-     WHERE customer_id = ?
-       AND created_at >= NOW() - INTERVAL 24 HOUR
-     ORDER BY created_at DESC`,
-    [customerId],
-  );
+       FROM orders
+       WHERE customer_id = ?
+         AND created_at >= NOW() - INTERVAL 24 HOUR
+       ORDER BY created_at DESC`,
+      [customerId],
+    );
 
-  return orders;
-}
+    return orders;
+  }
 
   // =====================================================
   // منتجات طلب معين
@@ -41,21 +38,25 @@ async getCustomerOrders(customerId) {
   async getOrderItems(orderId) {
     const [items] = await db.query(
       `SELECT
-                oi.id,
-                oi.product_id,
-                oi.quantity,
-                oi.price,
-                p.name,
-                p.image
-             FROM order_items oi
-             JOIN products p
-                ON oi.product_id = p.id
-             WHERE oi.order_id = ?`,
+          oi.id,
+          oi.product_id,
+          oi.quantity,
+          oi.price,
+          p.name,
+          p.image
+       FROM order_items oi
+       JOIN products p
+          ON oi.product_id = p.id
+       WHERE oi.order_id = ?`,
       [orderId],
     );
 
     return items;
   }
+
+  // =====================================================
+  // إحصائيات لوحة التحكم
+  // =====================================================
 
   async getDashboardStats() {
     const [stats] = await db.query(
@@ -82,22 +83,24 @@ async getCustomerOrders(customerId) {
   async getLatestOrders() {
     const [orders] = await db.query(
       `SELECT
-            o.id,
-             o.daily_order_number,
-            o.total_price,
-            o.status,
-            o.order_type,
-            o.created_at,
-            c.name AS customer_name
+          o.id,
+          o.daily_order_number,
+          o.total_price,
+          o.status,
+          o.order_type,
+          o.created_at,
+          o.customer_id,
+          o.guest_name,
+          COALESCE(c.name, o.guest_name) AS customer_name
 
-         FROM orders o
+       FROM orders o
 
-         JOIN customers c
-            ON o.customer_id = c.id
+       LEFT JOIN customers c
+          ON o.customer_id = c.id
 
-         ORDER BY o.created_at DESC
+       ORDER BY o.created_at DESC
 
-         LIMIT 10`,
+       LIMIT 10`,
     );
 
     return orders;
@@ -113,6 +116,7 @@ async getCustomerOrders(customerId) {
           o.id,
           o.daily_order_number,
           o.customer_id,
+          o.guest_name,
           o.agent_id,
 
           o.subtotal,
@@ -129,12 +133,12 @@ async getCustomerOrders(customerId) {
           o.delivery_phone,
           o.delivery_address,
 
-          c.name AS customer_name,
+          COALESCE(c.name, o.guest_name) AS customer_name,
           c.email AS customer_email
 
        FROM orders o
 
-       JOIN customers c
+       LEFT JOIN customers c
           ON o.customer_id = c.id
 
        WHERE o.id = ?`,
@@ -144,25 +148,34 @@ async getCustomerOrders(customerId) {
     return orders[0] || null;
   }
 
+  // =====================================================
+  // فلترة الطلبات
+  // =====================================================
+
   async filterOrders(filters = {}) {
     let sql = `
-        SELECT
-            o.id,
-             o.daily_order_number,
-            o.total_price,
-            o.status,
-            o.order_type,
-            o.created_at,
-            c.name AS customer_name
-        FROM orders o
-        JOIN customers c
-            ON o.customer_id = c.id
-        WHERE 1 = 1
+      SELECT
+          o.id,
+          o.daily_order_number,
+          o.total_price,
+          o.status,
+          o.order_type,
+          o.created_at,
+          o.customer_id,
+          o.guest_name,
+          COALESCE(c.name, o.guest_name) AS customer_name
+
+      FROM orders o
+
+      LEFT JOIN customers c
+          ON o.customer_id = c.id
+
+      WHERE 1 = 1
     `;
 
     const params = [];
 
-        // =========================
+    // =========================
     // الدورة
     // =========================
 
@@ -199,14 +212,14 @@ async getCustomerOrders(customerId) {
 
     if (filters.month) {
       sql += `
-            AND DATE_FORMAT(o.created_at, '%Y-%m') = ?
-        `;
+        AND DATE_FORMAT(o.created_at, '%Y-%m') = ?
+      `;
 
       params.push(filters.month);
     } else if (filters.date) {
       sql += `
-            AND DATE(o.created_at) = ?
-        `;
+        AND DATE(o.created_at) = ?
+      `;
 
       params.push(filters.date);
     }
@@ -217,8 +230,8 @@ async getCustomerOrders(customerId) {
 
     if (filters.fromTime) {
       sql += `
-            AND TIME(o.created_at) >= ?
-        `;
+        AND TIME(o.created_at) >= ?
+      `;
 
       params.push(filters.fromTime);
     }
@@ -229,8 +242,8 @@ async getCustomerOrders(customerId) {
 
     if (filters.toTime) {
       sql += `
-            AND TIME(o.created_at) <= ?
-        `;
+        AND TIME(o.created_at) <= ?
+      `;
 
       params.push(filters.toTime);
     }
@@ -240,7 +253,7 @@ async getCustomerOrders(customerId) {
     // =========================
 
     sql += `
-        ORDER BY o.created_at DESC
+      ORDER BY o.created_at DESC
     `;
 
     const [orders] = await db.query(sql, params);
@@ -263,7 +276,7 @@ async getCustomerOrders(customerId) {
     };
   }
 
-    // =====================================================
+  // =====================================================
   // طلبات دورة معينة
   // =====================================================
 
@@ -276,14 +289,21 @@ async getCustomerOrders(customerId) {
           o.status,
           o.order_type,
           o.created_at,
-          c.name AS customer_name
+          o.customer_id,
+          o.guest_name,
+          COALESCE(c.name, o.guest_name) AS customer_name
+
        FROM orders o
-       JOIN customers c
+
+       LEFT JOIN customers c
           ON o.customer_id = c.id
+
        JOIN restaurant_cycles rc
           ON o.created_at >= rc.started_at
          AND o.created_at <= COALESCE(rc.ended_at, NOW())
+
        WHERE rc.id = ?
+
        ORDER BY o.created_at DESC`,
       [cycleId],
     );
@@ -302,7 +322,7 @@ async getCustomerOrders(customerId) {
     };
   }
 
-    // =====================================================
+  // =====================================================
   // حذف طلب
   // =====================================================
 

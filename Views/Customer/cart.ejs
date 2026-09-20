@@ -7,7 +7,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>السلة - ordera</title>
+    <title>السلة - 911</title>
 
     <link rel="stylesheet" href="/css/customer/cart.css">
 
@@ -23,7 +23,7 @@
 
             <div>
 
-                <h1>ordera</h1>
+                <h1>911</h1>
 
                 <h2>
                     سلة الطلب 🛒
@@ -167,27 +167,45 @@
 
                     <h3>🎟️ هل لديك كوبون خصم؟</h3>
 
-                    <form action="/cart/apply-coupon" method="POST" class="coupon-form">
+                    <% if (isGuest) { %>
 
-                        <input type="text" name="code" placeholder="أدخل كود الخصم" maxlength="50" required>
+                        <div class="coupon-disabled">
+                            🔒 الكوبونات متاحة فقط للمستخدمين المسجلين.
+                            <br>
+                            <span>
+                                سجّل حسابًا للاستفادة من العروض والكوبونات.
+                            </span>
+                        </div>
 
-                        <button type="submit">
-                            تطبيق
-                        </button>
+                        <% } else { %>
 
-                    </form>
+                            <form action="/cart/apply-coupon" method="POST" class="coupon-form">
 
-                    <% if (couponError) { %>
-                        <p class="coupon-error">
-                            <%= couponError %>
-                        </p>
-                        <% } %>
+                                <input type="text" name="code" placeholder="أدخل كود الخصم" maxlength="50" required>
 
-                            <% if (couponSuccess) { %>
-                                <p class="coupon-success">
-                                    <%= couponSuccess %>
+                                <button type="submit">
+                                    تطبيق
+                                </button>
+
+                            </form>
+
+                            <% if (couponError) { %>
+
+                                <p class="coupon-error">
+                                    <%= couponError %>
                                 </p>
+
                                 <% } %>
+
+                                    <% if (couponSuccess) { %>
+
+                                        <p class="coupon-success">
+                                            <%= couponSuccess %>
+                                        </p>
+
+                                        <% } %>
+
+                                            <% } %>
 
                 </div>
 
@@ -304,47 +322,61 @@
             <form action="/cart/checkout" method="POST" class="checkout-form">
 
 
-                <!-- رقم الهاتف -->
+                <% if (isGuest) { %>
 
-                <div class="form-group">
+                    <div class="form-group">
 
-                    <label for="phone">
-                        رقم الهاتف
-                    </label>
+                        <label for="guestName">
+                            الاسم
+                        </label>
 
-                    <input type="tel" id="phone" name="phone" placeholder="مثال: 0791234567" required>
+                        <input type="text" id="guestName" name="guestName" placeholder="اكتب اسمك" maxlength="100"
+                            required>
 
-                </div>
+                    </div>
 
+                    <% } %>
+                        <!-- رقم الهاتف -->
 
-                <!-- العنوان -->
+                        <div class="form-group">
 
-                <div class="form-group">
+                            <label for="phone">
+                                رقم الهاتف
+                            </label>
 
-                    <label for="address">
-                        عنوان التوصيل
-                    </label>
+                            <input type="tel" id="phone" name="phone" placeholder="مثال: 0791234567" required>
 
-                    <textarea id="address" name="address" placeholder="اكتب عنوان التوصيل بالتفصيل..." rows="3"
-                        required></textarea>
-
-                </div>
-
-
-                <!-- أزرار -->
-
-                <div class="modal-buttons">
-
-                    <button type="button" class="cancel-btn" onclick="closeOrderModal()">
-                        إلغاء
-                    </button>
+                        </div>
 
 
-                    <button type="submit" class="confirm-btn">
-                        نعم، تأكيد الطلب
-                    </button>
+                        <!-- العنوان -->
 
-                </div>
+                        <div class="form-group">
+
+                            <label for="address">
+                                عنوان التوصيل
+                            </label>
+
+                            <textarea id="address" name="address" placeholder="اكتب عنوان التوصيل بالتفصيل..." rows="3"
+                                required></textarea>
+
+                        </div>
+
+
+                        <!-- أزرار -->
+
+                        <div class="modal-buttons">
+
+                            <button type="button" class="cancel-btn" onclick="closeOrderModal()">
+                                إلغاء
+                            </button>
+
+
+                            <button type="submit" class="confirm-btn">
+                                نعم، تأكيد الطلب
+                            </button>
+
+                        </div>
 
             </form>
 

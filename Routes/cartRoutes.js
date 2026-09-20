@@ -4,7 +4,9 @@ const router = express.Router();
 
 const { requireRole } = require("../Middleware/auth");
 
-router.use(requireRole("customer"));
+const { requireCustomerOrGuest } = require("../Middleware/auth");
+
+router.use(requireCustomerOrGuest);
 
 const cartController = require("../Controllers/CartController");
 

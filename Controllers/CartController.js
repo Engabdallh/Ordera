@@ -12,9 +12,17 @@ const couponService = new CouponService();
 // التحقق أن المستخدم Customer
 // =====================================================
 
+// =====================================================
+// التحقق من أن المستخدم Customer أو Guest
+// =====================================================
+
 const checkCustomer = (req, res) => {
-  if (!req.session.userId || req.session.role !== "customer") {
-    res.redirect("/login");
+  const isCustomer = req.session?.userId && req.session?.role === "customer";
+
+  const isGuest = req.session?.isGuest === true;
+
+  if (!isCustomer && !isGuest) {
+    res.redirect("/");
     return false;
   }
 
@@ -123,7 +131,10 @@ const showCart = (req, res) => {
 
     res.render("Customer/cart", {
       cart: cart,
-      userName: req.session.userName,
+
+      userName: req.session.isGuest ? "زائر" : req.session.userName,
+
+      isGuest: req.session.isGuest === true,
 
       coupon: req.session.coupon || null,
 
@@ -378,6 +389,14 @@ const checkout = async (req, res) => {
     }
 
     // ==============================
+    // تحديد نوع المستخدم
+    // ==============================
+
+    const isCustomer = req.session?.userId && req.session?.role === "customer";
+
+    const isGuest = req.session?.isGuest === true;
+
+    // ==============================
     // التحقق من حالة المطعم
     // ==============================
 
@@ -387,11 +406,25 @@ const checkout = async (req, res) => {
       return res.redirect("/products?reason=restaurant_closed");
     }
 
+    // ==============================
+    // بيانات الطلب
+    // ==============================
+
+    const guestName = String(req.body.guestName || "").trim();
+
     const phone = String(req.body.phone || "").trim();
 
     const address = String(req.body.address || "").trim();
 
     const cart = req.session.cart || [];
+
+    // ==============================
+    // التحقق من البيانات
+    // ==============================
+
+    if (isGuest && !guestName) {
+      return res.status(400).send("اسم الزائر مطلوب");
+    }
 
     if (!phone || !address) {
       return res.status(400).send("رقم الهاتف والعنوان مطلوبان");
@@ -414,7 +447,9 @@ const checkout = async (req, res) => {
 
       if (!product.is_available) {
         return res.redirect(
-          `/products?reason=product_unavailable&product=${encodeURIComponent(product.name)}`,
+          `/products?reason=product_unavailable&product=${encodeURIComponent(
+            product.name,
+          )}`,
         );
       }
     }
@@ -424,7 +459,9 @@ const checkout = async (req, res) => {
     // ==============================
 
     const order = await checkoutService.createOrder({
-      customerId: req.session.userId,
+      customerId: isCustomer ? req.session.userId : null,
+
+      guestName: isGuest ? guestName : null,
 
       phone,
 
@@ -432,27 +469,40 @@ const checkout = async (req, res) => {
 
       cart,
 
-      couponCode: req.session.coupon?.couponCode || null,
+      // الزائر لا يستخدم كوبونات
+      couponCode: isCustomer ? req.session.coupon?.couponCode || null : null,
     });
 
+    // ==============================
+    // تنظيف السلة والجلسة
+    // ==============================
+
     req.session.cart = [];
+
     delete req.session.coupon;
 
+    // ==============================
+    // صفحة نجاح الطلب
+    // ==============================
+
     return res.render("Customer/ordersuccess", {
-  orderId: order.orderId,
+      orderId: order.orderId,
 
-  dailyOrderNumber: order.dailyOrderNumber,
+      dailyOrderNumber: order.dailyOrderNumber,
 
-  totalPrice: Number(order.totalPrice).toFixed(2),
+      totalPrice: Number(order.totalPrice).toFixed(2),
 
-  phone,
+      phone,
 
-  address,
-});
+      address,
+
+      guestName: isGuest ? guestName : null,
+      guestTrackingToken: order.guestTrackingToken,
+    });
   } catch (error) {
     console.error("CHECKOUT ERROR:", error);
 
-    return res.status(500).send("حدث خطأ أثناء تأكيد الطلب");
+    return res.status(500).send(error.message || "حدث خطأ أثناء تأكيد الطلب");
   }
 };
 

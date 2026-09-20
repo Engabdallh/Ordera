@@ -2,246 +2,474 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>لوحة تحكم الأدمن - ordera</title>
+    <title>لوحة تحكم 911 | Admin</title>
 
-    <link rel="stylesheet" href="/css/admin/admin.css">
-
+    <link
+        rel="stylesheet"
+        href="/css/admin/admin.css"
+    >
 </head>
 
 <body>
 
     <div class="dashboard">
 
-        <!-- ================= HEADER ================= -->
+        <!-- =========================================
+             SIDEBAR
+        ========================================== -->
 
-        <header class="header">
+        <aside class="sidebar">
 
-            <div>
+            <div class="sidebar-brand">
 
-                <h1>ordera</h1>
+                 <strong>
+                        سلسلة مطاعم
+                    </strong>
 
-                <p>
-                    لوحة تحكم الأدمن
-                </p>
-
-            </div>
-
-
-            <div class="header-actions">
-
-                <a href="/logout" class="logout-btn">
-                    تسجيل الخروج
-                </a>
-
-                <div class="logo">
-                    ordera
+                <div>
+                   
+                    <div class="brand-logo">
+                    911
+                </div>
+                    <span>
+                        Admin Dashboard
+                    </span>
                 </div>
 
             </div>
 
-        </header>
+
+            <nav class="sidebar-nav">
+
+                <div class="nav-title">
+                    الرئيسية
+                </div>
+
+                <a
+                    href="/admin"
+                    class="nav-item active"
+                >
+                    <span class="nav-icon">
+                        🏠
+                    </span>
+
+                    <span>
+                        لوحة التحكم
+                    </span>
+                </a>
 
 
-        <!-- ================= CONTENT ================= -->
+                <div class="nav-title">
+                    إدارة المطعم
+                </div>
 
-        <main class="content">
-
-            <h2>
-                مرحباً بك 👋
-            </h2>
-
-            <p class="description">
-               نظرة سريعة على أداء المطعم خلال آخر 24 ساعة.
-            </p>
-
-
-            <!-- ================= STATS ================= -->
-
-            <div class="stats-grid">
-
-
-
-                <!-- إجمالي الطلبات -->
-
-                <div class="stat-card">
-
-                    <div class="stat-icon">
+                <a
+                    href="/admin/orders"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">
                         📦
-                    </div>
+                    </span>
+
+                    <span>
+                        الطلبات
+                    </span>
+                </a>
+
+
+                <a
+                    href="/admin/products"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">
+                        🍔
+                    </span>
+
+                    <span>
+                        المنتجات
+                    </span>
+                </a>
+
+
+                <a
+                    href="/admin/coupons"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">
+                        🎟️
+                    </span>
+
+                    <span>
+                        الكوبونات
+                    </span>
+                </a>
+
+
+                <div class="nav-title">
+                    الموظفون والدعم
+                </div>
+
+                <a
+                    href="/admin/call-center-agents"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">
+                        👨‍💼
+                    </span>
+
+                    <span>
+                        موظفو الكول سنتر
+                    </span>
+                </a>
+
+
+                <a
+                    href="/admin/support/ratings"
+                    class="nav-item"
+                >
+                    <span class="nav-icon">
+                        ⭐
+                    </span>
+
+                    <span>
+                        تقييمات وأداء الموظفين
+                    </span>
+                </a>
+
+            </nav>
+
+
+            <div class="sidebar-bottom">
+
+                <a
+                    href="/logout"
+                    class="sidebar-logout"
+                >
+                    🚪 تسجيل الخروج
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================================
+             MAIN
+        ========================================== -->
+
+        <main class="main-content">
+
+            <!-- =====================================
+                 TOP HEADER
+            ====================================== -->
+
+            <header class="top-header">
+
+                <div>
+
+                    <span class="top-label">
+                        911 RESTAURANT
+                    </span>
+
+                    <h1>
+                        لوحة تحكم الأدمن
+                    </h1>
+
+                    <p>
+                        إدارة ومتابعة جميع عمليات المطعم
+                    </p>
+
+                </div>
+
+
+                <div class="top-brand">
+                    911
+                </div>
+
+            </header>
+
+
+            <!-- =====================================
+                 WELCOME
+            ====================================== -->
+
+            <section class="welcome-section">
+
+                <div>
+
+                    <h2>
+                        مرحباً بك في لوحة التحكم 👋
+                    </h2>
+
+                    <p>
+                        من هنا يمكنك متابعة الطلبات
+                        وإدارة المنتجات والكوبونات
+                        والموظفين ومراجعة أداء الدعم.
+                    </p>
+
+                </div>
+
+                <div class="live-indicator">
+
+                    <span class="live-dot"></span>
+
+                    النظام يعمل
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 STATISTICS
+            ====================================== -->
+
+            <section class="dashboard-section">
+
+                <div class="section-heading">
 
                     <div>
-
                         <span>
+                            نظرة سريعة
+                        </span>
+
+                        <h2>
+                            إحصائيات اليوم
+                        </h2>
+                    </div>
+
+                    <div class="section-note">
+                        آخر 24 ساعة
+                    </div>
+
+                </div>
+
+
+                <div class="stats-grid">
+
+
+                    <!-- Total Orders -->
+
+                    <div class="stat-card">
+
+                        <div class="stat-card-top">
+
+                            <div class="stat-icon orange">
+                                📦
+                            </div>
+
+                            <span class="stat-tag">
+                                الطلبات
+                            </span>
+
+                        </div>
+
+                        <span class="stat-label">
                             إجمالي الطلبات
                         </span>
 
-                        <strong>
+                        <strong class="stat-value">
                             <%= stats.total_orders || 0 %>
                         </strong>
 
                     </div>
 
-                </div>
 
+                    <!-- Sales -->
 
-                <!-- المبيعات -->
+                    <div class="stat-card sales-card">
 
-                <div class="stat-card">
+                        <div class="stat-card-top">
 
-                    <div class="stat-icon">
-                        💰
-                    </div>
+                            <div class="stat-icon green">
+                                💰
+                            </div>
 
-                    <div>
+                            <span class="stat-tag">
+                                مبيعات
+                            </span>
 
-                        <span>
+                        </div>
+
+                        <span class="stat-label">
                             مبيعات اليوم
                         </span>
 
-                        <strong>
-                            <%= Number(stats.total_sales || 0).toFixed(2) %> د.أ
+                        <strong class="stat-value">
+                            <%= Number(
+                                stats.total_sales || 0
+                            ).toFixed(2) %>
+                            <small>
+                                د.أ
+                            </small>
                         </strong>
 
                     </div>
 
-                </div>
 
+                    <!-- Pending -->
 
-                <!-- قيد الانتظار -->
+                    <div class="stat-card pending-card">
 
-                <div class="stat-card pending">
+                        <div class="stat-card-top">
 
-                    <div class="stat-icon">
-                        🟠
-                    </div>
+                            <div class="stat-icon yellow">
+                                🟠
+                            </div>
 
-                    <div>
+                            <span class="stat-tag">
+                                جديد
+                            </span>
 
-                        <span>
+                        </div>
+
+                        <span class="stat-label">
                             قيد الانتظار
                         </span>
 
-                        <strong>
+                        <strong class="stat-value">
                             <%= stats.pending_orders || 0 %>
                         </strong>
 
                     </div>
 
-                </div>
 
+                    <!-- Confirmed -->
 
-                <!-- تم التأكيد -->
+                    <div class="stat-card blue-card">
 
-                <div class="stat-card confirmed">
+                        <div class="stat-card-top">
 
-                    <div class="stat-icon">
-                        🔵
-                    </div>
+                            <div class="stat-icon blue">
+                                🔵
+                            </div>
 
-                    <div>
+                            <span class="stat-tag">
+                                مؤكد
+                            </span>
 
-                        <span>
+                        </div>
+
+                        <span class="stat-label">
                             تم التأكيد
                         </span>
 
-                        <strong>
+                        <strong class="stat-value">
                             <%= stats.confirmed_orders || 0 %>
                         </strong>
 
                     </div>
 
-                </div>
 
+                    <!-- Preparing -->
 
-                <!-- قيد التحضير -->
+                    <div class="stat-card purple-card">
 
-                <div class="stat-card preparing">
+                        <div class="stat-card-top">
 
-                    <div class="stat-icon">
-                        🟣
-                    </div>
+                            <div class="stat-icon purple">
+                                🟣
+                            </div>
 
-                    <div>
+                            <span class="stat-tag">
+                                مطبخ
+                            </span>
 
-                        <span>
+                        </div>
+
+                        <span class="stat-label">
                             قيد التحضير
                         </span>
 
-                        <strong>
+                        <strong class="stat-value">
                             <%= stats.preparing_orders || 0 %>
                         </strong>
 
                     </div>
 
-                </div>
 
+                    <!-- Ready -->
 
-                <!-- جاهز -->
+                    <div class="stat-card green-card">
 
-                <div class="stat-card ready">
+                        <div class="stat-card-top">
 
-                    <div class="stat-icon">
-                        🟢
-                    </div>
+                            <div class="stat-icon green-dark">
+                                🟢
+                            </div>
 
-                    <div>
+                            <span class="stat-tag">
+                                جاهز
+                            </span>
 
-                        <span>
+                        </div>
+
+                        <span class="stat-label">
                             جاهز
                         </span>
 
-                        <strong>
+                        <strong class="stat-value">
                             <%= stats.ready_orders || 0 %>
                         </strong>
 
                     </div>
 
-                </div>
 
+                    <!-- Delivered -->
 
-                <!-- تم التوصيل -->
+                    <div class="stat-card cyan-card">
 
-                <div class="stat-card delivered">
+                        <div class="stat-card-top">
 
-                    <div class="stat-icon">
-                        🚚
-                    </div>
+                            <div class="stat-icon cyan">
+                                🚚
+                            </div>
 
-                    <div>
+                            <span class="stat-tag">
+                                مكتمل
+                            </span>
 
-                        <span>
+                        </div>
+
+                        <span class="stat-label">
                             تم التوصيل
                         </span>
 
-                        <strong>
+                        <strong class="stat-value">
                             <%= stats.delivered_orders || 0 %>
                         </strong>
 
                     </div>
 
-                </div>
 
+                    <!-- Cancelled -->
 
-                <!-- ملغي -->
+                    <div class="stat-card red-card">
 
-                <div class="stat-card cancelled">
+                        <div class="stat-card-top">
 
-                    <div class="stat-icon">
-                        🔴
-                    </div>
+                            <div class="stat-icon red">
+                                🔴
+                            </div>
 
-                    <div>
+                            <span class="stat-tag">
+                                ملغي
+                            </span>
 
-                        <span>
-                            ملغي
+                        </div>
+
+                        <span class="stat-label">
+                            الطلبات الملغاة
                         </span>
 
-                        <strong>
+                        <strong class="stat-value">
                             <%= stats.cancelled_orders || 0 %>
                         </strong>
 
@@ -249,149 +477,341 @@
 
                 </div>
 
+            </section>
 
-            </div>
 
-            <!-- ================= RESTAURANT STATUS ================= -->
+            <!-- =====================================
+                 RESTAURANT STATUS
+            ====================================== -->
 
-            <h2 class="section-title">
-                حالة المطعم
-            </h2>
+            <section class="dashboard-section">
 
-            <div class="restaurant-status-card">
+                <div class="section-heading">
 
-                <% if (restaurant && restaurant.is_open) { %>
+                    <div>
 
-                    <div class="restaurant-status-content open">
+                        <span>
+                            حالة التشغيل
+                        </span>
 
-                        <div class="restaurant-status-icon">
-                            🟢
-                        </div>
-
-                        <div class="restaurant-status-info">
-                            <h3>
-                                المطعم شغال
-                            </h3>
-
-                            <p>
-                                المطعم مفتوح حالياً ويستقبل الطلبات.
-                            </p>
-                        </div>
-
-                        <form action="/admin/restaurant/toggle" method="POST">
-                            <button type="submit" class="restaurant-toggle-btn close-btn">
-                                إغلاق المطعم
-                            </button>
-                        </form>
+                        <h2>
+                            حالة المطعم
+                        </h2>
 
                     </div>
+
+                </div>
+
+
+                <div class="restaurant-status-card">
+
+                    <% if (restaurant && restaurant.is_open) { %>
+
+                        <div class="restaurant-status-content open">
+
+                            <div class="restaurant-status-main">
+
+                                <div class="restaurant-status-icon">
+                                    🟢
+                                </div>
+
+                                <div>
+
+                                    <span class="status-badge open">
+                                        مفتوح الآن
+                                    </span>
+
+                                    <h3>
+                                        المطعم شغال
+                                    </h3>
+
+                                    <p>
+                                        المطعم مفتوح حالياً ويستقبل الطلبات.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <form
+                                action="/admin/restaurant/toggle"
+                                method="POST"
+                            >
+
+                                <button
+                                    type="submit"
+                                    class="restaurant-toggle-btn close-btn"
+                                >
+                                    إغلاق المطعم
+                                </button>
+
+                            </form>
+
+                        </div>
 
                     <% } else { %>
 
                         <div class="restaurant-status-content closed">
 
-                            <div class="restaurant-status-icon">
-                                🔴
+                            <div class="restaurant-status-main">
+
+                                <div class="restaurant-status-icon">
+                                    🔴
+                                </div>
+
+                                <div>
+
+                                    <span class="status-badge closed">
+                                        مغلق الآن
+                                    </span>
+
+                                    <h3>
+                                        المطعم مغلق
+                                    </h3>
+
+                                    <p>
+                                        المطعم مغلق حالياً ولا يتم استقبال الطلبات.
+                                    </p>
+
+                                </div>
+
                             </div>
 
-                            <div class="restaurant-status-info">
-                                <h3>
-                                    المطعم مغلق
-                                </h3>
 
-                                <p>
-                                    انتهى دوام المطعم حالياً ولا يتم استقبال الطلبات.
-                                </p>
-                            </div>
+                            <form
+                                action="/admin/restaurant/toggle"
+                                method="POST"
+                            >
 
-                            <form action="/admin/restaurant/toggle" method="POST">
-                                <button type="submit" class="restaurant-toggle-btn open-btn">
+                                <button
+                                    type="submit"
+                                    class="restaurant-toggle-btn open-btn"
+                                >
                                     تشغيل المطعم
                                 </button>
+
                             </form>
 
                         </div>
 
-                        <% } %>
+                    <% } %>
 
-            </div>
+                </div>
 
-            <h2 class="section-title">
-                الإدارة السريعة
-            </h2>
+            </section>
 
 
-            <div class="cards">
+            <!-- =====================================
+                 QUICK MANAGEMENT
+            ====================================== -->
 
-                <a href="/admin/products" class="card">
-                    <div class="icon">🍔</div>
+            <section class="dashboard-section">
 
-                    <div>
-                        <h3>المنتجات</h3>
-
-                        <p>
-                            عرض وإضافة وتعديل وحذف المنتجات
-                        </p>
-                    </div>
-                </a>
-
-
-                <a href="/admin/orders" class="card">
-                    <div class="icon">📦</div>
+                <div class="section-heading">
 
                     <div>
-                        <h3>الطلبات</h3>
 
-                        <p>
-                            عرض ومتابعة جميع طلبات المطعم
-                        </p>
+                        <span>
+                            النظام
+                        </span>
+
+                        <h2>
+                            الإدارة السريعة
+                        </h2>
+
                     </div>
-                </a>
 
-                <!-- ============================== -->
-                <!-- إدارة الكوبونات -->
-                <!-- ============================== -->
-
-                <a href="/admin/coupons" class="card">
-                    <div class="icon">🎟️</div>
-
-                    <div>
-                        <h3>الكوبونات</h3>
-
-                        <p>
-                            إضافة وإدارة وتفعيل وتعطيل كوبونات الخصم
-                        </p>
+                    <div class="section-note">
+                        الوصول المباشر
                     </div>
-                </a>
 
-                <a href="/admin/call-center-agents" class="card">
-                    <div class="icon">👨‍💼</div>
-                    <div>
-                        <h3>موظفو الكول سنتر</h3>
-                        <p>
-                            إضافة وإدارة وتفعيل وتعطيل موظفي الكول سنتر
-                        </p>
-                    </div>
-                </a>
+                </div>
 
-            </div>
 
+                <div class="management-grid">
+
+
+                    <!-- Products -->
+
+                    <a
+                        href="/admin/products"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            🍔
+                        </div>
+
+                        <div class="management-content">
+
+                            <h3>
+                                المنتجات
+                            </h3>
+
+                            <p>
+                                إضافة وتعديل وحذف المنتجات
+                                وإدارة قائمة الطعام.
+                            </p>
+
+                            <span class="management-link">
+                                فتح الإدارة →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- Orders -->
+
+                    <a
+                        href="/admin/orders"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            📦
+                        </div>
+
+                        <div class="management-content">
+
+                            <h3>
+                                الطلبات
+                            </h3>
+
+                            <p>
+                                متابعة جميع الطلبات
+                                ومراجعة حالة كل طلب.
+                            </p>
+
+                            <span class="management-link">
+                                فتح الإدارة →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- Coupons -->
+
+                    <a
+                        href="/admin/coupons"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            🎟️
+                        </div>
+
+                        <div class="management-content">
+
+                            <h3>
+                                الكوبونات
+                            </h3>
+
+                            <p>
+                                إنشاء وإدارة وتفعيل وتعطيل
+                                كوبونات الخصم.
+                            </p>
+
+                            <span class="management-link">
+                                فتح الإدارة →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- Call Center -->
+
+                    <a
+                        href="/admin/call-center-agents"
+                        class="management-card"
+                    >
+
+                        <div class="management-icon">
+                            👨‍💼
+                        </div>
+
+                        <div class="management-content">
+
+                            <h3>
+                                موظفو الكول سنتر
+                            </h3>
+
+                            <p>
+                                إدارة الموظفين وحساباتهم
+                                وحالات التفعيل.
+                            </p>
+
+                            <span class="management-link">
+                                فتح الإدارة →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- Support Ratings -->
+
+                    <a
+                        href="/admin/support/ratings"
+                        class="management-card featured"
+                    >
+
+                        <div class="management-icon">
+                            ⭐
+                        </div>
+
+                        <div class="management-content">
+
+                            <h3>
+                                تقييمات وأداء الموظفين
+                            </h3>
+
+                            <p>
+                                عدد المحادثات والردود
+                                والتقييمات ومتوسط أداء الموظفين.
+                            </p>
+
+                            <span class="management-link">
+                                عرض التقارير →
+                            </span>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 FOOTER
+            ====================================== -->
+
+            <footer class="dashboard-footer">
+
+                <div>
+                    <strong>
+                        911 Restaurant
+                    </strong>
+                </div>
+
+                <div>
+                    لوحة تحكم الإدارة © 2026
+                </div>
+
+            </footer>
 
         </main>
-
-
-        <!-- ================= FOOTER ================= -->
-
-        <footer>
-
-            <p>
-                ordera Restaurant © 2026
-            </p>
-
-        </footer>
 
     </div>
 
 </body>
-
 </html>

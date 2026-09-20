@@ -2,15 +2,13 @@
 <html lang="ar" dir="rtl">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>تم تأكيد الطلب - ordera</title>
+    <title>تم تأكيد الطلب - 911</title>
 
     <link rel="stylesheet" href="/css/customer/ordersuccess.css">
-
 </head>
 
 <body>
@@ -34,21 +32,30 @@
             <div class="order-info">
 
                 <div>
-                    <span>رقم الطلب</span>
+                    <span>
+                        رقم الطلب
+                    </span>
+
                     <strong>
                         #<%= dailyOrderNumber %>
                     </strong>
                 </div>
 
                 <div>
-                    <span>إجمالي الطلب</span>
+                    <span>
+                        إجمالي الطلب
+                    </span>
+
                     <strong>
                         <%= totalPrice %> د.أ
                     </strong>
                 </div>
 
                 <div>
-                    <span>حالة الطلب</span>
+                    <span>
+                        حالة الطلب
+                    </span>
+
                     <strong>
                         قيد الانتظار
                     </strong>
@@ -56,9 +63,49 @@
 
             </div>
 
-            <a href="/products" class="products-btn">
-                العودة للمنتجات
-            </a>
+
+            <% if (guestTrackingToken) { %>
+
+                <div class="guest-tracking-box">
+
+                    <h2>
+                        🔐 رمز الطلب
+                    </h2>
+
+                    <p>
+                        احتفظ برقم الطلب ورمز الطلب.
+                        عند التواصل مع المطعم للاستفسار عن طلبك،
+                        قد يُطلب منك تقديم هذه المعلومات.
+                    </p>
+
+                    <div class="tracking-token">
+                        <%= guestTrackingToken %>
+                    </div>
+
+                    <div class="restaurant-contact">
+
+                        <span>
+                            📞 للاستفسار عن طلبك:
+                        </span>
+
+                        <a href="tel:0790000000">
+                            0790000000
+                        </a>
+
+                    </div>
+
+                    <p class="tracking-warning">
+                        ⚠️ احتفظ بالرمز ورقم الطلب عند الاتصال بالمطعم.
+                    </p>
+
+                </div>
+
+                <% } %>
+
+
+                    <a href="/products" class="products-btn">
+                        العودة للمنتجات
+                    </a>
 
         </div>
 

@@ -1,8 +1,46 @@
 const db = require("../Database/db");
+const crypto = require("crypto");
 
 class CheckoutService {
-  async createOrder({ customerId, phone, address, cart, couponCode = null }) {
+  async createOrder({
+    customerId = null,
+    guestName = null,
+    phone,
+    address,
+    cart,
+    couponCode = null,
+  }) {
     const connection = await db.getConnection();
+
+    const isGuest = !customerId;
+
+    let guestTrackingToken = null;
+
+    if (isGuest) {
+      let tokenExists = true;
+
+      while (tokenExists) {
+        guestTrackingToken = String(crypto.randomInt(100000, 1000000));
+
+        const [tokenRows] = await connection.query(
+          `SELECT id
+       FROM orders
+       WHERE guest_tracking_token = ?
+       LIMIT 1`,
+          [guestTrackingToken],
+        );
+
+        tokenExists = tokenRows.length > 0;
+      }
+    }
+
+    if (isGuest) {
+      couponCode = null;
+
+      if (!guestName || !String(guestName).trim()) {
+        throw new Error("اسم الزائر مطلوب");
+      }
+    }
 
     try {
       await connection.beginTransaction();
@@ -67,6 +105,10 @@ class CheckoutService {
       let discountAmount = 0;
       let appliedCouponCode = null;
       let appliedCouponId = null;
+
+      if (couponCode && !customerId) {
+        throw new Error("الزائر لا يستطيع استخدام الكوبونات");
+      }
 
       if (couponCode) {
         const cleanCouponCode = String(couponCode).trim().toUpperCase();
@@ -207,25 +249,29 @@ class CheckoutService {
 
       const dailyOrderNumber = Number(dailyOrderRows[0].orderCount) + 1;
 
-      await connection.query(
-        `UPDATE customers
-                 SET phone = ?, address = ?
-                 WHERE id = ?`,
-        [phone, address, customerId],
-      );
+      if (customerId) {
+        await connection.query(
+          `UPDATE customers
+     SET phone = ?, address = ?
+     WHERE id = ?`,
+          [phone, address, customerId],
+        );
+      }
 
       // ==============================
       // حفظ بيانات الطلب والخصم
       // ==============================
 
       // ==============================
-// حفظ بيانات الطلب ورقم الطلب
-// ==============================
+      // حفظ بيانات الطلب ورقم الطلب
+      // ==============================
 
-const [orderResult] = await connection.query(
-  `INSERT INTO orders
+      const [orderResult] = await connection.query(
+        `INSERT INTO orders
   (
       customer_id,
+      guest_name,
+      guest_tracking_token,
       daily_order_number,
       total_price,
       subtotal,
@@ -236,20 +282,22 @@ const [orderResult] = await connection.query(
       delivery_phone,
       delivery_address
   )
-  VALUES (?, ?, ?, ?, ?, ?, 'قيد الانتظار', 'الموقع', ?, ?)`,
-  [
-    customerId,
-    dailyOrderNumber,
-    totalPrice,
-    subtotal,
-    discountAmount,
-    appliedCouponCode,
-    phone,
-    address,
-  ],
-);
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'قيد الانتظار', 'الموقع', ?, ?)`,
+        [
+          customerId,
+          isGuest ? String(guestName).trim() : null,
+          guestTrackingToken,
+          dailyOrderNumber,
+          totalPrice,
+          subtotal,
+          discountAmount,
+          appliedCouponCode,
+          phone,
+          address,
+        ],
+      );
 
-const orderId = orderResult.insertId;
+      const orderId = orderResult.insertId;
 
       // ==============================
       // تسجيل استخدام الكوبون
@@ -292,6 +340,7 @@ const orderId = orderResult.insertId;
         discountAmount,
         couponCode: appliedCouponCode,
         totalPrice,
+        guestTrackingToken,
       };
     } catch (error) {
       await connection.rollback();

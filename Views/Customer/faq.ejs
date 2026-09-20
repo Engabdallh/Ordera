@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>المساعدة والأسئلة الشائعة | 911</title>
+
+  <link
+    rel="stylesheet"
+    href="/css/customer/faq.css"
+  >
+</head>
+
+<body>
+
+  <div class="faq-page">
+
+    <!-- ==============================
+         HEADER
+    =============================== -->
+
+    <header class="faq-header">
+
+      <div class="brand">
+        <div class="brand-name">
+          911
+        </div>
+
+        <div class="brand-subtitle">
+          مطعمك، طلبك، تجربتك
+        </div>
+      </div>
+
+      <div class="header-actions">
+
+        <a
+          href="/products"
+          class="header-btn"
+        >
+          🍔 المنتجات
+        </a>
+
+        <% if (typeof isLoggedIn !== "undefined" && isLoggedIn) { %>
+
+          <a
+            href="/support"
+            class="header-btn support"
+          >
+            💬 تواصل معنا
+          </a>
+
+        <% } %>
+
+      </div>
+
+    </header>
+
+
+    <!-- ==============================
+         HERO
+    =============================== -->
+
+    <section class="faq-hero">
+
+      <div class="hero-icon">
+        ❓
+      </div>
+
+      <h1>
+        كيف نقدر نساعدك؟
+      </h1>
+
+      <p>
+        كل ما تحتاج معرفته عن الطلب، الحساب،
+        الكوبونات، الدعم وتجربة استخدام 911.
+      </p>
+
+      <div class="search-box">
+
+        <span>
+          🔎
+        </span>
+
+        <input
+          type="text"
+          id="faqSearch"
+          placeholder="ابحث عن سؤالك..."
+          autocomplete="off"
+        >
+
+      </div>
+
+    </section>
+
+
+    <!-- ==============================
+         QUICK GUIDE
+    =============================== -->
+
+    <section class="quick-guide">
+
+      <div class="guide-card">
+
+        <div class="guide-number">
+          1
+        </div>
+
+        <div>
+          <h3>
+            تصفح المنتجات
+          </h3>
+
+          <p>
+            اختر الوجبات والمشروبات التي تريدها
+            وأضفها إلى السلة.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="guide-card">
+
+        <div class="guide-number">
+          2
+        </div>
+
+        <div>
+          <h3>
+            راجع طلبك
+          </h3>
+
+          <p>
+            تأكد من المنتجات والكميات والمجموع
+            وأدخل بيانات الطلب المطلوبة.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="guide-card">
+
+        <div class="guide-number">
+          3
+        </div>
+
+        <div>
+          <h3>
+            أرسل الطلب
+          </h3>
+
+          <p>
+            بعد تأكيد الطلب تظهر لك بيانات
+            الطلب والمرجع الخاص به.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ==============================
+         FAQ
+    =============================== -->
+
+    <main
+      id="faqContainer"
+      class="faq-container"
+    >
+
+
+      <!-- ==========================
+           استخدام المطعم
+      =========================== -->
+
+      <section
+        class="faq-section"
+        data-category="تجربة الطلب"
+      >
+
+        <div class="section-title">
+          🍔 تجربة الطلب
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            كيف اطلب
+            طريقة الطلب
+            طلب وجبة
+            اضافة للسلة
+            شراء
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              كيف أطلب من المطعم؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              ادخل إلى قسم المنتجات، اختر الوجبات
+              التي تريدها، أضفها إلى السلة، ثم
+              راجع طلبك وأكمل بيانات الطلب وأرسله.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            كيف اشوف المنتجات
+            اصناف
+            وجبات
+            قائمة الطعام
+            menu
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              كيف أشاهد قائمة الطعام؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              من صفحة المنتجات يمكنك مشاهدة
+              أصناف المطعم واختيار التصنيف المناسب
+              ثم تصفح المنتجات وإضافتها للسلة.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            السلة
+            تعديل الكمية
+            حذف منتج
+            cart
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              هل أستطيع تعديل الطلب قبل إرساله؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              نعم. راجع السلة قبل إتمام الطلب،
+              ويمكنك تعديل المنتجات والكميات
+              قبل إرسال الطلب.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ==========================
+           الضيف والحساب
+      =========================== -->
+
+      <section
+        class="faq-section"
+        data-category="الحساب"
+      >
+
+        <div class="section-title">
+          👤 الحساب والضيف
+        </div>
+
+
+        <div
+          class="faq-item highlight"
+          data-search="
+            هل اقدر اطلب بدون حساب
+            ضيف
+            guest
+            بدون تسجيل
+            غير مسجل
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              هل أستطيع الطلب بدون إنشاء حساب؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              نعم، يمكنك تنفيذ الطلب كضيف بدون
+              إنشاء حساب، حسب الخيارات المتاحة
+              في صفحة إتمام الطلب.
+            </p>
+
+            <div class="note">
+              💡 إنشاء حساب يعطيك تجربة أفضل
+              ويتيح لك ميزات خاصة بالعملاء المسجلين.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            لماذا اسجل
+            فوائد التسجيل
+            مزايا الحساب
+            مميزات العضوية
+            تسجيل دخول
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              ما فائدة تسجيل الدخول؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              العميل المسجل يحصل على تجربة مرتبطة
+              بحسابه بدل التعامل كضيف في كل مرة.
+            </p>
+
+            <ul>
+              <li>
+                💬 إمكانية استخدام دعم العملاء
+                من داخل الموقع.
+              </li>
+
+              <li>
+                🔁 العودة إلى محادثة الدعم الحالية
+                والاستمرار فيها.
+              </li>
+
+              <li>
+                ⭐ تقييم محادثة الدعم بعد إغلاقها.
+              </li>
+
+              <li>
+                👤 ربط نشاط الحساب والطلبات
+                بالعميل المسجل.
+              </li>
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            لماذا لا استطيع استخدام الدعم
+            الضيف الدعم
+            تواصل معنا
+            chat
+            support
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              لماذا لا أستطيع استخدام دعم العملاء كضيف؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              محادثة دعم العملاء مرتبطة بحساب العميل
+              حتى نستطيع حفظ المحادثة وربطها بالعميل
+              عند العودة للموقع.
+            </p>
+
+            <p>
+              لذلك تحتاج إلى تسجيل الدخول لاستخدام
+              نظام الدعم المباشر.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ==========================
+           الكوبونات
+      =========================== -->
+
+      <section
+        class="faq-section"
+        data-category="الكوبونات"
+      >
+
+        <div class="section-title">
+          🎟️ الكوبونات والخصومات
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            كوبون
+            خصم
+            كود خصم
+            coupon
+            discount
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              كيف أستخدم كوبون الخصم؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              إذا كان لديك كوبون صالح، أدخل رمز
+              الكوبون في المكان المخصص أثناء الطلب
+              ثم طبقه على السلة.
+            </p>
+
+            <div class="note">
+              ⚠️ صلاحية الكوبون تعتمد على شروطه،
+              مثل الحد الأدنى للطلب، تاريخ الانتهاء
+              وحدود الاستخدام.
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            لماذا الكوبون لا يعمل
+            كوبون منتهي
+            الحد الأدنى
+            استخدام الكوبون
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              لماذا لا يعمل كوبون الخصم؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              قد يكون الكوبون غير صالح، منتهي الصلاحية،
+              غير مستوفٍ للحد الأدنى للطلب، أو وصل
+              إلى حد الاستخدام المسموح به.
+            </p>
+
+            <p>
+              تأكد أيضًا من كتابة رمز الكوبون بشكل صحيح.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ==========================
+           الطلب
+      =========================== -->
+
+      <section
+        class="faq-section"
+        data-category="الطلبات"
+      >
+
+        <div class="section-title">
+          📦 الطلبات
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            حالة الطلب
+            قيد الانتظار
+            تم التأكيد
+            قيد التحضير
+            جاهز
+            تم التوصيل
+            ملغي
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              ما معنى حالات الطلب؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <ul>
+
+              <li>
+                🟠 <strong>قيد الانتظار:</strong>
+                الطلب تم استقباله وينتظر المعالجة.
+              </li>
+
+              <li>
+                🔵 <strong>تم التأكيد:</strong>
+                تم تأكيد الطلب.
+              </li>
+
+              <li>
+                🟣 <strong>قيد التحضير:</strong>
+                الطلب قيد التجهيز.
+              </li>
+
+              <li>
+                🟢 <strong>جاهز:</strong>
+                الطلب أصبح جاهزًا.
+              </li>
+
+              <li>
+                🚚 <strong>تم التوصيل:</strong>
+                اكتملت عملية التوصيل.
+              </li>
+
+              <li>
+                🔴 <strong>ملغي:</strong>
+                تم إلغاء الطلب.
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            رقم الطلب
+            رمز الطلب
+            guest token
+            رقم الضيف
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              ما أهمية رقم الطلب ورمز الضيف؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              عند الطلب كضيف يظهر لك رقم ومرجع
+              خاص بالطلب. احتفظ بهما عند التواصل
+              مع المطعم حتى يستطيع الموظف مساعدتك
+              بسرعة.
+            </p>
+
+            <div class="note">
+              ℹ️ طلب الضيف لا يوفر حاليًا تتبعًا
+              إلكترونيًا مباشرًا للمحادثة من داخل الموقع.
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ==========================
+           دعم العملاء
+      =========================== -->
+
+      <section
+        class="faq-section"
+        data-category="الدعم"
+      >
+
+        <div class="section-title">
+          💬 دعم العملاء
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            دعم
+            تواصل
+            موظف
+            كول سنتر
+            مشكلة
+            استفسار
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              كيف أتواصل مع موظف الكول سنتر؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              بعد تسجيل الدخول، افتح قسم
+              <strong>تواصل معنا</strong>
+              ثم اضغط على
+              <strong>بدء المحادثة</strong>.
+            </p>
+
+            <p>
+              ستظهر لك شاشة انتظار حتى يستلم
+              أحد موظفي الكول سنتر المحادثة.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            الغاء المحادثة
+            إلغاء الدعم
+            لم يرد الموظف
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              هل أستطيع إلغاء محادثة الدعم؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              نعم، طالما أن المحادثة ما زالت
+              <strong>بانتظار الكول سنتر</strong>
+              ولم يستلمها الموظف، يمكنك إلغاؤها
+              وبدء محادثة جديدة لاحقًا.
+            </p>
+
+            <p>
+              بعد استلام المحادثة من الموظف،
+              لا يمكن للعميل إلغاؤها بهذه الطريقة.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            تقييم الموظف
+            تقييم الدعم
+            نجوم
+            rating
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              كيف أقيم خدمة الدعم؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <p>
+              بعد إغلاق محادثة الدعم، تظهر لك
+              شاشة التقييم ويمكنك اختيار تقييم
+              من 1 إلى 5 نجوم وإضافة تعليق اختياري.
+            </p>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- ==========================
+           تجربة أفضل
+      =========================== -->
+
+      <section
+        class="faq-section"
+        data-category="نصائح"
+      >
+
+        <div class="section-title">
+          💡 نصائح للحصول على أفضل تجربة
+        </div>
+
+
+        <div
+          class="faq-item"
+          data-search="
+            نصائح
+            أفضل تجربة
+            سرعة الطلب
+            معلومات صحيحة
+          "
+        >
+
+          <button class="faq-question">
+
+            <span>
+              كيف أتجنب المشاكل أثناء الطلب؟
+            </span>
+
+            <span class="faq-arrow">
+              ＋
+            </span>
+
+          </button>
+
+          <div class="faq-answer">
+
+            <ul>
+
+              <li>
+                ✅ راجع المنتجات والكميات قبل التأكيد.
+              </li>
+
+              <li>
+                ✅ تأكد من صحة رقم الهاتف.
+              </li>
+
+              <li>
+                ✅ أدخل عنوان التوصيل بشكل واضح.
+              </li>
+
+              <li>
+                ✅ تحقق من شروط الكوبون قبل تطبيقه.
+              </li>
+
+              <li>
+                ✅ احتفظ ببيانات الطلب إذا كنت تستخدم
+                الموقع كضيف.
+              </li>
+
+              <li>
+                ✅ سجل الدخول للاستفادة من ميزات
+                دعم العملاء المرتبطة بالحساب.
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+    </main>
+
+
+    <!-- ==============================
+         NO RESULTS
+    =============================== -->
+
+    <div
+      id="noResults"
+      class="no-results hidden"
+    >
+
+      <div>
+        🔎
+      </div>
+
+      <h3>
+        ما لقينا نتيجة
+      </h3>
+
+      <p>
+        جرّب البحث بكلمة مختلفة أو تواصل مع
+        فريق الدعم.لاكن سجل دخول لي تستطيع تواصل معهم 
+      </p>
+
+      <% if (typeof isLoggedIn !== "undefined" && isLoggedIn) { %>
+
+        <a
+          href="/support"
+          class="support-link"
+        >
+          💬 تواصل مع الدعم
+        </a>
+
+      <% } %>
+
+    </div>
+
+
+    <!-- ==============================
+         FOOTER
+    =============================== -->
+
+    <footer class="faq-footer">
+
+      <strong>
+        911 Restaurant
+      </strong>
+
+      <span>
+        نحن هنا لمساعدتك
+      </span>
+
+    </footer>
+
+  </div>
+
+
+  <!-- ==============================
+       JAVASCRIPT
+  =============================== -->
+ 
+  <script src="/js/customer/faq.js"></script>
+
+</body>
+</html>

@@ -4,9 +4,14 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>تسجيل الدخول - ordera</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <meta name="theme-color" content="#090909">
+
+    <title>
+        تسجيل الدخول - 911
+    </title>
 
     <link rel="stylesheet" href="/css/login.css">
 
@@ -14,25 +19,62 @@
 
 <body>
 
-    <div class="login-container">
+    <main class="login-page">
 
-        <div class="login-box">
+        <section class="login-card">
 
-            <div class="logo">
-                ordera
+            <!-- =================================
+                 BRAND
+            ================================== -->
+
+            <div class="brand-area">
+
+                <div class="logo">
+                    سلسلة مطاعم
+                </div>
+
+                <div class="brand-name">
+                     911
+                </div>
+
             </div>
 
-            <h1>تسجيل الدخول</h1>
 
-            <p class="subtitle">
-                أهلاً بك في ordera
-            </p>
+            <!-- =================================
+                 TITLE
+            ================================== -->
 
+            <div class="title-area">
+
+                <span class="welcome-badge">
+                    🔐 حسابك معنا
+                </span>
+
+                <h1>
+                    تسجيل الدخول
+                </h1>
+
+                <p>
+                    أهلاً بك من جديد في 911
+                </p>
+
+            </div>
+
+
+            <!-- =================================
+                 MESSAGES
+            ================================== -->
 
             <% if (typeof message !=="undefined" && message) { %>
 
-                <div class="success-message">
-                    <%= message %>
+                <div class="message success-message">
+                    <span class="message-icon">
+                        ✓
+                    </span>
+
+                    <span>
+                        <%= message %>
+                    </span>
                 </div>
 
                 <% } %>
@@ -40,14 +82,26 @@
 
                     <% if (typeof error !=="undefined" && error) { %>
 
-                        <div class="error-message">
-                            <%= error %>
+                        <div class="message error-message">
+                            <span class="message-icon">
+                                !
+                            </span>
+
+                            <span>
+                                <%= error %>
+                            </span>
                         </div>
 
                         <% } %>
 
 
-                            <form action="/login" method="POST">
+                            <!-- =================================
+                 LOGIN FORM
+            ================================== -->
+
+                            <form action="/login" method="POST" class="login-form">
+
+                                <!-- NAME -->
 
                                 <div class="input-group">
 
@@ -55,38 +109,73 @@
                                         الاسم
                                     </label>
 
-                                    <input type="text" id="name" name="name" placeholder="أدخل اسمك" required>
+                                    <div class="input-wrapper">
 
-                                </div>
+                                        <span class="input-icon">
+                                            👤
+                                        </span>
 
+                                        <input type="text" id="name" name="name" placeholder="أدخل اسمك"
+                                            autocomplete="name" required>
 
-                                <div class="input-group">
-
-                                    <label for="password">
-                                        كلمة السر
-                                    </label>
-
-                                    <div class="password-input">
-                                        <input type="password" id="password" name="password"
-                                            placeholder="أدخل كلمة السر" required>
-
-                                        <button type="button" class="toggle-password"
-                                            onclick="togglePassword('password', this)">
-                                            👁
-                                        </button>
                                     </div>
 
                                 </div>
 
 
+                                <!-- PASSWORD -->
+
+                                <div class="input-group">
+
+                                    <div class="label-row">
+
+                                        <label for="password">
+                                            كلمة السر
+                                        </label>
+
+                                    </div>
+
+                                    <div class="password-input">
+
+                                        <span class="input-icon">
+                                            🔒
+                                        </span>
+
+                                        <input type="password" id="password" name="password"
+                                            placeholder="أدخل كلمة السر" autocomplete="current-password" required>
+
+                                        <button type="button" class="toggle-password"
+                                            onclick="togglePassword('password', this)" aria-label="إظهار كلمة السر">
+                                            👁
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- SUBMIT -->
+
                                 <button type="submit" class="login-btn">
-                                    تسجيل الدخول
+
+                                    <span>
+                                        تسجيل الدخول
+                                    </span>
+
+                                    <span>
+                                        ←
+                                    </span>
+
                                 </button>
 
                             </form>
 
 
-                            <div class="register-link">
+                            <!-- =================================
+                 REGISTER
+            ================================== -->
+
+                            <div class="register-area">
 
                                 <p>
                                     ليس لديك حساب؟
@@ -98,9 +187,59 @@
 
                             </div>
 
-        </div>
 
-    </div>
+                            <!-- =================================
+                 DIVIDER
+            ================================== -->
+
+                            <div class="divider">
+                                <span>
+                                    أو
+                                </span>
+                            </div>
+
+
+                            <!-- =================================
+                 EXTRA ACTIONS
+            ================================== -->
+
+                            <div class="extra-actions">
+
+                                <a href="/guest" class="guest-link">
+                                    🚀 المتابعة كزائر
+                                </a>
+
+                                <a href="/login-help" class="faq-link">
+                                    ❓ كيف أسجل الدخول؟
+                                </a>
+
+                            </div>
+
+
+                            <!-- =================================
+                 FOOTER
+            ================================== -->
+
+                            <div class="login-footer">
+
+                                <span>
+                                    911 Restaurant
+                                </span>
+
+                                <span class="footer-dot">
+                                    •
+                                </span>
+
+                                <span>
+                                    أهلاً بك دائمًا
+                                </span>
+
+                            </div>
+
+        </section>
+
+    </main>
+
 
     <script src="/js/login.js" defer></script>
 

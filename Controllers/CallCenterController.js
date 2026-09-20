@@ -171,6 +171,65 @@ return res.json({
 };
 
 // =====================================================
+// البحث عن طلب بواسطة رمز التتبع
+// =====================================================
+
+const showOrderByTrackingToken = async (req, res) => {
+  try {
+    if (!checkCallCenter(req, res)) {
+      return;
+    }
+
+    const guestTrackingToken = String(
+      req.query.guestTrackingToken || "",
+    ).trim();
+
+    if (!guestTrackingToken) {
+      return res.status(400).send("رمز الطلب مطلوب");
+    }
+
+    console.log(
+      "CALL CENTER TRACKING TOKEN:",
+      guestTrackingToken,
+    );
+
+    const order =
+      await callCenterService.getOrderByTrackingToken(
+        guestTrackingToken,
+      );
+
+    console.log(
+      "TRACKING ORDER FOUND:",
+      order.id,
+    );
+
+    return res.render("callcenter/orderdetails", {
+      order: order,
+      items: order.items,
+      userName: req.session.userName,
+    });
+  } catch (error) {
+    console.error(
+      "SHOW ORDER BY TRACKING TOKEN ERROR:",
+      error,
+    );
+
+    if (
+      error.message ===
+      "لم يتم العثور على طلب بهذا الرمز"
+    ) {
+      return res.status(404).send(
+        "لم يتم العثور على طلب بهذا الرمز",
+      );
+    }
+
+    return res.status(500).send(
+      "حدث خطأ أثناء البحث عن الطلب",
+    );
+  }
+};
+
+// =====================================================
 // Export
 // =====================================================
 
@@ -182,4 +241,6 @@ module.exports = {
   showOrderDetails,
 
   getNewOrdersCount,
+
+  showOrderByTrackingToken,
 };
