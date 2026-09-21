@@ -392,7 +392,7 @@ const showAdminSupportRatings = async (req, res) => {
       return res.redirect("/login");
     }
 
-    return res.render("Admin/support-ratings", {
+    return res.render("admin/support-ratings", {
       userName: req.session.userName,
     });
   } catch (error) {
